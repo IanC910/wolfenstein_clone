@@ -14,7 +14,7 @@ public:
 	void playGame();
 
 private:
-	void rayCast();
+	void castRays();
 	void drawEnvironment();
 	void updateScreen();
 

@@ -1,7 +1,6 @@
 
 #include <string.h>
 #include <math.h>
-#include <time.h>
 
 #include "xil_io.h"
 #include "xil_cache.h"
@@ -27,28 +26,15 @@ void WolfensteinGame::playGame() {
 	player.setAngle(M_PI / 2);
 
 	while(true) {
-		clock_t startClock;
-
 		player.setAngle(player.getAngle() + 0.1);
 
-		startClock = clock();
-		rayCast();
-		clock_t rayCastTimeClocks = clock() - startClock;
-		xil_printf("Ray Cast Time: %d us\n", rayCastTimeClocks / CLOCKS_PER_US);
-
-		startClock = clock();
+		castRays();
 		drawEnvironment();
-		clock_t drawTimeClocks = clock() - startClock;
-		xil_printf("Draw Time: %d us\n", drawTimeClocks / CLOCKS_PER_US);
-
-		startClock = clock();
 		updateScreen();
-		clock_t updateTimeClocks = clock() - startClock;
-		xil_printf("Update Time: %d us\n", updateTimeClocks / CLOCKS_PER_US);
 	}
 }
 
-void WolfensteinGame::rayCast() {
+void WolfensteinGame::castRays() {
 	float angleIncrement = HORIZONTAL_FOV / (float)SCREEN_WIDTH;
 	float startAngle = player.getAngle() - HORIZONTAL_FOV / 2.0;
 	float rayAngle = startAngle; // Rays start on right, move towards left
