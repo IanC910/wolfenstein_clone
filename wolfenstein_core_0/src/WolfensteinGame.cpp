@@ -42,11 +42,11 @@ void WolfensteinGame::playGame() {
 		XTime_GetTime(&endTime);
 		u32 drawTime = (u32)((u64)endTime - (u64)startTime);
 
-		xil_printf("Angle: %3d, rayCastTime: %8d, drawTime: %8d\n",
-			(int)(player.getAngle() * 180 / M_PI),
-			rayCastTime,
-			drawTime
-		);
+//		xil_printf("Angle: %3d, rayCastTime: %8d, drawTime: %8d\n",
+//			(int)(player.getAngle() * 180 / M_PI),
+//			rayCastTime,
+//			drawTime
+//		);
 
 		updateScreen();
 	}
@@ -81,7 +81,7 @@ void WolfensteinGame::castRays() {
 			distance += RAY_DISTANCE_INCREMENT;
 		}
 
-		DISTANCE_ARRAY[NUM_RAYS - 1 - r] = distance; // Reverse index because rays are cast from right to left
+		DISTANCE_ARRAY_0[NUM_RAYS - 1 - r] = distance; // Reverse index because rays are cast from right to left
 		rayAngle += angleIncrement;
 	}
 }
@@ -98,12 +98,12 @@ void WolfensteinGame::drawEnvironment() {
 	// Find column closest to player
 	int indexOfClosest = 0;
 	for(int r = 1; r < NUM_RAYS; r++) {
-		if(DISTANCE_ARRAY[r] < DISTANCE_ARRAY[indexOfClosest]) {
+		if(DISTANCE_ARRAY_0[r] < DISTANCE_ARRAY_0[indexOfClosest]) {
 			indexOfClosest = r;
 		}
 	}
 
-	float minDistanceToWall = DISTANCE_ARRAY[indexOfClosest];
+	float minDistanceToWall = DISTANCE_ARRAY_0[indexOfClosest];
 	int halfOfMaxWallHeight = (int)(distanceInverseScaler / minDistanceToWall);
 
 	int minWallRow = 0.5 * SCREEN_HEIGHT - halfOfMaxWallHeight; // Inclusive
@@ -119,16 +119,16 @@ void WolfensteinGame::drawEnvironment() {
 
 	// Draw 1 row of wall
 	for(int r = 0; r < NUM_RAYS; r++) {
-		float colourScaler = 10.0 / (DISTANCE_ARRAY[r] + 10.0);
+		float colourScaler = 10.0 / (DISTANCE_ARRAY_0[r] + 10.0);
 		int wallColourInt = WALL_COLOUR.getColourAsInt(colourScaler);
 		for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
-			INTERMEDIATE_BUFFER[r * PIXEL_WIDTHS_PER_RAY + j] = wallColourInt;
+			INTERMEDIATE_IMAGE_BUFFER[r * PIXEL_WIDTHS_PER_RAY + j] = wallColourInt;
 		}
 	}
 
 	// Copy the 1 row to rest of screen that has wall visible
 	for(int i = minWallRow; i < maxWallRow; i++) {
-		memcpy(&INTERMEDIATE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
+		memcpy(&INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_IMAGE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
 	}
 
 	int ceilingColourInt = CEILING_COLOUR.getColourAsInt();
@@ -137,21 +137,21 @@ void WolfensteinGame::drawEnvironment() {
 	// Draw 1 row of floor and ceiling and copy them to rest of screen that has floor and ceiling across the whole row
 	if(maxCeilingRow > 0) {
 		for(int j = 0; j < SCREEN_WIDTH; j++) {
-			INTERMEDIATE_BUFFER[j] = ceilingColourInt;
-			INTERMEDIATE_BUFFER[(SCREEN_HEIGHT - 1) * SCREEN_WIDTH + j] = floorColourInt;
+			INTERMEDIATE_IMAGE_BUFFER[j] = ceilingColourInt;
+			INTERMEDIATE_IMAGE_BUFFER[(SCREEN_HEIGHT - 1) * SCREEN_WIDTH + j] = floorColourInt;
 		}
 
 		for(int i = 1; i < maxCeilingRow; i++) {
-			memcpy(&INTERMEDIATE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
+			memcpy(&INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_IMAGE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
 		}
 		for(int i = minFloorRow; i < SCREEN_HEIGHT; i++) {
-			memcpy(&INTERMEDIATE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_BUFFER[(SCREEN_HEIGHT - 1) * SCREEN_WIDTH], SCREEN_WIDTH * sizeof(int));
+			memcpy(&INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_IMAGE_BUFFER[(SCREEN_HEIGHT - 1) * SCREEN_WIDTH], SCREEN_WIDTH * sizeof(int));
 		}
 	}
 
 	// Fill in the rest of the floor and ceiling in columns
 	for(int r = 0; r < NUM_RAYS; r++) {
-		float distanceToWall = DISTANCE_ARRAY[r];
+		float distanceToWall = DISTANCE_ARRAY_0[r];
 		int halfOfWallHeight = (int)(distanceInverseScaler / distanceToWall);
 		int wallStartRow = SCREEN_HEIGHT * 0.5 - halfOfWallHeight; // Inclusive for walls, exclusive for ceiling
 		if(wallStartRow < 0) {
@@ -161,19 +161,19 @@ void WolfensteinGame::drawEnvironment() {
 
 		for(int i = minWallRow; i < wallStartRow; i++) {
 			for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
-				INTERMEDIATE_BUFFER[i * SCREEN_WIDTH + r * PIXEL_WIDTHS_PER_RAY + j] = ceilingColourInt;
+				INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + r * PIXEL_WIDTHS_PER_RAY + j] = ceilingColourInt;
 			}
 		}
 
 		for(int i = wallEndRow; i < maxWallRow; i++) {
 			for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
-				INTERMEDIATE_BUFFER[i * SCREEN_WIDTH + r * PIXEL_WIDTHS_PER_RAY + j] = floorColourInt;
+				INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + r * PIXEL_WIDTHS_PER_RAY + j] = floorColourInt;
 			}
 		}
 	}
 }
 
 void WolfensteinGame::updateScreen() {
-	memcpy(VGA_IMAGE_BUFFER_0, INTERMEDIATE_BUFFER, SCREEN_SIZE_BYTES);
+	memcpy(VGA_IMAGE_BUFFER_0, INTERMEDIATE_IMAGE_BUFFER, SCREEN_SIZE_BYTES);
 }
 

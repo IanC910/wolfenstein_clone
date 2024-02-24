@@ -1,8 +1,10 @@
 
-#ifndef PARAMS_H
-#define PARAMS_H
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
 
 #include <math.h>
+
+#include "Colour.h"
 
 // Timing
 const int CPU_FREQ 			= 200000000; // 200 MHz
@@ -22,23 +24,26 @@ const int PIXEL_WIDTHS_PER_RAY 		= RESOLUTION_DOWN_SCALE;
 const int NUM_RAYS 					= SCREEN_WIDTH / PIXEL_WIDTHS_PER_RAY;
 const float RAY_DISTANCE_INCREMENT 	= 0.1;
 
-// Buffer Addresses
-int* const VGA_IMAGE_BUFFER_0 		= (int*)0x00900000;
-int* const INTERMEDIATE_BUFFER 		= (int*)0x018D2008;
-float* const DISTANCE_ARRAY 		= (float*)(INTERMEDIATE_BUFFER + SCREEN_SIZE);
+// Addresses
+int* const VGA_IMAGE_BUFFER_0 			= (int*)0x00900000;
+int* const INTERMEDIATE_IMAGE_BUFFER 	= (int*)(VGA_IMAGE_BUFFER_0 + SCREEN_SIZE);
+volatile int* const SEMAPHORE_PTR		= (int*)(INTERMEDIATE_IMAGE_BUFFER + SCREEN_SIZE);
+float* const DISTANCE_ARRAY_0 			= (float*)(SEMAPHORE_PTR + 4);
+float* const DISTANCE_ARRAY_1			= (float*)(DISTANCE_ARRAY_0 + NUM_RAYS * sizeof(float));
+int* const CORE_1_BASE_ADDR				= (int*)0x10080000;
 
 // Gameplay params
 const float VERTICAL_FOV	= M_PI * 0.4;
 const float HORIZONTAL_FOV	= M_PI * 0.5;
 
 // Colour Presets
-Colour HARD_WOOD_BROWN	(8, 6, 4);
-Colour CONCRETE_GREY	(8, 8, 8);
-Colour PALE_GREEN		(7, 9, 7);
+#define HARD_WOOD_BROWN	(Colour(8, 6, 4))
+#define CONCRETE_GREY	(Colour(8, 8, 8))
+#define PALE_GREEN		(Colour(7, 9, 7))
 
 // Game Visuals
-Colour FLOOR_COLOUR 	= CONCRETE_GREY;
-Colour CEILING_COLOUR 	= HARD_WOOD_BROWN;
-Colour WALL_COLOUR		= PALE_GREEN;
+#define FLOOR_COLOUR 	CONCRETE_GREY
+#define CEILING_COLOUR 	HARD_WOOD_BROWN
+#define WALL_COLOUR		PALE_GREEN
 
 #endif
