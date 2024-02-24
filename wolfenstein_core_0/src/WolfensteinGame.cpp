@@ -87,11 +87,6 @@ void WolfensteinGame::castRays() {
 }
 
 void WolfensteinGame::drawEnvironment() {
-	// Procedure:
-	// Find tallest drawn wall (column closest to the player)
-	// Draw 1 row of walls
-	// Copy row to screen between min and max wall height
-	// Draw floor and ceiling simultaneously, as they are always identical in shape
 
 	// FOR CALCULATING WALL HEIGHT BASED ON DISTANCE
 	// The height of the drawn wall in a column is a portion of the screen height
@@ -139,7 +134,7 @@ void WolfensteinGame::drawEnvironment() {
 	int ceilingColourInt = CEILING_COLOUR.getColourAsInt();
 	int floorColourInt = FLOOR_COLOUR.getColourAsInt();
 
-	// Draw 1 row of floor and ceiling and copy them
+	// Draw 1 row of floor and ceiling and copy them to rest of screen that has floor and ceiling across the whole row
 	if(maxCeilingRow > 0) {
 		for(int j = 0; j < SCREEN_WIDTH; j++) {
 			INTERMEDIATE_BUFFER[j] = ceilingColourInt;
