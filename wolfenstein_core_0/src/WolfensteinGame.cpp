@@ -92,16 +92,51 @@ void WolfensteinGame::drawEnvironment() {
 	int ceilingColourInt = CEILING_COLOUR.getColourAsInt();
 	int floorColourInt = FLOOR_COLOUR.getColourAsInt();
 
+	// Fill in as much of the floor and ceiling in rows as possible
+	// Find column closest to player
+	int indexOfClosest = 0;
+	for(int j = 1; j < SCREEN_WIDTH; j++) {
+		if(DISTANCE_ARRAY[j] < DISTANCE_ARRAY[indexOfClosest]) {
+			indexOfClosest = j;
+		}
+	}
+
+	float minDistanceToWall = DISTANCE_ARRAY[indexOfClosest];
+	int halfOfMaxDrawnWallHeight = (int)(distanceInverseScaler / minDistanceToWall);
+	int minDrawnCeilingHeight = SCREEN_HEIGHT * 0.5 - halfOfMaxDrawnWallHeight;
+	if(minDrawnCeilingHeight < 0) {
+		minDrawnCeilingHeight = 0;
+	}
+
+	// Draw 1 row of floor and ceiling and copy it
+	if(minDrawnCeilingHeight > 0) {
+		for(int j = 0; j < SCREEN_WIDTH; j++) {
+			INTERMEDIATE_BUFFER[j] = ceilingColourInt;
+			INTERMEDIATE_BUFFER[(SCREEN_HEIGHT - 1) * SCREEN_WIDTH + j] = floorColourInt;
+		}
+
+		for(int i = 1; i < minDrawnCeilingHeight; i++) {
+			memcpy(&INTERMEDIATE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
+		}
+		for(int i = SCREEN_HEIGHT - 2; i > SCREEN_HEIGHT - 1 - minDrawnCeilingHeight; i--) {
+			memcpy(&INTERMEDIATE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_BUFFER[(SCREEN_HEIGHT - 1) * SCREEN_WIDTH], SCREEN_WIDTH * sizeof(int));
+		}
+	}
+
+	// Fill in the rest of the floor and ceiling in columns
 	for(int j = 0; j < SCREEN_WIDTH; j++) {
 		float distanceToWall = DISTANCE_ARRAY[j];
 		int halfOfDrawnWallHeight = (int)(distanceInverseScaler / distanceToWall);
 		int drawnCeilingHeight = SCREEN_HEIGHT * 0.5 - halfOfDrawnWallHeight;
+		if(drawnCeilingHeight < 0) {
+			drawnCeilingHeight = 0;
+		}
 
-		for(int i = 0; i < drawnCeilingHeight; i++) {
+		for(int i = minDrawnCeilingHeight; i < drawnCeilingHeight; i++) {
 			INTERMEDIATE_BUFFER[i * SCREEN_WIDTH + j] = ceilingColourInt;
 		}
 
-		for(int i = SCREEN_HEIGHT - 1; i > SCREEN_HEIGHT - 1 - drawnCeilingHeight; i--) {
+		for(int i = SCREEN_HEIGHT - 1 - minDrawnCeilingHeight; i > SCREEN_HEIGHT - 1 - drawnCeilingHeight; i--) {
 			INTERMEDIATE_BUFFER[i * SCREEN_WIDTH + j] = floorColourInt;
 		}
 	}
