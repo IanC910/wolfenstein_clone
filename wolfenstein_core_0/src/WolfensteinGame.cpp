@@ -70,29 +70,18 @@ void WolfensteinGame::castRays() {
 
 void WolfensteinGame::drawEnvironment() {
 	// Procedure:
+	// Find tallest drawn wall (column closest to the player)
 	// Draw 1 row of walls
-	// Copy row to whole screen
+	// Copy row to screen between min and max wall height
 	// Draw floor and ceiling simultaneously, as they are always identical in shape
 
-	for(int j = 0; j < SCREEN_WIDTH; j++) {
-		float colourScaler = 10.0 / (DISTANCE_ARRAY[j] + 10.0);
-		INTERMEDIATE_BUFFER[j] = WALL_COLOUR.getColourAsInt(colourScaler);
-	}
-
-	for(int i = 1; i < SCREEN_HEIGHT; i++) {
-		memcpy(&INTERMEDIATE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
-	}
-
+	// FOR CALCULATING WALL HEIGHT BASED ON DISTANCE
 	// The height of the drawn wall in a column is a portion of the screen height
 	// Let this portion be (half the height of the wall) over (distance * tan(vertical FOV / 2))
 	float halfWallHeight = 0.5;
 	float tanHalfVertFov = tan(VERTICAL_FOV / 2.0);
-	float distanceInverseScaler = (float)SCREEN_HEIGHT * 0.5 * halfWallHeight / tanHalfVertFov;
+	float distanceInverseScaler = 0.5 * SCREEN_HEIGHT * halfWallHeight / tanHalfVertFov;
 
-	int ceilingColourInt = CEILING_COLOUR.getColourAsInt();
-	int floorColourInt = FLOOR_COLOUR.getColourAsInt();
-
-	// Fill in as much of the floor and ceiling in rows as possible
 	// Find column closest to player
 	int indexOfClosest = 0;
 	for(int j = 1; j < SCREEN_WIDTH; j++) {
@@ -102,41 +91,63 @@ void WolfensteinGame::drawEnvironment() {
 	}
 
 	float minDistanceToWall = DISTANCE_ARRAY[indexOfClosest];
-	int halfOfMaxDrawnWallHeight = (int)(distanceInverseScaler / minDistanceToWall);
-	int minDrawnCeilingHeight = SCREEN_HEIGHT * 0.5 - halfOfMaxDrawnWallHeight;
-	if(minDrawnCeilingHeight < 0) {
-		minDrawnCeilingHeight = 0;
+	int halfOfMaxWallHeight = (int)(distanceInverseScaler / minDistanceToWall);
+
+	int minWallRow = 0.5 * SCREEN_HEIGHT - halfOfMaxWallHeight; // Inclusive
+	if(minWallRow < 0) {
+		minWallRow = 0;
 	}
 
-	// Draw 1 row of floor and ceiling and copy it
-	if(minDrawnCeilingHeight > 0) {
+	int maxWallRow = SCREEN_HEIGHT - minWallRow; // Exclusive
+	int maxCeilingRow = minWallRow; // Exclusive
+	int minFloorRow = maxWallRow; // Inclusive
+
+	// BEGIN DRAWING
+
+	// Draw 1 row of wall
+	for(int j = 0; j < SCREEN_WIDTH; j++) {
+		float colourScaler = 10.0 / (DISTANCE_ARRAY[j] + 10.0);
+		INTERMEDIATE_BUFFER[j] = WALL_COLOUR.getColourAsInt(colourScaler);
+	}
+
+	// Copy the 1 row to rest of screen that has wall visible
+	for(int i = minWallRow; i < maxWallRow; i++) {
+		memcpy(&INTERMEDIATE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
+	}
+
+	int ceilingColourInt = CEILING_COLOUR.getColourAsInt();
+	int floorColourInt = FLOOR_COLOUR.getColourAsInt();
+
+	// Draw 1 row of floor and ceiling and copy them
+	if(maxCeilingRow > 0) {
 		for(int j = 0; j < SCREEN_WIDTH; j++) {
 			INTERMEDIATE_BUFFER[j] = ceilingColourInt;
 			INTERMEDIATE_BUFFER[(SCREEN_HEIGHT - 1) * SCREEN_WIDTH + j] = floorColourInt;
 		}
 
-		for(int i = 1; i < minDrawnCeilingHeight; i++) {
+		for(int i = 1; i < maxCeilingRow; i++) {
 			memcpy(&INTERMEDIATE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
 		}
-		for(int i = SCREEN_HEIGHT - 2; i > SCREEN_HEIGHT - 1 - minDrawnCeilingHeight; i--) {
+		for(int i = minFloorRow; i < SCREEN_HEIGHT; i++) {
 			memcpy(&INTERMEDIATE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_BUFFER[(SCREEN_HEIGHT - 1) * SCREEN_WIDTH], SCREEN_WIDTH * sizeof(int));
 		}
 	}
 
-	// Fill in the rest of the floor and ceiling in columns
+	// Fill in the rest of the floor and ceiling in columns (much slower)
 	for(int j = 0; j < SCREEN_WIDTH; j++) {
 		float distanceToWall = DISTANCE_ARRAY[j];
-		int halfOfDrawnWallHeight = (int)(distanceInverseScaler / distanceToWall);
-		int drawnCeilingHeight = SCREEN_HEIGHT * 0.5 - halfOfDrawnWallHeight;
-		if(drawnCeilingHeight < 0) {
-			drawnCeilingHeight = 0;
+		int halfOfWallHeight = (int)(distanceInverseScaler / distanceToWall);
+		int wallStartRow = SCREEN_HEIGHT * 0.5 - halfOfWallHeight; // Inclusive for walls, exclusive for ceiling
+		if(wallStartRow < 0) {
+			wallStartRow = 0;
 		}
+		int wallEndRow = SCREEN_HEIGHT - wallStartRow; // Exclusive for walls, inclusive for floor
 
-		for(int i = minDrawnCeilingHeight; i < drawnCeilingHeight; i++) {
+		for(int i = minWallRow; i < wallStartRow; i++) {
 			INTERMEDIATE_BUFFER[i * SCREEN_WIDTH + j] = ceilingColourInt;
 		}
 
-		for(int i = SCREEN_HEIGHT - 1 - minDrawnCeilingHeight; i > SCREEN_HEIGHT - 1 - drawnCeilingHeight; i--) {
+		for(int i = wallEndRow; i < maxWallRow; i++) {
 			INTERMEDIATE_BUFFER[i * SCREEN_WIDTH + j] = floorColourInt;
 		}
 	}
