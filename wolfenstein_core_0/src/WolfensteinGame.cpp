@@ -4,6 +4,7 @@
 
 #include "xil_io.h"
 #include "xil_cache.h"
+#include "xtime_l.h"
 
 #include "WolfensteinGame.h"
 
@@ -26,21 +27,38 @@ void WolfensteinGame::playGame() {
 	player.setAngle(M_PI / 2);
 
 	while(true) {
-		player.setAngle(player.getAngle() + 0.1);
+		player.setAngle(player.getAngle() + 0.05);
 
+		XTime startTime;
+		XTime endTime;
+
+		XTime_GetTime(&startTime);
 		castRays();
+		XTime_GetTime(&endTime);
+		u32 rayCastTime = (u32)((u64)endTime - (u64)startTime);
+
+		XTime_GetTime(&startTime);
 		drawEnvironment();
+		XTime_GetTime(&endTime);
+		u32 drawTime = (u32)((u64)endTime - (u64)startTime);
+
+		xil_printf("Angle: %3d, rayCastTime: %8d, drawTime: %8d\n",
+			(int)(player.getAngle() * 180 / M_PI),
+			rayCastTime,
+			drawTime
+		);
+
 		updateScreen();
 	}
 }
 
 void WolfensteinGame::castRays() {
-	float angleIncrement = HORIZONTAL_FOV / (float)SCREEN_WIDTH;
+	float angleIncrement = HORIZONTAL_FOV / (float)NUM_RAYS;
 	float startAngle = player.getAngle() - HORIZONTAL_FOV / 2.0;
 	float rayAngle = startAngle; // Rays start on right, move towards left
 
-	// For each column of the screen
-	for(int j = 0; j < SCREEN_WIDTH; j++) {
+	// For each ray
+	for(int r = 0; r < NUM_RAYS; r++) {
 		float rayPositionX = player.getPositionX();
 		float rayPositionY = player.getPositionY();
 		float rayXIncrement = RAY_DISTANCE_INCREMENT * cos(rayAngle);
@@ -63,7 +81,7 @@ void WolfensteinGame::castRays() {
 			distance += RAY_DISTANCE_INCREMENT;
 		}
 
-		DISTANCE_ARRAY[SCREEN_WIDTH - 1 - j] = distance; // Reverse index because rays are cast from right to left
+		DISTANCE_ARRAY[NUM_RAYS - 1 - r] = distance; // Reverse index because rays are cast from right to left
 		rayAngle += angleIncrement;
 	}
 }
@@ -84,9 +102,9 @@ void WolfensteinGame::drawEnvironment() {
 
 	// Find column closest to player
 	int indexOfClosest = 0;
-	for(int j = 1; j < SCREEN_WIDTH; j++) {
-		if(DISTANCE_ARRAY[j] < DISTANCE_ARRAY[indexOfClosest]) {
-			indexOfClosest = j;
+	for(int r = 1; r < NUM_RAYS; r++) {
+		if(DISTANCE_ARRAY[r] < DISTANCE_ARRAY[indexOfClosest]) {
+			indexOfClosest = r;
 		}
 	}
 
@@ -105,9 +123,12 @@ void WolfensteinGame::drawEnvironment() {
 	// BEGIN DRAWING
 
 	// Draw 1 row of wall
-	for(int j = 0; j < SCREEN_WIDTH; j++) {
-		float colourScaler = 10.0 / (DISTANCE_ARRAY[j] + 10.0);
-		INTERMEDIATE_BUFFER[j] = WALL_COLOUR.getColourAsInt(colourScaler);
+	for(int r = 0; r < NUM_RAYS; r++) {
+		float colourScaler = 10.0 / (DISTANCE_ARRAY[r] + 10.0);
+		int wallColourInt = WALL_COLOUR.getColourAsInt(colourScaler);
+		for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
+			INTERMEDIATE_BUFFER[r * PIXEL_WIDTHS_PER_RAY + j] = wallColourInt;
+		}
 	}
 
 	// Copy the 1 row to rest of screen that has wall visible
@@ -133,9 +154,9 @@ void WolfensteinGame::drawEnvironment() {
 		}
 	}
 
-	// Fill in the rest of the floor and ceiling in columns (much slower)
-	for(int j = 0; j < SCREEN_WIDTH; j++) {
-		float distanceToWall = DISTANCE_ARRAY[j];
+	// Fill in the rest of the floor and ceiling in columns
+	for(int r = 0; r < NUM_RAYS; r++) {
+		float distanceToWall = DISTANCE_ARRAY[r];
 		int halfOfWallHeight = (int)(distanceInverseScaler / distanceToWall);
 		int wallStartRow = SCREEN_HEIGHT * 0.5 - halfOfWallHeight; // Inclusive for walls, exclusive for ceiling
 		if(wallStartRow < 0) {
@@ -144,11 +165,15 @@ void WolfensteinGame::drawEnvironment() {
 		int wallEndRow = SCREEN_HEIGHT - wallStartRow; // Exclusive for walls, inclusive for floor
 
 		for(int i = minWallRow; i < wallStartRow; i++) {
-			INTERMEDIATE_BUFFER[i * SCREEN_WIDTH + j] = ceilingColourInt;
+			for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
+				INTERMEDIATE_BUFFER[i * SCREEN_WIDTH + r * PIXEL_WIDTHS_PER_RAY + j] = ceilingColourInt;
+			}
 		}
 
 		for(int i = wallEndRow; i < maxWallRow; i++) {
-			INTERMEDIATE_BUFFER[i * SCREEN_WIDTH + j] = floorColourInt;
+			for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
+				INTERMEDIATE_BUFFER[i * SCREEN_WIDTH + r * PIXEL_WIDTHS_PER_RAY + j] = floorColourInt;
+			}
 		}
 	}
 }
