@@ -3,4 +3,11 @@ RemoteSystemsTempFiles
 .analytics
 IDE.log
 
-wolfenstein_platform_wrapper/.log/wolfenstein_platform_wrapper_.build.ui.log
+*.o
+*.log
+*.d
+*.a
+*.elf
+
+wolfenstein_platform_wrapper/export
+wolfenstein_platform_wrapper/platform.tcl
