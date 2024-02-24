@@ -4,7 +4,7 @@
 
 #include <math.h>
 
-#include "Colour.h"
+#include "ValidAckInterface.h"
 
 // Timing
 const int CPU_FREQ 			= 200000000; // 200 MHz
@@ -25,25 +25,15 @@ const int NUM_RAYS 					= SCREEN_WIDTH / PIXEL_WIDTHS_PER_RAY;
 const float RAY_DISTANCE_INCREMENT 	= 0.1;
 
 // Addresses
-int* const VGA_IMAGE_BUFFER_0 			= (int*)0x00900000;
-int* const INTERMEDIATE_IMAGE_BUFFER 	= (int*)(VGA_IMAGE_BUFFER_0 + SCREEN_SIZE);
-volatile int* const SEMAPHORE_PTR		= (int*)(INTERMEDIATE_IMAGE_BUFFER + SCREEN_SIZE);
-float* const DISTANCE_ARRAY_0 			= (float*)(SEMAPHORE_PTR + 4);
-float* const DISTANCE_ARRAY_1			= (float*)(DISTANCE_ARRAY_0 + NUM_RAYS * sizeof(float));
-int* const CORE_1_BASE_ADDR				= (int*)0x10080000;
+int* const VGA_IMAGE_BUFFER_0 						= (int*)0x00900000;
+int* const INTERMEDIATE_IMAGE_BUFFER 				= (int*)(VGA_IMAGE_BUFFER_0 + SCREEN_SIZE);
+volatile validAckInterface_t* const INTERFACE_PTR	= (validAckInterface_t*)(INTERMEDIATE_IMAGE_BUFFER + SCREEN_SIZE);
+float* const DISTANCE_ARRAY_0 						= (float*)(0xFFFF0000);
+float* const DISTANCE_ARRAY_1						= (float*)(DISTANCE_ARRAY_0 + NUM_RAYS);
+int* const CORE_1_BASE_ADDR							= (int*)0x10080000;
 
 // Gameplay params
 const float VERTICAL_FOV	= M_PI * 0.4;
 const float HORIZONTAL_FOV	= M_PI * 0.5;
-
-// Colour Presets
-#define HARD_WOOD_BROWN	(Colour(8, 6, 4))
-#define CONCRETE_GREY	(Colour(8, 8, 8))
-#define PALE_GREEN		(Colour(7, 9, 7))
-
-// Game Visuals
-#define FLOOR_COLOUR 	CONCRETE_GREY
-#define CEILING_COLOUR 	HARD_WOOD_BROWN
-#define WALL_COLOUR		PALE_GREEN
 
 #endif

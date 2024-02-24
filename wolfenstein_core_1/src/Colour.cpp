@@ -1,5 +1,5 @@
 
-#include "Colour.h"
+#include "../../wolfenstein_core_1/src/Colour.h"
 
 Colour::Colour(char r, char g, char b) {
 	red 	= (r < 15) ? r : 15;

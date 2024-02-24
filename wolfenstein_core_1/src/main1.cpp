@@ -1,11 +1,9 @@
 
-#include "xil_cache.h"
 #include "xil_io.h"
 
-int main() {
-	Xil_DCacheDisable();
+#include "WolfensteinCore1.h"
 
-	while(1) {
-		xil_printf("Hi from core 1\n");
-	}
+int main() {
+	WolfensteinCore1 game1;
+	game1.runCore1App();
 }
