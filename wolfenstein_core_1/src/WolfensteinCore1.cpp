@@ -16,23 +16,38 @@ void WolfensteinCore1::runCore1App() {
 	Xil_DCacheDisable();
 
 	while(true) {
-		XTime startTime;
-		XTime endTime;
+		XTime frameStartTime;
+		XTime frameEndTime;
+		XTime funcStartTime;
+		XTime funcEndTime;
 
-		XTime_GetTime(&startTime);
+		XTime_GetTime(&frameStartTime);
+
+		// Get New Distance Array
+		XTime_GetTime(&funcStartTime);
 		getNewDistanceArray();
-		XTime_GetTime(&endTime);
-		u32 transferTime = (u32)((u64)endTime - (u64)startTime);
+		XTime_GetTime(&funcEndTime);
+		u32 transferTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
 
-		XTime_GetTime(&startTime);
+		// Draw Environment
+		XTime_GetTime(&funcStartTime);
 		drawEnvironment();
-		XTime_GetTime(&endTime);
-		u32 drawTime = (u32)((u64)endTime - (u64)startTime);
+		XTime_GetTime(&funcEndTime);
+		u32 drawTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
+
+		// Update Screen
+		XTime_GetTime(&funcStartTime);
+		updateScreen();
+		XTime_GetTime(&funcEndTime);
+		u32 updateTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
+
+		XTime_GetTime(&frameEndTime);
+		u32 frameTime = (u32)((u64)frameEndTime - (u64)frameStartTime);
 
 		xil_printf("Core 1 transfer time: %8d\n", transferTime);
-		xil_printf("Draw time: %8d\n", drawTime);
-
-		updateScreen();
+		xil_printf("Core 1 draw time:     %8d\n", drawTime);
+		xil_printf("Core 1 update time:   %8d\n", updateTime);
+		xil_printf("Core 1 frame time:    %8d\n", frameTime);
 	}
 }
 

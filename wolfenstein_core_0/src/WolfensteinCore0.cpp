@@ -14,9 +14,6 @@
 void WolfensteinCore0::runCore0App() {
 	Xil_DCacheDisable();
 
-	// Reset valid ack interface
-	INTERFACE_PTR->acknowledge = 0;
-	INTERFACE_PTR->valid = 0;
 	clearMem();
 
 	startCore1();
@@ -28,23 +25,33 @@ void WolfensteinCore0::runCore0App() {
 	player.setAngle(M_PI / 2);
 
 	while(true) {
-		XTime startTime;
-		XTime endTime;
+		XTime frameStartTime;
+		XTime frameEndTime;
+		XTime funcStartTime;
+		XTime funcEndTime;
 
-		player.setAngle(player.getAngle() + 0.02);
+		XTime_GetTime(&frameStartTime);
 
-		XTime_GetTime(&startTime);
+		player.setAngle(player.getAngle() + 0.01);
+
+		// Cast Rays
+		XTime_GetTime(&funcStartTime);
 		castRays();
-		XTime_GetTime(&endTime);
-		u32 castTime = (u32)((u64)endTime - (u64)startTime);
+		XTime_GetTime(&funcEndTime);
+		u32 castTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
 
-		XTime_GetTime(&startTime);
+		// Transfer Distance Array
+		XTime_GetTime(&funcStartTime);
 		transferDistanceArray();
-		XTime_GetTime(&endTime);
-		u32 transferTime = (u32)((u64)endTime - (u64)startTime);
+		XTime_GetTime(&funcEndTime);
+		u32 transferTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
 
-		xil_printf("Cast time: %8d\n", castTime);
+		XTime_GetTime(&frameEndTime);
+		u32 frameTime = (u32)((u64)frameEndTime - (u64)frameStartTime);
+
+		xil_printf("Core 0 cast time:     %8d\n", castTime);
 		xil_printf("Core 0 transfer time: %8d\n", transferTime);
+		xil_printf("Core 0 frame time:    %8d\n", frameTime);
 	}
 }
 
