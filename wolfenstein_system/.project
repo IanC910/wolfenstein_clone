@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>wolfenstein_core_0</project>
+		<project>wolfenstein_core_1</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
