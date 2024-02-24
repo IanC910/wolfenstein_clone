@@ -27,3 +27,6 @@ platform active {wolfenstein_platform_wrapper}
 platform config -updatehw {C:/Users/Ian/Projects/school/ensc452/wolfenstein_platform/wolfenstein_platform_wrapper.xsa}
 platform generate -domains 
 platform generate
+platform clean
+platform generate
+platform clean

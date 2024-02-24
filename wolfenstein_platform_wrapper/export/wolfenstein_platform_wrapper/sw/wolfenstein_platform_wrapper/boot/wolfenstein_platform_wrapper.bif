@@ -1,7 +1,0 @@
-/*wolfenstein_platform_wrapper*/
-the_ROM_image:
-{
-  [bootloader]<wolfenstein_platform_wrapper/boot/fsbl.elf>
-   <bitstream> 
-  <elf,ps7_cortexa9_0>
-}
