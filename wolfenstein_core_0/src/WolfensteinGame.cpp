@@ -43,8 +43,8 @@ void WolfensteinGame::castRays() {
 	for(int j = 0; j < SCREEN_WIDTH; j++) {
 		float rayPositionX = player.getPositionX();
 		float rayPositionY = player.getPositionY();
-		float xIncrement = RAY_DISTANCE_INCREMENT * cos(rayAngle);
-		float yIncrement = RAY_DISTANCE_INCREMENT * sin(rayAngle);
+		float rayXIncrement = RAY_DISTANCE_INCREMENT * cos(rayAngle);
+		float rayYIncrement = RAY_DISTANCE_INCREMENT * sin(rayAngle);
 		float distance = 0;
 
 		// Cast the ray
@@ -58,8 +58,8 @@ void WolfensteinGame::castRays() {
 				break;
 			}
 
-			rayPositionX += xIncrement;
-			rayPositionY += yIncrement;
+			rayPositionX += rayXIncrement;
+			rayPositionY += rayYIncrement;
 			distance += RAY_DISTANCE_INCREMENT;
 		}
 

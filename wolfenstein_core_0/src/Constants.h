@@ -35,6 +35,6 @@ const float VERTICAL_FOV	= M_PI * 0.4;
 const float HORIZONTAL_FOV	= M_PI * 0.5;
 
 // Rendering params
-const float RAY_DISTANCE_INCREMENT = 0.25;
+const float RAY_DISTANCE_INCREMENT = 0.2;
 
 #endif
