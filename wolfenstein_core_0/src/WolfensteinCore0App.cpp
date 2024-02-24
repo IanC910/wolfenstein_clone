@@ -1,5 +1,5 @@
 
-#include "WolfensteinCore0.h"
+#include "WolfensteinCore0App.h"
 
 #include <string.h>
 #include <math.h>
@@ -11,7 +11,7 @@
 
 #include "Constants.h"
 
-void WolfensteinCore0::runCore0App() {
+void WolfensteinCore0App::runCore0App() {
 	Xil_DCacheDisable();
 
 	clearMem();
@@ -32,7 +32,11 @@ void WolfensteinCore0::runCore0App() {
 
 		XTime_GetTime(&frameStartTime);
 
-		player.setAngle(player.getAngle() + 0.01);
+		// Game Logic Per Frame
+		XTime_GetTime(&funcStartTime);
+		gameLogicPerFrame();
+		XTime_GetTime(&funcEndTime);
+		u32 gameTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
 
 		// Cast Rays
 		XTime_GetTime(&funcStartTime);
@@ -49,13 +53,14 @@ void WolfensteinCore0::runCore0App() {
 		XTime_GetTime(&frameEndTime);
 		u32 frameTime = (u32)((u64)frameEndTime - (u64)frameStartTime);
 
+		xil_printf("Core 0 game time:     %8d\n", gameTime);
 		xil_printf("Core 0 cast time:     %8d\n", castTime);
 		xil_printf("Core 0 transfer time: %8d\n", transferTime);
 		xil_printf("Core 0 frame time:    %8d\n", frameTime);
 	}
 }
 
-void WolfensteinCore0::clearMem() {
+void WolfensteinCore0App::clearMem() {
 	memset(VGA_IMAGE_BUFFER_0, 0x80, SCREEN_SIZE_BYTES);
 	memset(INTERMEDIATE_IMAGE_BUFFER, 0, SCREEN_SIZE_BYTES);
 	memset((void*)INTERFACE_PTR, 0, sizeof(validAckInterface_t));
@@ -63,13 +68,19 @@ void WolfensteinCore0::clearMem() {
 	memset(DISTANCE_ARRAY_1, 0, NUM_RAYS * sizeof(float));
 }
 
-void WolfensteinCore0::startCore1() {
+void WolfensteinCore0App::startCore1() {
 	Xil_Out32(0x00000000, (u32)CORE_1_BASE_ADDR);
 	Xil_Out32(0xFFFFFFF0, (u32)CORE_1_BASE_ADDR);
 	__asm__("sev");
 }
 
-void WolfensteinCore0::castRays() {
+void WolfensteinCore0App::gameLogicPerFrame() {
+	// Sample logic for demo: slowly rotate player
+
+	player.setAngle(player.getAngle() + 0.01);
+}
+
+void WolfensteinCore0App::castRays() {
 	float angleIncrement = HORIZONTAL_FOV / (float)NUM_RAYS;
 	float startAngle = player.getAngle() - HORIZONTAL_FOV / 2.0;
 	float rayAngle = startAngle; // Rays start on right, move towards left
@@ -103,7 +114,7 @@ void WolfensteinCore0::castRays() {
 	}
 }
 
-void WolfensteinCore0::transferDistanceArray() {
+void WolfensteinCore0App::transferDistanceArray() {
 	INTERFACE_PTR->valid = 1;
 	while(!INTERFACE_PTR->acknowledge);
 	INTERFACE_PTR->valid = 0;

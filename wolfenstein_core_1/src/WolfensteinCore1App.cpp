@@ -1,5 +1,5 @@
 
-#include "WolfensteinCore1.h"
+#include "WolfensteinCore1App.h"
 
 #include <string.h>
 #include <math.h>
@@ -12,7 +12,7 @@
 #include "../../wolfenstein_core_0/src/Constants.h"
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
 
-void WolfensteinCore1::runCore1App() {
+void WolfensteinCore1App::runCore1App() {
 	Xil_DCacheDisable();
 
 	while(true) {
@@ -51,7 +51,7 @@ void WolfensteinCore1::runCore1App() {
 	}
 }
 
-void WolfensteinCore1::getNewDistanceArray() {
+void WolfensteinCore1App::getNewDistanceArray() {
 	while(!INTERFACE_PTR->valid);
 
 	memcpy(DISTANCE_ARRAY_1, DISTANCE_ARRAY_0, NUM_RAYS * sizeof(float));
@@ -61,7 +61,7 @@ void WolfensteinCore1::getNewDistanceArray() {
 	INTERFACE_PTR->acknowledge = 0;
 }
 
-void WolfensteinCore1::drawEnvironment() {
+void WolfensteinCore1App::drawEnvironment() {
 	float* distanceArray = DISTANCE_ARRAY_1;
 
 	// FOR CALCULATING WALL HEIGHT BASED ON DISTANCE
@@ -149,6 +149,6 @@ void WolfensteinCore1::drawEnvironment() {
 	}
 }
 
-void WolfensteinCore1::updateScreen() {
+void WolfensteinCore1App::updateScreen() {
 	memcpy(VGA_IMAGE_BUFFER_0, INTERMEDIATE_IMAGE_BUFFER, SCREEN_SIZE_BYTES);
 }

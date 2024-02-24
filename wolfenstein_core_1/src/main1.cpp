@@ -1,9 +1,7 @@
 
-#include "xil_io.h"
-
-#include "WolfensteinCore1.h"
+#include "WolfensteinCore1App.h"
 
 int main() {
-	WolfensteinCore1 game1;
-	game1.runCore1App();
+	WolfensteinCore1App app1;
+	app1.runCore1App();
 }

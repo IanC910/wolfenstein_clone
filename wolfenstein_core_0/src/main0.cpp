@@ -1,7 +1,7 @@
 
-#include "WolfensteinCore0.h"
+#include "WolfensteinCore0App.h"
 
 int main() {
-	WolfensteinCore0 game0;
-	game0.runCore0App();
+	WolfensteinCore0App app0;
+	app0.runCore0App();
 }

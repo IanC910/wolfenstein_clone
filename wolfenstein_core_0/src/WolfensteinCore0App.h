@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "Level.h"
 
-class WolfensteinCore0 {
+class WolfensteinCore0App {
 
 public:
 	void runCore0App();
@@ -13,6 +13,7 @@ public:
 private:
 	void clearMem();
 	void startCore1();
+	void gameLogicPerFrame();
 	void castRays();
 	void transferDistanceArray();
 
