@@ -27,7 +27,7 @@ void WolfensteinGame::playGame() {
 	player.setAngle(M_PI / 2);
 
 	while(true) {
-		player.setAngle(player.getAngle() + 0.05);
+		player.setAngle(player.getAngle() + 0.02);
 
 		XTime startTime;
 		XTime endTime;
