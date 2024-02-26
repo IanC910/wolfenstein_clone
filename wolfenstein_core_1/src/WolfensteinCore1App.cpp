@@ -157,9 +157,12 @@ int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
 	return SCREEN_HEIGHT * 0.5 - halfOfWallHeight; // Inclusive for walls, exclusive for ceiling
 }
 
-int WolfensteinCore1App::getColourFromGradient(const int* gradient, const int gradientLenght, float distance) {
-	static const int DISTANCE_SCALER = 10;
-	int index = (int)(gradientLenght * distance / (distance + DISTANCE_SCALER));
+int WolfensteinCore1App::getColourFromGradient(const int* gradient, const int gradientLength, float distance) {
+	static const int DISTANCE_SCALER = 12;
+	int index = (int)(gradientLength * distance / DISTANCE_SCALER);
+	if(index >= gradientLength) {
+		index = gradientLength - 1;
+	}
 	return gradient[index];
 }
 
