@@ -17,7 +17,7 @@ WolfensteinCore1App::WolfensteinCore1App() {
 
 	// initialize floor and ceiling buffers
 	// Draw 1 row of ceiling and copy
-	int ceilingColourInt = CEILING_COLOUR.getColourAsInt();
+	int ceilingColourInt = CEILING_GRADIENT[0];
 	for(int j = 0; j < SCREEN_WIDTH; j++) {
 		CEILING_BUFFER[j] = ceilingColourInt;
 	}
@@ -26,7 +26,7 @@ WolfensteinCore1App::WolfensteinCore1App() {
 	}
 
 	// Draw 1 row of floor and copy
-	int floorColourInt = FLOOR_COLOUR.getColourAsInt();
+	int floorColourInt = FLOOR_GRADIENT[0];
 	for(int j = 0; j < SCREEN_WIDTH; j++) {
 		FLOOR_BUFFER[j] = floorColourInt;
 	}
@@ -129,8 +129,7 @@ void WolfensteinCore1App::drawEnvironment() {
 
 	// Draw 1 row of wall and copy to parts of screen that have visible wall
 	for(int r = 0; r < NUM_RAYS; r++) {
-		float colourScaler = 10.0 / (DISTANCE_ARRAY_1[r] + 10.0);
-		int wallColourInt = WALL_COLOUR.getColourAsInt(colourScaler);
+		int wallColourInt = getColourFromGradient(WALL_GRADIENT, WALL_GRADIENT_LENGTH, DISTANCE_ARRAY_1[r]);
 		for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
 			INTERMEDIATE_IMAGE_BUFFER[r * PIXEL_WIDTHS_PER_RAY + j] = wallColourInt;
 		}
@@ -156,6 +155,12 @@ int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
 
 	int halfOfWallHeight = (int)(distanceInverseScaler / distance);
 	return SCREEN_HEIGHT * 0.5 - halfOfWallHeight; // Inclusive for walls, exclusive for ceiling
+}
+
+int WolfensteinCore1App::getColourFromGradient(const int* gradient, const int gradientLenght, float distance) {
+	static const int DISTANCE_SCALER = 10;
+	int index = (int)(gradientLenght * distance / (distance + DISTANCE_SCALER));
+	return gradient[index];
 }
 
 void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int startRay, int endRay, int rowAlreadyDrawn) {

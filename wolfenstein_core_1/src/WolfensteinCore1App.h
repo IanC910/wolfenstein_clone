@@ -13,6 +13,7 @@ private:
 	void getNewDistanceArray();
 	void drawEnvironment();
 	int getScreenRowOfCeilingAtDistance(float distance);
+	int getColourFromGradient(const int* gradient, const int gradientLenght, float distance);
 	void fillNonRectangularCeilingAndFloor(int startRay, int endRay, int rowAlreadyDrawn);
 	void updateScreen();
 };

@@ -2,28 +2,33 @@
 #ifndef COLOUR_RGB_H
 #define COLOUR_RGB_H
 
-class Colour {
-public:
-	Colour(char r, char g, char b);
+int colourRGB(int r, int g, int b);
 
-	int getColourAsInt();
-	int getColourAsInt(float coef);
-
-
-private:
-	char red;
-	char green;
-	char blue;
+const int CEILING_GRADIENT_LENGTH = 5;
+const int CEILING_GRADIENT[CEILING_GRADIENT_LENGTH] = {
+	colourRGB(8, 6, 4),
+	colourRGB(7, 6, 4),
+	colourRGB(6, 5, 4),
+	colourRGB(5, 4, 3),
+	colourRGB(4, 3, 2)
 };
 
-// Colour Presets
-#define HARD_WOOD_BROWN	Colour(8, 6, 4)
-#define CONCRETE_GREY	Colour(8, 8, 8)
-#define PALE_GREEN		Colour(7, 9, 7)
+const int FLOOR_GRADIENT_LENGTH = 5;
+const int FLOOR_GRADIENT[FLOOR_GRADIENT_LENGTH] = {
+	colourRGB(8, 8, 8),
+	colourRGB(7, 7, 7),
+	colourRGB(6, 6, 6),
+	colourRGB(5, 5, 5),
+	colourRGB(4, 4, 4)
+};
 
-// Game Visuals
-#define FLOOR_COLOUR 	CONCRETE_GREY
-#define CEILING_COLOUR 	HARD_WOOD_BROWN
-#define WALL_COLOUR		PALE_GREEN
+const int WALL_GRADIENT_LENGTH = 5;
+const int WALL_GRADIENT[WALL_GRADIENT_LENGTH] = {
+	colourRGB(7, 9, 7),
+	colourRGB(6, 8, 6),
+	colourRGB(5, 7, 5),
+	colourRGB(5, 6, 5),
+	colourRGB(4, 5, 4)
+};
 
 #endif
