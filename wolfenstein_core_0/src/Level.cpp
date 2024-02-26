@@ -1,4 +1,6 @@
 
+#include <math.h>
+
 #include "Level.h"
 
 Level::Level(int width, int height, char* layout) {
@@ -23,8 +25,8 @@ char Level::getBlockAtArrayCoord(int row, int col) {
 }
 
 char Level::getBlockAtWorldCoord(float x, float y) {
-	int col = (int)x;
-	int row = height - 1 - (int)y;
+	int col = (int)floor(x);
+	int row = (int)(height - 1 - floor(y));
 	return getBlockAtArrayCoord(row, col);
 }
 
