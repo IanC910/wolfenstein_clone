@@ -11,9 +11,11 @@
 
 #include "Constants.h"
 
-void WolfensteinCore0App::runCore0App() {
+WolfensteinCore0App::WolfensteinCore0App() {
 	Xil_DCacheDisable();
+}
 
+void WolfensteinCore0App::runCore0App() {
 	clearMem();
 
 	startCore1();
@@ -24,39 +26,59 @@ void WolfensteinCore0App::runCore0App() {
 	player.setPositionY(2);
 	player.setAngle(M_PI / 2);
 
+	// Times are in double-clock-cycles
+	u32 frameTime = 0;
+
+	u32 maxGameLogicTime = 0;
+	u32 maxRayCastTime = 0;
+	u32 maxTransferTime = 0;
+	u32 maxFrameTime = 0;
+
 	while(true) {
 		XTime frameStartTime;
 		XTime frameEndTime;
 		XTime funcStartTime;
 		XTime funcEndTime;
+		u32 funcTime;
 
 		XTime_GetTime(&frameStartTime);
 
 		// Game Logic Per Frame
 		XTime_GetTime(&funcStartTime);
-		gameLogicPerFrame();
+		this->gameLogicPerFrame();
 		XTime_GetTime(&funcEndTime);
-		u32 gameTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
+		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
+		if(funcTime > maxGameLogicTime) {
+			maxGameLogicTime = funcTime;
+			xil_printf("Core 0 max game logic time: %8d\n", maxGameLogicTime);
+		}
 
 		// Cast Rays
 		XTime_GetTime(&funcStartTime);
-		castRays();
+		this->castRays();
 		XTime_GetTime(&funcEndTime);
-		u32 castTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
+		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
+		if(funcTime > maxRayCastTime) {
+			maxRayCastTime = funcTime;
+			xil_printf("Core 0 max ray cast time: %8d\n", maxRayCastTime);
+		}
 
 		// Transfer Distance Array
 		XTime_GetTime(&funcStartTime);
-		transferDistanceArray();
+		this->transferDistanceArray();
 		XTime_GetTime(&funcEndTime);
-		u32 transferTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
+		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
+		if(funcTime > maxTransferTime) {
+			maxTransferTime = funcTime;
+			xil_printf("Core 0 max transfer time: %8d\n", maxTransferTime);
+		}
 
 		XTime_GetTime(&frameEndTime);
-		u32 frameTime = (u32)((u64)frameEndTime - (u64)frameStartTime);
-
-		xil_printf("Core 0 game time:     %8d\n", gameTime);
-		xil_printf("Core 0 cast time:     %8d\n", castTime);
-		xil_printf("Core 0 transfer time: %8d\n", transferTime);
-		xil_printf("Core 0 frame time:    %8d\n", frameTime);
+		frameTime = (u32)((u64)frameEndTime - (u64)frameStartTime);
+		if(frameTime > maxFrameTime) {
+			maxFrameTime = frameTime;
+			xil_printf("Core 0 max frame time: %8d\n", maxFrameTime);
+		}
 	}
 }
 

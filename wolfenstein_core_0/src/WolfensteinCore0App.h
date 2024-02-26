@@ -8,6 +8,8 @@
 class WolfensteinCore0App {
 
 public:
+	WolfensteinCore0App();
+
 	void runCore0App();
 
 private:
