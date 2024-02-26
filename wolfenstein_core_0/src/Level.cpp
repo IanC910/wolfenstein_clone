@@ -16,6 +16,9 @@ int Level::getHeight() {
 }
 
 char Level::getBlockAtArrayCoord(int row, int col) {
+	if(row < 0 || row >= height || col < 0 || col >= width) {
+		return '#';
+	}
 	return layout[row * height + col];
 }
 
