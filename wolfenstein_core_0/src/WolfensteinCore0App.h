@@ -20,7 +20,7 @@ private:
 	void transferDistanceArray();
 
 	Player player;
-	Level* currentLevel;
+	Level* currentLevel = nullptr;
 };
 
 #endif

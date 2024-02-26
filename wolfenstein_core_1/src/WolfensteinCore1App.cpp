@@ -36,6 +36,8 @@ WolfensteinCore1App::WolfensteinCore1App() {
 }
 
 void WolfensteinCore1App::runCore1App() {
+	xil_printf("Starting Wolfenstein Core 1 App\n");
+
 	// Times are in double-clock-cycles
 	u32 maxTransferTime = 0;
 	u32 maxDrawTime = 0;
@@ -125,9 +127,6 @@ void WolfensteinCore1App::drawEnvironment() {
 
 	// BEGIN DRAWING
 
-	int ceilingColourInt = CEILING_COLOUR.getColourAsInt();
-	int floorColourInt = FLOOR_COLOUR.getColourAsInt();
-
 	// Draw 1 row of wall and copy to parts of screen that have visible wall
 	for(int r = 0; r < NUM_RAYS; r++) {
 		float colourScaler = 10.0 / (DISTANCE_ARRAY_1[r] + 10.0);
@@ -147,26 +146,7 @@ void WolfensteinCore1App::drawEnvironment() {
 	}
 
 	// Fill in the rest of the floor and ceiling (non rectangular parts) in columns
-	// TODO Optimize this part. It's very slow
-	for(int r = 0; r < NUM_RAYS; r++) {
-		int wallStartRow = WALL_START_ROW_ARRAY[r]; // Inclusive for walls, exclusive for ceiling
-		if(wallStartRow < 0) {
-			wallStartRow = 0;
-		}
-		int wallEndRow = SCREEN_HEIGHT - wallStartRow; // Exclusive for walls, inclusive for floor
-
-		for(int i = minWallRow; i < wallStartRow; i++) {
-			for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
-				INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + r * PIXEL_WIDTHS_PER_RAY + j] = ceilingColourInt;
-			}
-		}
-
-		for(int i = wallEndRow; i < maxWallRow; i++) {
-			for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
-				INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + r * PIXEL_WIDTHS_PER_RAY + j] = floorColourInt;
-			}
-		}
-	}
+	fillNonRectangularCeilingAndFloor(0, NUM_RAYS, maxCeilingRow);
 }
 
 int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
@@ -176,6 +156,39 @@ int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
 
 	int halfOfWallHeight = (int)(distanceInverseScaler / distance);
 	return SCREEN_HEIGHT * 0.5 - halfOfWallHeight; // Inclusive for walls, exclusive for ceiling
+}
+
+void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int startRay, int endRay, int rowAlreadyDrawn) {
+	for(int i = rowAlreadyDrawn; i < SCREEN_HEIGHT / 2; i++) {
+		int startRay = 0;
+		bool startRayIsSet = false;
+		bool drawingThisRow = false;
+
+		for(int r = 0; r < NUM_RAYS; r++) {
+			if(!startRayIsSet && WALL_START_ROW_ARRAY[r] > i) {
+				startRay = r;
+				startRayIsSet = true;
+				drawingThisRow = true;
+				continue;
+			}
+			if(startRayIsSet && (WALL_START_ROW_ARRAY[r] <= i)) {
+				int numBytes = (r - startRay) * PIXEL_WIDTHS_PER_RAY * sizeof(int);
+				memcpy(&INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], CEILING_BUFFER, numBytes);
+				memcpy(&INTERMEDIATE_IMAGE_BUFFER[(SCREEN_HEIGHT - 1 - i) * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], FLOOR_BUFFER, numBytes);
+				startRayIsSet = false;
+			}
+		}
+
+		if(startRayIsSet) {
+			int numBytes = (NUM_RAYS - startRay) * PIXEL_WIDTHS_PER_RAY * sizeof(int);
+			memcpy(&INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], CEILING_BUFFER, numBytes);
+			memcpy(&INTERMEDIATE_IMAGE_BUFFER[(SCREEN_HEIGHT - 1 - i) * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], FLOOR_BUFFER, numBytes);
+		}
+
+		if(!drawingThisRow) {
+			return;
+		}
+	}
 }
 
 void WolfensteinCore1App::updateScreen() {

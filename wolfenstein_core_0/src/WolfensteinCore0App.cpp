@@ -16,6 +16,8 @@ WolfensteinCore0App::WolfensteinCore0App() {
 }
 
 void WolfensteinCore0App::runCore0App() {
+	xil_printf("Starting Wolfenstein Core 0 App\n");
+
 	clearMem();
 
 	startCore1();
@@ -79,6 +81,8 @@ void WolfensteinCore0App::runCore0App() {
 			maxFrameTime = frameTime;
 			xil_printf("Core 0 max frame time: %8d\n", maxFrameTime);
 		}
+
+		xil_printf("Core 0 frame time: %8d\n", frameTime);
 	}
 }
 
