@@ -128,13 +128,7 @@ void WolfensteinCore1App::drawEnvironment() {
 	int ceilingColourInt = CEILING_COLOUR.getColourAsInt();
 	int floorColourInt = FLOOR_COLOUR.getColourAsInt();
 
-	// Copy floor and ceiling buffers to parts of screen that have floor and ceiling across the whole row
-	if(maxCeilingRow > 0) {
-		memcpy(&INTERMEDIATE_IMAGE_BUFFER[0], &CEILING_BUFFER[0], maxCeilingRow * SCREEN_WIDTH * sizeof(int));
-		memcpy(&INTERMEDIATE_IMAGE_BUFFER[minFloorRow * SCREEN_WIDTH], &FLOOR_BUFFER[0], (SCREEN_HEIGHT - minFloorRow) * SCREEN_WIDTH * sizeof(int));
-	}
-
-	// Draw 1 row of wall
+	// Draw 1 row of wall and copy to parts of screen that have visible wall
 	for(int r = 0; r < NUM_RAYS; r++) {
 		float colourScaler = 10.0 / (DISTANCE_ARRAY_1[r] + 10.0);
 		int wallColourInt = WALL_COLOUR.getColourAsInt(colourScaler);
@@ -142,10 +136,14 @@ void WolfensteinCore1App::drawEnvironment() {
 			INTERMEDIATE_IMAGE_BUFFER[r * PIXEL_WIDTHS_PER_RAY + j] = wallColourInt;
 		}
 	}
-
-	// Copy the 1 row to rest of screen that has wall visible
 	for(int i = minWallRow; i < maxWallRow; i++) {
 		memcpy(&INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_IMAGE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
+	}
+
+	// Copy floor and ceiling buffers to parts of screen that have floor and ceiling across the whole row
+	if(maxCeilingRow > 0) {
+		memcpy(&INTERMEDIATE_IMAGE_BUFFER[0], CEILING_BUFFER, maxCeilingRow * SCREEN_WIDTH * sizeof(int));
+		memcpy(&INTERMEDIATE_IMAGE_BUFFER[minFloorRow * SCREEN_WIDTH], FLOOR_BUFFER, (SCREEN_HEIGHT - minFloorRow) * SCREEN_WIDTH * sizeof(int));
 	}
 
 	// Fill in the rest of the floor and ceiling (non rectangular parts) in columns
