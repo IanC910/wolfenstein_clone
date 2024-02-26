@@ -30,6 +30,7 @@ int* const INTERMEDIATE_IMAGE_BUFFER 				= (int*)(VGA_IMAGE_BUFFER_0 + SCREEN_SI
 volatile validAckInterface_t* const INTERFACE_PTR	= (validAckInterface_t*)(INTERMEDIATE_IMAGE_BUFFER + SCREEN_SIZE);
 float* const DISTANCE_ARRAY_0 						= (float*)(0xFFFF0000);
 float* const DISTANCE_ARRAY_1						= (float*)(DISTANCE_ARRAY_0 + NUM_RAYS);
+int* const WALL_START_ROW_ARRAY						= (int*)(DISTANCE_ARRAY_1 + NUM_RAYS);
 int* const CORE_1_BASE_ADDR							= (int*)0x10080000;
 
 // Gameplay params

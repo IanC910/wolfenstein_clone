@@ -12,6 +12,9 @@
 #include "../../wolfenstein_core_0/src/Constants.h"
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
 
+WolfensteinCore1App::WolfensteinCore1App() {
+}
+
 void WolfensteinCore1App::runCore1App() {
 	Xil_DCacheDisable();
 
@@ -62,27 +65,20 @@ void WolfensteinCore1App::getNewDistanceArray() {
 }
 
 void WolfensteinCore1App::drawEnvironment() {
-	float* distanceArray = DISTANCE_ARRAY_1;
+	// Calculate the wall height (start row) for each ray column
+	for(int r = 0; r < NUM_RAYS; r++) {
+		WALL_START_ROW_ARRAY[r] = getScreenRowOfCeilingAtDistance(DISTANCE_ARRAY_1[r]); // Inclusive for walls, exclusive for ceiling
+	}
 
-	// FOR CALCULATING WALL HEIGHT BASED ON DISTANCE
-	// The height of the drawn wall in a column is a portion of the screen height
-	// Let this portion be (half the height of the wall) over (distance * tan(vertical FOV / 2))
-	float halfWallHeight = 0.5;
-	float tanHalfVertFov = tan(VERTICAL_FOV / 2.0);
-	float distanceInverseScaler = 0.5 * SCREEN_HEIGHT * halfWallHeight / tanHalfVertFov;
-
-	// Find column closest to player
+	// Find ray column closest to player
 	int indexOfClosest = 0;
 	for(int r = 1; r < NUM_RAYS; r++) {
-		if(distanceArray[r] < distanceArray[indexOfClosest]) {
+		if(DISTANCE_ARRAY_1[r] < DISTANCE_ARRAY_1[indexOfClosest]) {
 			indexOfClosest = r;
 		}
 	}
 
-	float minDistanceToWall = distanceArray[indexOfClosest];
-	int halfOfMaxWallHeight = (int)(distanceInverseScaler / minDistanceToWall);
-
-	int minWallRow = 0.5 * SCREEN_HEIGHT - halfOfMaxWallHeight; // Inclusive
+	int minWallRow = WALL_START_ROW_ARRAY[indexOfClosest]; // Inclusive
 	if(minWallRow < 0) {
 		minWallRow = 0;
 	}
@@ -92,20 +88,6 @@ void WolfensteinCore1App::drawEnvironment() {
 	int minFloorRow = maxWallRow; // Inclusive
 
 	// BEGIN DRAWING
-
-	// Draw 1 row of wall
-	for(int r = 0; r < NUM_RAYS; r++) {
-		float colourScaler = 10.0 / (distanceArray[r] + 10.0);
-		int wallColourInt = WALL_COLOUR.getColourAsInt(colourScaler);
-		for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
-			INTERMEDIATE_IMAGE_BUFFER[r * PIXEL_WIDTHS_PER_RAY + j] = wallColourInt;
-		}
-	}
-
-	// Copy the 1 row to rest of screen that has wall visible
-	for(int i = minWallRow; i < maxWallRow; i++) {
-		memcpy(&INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_IMAGE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
-	}
 
 	int ceilingColourInt = CEILING_COLOUR.getColourAsInt();
 	int floorColourInt = FLOOR_COLOUR.getColourAsInt();
@@ -125,11 +107,24 @@ void WolfensteinCore1App::drawEnvironment() {
 		}
 	}
 
-	// Fill in the rest of the floor and ceiling in columns
+	// Draw 1 row of wall
 	for(int r = 0; r < NUM_RAYS; r++) {
-		float distanceToWall = distanceArray[r];
-		int halfOfWallHeight = (int)(distanceInverseScaler / distanceToWall);
-		int wallStartRow = SCREEN_HEIGHT * 0.5 - halfOfWallHeight; // Inclusive for walls, exclusive for ceiling
+		float colourScaler = 10.0 / (DISTANCE_ARRAY_1[r] + 10.0);
+		int wallColourInt = WALL_COLOUR.getColourAsInt(colourScaler);
+		for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
+			INTERMEDIATE_IMAGE_BUFFER[r * PIXEL_WIDTHS_PER_RAY + j] = wallColourInt;
+		}
+	}
+
+	// Copy the 1 row to rest of screen that has wall visible
+	for(int i = minWallRow; i < maxWallRow; i++) {
+		memcpy(&INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_IMAGE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
+	}
+
+	// Fill in the rest of the floor and ceiling (non rectangular parts) in columns
+	// TODO Optimize this part. It's very slow
+	for(int r = 0; r < NUM_RAYS; r++) {
+		int wallStartRow = WALL_START_ROW_ARRAY[r]; // Inclusive for walls, exclusive for ceiling
 		if(wallStartRow < 0) {
 			wallStartRow = 0;
 		}
@@ -147,6 +142,15 @@ void WolfensteinCore1App::drawEnvironment() {
 			}
 		}
 	}
+}
+
+int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
+	static float halfWallHeight = 0.5;
+	static float tanHalfVertFov = tan(VERTICAL_FOV / 2.0);
+	static float distanceInverseScaler = 0.5 * SCREEN_HEIGHT * halfWallHeight / tanHalfVertFov;
+
+	int halfOfWallHeight = (int)(distanceInverseScaler / distance);
+	return SCREEN_HEIGHT * 0.5 - halfOfWallHeight; // Inclusive for walls, exclusive for ceiling
 }
 
 void WolfensteinCore1App::updateScreen() {

@@ -5,11 +5,14 @@
 class WolfensteinCore1App {
 
 public:
+	WolfensteinCore1App();
+
 	void runCore1App();
 
 private:
 	void getNewDistanceArray();
 	void drawEnvironment();
+	int getScreenRowOfCeilingAtDistance(float distance);
 	void updateScreen();
 };
 

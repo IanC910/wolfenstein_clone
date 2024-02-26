@@ -95,6 +95,7 @@ void WolfensteinCore0App::castRays() {
 
 		// Cast the ray
 		while(true) {
+            // TODO just put this check into Level::getBlockAtWorldCoord()
 			if(rayPositionX < 0 || rayPositionX > currentLevel->getWidth() || rayPositionY < 0 || rayPositionY > currentLevel->getHeight()) {
 				break;
 			}
