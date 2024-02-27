@@ -16,21 +16,15 @@ WolfensteinCore1App::WolfensteinCore1App() {
 	Xil_DCacheDisable();
 
 	// initialize floor and ceiling buffers
-	// Draw 1 row of ceiling and copy
+	// Draw 1 row and copy
 	int ceilingColourInt = CEILING_GRADIENT[0];
-	for(int j = 0; j < SCREEN_WIDTH; j++) {
-		CEILING_BUFFER[j] = ceilingColourInt;
-	}
-	for(int i = 0; i < SCREEN_HEIGHT / 2; i++) {
-		memcpy(&CEILING_BUFFER[i * SCREEN_WIDTH], &CEILING_BUFFER[0], SCREEN_WIDTH * sizeof(int));
-	}
-
-	// Draw 1 row of floor and copy
 	int floorColourInt = FLOOR_GRADIENT[0];
 	for(int j = 0; j < SCREEN_WIDTH; j++) {
+		CEILING_BUFFER[j] = ceilingColourInt;
 		FLOOR_BUFFER[j] = floorColourInt;
 	}
 	for(int i = 0; i < SCREEN_HEIGHT / 2; i++) {
+		memcpy(&CEILING_BUFFER[i * SCREEN_WIDTH], &CEILING_BUFFER[0], SCREEN_WIDTH * sizeof(int));
 		memcpy(&FLOOR_BUFFER[i * SCREEN_WIDTH], &FLOOR_BUFFER[0], SCREEN_WIDTH * sizeof(int));
 	}
 }
