@@ -5,7 +5,6 @@ IDE.log
 
 *.o
 *.log
-*.d
 *.a
 *.elf
 
