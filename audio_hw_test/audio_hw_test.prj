@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="audio_hw_test" location="C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw_test" platform="C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw_platform/export/audio_hw_platform/audio_hw_platform.xpfm" platformUID="xilinx:zed::0.0(custom)" systemProject="audio_hw_test_system" sysConfig="audio_hw_platform" runtime="C/C++" cpu="standalone_domain" cpuInstance="ps7_cortexa9_0" os="standalone" language="CPP" mssSignature="c4b33dae769175b12b6284682b4d3bc6">
+  <configuration name="Debug" id="xilinx.gnu.armv7.exe.debug.1272102214">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.armv7.exe.release.1909746492" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <template appTemplateName="empty_application"/>
+</sdkproject:SdkProject>
