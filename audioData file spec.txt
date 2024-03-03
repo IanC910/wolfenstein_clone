@@ -1,0 +1,4 @@
+[Number of Samples - 4 bytes]
+[Bytes per Sample - 4 bytes]
+[Sample Rate Hz - 4 bytes]
+[Data - (Number of Samples) * (Bytes per Sample) bytes]
