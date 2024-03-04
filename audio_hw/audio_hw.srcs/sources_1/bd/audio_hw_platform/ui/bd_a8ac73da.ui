@@ -1,50 +1,87 @@
 {
    "ActiveEmotionalView":"Reduced Jogs",
-   "Default View_ScaleFactor":"1.25",
-   "Default View_TopLeft":"-358,-342",
+   "Default View_ScaleFactor":"0.733708",
+   "Default View_TopLeft":"-158,0",
    "ExpandedHierarchyInLayout":"",
    "Reduced Jogs_ExpandedHierarchyInLayout":"",
    "Reduced Jogs_Layout":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:10.0 non-TLS
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -lvl 4 -x 1240 -y 440 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -lvl 4 -x 1240 -y 470 -defaultsOSRD
-preplace port IIC_0 -pg 1 -lvl 4 -x 1240 -y 500 -defaultsOSRD
-preplace port SDATA_O -pg 1 -lvl 4 -x 1240 -y 280 -defaultsOSRD
-preplace port FCLK_CLK1 -pg 1 -lvl 4 -x 1240 -y 580 -defaultsOSRD
-preplace port GPIO -pg 1 -lvl 4 -x 1240 -y 60 -defaultsOSRD
-preplace port BCLK -pg 1 -lvl 4 -x 1240 -y 220 -defaultsOSRD
-preplace port LRCLK -pg 1 -lvl 4 -x 1240 -y 250 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 3 -x 960 -y 420 -swap {16 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 23 17 18 19 20 21 22 30 24 25 26 27 28 29 41 31 32 33 34 35 36 37 38 39 40 0 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 124 125 126 122 123 119 121 120} -defaultsOSRD -pinY DDR 20R -pinY FIXED_IO 50R -pinY IIC_0 80R -pinY USBIND_0 100R -pinY S_AXI_HP1_FIFO_CTRL 0L -pinY M_AXI_GP0 0R -pinY S_AXI_HP1 20L -pinY TTC0_WAVE0_OUT 180R -pinY TTC0_WAVE1_OUT 200R -pinY TTC0_WAVE2_OUT 220R -pinY M_AXI_GP0_ACLK 40L -pinY S_AXI_HP1_ACLK 60L -pinY FCLK_CLK0 120R -pinY FCLK_CLK1 160R -pinY FCLK_RESET0_N 140R
-preplace inst ps7_0_axi_periph -pg 1 -lvl 2 -x 560 -y 60 -swap {0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 57 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 39 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 97 94 98 95 99 96 100} -defaultsOSRD -pinY S00_AXI 20L -pinY M00_AXI 160R -pinY M01_AXI 0R -pinY ACLK 40L -pinY ARESETN 120L -pinY S00_ACLK 60L -pinY S00_ARESETN 140L -pinY M00_ACLK 80L -pinY M00_ARESETN 160L -pinY M01_ACLK 100L -pinY M01_ARESETN 180L
-preplace inst rst_ps7_0_200M -pg 1 -lvl 1 -x 210 -y 380 -swap {1 0 2 3 4 6 7 8 9 5} -defaultsOSRD -pinY slowest_sync_clk 20L -pinY ext_reset_in 0L -pinY aux_reset_in 40L -pinY mb_debug_sys_rst 60L -pinY dcm_locked 80L -pinY mb_reset 20R -pinBusY bus_struct_reset 40R -pinBusY peripheral_reset 60R -pinBusY interconnect_aresetn 80R -pinBusY peripheral_aresetn 0R
-preplace inst zed_audio_ctrl_0 -pg 1 -lvl 3 -x 960 -y 220 -defaultsOSRD -pinY S_AXI 0L -pinY BCLK 0R -pinY LRCLK 30R -pinY SDATA_I 20L -pinY SDATA_O 60R -pinY S_AXI_ACLK 40L -pinY S_AXI_ARESETN 60L
-preplace inst axi_gpio_0 -pg 1 -lvl 3 -x 960 -y 60 -defaultsOSRD -pinY S_AXI 0L -pinY GPIO 0R -pinY s_axi_aclk 20L -pinY s_axi_aresetn 40L
-preplace netloc processing_system7_0_FCLK_CLK0 1 0 4 20 300 380 300 720 340 1200
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 4 40 320 NJ 320 740J 160 1220
-preplace netloc rst_ps7_0_200M_peripheral_aresetn 1 1 2 400 340 700
-preplace netloc zed_audio_ctrl_0_BCLK 1 3 1 NJ 220
-preplace netloc zed_audio_ctrl_0_LRCLK 1 3 1 NJ 250
-preplace netloc zed_audio_ctrl_0_SDATA_O 1 3 1 NJ 280
-preplace netloc processing_system7_0_FCLK_CLK1 1 3 1 NJ 580
-preplace netloc processing_system7_0_DDR 1 3 1 NJ 440
-preplace netloc processing_system7_0_FIXED_IO 1 3 1 NJ 470
-preplace netloc processing_system7_0_M_AXI_GP0 1 1 3 420 360 NJ 360 1180
-preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 N 220
-preplace netloc processing_system7_0_IIC_0 1 3 1 NJ 500
-preplace netloc ps7_0_axi_periph_M01_AXI 1 2 1 N 60
-preplace netloc axi_gpio_0_GPIO 1 3 1 NJ 60
-levelinfo -pg 1 0 210 560 960 1240
-pagesize -pg 1 -db -bbox -sgen 0 0 1360 700
+preplace port DDR -pg 1 -lvl 6 -x 1940 -y 90 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 6 -x 1940 -y 120 -defaultsOSRD
+preplace port IIC_0 -pg 1 -lvl 6 -x 1940 -y 150 -defaultsOSRD
+preplace port GPIO -pg 1 -lvl 6 -x 1940 -y 430 -defaultsOSRD
+preplace port BCLK -pg 1 -lvl 6 -x 1940 -y 570 -defaultsOSRD
+preplace port LRCLK -pg 1 -lvl 6 -x 1940 -y 600 -defaultsOSRD
+preplace port SDATA_O -pg 1 -lvl 6 -x 1940 -y 630 -defaultsOSRD
+preplace port FCLK_CLK1 -pg 1 -lvl 6 -x 1940 -y 190 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 5 -x 1680 -y 70 -swap {16 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 23 17 18 19 20 21 22 30 24 25 26 27 28 29 41 31 32 33 80 35 36 37 38 39 40 0 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 34 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 120 121 124 122 123 126 119 125} -defaultsOSRD -pinY DDR 20R -pinY FIXED_IO 50R -pinY IIC_0 80R -pinY USBIND_0 100R -pinY S_AXI_HP1_FIFO_CTRL 140L -pinY M_AXI_GP0 0R -pinY S_AXI_HP1 120L -pinY TTC0_WAVE0_OUT 140R -pinY TTC0_WAVE1_OUT 160R -pinY TTC0_WAVE2_OUT 180R -pinY M_AXI_GP0_ACLK 200L -pinY S_AXI_HP1_ACLK 220L -pinY FCLK_CLK0 220R -pinY FCLK_CLK1 120R -pinY FCLK_RESET0_N 200R
+preplace inst ps7_0_axi_periph -pg 1 -lvl 2 -x 540 -y 90 -swap {0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 79 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 39 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 104 100 105 101 106 102 107 103 108} -defaultsOSRD -pinY S00_AXI 0L -pinY M00_AXI 480R -pinY M01_AXI 340R -pinY M02_AXI 20R -pinY ACLK 20L -pinY ARESETN 400L -pinY S00_ACLK 40L -pinY S00_ARESETN 420L -pinY M00_ACLK 60L -pinY M00_ARESETN 440L -pinY M01_ACLK 80L -pinY M01_ARESETN 460L -pinY M02_ACLK 100L -pinY M02_ARESETN 480L
+preplace inst rst_ps7_0_200M -pg 1 -lvl 1 -x 210 -y 690 -swap {1 0 2 3 4 6 7 8 9 5} -defaultsOSRD -pinY slowest_sync_clk 20L -pinY ext_reset_in 0L -pinY aux_reset_in 40L -pinY mb_debug_sys_rst 60L -pinY dcm_locked 80L -pinY mb_reset 20R -pinBusY bus_struct_reset 40R -pinBusY peripheral_reset 60R -pinBusY interconnect_aresetn 80R -pinBusY peripheral_aresetn 0R
+preplace inst zed_audio_ctrl_0 -pg 1 -lvl 5 -x 1680 -y 570 -swap {0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 23 21 20 22} -defaultsOSRD -pinY S_AXI 0L -pinY BCLK 0R -pinY LRCLK 30R -pinY SDATA_I 60L -pinY SDATA_O 60R -pinY S_AXI_ACLK 20L -pinY S_AXI_ARESETN 40L
+preplace inst axi_to_i2c_0 -pg 1 -lvl 5 -x 1680 -y 430 -defaultsOSRD -pinY S_AXI 0L -pinY GPIO 0R -pinY s_axi_aclk 20L -pinY s_axi_aresetn 40L
+preplace inst axi_mem_intercon -pg 1 -lvl 4 -x 1300 -y 190 -swap {0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 82 79 81 80 83} -defaultsOSRD -pinY S00_AXI 0L -pinY M00_AXI 0R -pinY ACLK 20L -pinY ARESETN 100L -pinY S00_ACLK 40L -pinY S00_ARESETN 80L -pinY M00_ACLK 60L -pinY M00_ARESETN 120L
+preplace inst audio_fetcher_0 -pg 1 -lvl 3 -x 930 -y 110 -swap {0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 40 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 20 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 84 91 89 86 87 83 85 88 90} -defaultsOSRD -pinY S_AXI 0L -pinY M_AXI_AUDIO_OUT 100R -pinY M_AXI_DMA 80R -pinY s_axi_aclk 40L -pinY s_axi_aresetn 140L -pinY m_axi_audio_out_init_axi_txn 100L -pinY m_axi_audio_out_error 120R -pinY m_axi_audio_out_txn_done 140R -pinY m_axi_audio_out_aclk 20L -pinY m_axi_audio_out_aresetn 60L -pinY m_axi_dma_aclk 80L -pinY m_axi_dma_aresetn 120L
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 6 20 190 380 30 680 310 1130 450 1460 350 1900
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 6 40 630 NJ 630 720J 370 NJ 370 NJ 370 1920
+preplace netloc rst_ps7_0_200M_peripheral_aresetn 1 1 4 400 650 700 330 1150 470 1440
+preplace netloc zed_audio_ctrl_0_BCLK 1 5 1 NJ 570
+preplace netloc zed_audio_ctrl_0_LRCLK 1 5 1 NJ 600
+preplace netloc zed_audio_ctrl_0_SDATA_O 1 5 1 NJ 630
+preplace netloc processing_system7_0_FCLK_CLK1 1 5 1 NJ 190
+preplace netloc processing_system7_0_IIC_0 1 5 1 NJ 150
+preplace netloc processing_system7_0_FIXED_IO 1 5 1 NJ 120
+preplace netloc axi_mem_intercon_M00_AXI 1 4 1 N 190
+preplace netloc processing_system7_0_DDR 1 5 1 NJ 90
+preplace netloc processing_system7_0_M_AXI_GP0 1 1 5 400 10 NJ 10 NJ 10 NJ 10 1920
+preplace netloc audio_fetcher_0_M_AXI_DMA 1 3 1 N 190
+preplace netloc ps7_0_axi_periph_M00_AXI 1 2 3 N 570 NJ 570 NJ
+preplace netloc ps7_0_axi_periph_M02_AXI 1 2 1 N 110
+preplace netloc ps7_0_axi_periph_M01_AXI 1 2 3 N 430 NJ 430 NJ
+preplace netloc axi_gpio_0_GPIO 1 5 1 NJ 430
+levelinfo -pg 1 0 210 540 930 1300 1680 1940
+pagesize -pg 1 -db -bbox -sgen 0 0 2060 830
 ",
-   "Reduced Jogs_ScaleFactor":"0.967143",
-   "Reduced Jogs_TopLeft":"-182,0",
+   "Reduced Jogs_ScaleFactor":"1.13128",
+   "Reduced Jogs_TopLeft":"324,50",
    "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:10.0 non-TLS
 #  -string -flagsOSRD
-levelinfo -pg 1 0 10
-pagesize -pg 1 -db -bbox -sgen 0 0 10 10
+preplace port DDR -pg 1 -lvl 6 -x 1870 -y 310 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 6 -x 1870 -y 340 -defaultsOSRD
+preplace port IIC_0 -pg 1 -lvl 6 -x 1870 -y 370 -defaultsOSRD
+preplace port GPIO -pg 1 -lvl 6 -x 1870 -y 650 -defaultsOSRD
+preplace port BCLK -pg 1 -lvl 6 -x 1870 -y 770 -defaultsOSRD
+preplace port LRCLK -pg 1 -lvl 6 -x 1870 -y 800 -defaultsOSRD
+preplace port SDATA_O -pg 1 -lvl 6 -x 1870 -y 830 -defaultsOSRD
+preplace port FCLK_CLK1 -pg 1 -lvl 6 -x 1870 -y 400 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 5 -x 1620 -y 400 -swap {16 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 23 17 18 19 20 21 22 30 24 25 26 27 28 29 41 31 32 33 80 35 36 37 38 39 40 0 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 34 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 120 121 124 122 123 125 119 126} -defaultsOSRD
+preplace inst ps7_0_axi_periph -pg 1 -lvl 2 -x 520 -y 410 -swap {0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 79 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 39 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 104 100 105 101 106 102 107 103 108} -defaultsOSRD
+preplace inst rst_ps7_0_200M -pg 1 -lvl 1 -x 200 -y 690 -swap {1 0 2 3 4 6 7 8 9 5} -defaultsOSRD
+preplace inst zed_audio_ctrl_0 -pg 1 -lvl 5 -x 1620 -y 800 -swap {0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 23 21 20 22} -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 5 -x 1620 -y 650 -defaultsOSRD
+preplace inst audio_fetcher_0 -pg 1 -lvl 3 -x 890 -y 380 -swap {0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 40 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 20 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 93 94 84 86 87 85 88 89 91 92 83 90} -defaultsOSRD
+preplace inst axi_mem_intercon -pg 1 -lvl 4 -x 1250 -y 120 -swap {0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 88 91 87 89 86 90} -defaultsOSRD
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 6 30 590 370 250 690 520 1100 780 1400 570 1850
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 6 20 580 NJ 580 NJ 580 NJ 580 1390J 560 1840
+preplace netloc rst_ps7_0_200M_peripheral_aresetn 1 1 4 380 570 680 530 1110 790 1390
+preplace netloc zed_audio_ctrl_0_BCLK 1 5 1 1850J 770n
+preplace netloc zed_audio_ctrl_0_LRCLK 1 5 1 NJ 800
+preplace netloc zed_audio_ctrl_0_SDATA_O 1 5 1 1840J 820n
+preplace netloc processing_system7_0_FCLK_CLK1 1 5 1 NJ 400
+preplace netloc ps7_0_axi_periph_M00_AXI 1 2 3 660 770 NJ 770 NJ
+preplace netloc axi_gpio_0_GPIO 1 5 1 NJ 650
+preplace netloc ps7_0_axi_periph_M01_AXI 1 2 3 670 630 NJ 630 NJ
+preplace netloc processing_system7_0_IIC_0 1 5 1 1850J 360n
+preplace netloc processing_system7_0_M_AXI_GP0 1 1 5 380 240 NJ 240 NJ 240 NJ 240 1850
+preplace netloc processing_system7_0_FIXED_IO 1 5 1 NJ 340
+preplace netloc processing_system7_0_DDR 1 5 1 1850J 310n
+preplace netloc audio_fetcher_0_M_AXI_DMA 1 3 1 1090 60n
+preplace netloc axi_mem_intercon_M00_AXI 1 4 1 1400 120n
+preplace netloc ps7_0_axi_periph_M02_AXI 1 2 1 660 300n
+levelinfo -pg 1 0 200 520 890 1250 1620 1870
+pagesize -pg 1 -db -bbox -sgen 0 0 1990 890
 "
 }
 {
-   "da_axi4_cnt":"3",
+   "da_axi4_cnt":"5",
    "da_ps7_cnt":"1"
 }

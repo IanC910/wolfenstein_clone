@@ -6,6 +6,7 @@
 #include "xtime_l.h"
 #include "xil_io.h"
 #include "xil_types.h"
+#include "xil_cache.h"
 
 #include "audio.h"
 
@@ -102,8 +103,30 @@ void gunshotFileTest() {
 	}
 }
 
+void dmaTest() {
+	Xil_DCacheDisable();
+
+	const int AUDIO_FETCHER_BASE_ADDR = XPAR_AUDIO_FETCHER_0_S_AXI_BASEADDR;
+	const char* GUNSHOT_FILE_POINTER = (char*)0x018D0000;
+
+	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 0, (int)GUNSHOT_FILE_POINTER);
+	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 4, 100);
+	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 8, 1);
+
+	while(true) {
+		Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 8, 1);
+		int reg0 = Xil_In32(AUDIO_FETCHER_BASE_ADDR + 0);
+		int reg1 = Xil_In32(AUDIO_FETCHER_BASE_ADDR + 4);
+		int reg2 = Xil_In32(AUDIO_FETCHER_BASE_ADDR + 8);
+		int reg3 = Xil_In32(AUDIO_FETCHER_BASE_ADDR + 12);
+		xil_printf("%d, %d, %d, %d, %d\n", *((int*)GUNSHOT_FILE_POINTER), reg0, reg1, reg2, reg3);
+		sleep(1);
+	}
+}
+
 int main() {
 //	sineTest();
-	gunshotFileTest();
+//	gunshotFileTest();
+	dmaTest();
 }
 

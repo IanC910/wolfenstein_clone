@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/Ian/Projects/school/ensc452/audio_hw/audio_hw.runs/audio_hw_platform_xbar_0_synth_1'
+HD_PWD='C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/audio_hw_platform_xbar_0_synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

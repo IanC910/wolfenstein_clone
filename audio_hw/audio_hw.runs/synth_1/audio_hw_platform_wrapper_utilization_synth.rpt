@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-| Date         : Sat Mar  2 23:36:33 2024
+| Date         : Mon Mar  4 02:03:20 2024
 | Host         : IC-VivoBook running 64-bit major release  (build 9200)
 | Command      : report_utilization -file audio_hw_platform_wrapper_utilization_synth.rpt -pb audio_hw_platform_wrapper_utilization_synth.pb
 | Design       : audio_hw_platform_wrapper
@@ -163,7 +163,10 @@ Table of Contents
 | audio_hw_platform_rst_ps7_0_200M_0       |    1 |
 | audio_hw_platform_processing_system7_0_0 |    1 |
 | audio_hw_platform_axi_gpio_0_0           |    1 |
+| audio_hw_platform_auto_us_0              |    1 |
+| audio_hw_platform_auto_pc_1              |    1 |
 | audio_hw_platform_auto_pc_0              |    1 |
+| audio_hw_platform_audio_fetcher_0_0      |    1 |
 +------------------------------------------+------+
 
 

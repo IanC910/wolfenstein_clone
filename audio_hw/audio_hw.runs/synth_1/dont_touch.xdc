@@ -9,6 +9,9 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_pl
 # IP: bd/audio_hw_platform/ip/audio_hw_platform_processing_system7_0_0/audio_hw_platform_processing_system7_0_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_processing_system7_0_0 || ORIG_REF_NAME==audio_hw_platform_processing_system7_0_0} -quiet] -quiet
 
+# IP: bd/audio_hw_platform/ip/audio_hw_platform_xbar_0/audio_hw_platform_xbar_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_xbar_0 || ORIG_REF_NAME==audio_hw_platform_xbar_0} -quiet] -quiet
+
 # IP: bd/audio_hw_platform/ip/audio_hw_platform_ps7_0_axi_periph_0/audio_hw_platform_ps7_0_axi_periph_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_ps7_0_axi_periph_0 || ORIG_REF_NAME==audio_hw_platform_ps7_0_axi_periph_0} -quiet] -quiet
 
@@ -18,13 +21,22 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_pl
 # IP: bd/audio_hw_platform/ip/audio_hw_platform_zed_audio_ctrl_0_1/audio_hw_platform_zed_audio_ctrl_0_1.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_zed_audio_ctrl_0_1 || ORIG_REF_NAME==audio_hw_platform_zed_audio_ctrl_0_1} -quiet] -quiet
 
-# IP: bd/audio_hw_platform/ip/audio_hw_platform_xbar_0/audio_hw_platform_xbar_0.xci
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_xbar_0 || ORIG_REF_NAME==audio_hw_platform_xbar_0} -quiet] -quiet
-
 # IP: bd/audio_hw_platform/ip/audio_hw_platform_axi_gpio_0_0/audio_hw_platform_axi_gpio_0_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_axi_gpio_0_0 || ORIG_REF_NAME==audio_hw_platform_axi_gpio_0_0} -quiet] -quiet
+
+# IP: bd/audio_hw_platform/ip/audio_hw_platform_axi_mem_intercon_0/audio_hw_platform_axi_mem_intercon_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_axi_mem_intercon_0 || ORIG_REF_NAME==audio_hw_platform_axi_mem_intercon_0} -quiet] -quiet
+
+# IP: bd/audio_hw_platform/ip/audio_hw_platform_audio_fetcher_0_0/audio_hw_platform_audio_fetcher_0_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_audio_fetcher_0_0 || ORIG_REF_NAME==audio_hw_platform_audio_fetcher_0_0} -quiet] -quiet
 
 # IP: bd/audio_hw_platform/ip/audio_hw_platform_auto_pc_0/audio_hw_platform_auto_pc_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_auto_pc_0 || ORIG_REF_NAME==audio_hw_platform_auto_pc_0} -quiet] -quiet
 
-# XDC: c:/Users/Ian/Projects/school/ensc452/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/audio_hw_platform_ooc.xdc
+# IP: bd/audio_hw_platform/ip/audio_hw_platform_auto_pc_1/audio_hw_platform_auto_pc_1.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_auto_pc_1 || ORIG_REF_NAME==audio_hw_platform_auto_pc_1} -quiet] -quiet
+
+# IP: bd/audio_hw_platform/ip/audio_hw_platform_auto_us_0/audio_hw_platform_auto_us_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_auto_us_0 || ORIG_REF_NAME==audio_hw_platform_auto_us_0} -quiet] -quiet
+
+# XDC: c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/audio_hw_platform_ooc.xdc

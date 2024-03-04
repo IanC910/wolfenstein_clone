@@ -1,4 +1,4 @@
-set_property SRC_FILE_INFO {cfile:C:/Users/Ian/Projects/school/ensc452/audio_hw/audio_hw.srcs/constrs_1/imports/ensc452/zedboard_master.xdc rfile:../../../audio_hw.srcs/constrs_1/imports/ensc452/zedboard_master.xdc id:1} [current_design]
+set_property SRC_FILE_INFO {cfile:C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.srcs/constrs_1/imports/ensc452/zedboard_master.xdc rfile:../../../audio_hw.srcs/constrs_1/imports/ensc452/zedboard_master.xdc id:1} [current_design]
 set_property src_info {type:XDC file:1 line:69 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN AB1 [get_ports {GPIO_tri_io[0]}];  # "AC-ADR0"
 set_property src_info {type:XDC file:1 line:70 export:INPUT save:INPUT read:READ} [current_design]

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7z020clg484-1" LaunchTime="1709451339">
+<GenRun Id="synth_1" LaunchPart="xc7z020clg484-1" LaunchTime="1709546511">
   <File Type="PA-TCL" Name="audio_hw_platform_wrapper.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="audio_hw_platform_wrapper_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="audio_hw_platform_wrapper_reports.tcl"/>
@@ -34,7 +34,7 @@
     <Filter Type="Constrs"/>
     <File Path="$PSRCDIR/constrs_1/imports/ensc452/zedboard_master.xdc">
       <FileInfo>
-        <Attr Name="ImportPath" Val="$PPRDIR/../zedboard_master.xdc"/>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../zedboard_master.xdc"/>
         <Attr Name="ImportTime" Val="1706484130"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -55,6 +55,7 @@
     <Step Id="synth_design"/>
   </Strategy>
   <BlockFileSet Type="BlockSrcs" Name="audio_hw_platform_zed_audio_ctrl_0_1"/>
+  <BlockFileSet Type="BlockSrcs" Name="audio_hw_platform_audio_fetcher_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="audio_hw_platform_axi_gpio_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="audio_hw_platform_processing_system7_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="audio_hw_platform_rst_ps7_0_200M_0"/>

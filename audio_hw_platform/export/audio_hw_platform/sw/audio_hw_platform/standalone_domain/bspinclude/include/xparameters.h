@@ -31,6 +31,17 @@
  
  
 /******************************************************************/
+/* Definitions for driver AUDIO_FETCHER */
+#define XPAR_AUDIO_FETCHER_NUM_INSTANCES 1
+
+/* Definitions for peripheral AUDIO_FETCHER_0 */
+#define XPAR_AUDIO_FETCHER_0_DEVICE_ID 0
+#define XPAR_AUDIO_FETCHER_0_S_AXI_BASEADDR 0x43C10000
+#define XPAR_AUDIO_FETCHER_0_S_AXI_HIGHADDR 0x43C1FFFF
+
+
+/******************************************************************/
+
 
 /* Definitions for peripheral PS7_DDR_0 */
 #define XPAR_PS7_DDR_0_S_AXI_BASEADDR 0x00100000
@@ -228,20 +239,20 @@
 /* Definitions for driver GPIO */
 #define XPAR_XGPIO_NUM_INSTANCES 1
 
-/* Definitions for peripheral AXI_GPIO_0 */
-#define XPAR_AXI_GPIO_0_BASEADDR 0x41200000
-#define XPAR_AXI_GPIO_0_HIGHADDR 0x4120FFFF
-#define XPAR_AXI_GPIO_0_DEVICE_ID 0
-#define XPAR_AXI_GPIO_0_INTERRUPT_PRESENT 0
-#define XPAR_AXI_GPIO_0_IS_DUAL 0
+/* Definitions for peripheral AXI_TO_I2C_0 */
+#define XPAR_AXI_TO_I2C_0_BASEADDR 0x41200000
+#define XPAR_AXI_TO_I2C_0_HIGHADDR 0x4120FFFF
+#define XPAR_AXI_TO_I2C_0_DEVICE_ID 0
+#define XPAR_AXI_TO_I2C_0_INTERRUPT_PRESENT 0
+#define XPAR_AXI_TO_I2C_0_IS_DUAL 0
 
 
 /******************************************************************/
 
-/* Canonical definitions for peripheral AXI_GPIO_0 */
+/* Canonical definitions for peripheral AXI_TO_I2C_0 */
 #define XPAR_GPIO_0_BASEADDR 0x41200000
 #define XPAR_GPIO_0_HIGHADDR 0x4120FFFF
-#define XPAR_GPIO_0_DEVICE_ID XPAR_AXI_GPIO_0_DEVICE_ID
+#define XPAR_GPIO_0_DEVICE_ID XPAR_AXI_TO_I2C_0_DEVICE_ID
 #define XPAR_GPIO_0_INTERRUPT_PRESENT 0
 #define XPAR_GPIO_0_IS_DUAL 0
 
