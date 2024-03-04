@@ -109,26 +109,26 @@
 # ----------------------------------------------------------------------------
 # JC Pmod - Bank 13
 # ---------------------------------------------------------------------------- 
-#set_property PACKAGE_PIN AB6 [get_ports {JC1_N}];  # "JC1_N"
-#set_property PACKAGE_PIN AB7 [get_ports {JC1_P}];  # "JC1_P"
-#set_property PACKAGE_PIN AA4 [get_ports {JC2_N}];  # "JC2_N"
-#set_property PACKAGE_PIN Y4  [get_ports {JC2_P}];  # "JC2_P"
-#set_property PACKAGE_PIN T6  [get_ports {JC3_N}];  # "JC3_N"
-#set_property PACKAGE_PIN R6  [get_ports {JC3_P}];  # "JC3_P"
-#set_property PACKAGE_PIN U4  [get_ports {JC4_N}];  # "JC4_N"
-#set_property PACKAGE_PIN T4  [get_ports {JC4_P}];  # "JC4_P"
+set_property PACKAGE_PIN AB6 [get_ports {JC_pin2_io}];  # "JC1_N"
+set_property PACKAGE_PIN AB7 [get_ports {JC_pin1_io}];  # "JC1_P"
+set_property PACKAGE_PIN AA4 [get_ports {JC_pin4_io}];  # "JC2_N"
+set_property PACKAGE_PIN Y4  [get_ports {JC_pin3_io}];  # "JC2_P"
+set_property PACKAGE_PIN T6  [get_ports {JC_pin7_io}];  # "JC3_N"
+set_property PACKAGE_PIN R6  [get_ports {JC_pin8_io}];  # "JC3_P"
+set_property PACKAGE_PIN U4  [get_ports {JC_pin9_io}];  # "JC4_N"
+set_property PACKAGE_PIN T4  [get_ports {JC_pin10_io}];  # "JC4_P"
 
 # ----------------------------------------------------------------------------
 # JD Pmod - Bank 13
 # ---------------------------------------------------------------------------- 
-#set_property PACKAGE_PIN W7 [get_ports {JD1_N}];  # "JD1_N"
-#set_property PACKAGE_PIN V7 [get_ports {JD1_P}];  # "JD1_P"
-#set_property PACKAGE_PIN V4 [get_ports {JD2_N}];  # "JD2_N"
-#set_property PACKAGE_PIN V5 [get_ports {JD2_P}];  # "JD2_P"
-#set_property PACKAGE_PIN W5 [get_ports {JD3_N}];  # "JD3_N"
-#set_property PACKAGE_PIN W6 [get_ports {JD3_P}];  # "JD3_P"
-#set_property PACKAGE_PIN U5 [get_ports {JD4_N}];  # "JD4_N"
-#set_property PACKAGE_PIN U6 [get_ports {JD4_P}];  # "JD4_P"
+set_property PACKAGE_PIN W7 [get_ports {JD_pin2_io}];  # "JD1_N"
+set_property PACKAGE_PIN V7 [get_ports {JD_pin1_io}];  # "JD1_P"
+set_property PACKAGE_PIN V4 [get_ports {JD_pin4_io}];  # "JD2_N"
+set_property PACKAGE_PIN V5 [get_ports {JD_pin3_io}];  # "JD2_P"
+set_property PACKAGE_PIN W5 [get_ports {JD_pin7_io}];  # "JD3_N"
+set_property PACKAGE_PIN W6 [get_ports {JD_pin8_io}];  # "JD3_P"
+set_property PACKAGE_PIN U5 [get_ports {JD_pin9_io}];  # "JD4_N"
+set_property PACKAGE_PIN U6 [get_ports {JD_pin10_io}];  # "JD4_P"
 
 # ----------------------------------------------------------------------------
 # OLED Display - Bank 13
@@ -202,11 +202,11 @@ set_property PACKAGE_PIN Y19  [get_ports {VGA_VS}];  # "VGA-VS"
 # ----------------------------------------------------------------------------
 # User Push Buttons - Bank 34
 # ---------------------------------------------------------------------------- 
-#set_property PACKAGE_PIN P16 [get_ports {BTNC}];  # "BTNC"
-#set_property PACKAGE_PIN R16 [get_ports {BTND}];  # "BTND"
-#set_property PACKAGE_PIN N15 [get_ports {BTNL}];  # "BTNL"
-#set_property PACKAGE_PIN R18 [get_ports {BTNR}];  # "BTNR"
-#set_property PACKAGE_PIN T18 [get_ports {BTNU}];  # "BTNU"
+set_property PACKAGE_PIN P16 [get_ports {btns[0]}];  # "BTNC"
+set_property PACKAGE_PIN R16 [get_ports {btns[1]}];  # "BTND"
+set_property PACKAGE_PIN N15 [get_ports {btns[2]}];  # "BTNL"
+set_property PACKAGE_PIN R18 [get_ports {btns[3]}];  # "BTNR"
+set_property PACKAGE_PIN T18 [get_ports {btns[4]}];  # "BTNU" 
 
 # ----------------------------------------------------------------------------
 # USB OTG Reset - Bank 34

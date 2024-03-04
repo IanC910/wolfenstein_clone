@@ -21,4 +21,25 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==wolfenstein
 # IP: bd/wolfenstein_platform/ip/wolfenstein_platform_proc_sys_reset_0_1/wolfenstein_platform_proc_sys_reset_0_1.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==wolfenstein_platform_proc_sys_reset_0_1 || ORIG_REF_NAME==wolfenstein_platform_proc_sys_reset_0_1} -quiet] -quiet
 
-# XDC: c:/Users/Ian/Projects/school/ensc452/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/wolfenstein_platform_ooc.xdc
+# IP: bd/wolfenstein_platform/ip/wolfenstein_platform_xbar_0/wolfenstein_platform_xbar_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==wolfenstein_platform_xbar_0 || ORIG_REF_NAME==wolfenstein_platform_xbar_0} -quiet] -quiet
+
+# IP: bd/wolfenstein_platform/ip/wolfenstein_platform_auto_pc_0/wolfenstein_platform_auto_pc_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==wolfenstein_platform_auto_pc_0 || ORIG_REF_NAME==wolfenstein_platform_auto_pc_0} -quiet] -quiet
+
+# IP: bd/wolfenstein_platform/ip/wolfenstein_platform_ps7_0_axi_periph_0/wolfenstein_platform_ps7_0_axi_periph_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==wolfenstein_platform_ps7_0_axi_periph_0 || ORIG_REF_NAME==wolfenstein_platform_ps7_0_axi_periph_0} -quiet] -quiet
+
+# IP: bd/wolfenstein_platform/ip/wolfenstein_platform_axi_gpio_0_0/wolfenstein_platform_axi_gpio_0_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==wolfenstein_platform_axi_gpio_0_0 || ORIG_REF_NAME==wolfenstein_platform_axi_gpio_0_0} -quiet] -quiet
+
+# IP: bd/wolfenstein_platform/ip/wolfenstein_platform_debouncer_0_0/wolfenstein_platform_debouncer_0_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==wolfenstein_platform_debouncer_0_0 || ORIG_REF_NAME==wolfenstein_platform_debouncer_0_0} -quiet] -quiet
+
+# IP: bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/wolfenstein_platform_PmodJSTK2_0_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==wolfenstein_platform_PmodJSTK2_0_0 || ORIG_REF_NAME==wolfenstein_platform_PmodJSTK2_0_0} -quiet] -quiet
+
+# IP: bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/wolfenstein_platform_PmodJSTK2_1_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==wolfenstein_platform_PmodJSTK2_1_0 || ORIG_REF_NAME==wolfenstein_platform_PmodJSTK2_1_0} -quiet] -quiet
+
+# XDC: c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/wolfenstein_platform_ooc.xdc
