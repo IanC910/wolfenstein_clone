@@ -3,8 +3,8 @@
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
 // Date        : Mon Mar  4 13:45:41 2024
 // Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_clk_wiz_0_0/wolfenstein_platform_clk_wiz_0_0_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix -prefix
+//               decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_ wolfenstein_platform_clk_wiz_0_0_sim_netlist.v
 // Design      : wolfenstein_platform_clk_wiz_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -13,7 +13,7 @@
 `timescale 1 ps / 1 ps
 
 (* NotValidForBitStream *)
-module wolfenstein_platform_clk_wiz_0_0
+module decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix
    (pixel_clk,
     resetn,
     locked,
@@ -28,15 +28,14 @@ module wolfenstein_platform_clk_wiz_0_0
   wire pixel_clk;
   wire resetn;
 
-  wolfenstein_platform_clk_wiz_0_0_wolfenstein_platform_clk_wiz_0_0_clk_wiz inst
+  decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_wolfenstein_platform_clk_wiz_0_0_clk_wiz inst
        (.clk_in1(clk_in1),
         .locked(locked),
         .pixel_clk(pixel_clk),
         .resetn(resetn));
 endmodule
 
-(* ORIG_REF_NAME = "wolfenstein_platform_clk_wiz_0_0_clk_wiz" *) 
-module wolfenstein_platform_clk_wiz_0_0_wolfenstein_platform_clk_wiz_0_0_clk_wiz
+module decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_wolfenstein_platform_clk_wiz_0_0_clk_wiz
    (pixel_clk,
     resetn,
     locked,

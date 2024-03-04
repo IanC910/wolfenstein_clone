@@ -1,10 +1,10 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-// Date        : Thu Feb 22 18:33:54 2024
-// Host        : IC-VivoBook running 64-bit major release  (build 9200)
+// Date        : Mon Mar  4 14:21:55 2024
+// Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
-//               c:/Users/Ian/Projects/school/ensc452/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_processing_system7_0_0/wolfenstein_platform_processing_system7_0_0_sim_netlist.v
+//               c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_processing_system7_0_0/wolfenstein_platform_processing_system7_0_0_sim_netlist.v
 // Design      : wolfenstein_platform_processing_system7_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -106,6 +106,7 @@ module wolfenstein_platform_processing_system7_0_0
     S_AXI_HP0_WDATA,
     S_AXI_HP0_WSTRB,
     FCLK_CLK0,
+    FCLK_CLK1,
     FCLK_RESET0_N,
     MIO,
     DDR_CAS_n,
@@ -219,6 +220,7 @@ module wolfenstein_platform_processing_system7_0_0
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_HP0 WDATA" *) input [63:0]S_AXI_HP0_WDATA;
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI_HP0 WSTRB" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S_AXI_HP0, NUM_WRITE_OUTSTANDING 8, NUM_READ_OUTSTANDING 8, DATA_WIDTH 64, PROTOCOL AXI3, FREQ_HZ 200000000, ID_WIDTH 6, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 1, MAX_BURST_LENGTH 16, PHASE 0.000, CLK_DOMAIN wolfenstein_platform_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input [7:0]S_AXI_HP0_WSTRB;
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 FCLK_CLK0 CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME FCLK_CLK0, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN wolfenstein_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) output FCLK_CLK0;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 FCLK_CLK1 CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME FCLK_CLK1, FREQ_HZ 15873016, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN wolfenstein_platform_processing_system7_0_0_FCLK_CLK1, INSERT_VIP 0" *) output FCLK_CLK1;
   (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 FCLK_RESET0_N RST" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME FCLK_RESET0_N, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) output FCLK_RESET0_N;
   (* X_INTERFACE_INFO = "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO MIO" *) inout [53:0]MIO;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR CAS_N" *) inout DDR_CAS_n;
@@ -262,6 +264,7 @@ module wolfenstein_platform_processing_system7_0_0
   wire DDR_VRP;
   wire DDR_WEB;
   wire FCLK_CLK0;
+  wire FCLK_CLK1;
   wire FCLK_RESET0_N;
   wire [53:0]MIO;
   wire M_AXI_GP0_ACLK;
@@ -402,7 +405,6 @@ module wolfenstein_platform_processing_system7_0_0
   wire NLW_inst_ENET1_SOF_RX_UNCONNECTED;
   wire NLW_inst_ENET1_SOF_TX_UNCONNECTED;
   wire NLW_inst_EVENT_EVENTO_UNCONNECTED;
-  wire NLW_inst_FCLK_CLK1_UNCONNECTED;
   wire NLW_inst_FCLK_CLK2_UNCONNECTED;
   wire NLW_inst_FCLK_CLK3_UNCONNECTED;
   wire NLW_inst_FCLK_RESET1_N_UNCONNECTED;
@@ -825,7 +827,7 @@ module wolfenstein_platform_processing_system7_0_0
         .EVENT_STANDBYWFE(NLW_inst_EVENT_STANDBYWFE_UNCONNECTED[1:0]),
         .EVENT_STANDBYWFI(NLW_inst_EVENT_STANDBYWFI_UNCONNECTED[1:0]),
         .FCLK_CLK0(FCLK_CLK0),
-        .FCLK_CLK1(NLW_inst_FCLK_CLK1_UNCONNECTED),
+        .FCLK_CLK1(FCLK_CLK1),
         .FCLK_CLK2(NLW_inst_FCLK_CLK2_UNCONNECTED),
         .FCLK_CLK3(NLW_inst_FCLK_CLK3_UNCONNECTED),
         .FCLK_CLKTRIG0_N(1'b0),
@@ -2808,6 +2810,7 @@ module wolfenstein_platform_processing_system7_0_0_processing_system7_v5_5_proce
   wire ENET0_MDIO_T_n;
   wire ENET1_MDIO_T_n;
   wire FCLK_CLK0;
+  wire FCLK_CLK1;
   wire [0:0]FCLK_CLK_unbuffered;
   wire FCLK_RESET0_N;
   wire I2C0_SCL_T_n;
@@ -3608,7 +3611,6 @@ module wolfenstein_platform_processing_system7_0_0_processing_system7_v5_5_proce
   wire PS7_i_n_700;
   wire PS7_i_n_705;
   wire PS7_i_n_706;
-  wire PS7_i_n_707;
   wire PS7_i_n_709;
   wire PS7_i_n_71;
   wire PS7_i_n_710;
@@ -3999,7 +4001,6 @@ module wolfenstein_platform_processing_system7_0_0_processing_system7_v5_5_proce
   assign EVENT_STANDBYWFE[0] = \<const0> ;
   assign EVENT_STANDBYWFI[1] = \<const0> ;
   assign EVENT_STANDBYWFI[0] = \<const0> ;
-  assign FCLK_CLK1 = \<const0> ;
   assign FCLK_CLK2 = \<const0> ;
   assign FCLK_CLK3 = \<const0> ;
   assign FCLK_RESET1_N = \<const0> ;
@@ -5267,7 +5268,7 @@ module wolfenstein_platform_processing_system7_0_0_processing_system7_v5_5_proce
         .EVENTEVENTO(PS7_i_n_88),
         .EVENTSTANDBYWFE({PS7_i_n_236,PS7_i_n_237}),
         .EVENTSTANDBYWFI({PS7_i_n_238,PS7_i_n_239}),
-        .FCLKCLK({PS7_i_n_705,PS7_i_n_706,PS7_i_n_707,FCLK_CLK_unbuffered}),
+        .FCLKCLK({PS7_i_n_705,PS7_i_n_706,FCLK_CLK1,FCLK_CLK_unbuffered}),
         .FCLKCLKTRIGN({1'b0,1'b0,1'b0,1'b0}),
         .FCLKRESETN({PS7_i_n_709,PS7_i_n_710,PS7_i_n_711,FCLK_RESET0_N}),
         .FPGAIDLEN(1'b0),
