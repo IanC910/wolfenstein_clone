@@ -32,6 +32,7 @@ end
 
 downsampledAudio = downsample(shortenedAudioData, downSampleFactor);
 newSampleRateHz = sampleRateHz / downSampleFactor;
+newSamplePeriodUs = 1 / newSampleRateHz * 1000000;
 
 % figure;
 % plot ((1:1:length(downsampledAudio)) / newSampleRateHz, downsampledAudio)
@@ -52,8 +53,8 @@ fclose(outFileId);
 outFileId = fopen('processed_audio.audioData', 'a');
 
 fwrite(outFileId, length(intAudio), "integer*4");
-fwrite(outFileId, bytesPerSample, "integer*4");
-fwrite(outFileId, newSampleRateHz, "integer*4");
+fwrite(outFileId, cast(bytesPerSample, "int32"), "integer*4");
+fwrite(outFileId, newSamplePeriodUs, "integer*4");
 fwrite(outFileId, intAudio, "integer*" + bytesPerSample);
 
 fclose(outFileId);
