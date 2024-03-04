@@ -4,22 +4,21 @@ use ieee.numeric_std.all;
 
 entity audio_fetcher_v1_0 is
     generic (
+        AXI_DATA_WIDTH  : integer := 32;
+
         -- Parameters of Axi Slave Bus Interface S_AXI
-        C_S_AXI_DATA_WIDTH	: integer	:= 32;
         C_S_AXI_ADDR_WIDTH	: integer	:= 4;
 
         -- Parameters of Axi Master Bus Interface M_AXI_AUDIO_OUT
         C_M_AXI_AUDIO_OUT_START_DATA_VALUE	: std_logic_vector	:= x"00000000";
         C_M_AXI_AUDIO_OUT_TARGET_SLAVE_BASE_ADDR	: std_logic_vector	:= x"00000000";
         C_M_AXI_AUDIO_OUT_ADDR_WIDTH	: integer	:= 32;
-        C_M_AXI_AUDIO_OUT_DATA_WIDTH	: integer	:= 32;
         C_M_AXI_AUDIO_OUT_TRANSACTIONS_NUM	: integer	:= 4;
 
         -- Parameters of Axi Master Bus Interface M_AXI_DMA
         C_M_AXI_DMA_BURST_LEN	    : integer	:= 1;
         C_M_AXI_DMA_ID_WIDTH	    : integer	:= 2;
         C_M_AXI_DMA_ADDR_WIDTH	    : integer	:= 32;
-        C_M_AXI_DMA_DATA_WIDTH	    : integer	:= 32;
         C_M_AXI_DMA_AWUSER_WIDTH	: integer	:= 0;
         C_M_AXI_DMA_ARUSER_WIDTH	: integer	:= 0;
         C_M_AXI_DMA_WUSER_WIDTH	    : integer	:= 0;
@@ -34,8 +33,8 @@ entity audio_fetcher_v1_0 is
         s_axi_awprot	: in std_logic_vector(2 downto 0);
         s_axi_awvalid	: in std_logic;
         s_axi_awready	: out std_logic;
-        s_axi_wdata	    : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-        s_axi_wstrb	    : in std_logic_vector(C_S_AXI_DATA_WIDTH / 8 - 1 downto 0);
+        s_axi_wdata	    : in std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
+        s_axi_wstrb	    : in std_logic_vector(AXI_DATA_WIDTH / 8 - 1 downto 0);
         s_axi_wvalid	: in std_logic;
         s_axi_wready	: out std_logic;
         s_axi_bresp	    : out std_logic_vector(1 downto 0);
@@ -45,7 +44,7 @@ entity audio_fetcher_v1_0 is
         s_axi_arprot	: in std_logic_vector(2 downto 0);
         s_axi_arvalid	: in std_logic;
         s_axi_arready	: out std_logic;
-        s_axi_rdata	    : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+        s_axi_rdata	    : out std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
         s_axi_rresp	    : out std_logic_vector(1 downto 0);
         s_axi_rvalid	: out std_logic;
         s_axi_rready	: in std_logic;
@@ -60,8 +59,8 @@ entity audio_fetcher_v1_0 is
         m_axi_audio_out_awprot	        : out std_logic_vector(2 downto 0);
         m_axi_audio_out_awvalid	        : out std_logic;
         m_axi_audio_out_awready	        : in std_logic;
-        m_axi_audio_out_wdata	        : out std_logic_vector(C_M_AXI_AUDIO_OUT_DATA_WIDTH - 1 downto 0);
-        m_axi_audio_out_wstrb	        : out std_logic_vector(C_M_AXI_AUDIO_OUT_DATA_WIDTH / 8 - 1 downto 0);
+        m_axi_audio_out_wdata	        : out std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
+        m_axi_audio_out_wstrb	        : out std_logic_vector(AXI_DATA_WIDTH / 8 - 1 downto 0);
         m_axi_audio_out_wvalid	        : out std_logic;
         m_axi_audio_out_wready	        : in std_logic;
         m_axi_audio_out_bresp	        : in std_logic_vector(1 downto 0);
@@ -71,7 +70,7 @@ entity audio_fetcher_v1_0 is
         m_axi_audio_out_arprot	        : out std_logic_vector(2 downto 0);
         m_axi_audio_out_arvalid	        : out std_logic;
         m_axi_audio_out_arready	        : in std_logic;
-        m_axi_audio_out_rdata	        : in std_logic_vector(C_M_AXI_AUDIO_OUT_DATA_WIDTH - 1 downto 0);
+        m_axi_audio_out_rdata	        : in std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
         m_axi_audio_out_rresp	        : in std_logic_vector(1 downto 0);
         m_axi_audio_out_rvalid	        : in std_logic;
         m_axi_audio_out_rready	        : out std_logic;
@@ -91,8 +90,8 @@ entity audio_fetcher_v1_0 is
         m_axi_dma_awuser	    : out std_logic_vector(C_M_AXI_DMA_AWUSER_WIDTH - 1 downto 0);
         m_axi_dma_awvalid	    : out std_logic;
         m_axi_dma_awready	    : in std_logic;
-        m_axi_dma_wdata	        : out std_logic_vector(C_M_AXI_DMA_DATA_WIDTH - 1 downto 0);
-        m_axi_dma_wstrb	        : out std_logic_vector(C_M_AXI_DMA_DATA_WIDTH / 8 - 1 downto 0);
+        m_axi_dma_wdata	        : out std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
+        m_axi_dma_wstrb	        : out std_logic_vector(AXI_DATA_WIDTH / 8 - 1 downto 0);
         m_axi_dma_wlast	        : out std_logic;
         m_axi_dma_wuser	        : out std_logic_vector(C_M_AXI_DMA_WUSER_WIDTH - 1 downto 0);
         m_axi_dma_wvalid	    : out std_logic;
@@ -115,7 +114,7 @@ entity audio_fetcher_v1_0 is
         m_axi_dma_arvalid	    : out std_logic;
         m_axi_dma_arready	    : in std_logic;
         m_axi_dma_rid	        : in std_logic_vector(C_M_AXI_DMA_ID_WIDTH - 1 downto 0);
-        m_axi_dma_rdata	        : in std_logic_vector(C_M_AXI_DMA_DATA_WIDTH - 1 downto 0);
+        m_axi_dma_rdata	        : in std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
         m_axi_dma_rresp	        : in std_logic_vector(1 downto 0);
         m_axi_dma_rlast	        : in std_logic;
         m_axi_dma_ruser	        : in std_logic_vector(C_M_AXI_DMA_RUSER_WIDTH - 1 downto 0);
@@ -275,31 +274,102 @@ architecture arch_imp of audio_fetcher_v1_0 is
         );
     end component;
 
-    signal ready            : std_logic;
-    signal valid            : std_logic;
-    signal sound_file_addr  : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-    signal volume_coef      : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+    component fetcher_controller is
+        generic(
+            AXI_DATA_WIDTH                  : integer := 32;
+            C_M_AXI_DMA_ADDR_WIDTH          : integer := 32;
+            C_M_AXI_DMA_ID_WIDTH            : integer := 1;
+            C_M_AXI_AUDIO_OUT_ADDR_WIDTH    : integer := 4
+        );
+        port(
+            s_rv_ready          : out   std_logic;
+            s_rv_valid          : in    std_logic;
+            s_rv_sound_addr     : in    std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
+            s_rv_vol_coef       : in    std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
+
+            req_rv_ready        : in    std_logic;
+            req_rv_valid        : out   std_logic;
+            req_rv_addr         : out   std_logic_vector(C_M_AXI_DMA_ADDR_WIDTH - 1 downto 0);
+            req_rv_id           : out   std_logic_vector(C_M_AXI_DMA_ID_WIDTH - 1 downto 0);
+
+            return_rv_ready     : out   std_logic;
+            return_rv_valid     : in    std_logic;
+            return_rv_data      : in    std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
+            return_rv_id        : in    std_logic_vector(C_M_AXI_DMA_ID_WIDTH - 1 downto 0);
+            return_rv_error     : in    std_logic;
+
+            out_rv_ready        : in    std_logic;
+            out_rv_valid        : out   std_logic;
+            out_rv_addr         : out   std_logic_vector(C_M_AXI_AUDIO_OUT_ADDR_WIDTH - 1 downto 0);
+            out_rv_data         : out   std_logic_vector(AXI_DATA_WIDTH - 1 downto 0)
+        );
+    end component;
+
+    signal s_rv_ready       : std_logic;
+    signal s_rv_valid       : std_logic;
+    signal s_rv_sound_addr  : std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
+    signal s_rv_vol_coef    : std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
+
+    signal req_rv_ready     : std_logic;
+    signal req_rv_valid     : std_logic;
+    signal req_rv_addr      : std_logic_vector(C_M_AXI_DMA_ADDR_WIDTH - 1 downto 0);
+    signal req_rv_id        : std_logic_vector(C_M_AXI_DMA_ID_WIDTH - 1 downto 0);
 
     signal return_rv_ready  : std_logic;
     signal return_rv_valid  : std_logic;
-    signal return_rv_data   : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+    signal return_rv_data   : std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
     signal return_rv_id     : std_logic_vector(C_M_AXI_DMA_ID_WIDTH - 1 downto 0);
     signal return_rv_error  : std_logic;
 
+    signal out_rv_ready     : std_logic;
+    signal out_rv_valid     : std_logic;
+    signal out_rv_addr      : std_logic_vector(C_M_AXI_AUDIO_OUT_ADDR_WIDTH - 1 downto 0);
+    signal out_rv_data      : std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
+    signal out_rv_error     : std_logic;
+
 begin
 
-    return_rv_ready <= return_rv_valid;
+    fetcher_controller_inst : fetcher_controller
+        generic map(
+            AXI_DATA_WIDTH                  => AXI_DATA_WIDTH,
+            C_M_AXI_DMA_ADDR_WIDTH          => C_M_AXI_DMA_ADDR_WIDTH,
+            C_M_AXI_DMA_ID_WIDTH            => C_M_AXI_DMA_ID_WIDTH,
+            C_M_AXI_AUDIO_OUT_ADDR_WIDTH    => C_M_AXI_AUDIO_OUT_ADDR_WIDTH
+        )
+        port map (
+            s_rv_ready          => s_rv_ready,
+            s_rv_valid          => s_rv_valid,
+            s_rv_sound_addr     => s_rv_sound_addr,
+            s_rv_vol_coef       => s_rv_vol_coef,
+
+            req_rv_ready        => req_rv_ready,
+            req_rv_valid        => req_rv_valid,
+            req_rv_addr         => req_rv_addr,
+            req_rv_id           => req_rv_id,
+
+            return_rv_ready     => return_rv_ready,
+            return_rv_valid     => return_rv_valid,
+            return_rv_data      => return_rv_data,
+            return_rv_id        => return_rv_id,
+            return_rv_error     => return_rv_error,
+
+            out_rv_ready        => out_rv_ready,
+            out_rv_valid        => out_rv_valid,
+            out_rv_addr         => out_rv_addr,
+            out_rv_data         => out_rv_data,
+            out_rv_error        => out_rv_error
+        );
 
     audio_fetcher_v1_0_S_AXI_inst : audio_fetcher_v1_0_S_AXI
         generic map (
-            C_S_AXI_DATA_WIDTH	=> C_S_AXI_DATA_WIDTH,
+            C_S_AXI_DATA_WIDTH	=> AXI_DATA_WIDTH,
             C_S_AXI_ADDR_WIDTH	=> C_S_AXI_ADDR_WIDTH
         )
         port map (
-            s_rv_ready      => ready,
-            s_rv_valid      => valid,
-            s_rv_sound_addr => sound_file_addr,
-            s_rv_vol_coef   => volume_coef,
+            s_rv_ready      => s_rv_ready,
+            s_rv_valid      => s_rv_valid,
+            s_rv_sound_addr => s_rv_sound_addr,
+            s_rv_vol_coef   => s_rv_vol_coef,
 
             debug_data      => return_rv_data,
 
@@ -328,11 +398,11 @@ begin
 
     audio_fetcher_v1_0_M_AXI_AUDIO_OUT_inst : audio_fetcher_v1_0_M_AXI_AUDIO_OUT
         generic map (
-            C_M_START_DATA_VALUE	=> C_M_AXI_AUDIO_OUT_START_DATA_VALUE,
+            C_M_START_DATA_VALUE	    => C_M_AXI_AUDIO_OUT_START_DATA_VALUE,
             C_M_TARGET_SLAVE_BASE_ADDR	=> C_M_AXI_AUDIO_OUT_TARGET_SLAVE_BASE_ADDR,
-            C_M_AXI_ADDR_WIDTH	=> C_M_AXI_AUDIO_OUT_ADDR_WIDTH,
-            C_M_AXI_DATA_WIDTH	=> C_M_AXI_AUDIO_OUT_DATA_WIDTH,
-            C_M_TRANSACTIONS_NUM	=> C_M_AXI_AUDIO_OUT_TRANSACTIONS_NUM
+            C_M_AXI_ADDR_WIDTH	        => C_M_AXI_AUDIO_OUT_ADDR_WIDTH,
+            C_M_AXI_DATA_WIDTH	        => AXI_DATA_WIDTH,
+            C_M_TRANSACTIONS_NUM	    => C_M_AXI_AUDIO_OUT_TRANSACTIONS_NUM
         )
         port map (
             INIT_AXI_TXN	=> m_axi_audio_out_init_axi_txn,
@@ -366,7 +436,7 @@ begin
             C_M_AXI_BURST_LEN	    => C_M_AXI_DMA_BURST_LEN,
             C_M_AXI_ID_WIDTH	    => C_M_AXI_DMA_ID_WIDTH,
             C_M_AXI_ADDR_WIDTH	    => C_M_AXI_DMA_ADDR_WIDTH,
-            C_M_AXI_DATA_WIDTH	    => C_M_AXI_DMA_DATA_WIDTH,
+            C_M_AXI_DATA_WIDTH	    => AXI_DATA_WIDTH,
             C_M_AXI_AWUSER_WIDTH	=> C_M_AXI_DMA_AWUSER_WIDTH,
             C_M_AXI_ARUSER_WIDTH	=> C_M_AXI_DMA_ARUSER_WIDTH,
             C_M_AXI_WUSER_WIDTH	    => C_M_AXI_DMA_WUSER_WIDTH,
@@ -374,10 +444,10 @@ begin
             C_M_AXI_BUSER_WIDTH	    => C_M_AXI_DMA_BUSER_WIDTH
         )
         port map (
-            req_rv_ready    => ready,
-            req_rv_valid    => valid,
-            req_rv_addr     => sound_file_addr,
-            req_rv_id       => (others => '1'),
+            req_rv_ready    => req_rv_ready,
+            req_rv_valid    => req_rv_valid,
+            req_rv_addr     => req_rv_addr,
+            req_rv_id       => req_rv_id,
 
             return_rv_ready => return_rv_ready,
             return_rv_valid => return_rv_valid,

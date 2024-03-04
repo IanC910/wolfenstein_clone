@@ -79,9 +79,6 @@ end entity;
 
 architecture implementation of audio_fetcher_v1_0_M_AXI_DMA is
 
-	-- function called clogb2 that returns an integer which has the
-	-- value of the ceiling of the log base 2
-
 	function clogb2 (bit_depth : integer) return integer is
 	 	variable depth  : integer := bit_depth;
 	 	variable count  : integer := 1;
@@ -118,8 +115,8 @@ architecture implementation of audio_fetcher_v1_0_M_AXI_DMA is
         RETURNING
     );
 
-    signal curr_state_ff : state;
-    signal next_state : state;
+    signal curr_state_ff    : state;
+    signal next_state       : state;
 
 begin
 	M_AXI_AWID	    <= (others => '0');
@@ -177,6 +174,7 @@ begin
         end if;
     end process;
 
+    -- Next State Logic
     process(
         curr_state_ff,
         req_rv_valid,
@@ -211,10 +209,10 @@ begin
         end case;
     end process;
 
-	-- Read RV Interface
+	-- Request RV Interface
     process(M_AXI_ACLK) begin
-        if (rising_edge (M_AXI_ACLK)) then
-            if (M_AXI_ARESETN = '0') then
+        if(rising_edge(M_AXI_ACLK)) then
+            if(M_AXI_ARESETN = '0') then
                 axi_araddr_ff   <= (others => '0');
                 axi_arid_ff     <= (others => '0');
             else
@@ -226,6 +224,7 @@ begin
         end if;
     end process;
 
+    -- Read and response Channel
     process(M_AXI_ACLK) begin
         if(rising_edge(M_AXI_ACLK)) then
             if(M_AXI_ARESETN = '0') then
