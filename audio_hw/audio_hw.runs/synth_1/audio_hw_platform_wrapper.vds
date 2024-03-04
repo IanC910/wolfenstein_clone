@@ -2,8 +2,8 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Mon Mar  4 02:02:37 2024
-# Process ID: 12872
+# Start of session at: Mon Mar  4 04:14:41 2024
+# Process ID: 4048
 # Current directory: C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1
 # Command line: vivado.exe -log audio_hw_platform_wrapper.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source audio_hw_platform_wrapper.tcl
 # Log file: C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/audio_hw_platform_wrapper.vds
@@ -23,9 +23,9 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020
 INFO: [Device 21-403] Loading part xc7z020clg484-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 9212
+INFO: [Synth 8-7075] Helper process launched with PID 7276
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1000.074 ; gain = 0.000
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 998.594 ; gain = 0.000
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_wrapper' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/hdl/audio_hw_platform_wrapper.vhd:47]
 INFO: [Synth 8-3491] module 'IOBUF' declared at 'C:/Xilinx/Vivado/2020.2/scripts/rt/data/unisim_comp.v:36242' bound to instance 'GPIO_tri_iobuf_0' of component 'IOBUF' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/hdl/audio_hw_platform_wrapper.vhd:109]
@@ -40,20 +40,20 @@ INFO: [Synth 8-3491] module 'IOBUF' declared at 'C:/Xilinx/Vivado/2020.2/scripts
 INFO: [Synth 8-3491] module 'IOBUF' declared at 'C:/Xilinx/Vivado/2020.2/scripts/rt/data/unisim_comp.v:36242' bound to instance 'IIC_0_sda_iobuf' of component 'IOBUF' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/hdl/audio_hw_platform_wrapper.vhd:130]
 INFO: [Synth 8-3491] module 'audio_hw_platform' declared at 'c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:2274' bound to instance 'audio_hw_platform_i' of component 'audio_hw_platform' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/hdl/audio_hw_platform_wrapper.vhd:137]
 INFO: [Synth 8-638] synthesizing module 'audio_hw_platform' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:2317]
-INFO: [Synth 8-3491] module 'audio_hw_platform_audio_fetcher_0_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_audio_fetcher_0_0_stub.vhdl:5' bound to instance 'audio_fetcher_0' of component 'audio_hw_platform_audio_fetcher_0_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:2882]
-INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_audio_fetcher_0_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_audio_fetcher_0_0_stub.vhdl:100]
+INFO: [Synth 8-3491] module 'audio_hw_platform_audio_fetcher_0_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_audio_fetcher_0_0_stub.vhdl:5' bound to instance 'audio_fetcher_0' of component 'audio_hw_platform_audio_fetcher_0_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:2882]
+INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_audio_fetcher_0_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_audio_fetcher_0_0_stub.vhdl:100]
 INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_axi_mem_intercon_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:1343]
 INFO: [Synth 8-638] synthesizing module 's00_couplers_imp_132HR9Q' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:410]
-INFO: [Synth 8-3491] module 'audio_hw_platform_auto_pc_1' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_auto_pc_1_stub.vhdl:5' bound to instance 'auto_pc' of component 'audio_hw_platform_auto_pc_1' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:772]
-INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_auto_pc_1' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_auto_pc_1_stub.vhdl:98]
-INFO: [Synth 8-3491] module 'audio_hw_platform_auto_us_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_auto_us_0_stub.vhdl:5' bound to instance 'auto_us' of component 'audio_hw_platform_auto_us_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:862]
-INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_auto_us_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_auto_us_0_stub.vhdl:83]
+INFO: [Synth 8-3491] module 'audio_hw_platform_auto_pc_1' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_auto_pc_1_stub.vhdl:5' bound to instance 'auto_pc' of component 'audio_hw_platform_auto_pc_1' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:772]
+INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_auto_pc_1' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_auto_pc_1_stub.vhdl:98]
+INFO: [Synth 8-3491] module 'audio_hw_platform_auto_us_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_auto_us_0_stub.vhdl:5' bound to instance 'auto_us' of component 'audio_hw_platform_auto_us_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:862]
+INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_auto_us_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_auto_us_0_stub.vhdl:83]
 INFO: [Synth 8-256] done synthesizing module 's00_couplers_imp_132HR9Q' (2#1) [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:410]
 INFO: [Synth 8-256] done synthesizing module 'audio_hw_platform_axi_mem_intercon_0' (3#1) [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:1343]
-INFO: [Synth 8-3491] module 'audio_hw_platform_axi_gpio_0_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_axi_gpio_0_0_stub.vhdl:5' bound to instance 'axi_to_i2c_0' of component 'audio_hw_platform_axi_gpio_0_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:3057]
-INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_axi_gpio_0_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_axi_gpio_0_0_stub.vhdl:33]
-INFO: [Synth 8-3491] module 'audio_hw_platform_processing_system7_0_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_processing_system7_0_0_stub.vhdl:5' bound to instance 'processing_system7_0' of component 'audio_hw_platform_processing_system7_0_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:3082]
-INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_processing_system7_0_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_processing_system7_0_0_stub.vhdl:131]
+INFO: [Synth 8-3491] module 'audio_hw_platform_axi_gpio_0_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_axi_gpio_0_0_stub.vhdl:5' bound to instance 'axi_to_i2c_0' of component 'audio_hw_platform_axi_gpio_0_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:3057]
+INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_axi_gpio_0_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_axi_gpio_0_0_stub.vhdl:33]
+INFO: [Synth 8-3491] module 'audio_hw_platform_processing_system7_0_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_processing_system7_0_0_stub.vhdl:5' bound to instance 'processing_system7_0' of component 'audio_hw_platform_processing_system7_0_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:3082]
+INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_processing_system7_0_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_processing_system7_0_0_stub.vhdl:131]
 INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_ps7_0_axi_periph_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:1693]
 INFO: [Synth 8-638] synthesizing module 'm00_couplers_imp_17CU3XM' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:57]
 INFO: [Synth 8-256] done synthesizing module 'm00_couplers_imp_17CU3XM' (4#1) [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:57]
@@ -62,31 +62,31 @@ INFO: [Synth 8-256] done synthesizing module 'm01_couplers_imp_1VDBYGB' (5#1) [c
 INFO: [Synth 8-638] synthesizing module 'm02_couplers_imp_I4T04O' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:263]
 INFO: [Synth 8-256] done synthesizing module 'm02_couplers_imp_I4T04O' (6#1) [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:263]
 INFO: [Synth 8-638] synthesizing module 's00_couplers_imp_ABQEL0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:1008]
-INFO: [Synth 8-3491] module 'audio_hw_platform_auto_pc_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_auto_pc_0_stub.vhdl:5' bound to instance 'auto_pc' of component 'audio_hw_platform_auto_pc_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:1191]
-INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_auto_pc_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_auto_pc_0_stub.vhdl:70]
+INFO: [Synth 8-3491] module 'audio_hw_platform_auto_pc_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_auto_pc_0_stub.vhdl:5' bound to instance 'auto_pc' of component 'audio_hw_platform_auto_pc_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:1191]
+INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_auto_pc_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_auto_pc_0_stub.vhdl:70]
 INFO: [Synth 8-256] done synthesizing module 's00_couplers_imp_ABQEL0' (7#1) [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:1008]
-INFO: [Synth 8-3491] module 'audio_hw_platform_xbar_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_xbar_0_stub.vhdl:5' bound to instance 'xbar' of component 'audio_hw_platform_xbar_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:2190]
-INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_xbar_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_xbar_0_stub.vhdl:51]
+INFO: [Synth 8-3491] module 'audio_hw_platform_xbar_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_xbar_0_stub.vhdl:5' bound to instance 'xbar' of component 'audio_hw_platform_xbar_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:2190]
+INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_xbar_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_xbar_0_stub.vhdl:51]
 INFO: [Synth 8-256] done synthesizing module 'audio_hw_platform_ps7_0_axi_periph_0' (8#1) [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:1693]
-INFO: [Synth 8-3491] module 'audio_hw_platform_rst_ps7_0_200M_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_rst_ps7_0_200M_0_stub.vhdl:5' bound to instance 'rst_ps7_0_200M' of component 'audio_hw_platform_rst_ps7_0_200M_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:3309]
-INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_rst_ps7_0_200M_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_rst_ps7_0_200M_0_stub.vhdl:21]
-INFO: [Synth 8-3491] module 'audio_hw_platform_zed_audio_ctrl_0_1' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_zed_audio_ctrl_0_1_stub.vhdl:5' bound to instance 'zed_audio_ctrl_0' of component 'audio_hw_platform_zed_audio_ctrl_0_1' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:3322]
-INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_zed_audio_ctrl_0_1' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-12872-IC-VivoBook/realtime/audio_hw_platform_zed_audio_ctrl_0_1_stub.vhdl:34]
+INFO: [Synth 8-3491] module 'audio_hw_platform_rst_ps7_0_200M_0' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_rst_ps7_0_200M_0_stub.vhdl:5' bound to instance 'rst_ps7_0_200M' of component 'audio_hw_platform_rst_ps7_0_200M_0' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:3309]
+INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_rst_ps7_0_200M_0' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_rst_ps7_0_200M_0_stub.vhdl:21]
+INFO: [Synth 8-3491] module 'audio_hw_platform_zed_audio_ctrl_0_1' declared at 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_zed_audio_ctrl_0_1_stub.vhdl:5' bound to instance 'zed_audio_ctrl_0' of component 'audio_hw_platform_zed_audio_ctrl_0_1' [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:3322]
+INFO: [Synth 8-638] synthesizing module 'audio_hw_platform_zed_audio_ctrl_0_1' [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/.Xil/Vivado-4048-IC-VivoBook/realtime/audio_hw_platform_zed_audio_ctrl_0_1_stub.vhdl:34]
 INFO: [Synth 8-256] done synthesizing module 'audio_hw_platform' (9#1) [c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/synth/audio_hw_platform.vhd:2317]
 INFO: [Synth 8-256] done synthesizing module 'audio_hw_platform_wrapper' (10#1) [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/hdl/audio_hw_platform_wrapper.vhd:47]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1000.074 ; gain = 0.000
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 998.594 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 1000.074 ; gain = 0.000
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 998.594 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 1000.074 ; gain = 0.000
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 998.594 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.042 . Memory (MB): peak = 1000.074 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.042 . Memory (MB): peak = 998.594 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 4 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -123,22 +123,22 @@ Parsing XDC File [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_h
 Finished Parsing XDC File [C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/dont_touch.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1000.074 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 998.594 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 4 instances were transformed.
   IOBUF => IOBUF (IBUF, OBUFT): 4 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1000.074 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 998.594 ; gain = 0.000
 WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'audio_hw_platform_i/axi_to_i2c_0' at clock pin 's_axi_aclk' is different from the actual clock period '5.000', this can lead to different synthesis results.
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1000.074 ; gain = 0.000
+Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 998.594 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z020clg484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1000.074 ; gain = 0.000
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 998.594 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
@@ -416,10 +416,10 @@ Applied set_property KEEP_HIERARCHY = SOFT for audio_hw_platform_i/axi_mem_inter
 Applied set_property KEEP_HIERARCHY = SOFT for audio_hw_platform_i/axi_mem_intercon. (constraint file  auto generated constraint).
 Applied set_property KEEP_HIERARCHY = SOFT for audio_hw_platform_i/audio_fetcher_0. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1000.074 ; gain = 0.000
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 998.594 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1000.074 ; gain = 0.000
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 998.594 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -441,25 +441,25 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 1000.074 ; gain = 0.000
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 998.594 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:23 ; elapsed = 00:00:24 . Memory (MB): peak = 1001.828 ; gain = 1.754
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:23 ; elapsed = 00:00:27 . Memory (MB): peak = 998.594 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:24 . Memory (MB): peak = 1002.422 ; gain = 2.348
+Finished Timing Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:28 . Memory (MB): peak = 998.594 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:23 ; elapsed = 00:00:25 . Memory (MB): peak = 1021.547 ; gain = 21.473
+Finished Technology Mapping : Time (s): cpu = 00:00:23 ; elapsed = 00:00:28 . Memory (MB): peak = 1010.090 ; gain = 11.496
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -477,37 +477,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 1028.297 ; gain = 28.223
+Finished IO Insertion : Time (s): cpu = 00:00:27 ; elapsed = 00:00:31 . Memory (MB): peak = 1015.168 ; gain = 16.574
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 1028.297 ; gain = 28.223
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:27 ; elapsed = 00:00:31 . Memory (MB): peak = 1015.168 ; gain = 16.574
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 1028.297 ; gain = 28.223
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:27 ; elapsed = 00:00:31 . Memory (MB): peak = 1015.168 ; gain = 16.574
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 1028.297 ; gain = 28.223
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:27 ; elapsed = 00:00:31 . Memory (MB): peak = 1015.168 ; gain = 16.574
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 1028.297 ; gain = 28.223
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:27 ; elapsed = 00:00:31 . Memory (MB): peak = 1015.168 ; gain = 16.574
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 1028.297 ; gain = 28.223
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:27 ; elapsed = 00:00:31 . Memory (MB): peak = 1015.168 ; gain = 16.574
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -545,18 +545,18 @@ Report Cell Usage:
 |11    |OBUF                                          |     4|
 +------+----------------------------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 1028.297 ; gain = 28.223
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:27 ; elapsed = 00:00:31 . Memory (MB): peak = 1015.168 ; gain = 16.574
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:17 ; elapsed = 00:00:26 . Memory (MB): peak = 1028.297 ; gain = 28.223
-Synthesis Optimization Complete : Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 1028.297 ; gain = 28.223
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:29 . Memory (MB): peak = 1015.168 ; gain = 16.574
+Synthesis Optimization Complete : Time (s): cpu = 00:00:27 ; elapsed = 00:00:32 . Memory (MB): peak = 1015.168 ; gain = 16.574
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.035 . Memory (MB): peak = 1028.297 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.042 . Memory (MB): peak = 1015.168 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 4 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1042.605 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1035.637 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 4 instances were transformed.
   IOBUF => IOBUF (IBUF, OBUFT): 4 instances
@@ -564,7 +564,7 @@ INFO: [Project 1-111] Unisim Transformation Summary:
 INFO: [Common 17-83] Releasing license: Synthesis
 64 Infos, 6 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:32 ; elapsed = 00:00:36 . Memory (MB): peak = 1042.605 ; gain = 42.531
+synth_design: Time (s): cpu = 00:00:32 ; elapsed = 00:00:39 . Memory (MB): peak = 1035.637 ; gain = 37.043
 INFO: [Common 17-1381] The checkpoint 'C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.runs/synth_1/audio_hw_platform_wrapper.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file audio_hw_platform_wrapper_utilization_synth.rpt -pb audio_hw_platform_wrapper_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Mon Mar  4 02:03:20 2024...
+INFO: [Common 17-206] Exiting Vivado at Mon Mar  4 04:15:26 2024...

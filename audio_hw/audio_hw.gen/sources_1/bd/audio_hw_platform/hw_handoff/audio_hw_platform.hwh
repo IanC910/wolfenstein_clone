@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Mar  4 02:01:47 2024" VIVADOVERSION="2020.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Mar  4 04:13:48 2024" VIVADOVERSION="2020.2">
 
   <SYSTEMINFO ARCH="zynq" BOARD="em.avnet.com:zed:part0:1.4" DEVICE="7z020" NAME="audio_hw_platform" PACKAGE="clg484" SPEEDGRADE="-1"/>
 
@@ -84,6 +84,21 @@
         <CONNECTION INSTANCE="processing_system7_0" PORT="PS_PORB"/>
       </CONNECTIONS>
     </PORT>
+    <PORT DIR="I" LEFT="1" NAME="GPIO_tri_i" RIGHT="0" SIGIS="undef" SIGNAME="axi_to_i2c_0_gpio_io_i">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="axi_to_i2c_0" PORT="gpio_io_i"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="1" NAME="GPIO_tri_o" RIGHT="0" SIGIS="undef" SIGNAME="axi_to_i2c_0_gpio_io_o">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="axi_to_i2c_0" PORT="gpio_io_o"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" LEFT="1" NAME="GPIO_tri_t" RIGHT="0" SIGIS="undef" SIGNAME="axi_to_i2c_0_gpio_io_t">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="axi_to_i2c_0" PORT="gpio_io_t"/>
+      </CONNECTIONS>
+    </PORT>
     <PORT DIR="IO" NAME="DDR_cas_n" SIGIS="undef" SIGNAME="processing_system7_0_DDR_CAS_n">
       <CONNECTIONS>
         <CONNECTION INSTANCE="processing_system7_0" PORT="DDR_CAS_n"/>
@@ -159,21 +174,6 @@
         <CONNECTION INSTANCE="processing_system7_0" PORT="DDR_DQS"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" LEFT="1" NAME="GPIO_tri_i" RIGHT="0" SIGIS="undef" SIGNAME="axi_to_i2c_0_gpio_io_i">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="axi_to_i2c_0" PORT="gpio_io_i"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" LEFT="1" NAME="GPIO_tri_o" RIGHT="0" SIGIS="undef" SIGNAME="axi_to_i2c_0_gpio_io_o">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="axi_to_i2c_0" PORT="gpio_io_o"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" LEFT="1" NAME="GPIO_tri_t" RIGHT="0" SIGIS="undef" SIGNAME="axi_to_i2c_0_gpio_io_t">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="axi_to_i2c_0" PORT="gpio_io_t"/>
-      </CONNECTIONS>
-    </PORT>
   </EXTERNALPORTS>
 
   <EXTERNALINTERFACES>
@@ -241,7 +241,7 @@
   </EXTERNALINTERFACES>
 
   <MODULES>
-    <MODULE COREREVISION="9" FULLNAME="/audio_fetcher_0" HWVERSION="1.0" INSTANCE="audio_fetcher_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="audio_fetcher" VLNV="xilinx.com:user:audio_fetcher:1.0">
+    <MODULE COREREVISION="10" FULLNAME="/audio_fetcher_0" HWVERSION="1.0" INSTANCE="audio_fetcher_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="audio_fetcher" VLNV="xilinx.com:user:audio_fetcher:1.0">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="S_AXI" NAME="S_AXI_reg" RANGE="4096" USAGE="register"/>
@@ -4096,101 +4096,6 @@
             <CONNECTION INSTANCE="rst_ps7_0_200M" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M02_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_awaddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_awaddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="2" NAME="M02_AXI_awprot" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_awprot">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_awprot"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M02_AXI_awvalid" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_awvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_awvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M02_AXI_awready" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_awready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_awready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M02_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_wdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_wdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="3" NAME="M02_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_wstrb">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_wstrb"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M02_AXI_wvalid" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_wvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_wvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M02_AXI_wready" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_wready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_wready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M02_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_bresp">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_bresp"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M02_AXI_bvalid" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_bvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_bvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M02_AXI_bready" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_bready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_bready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M02_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_araddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_araddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="2" NAME="M02_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_arprot">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_arprot"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M02_AXI_arvalid" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_arvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_arvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M02_AXI_arready" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_arready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_arready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="M02_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_rdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_rdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M02_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_rresp">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_rresp"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M02_AXI_rvalid" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_rvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_rvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M02_AXI_rready" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_rready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_rready"/>
-          </CONNECTIONS>
-        </PORT>
         <PORT DIR="I" LEFT="11" NAME="S00_AXI_awid" RIGHT="0" SIGIS="undef" SIGNAME="processing_system7_0_M_AXI_GP0_AWID">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_AWID"/>
@@ -4381,6 +4286,93 @@
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_RREADY"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_awaddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_AWADDR"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_awprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M00_AXI_awvalid" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_awvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_AWVALID"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_awready" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_awready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_AWREADY"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_WDATA"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="3" NAME="M00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_wstrb">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_WSTRB"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_wvalid" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_WVALID"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_wready" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_wready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_WREADY"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="1" NAME="M00_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_bresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_BRESP"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_bvalid" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_bvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_BVALID"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_bready" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_bready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_BREADY"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_araddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_ARADDR"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_arprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M00_AXI_arvalid" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_ARVALID"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_arready" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_arready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_ARREADY"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="M00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_rdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_RDATA"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="1" NAME="M00_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_rresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_RRESP"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_rvalid" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_RVALID"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_RREADY"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="O" LEFT="31" NAME="M01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_to_i2c_0_s_axi_awaddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_to_i2c_0" PORT="s_axi_awaddr"/>
@@ -4468,91 +4460,99 @@
             <CONNECTION INSTANCE="axi_to_i2c_0" PORT="s_axi_rready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_awaddr">
+        <PORT DIR="O" LEFT="31" NAME="M02_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_awaddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_AWADDR"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_awaddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M00_AXI_awprot" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M00_AXI_awvalid" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_awvalid">
+        <PORT DIR="O" LEFT="2" NAME="M02_AXI_awprot" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_awprot">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_AWVALID"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_awprot"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M00_AXI_awready" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_awready">
+        <PORT DIR="O" NAME="M02_AXI_awvalid" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_awvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_AWREADY"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_awvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_wdata">
+        <PORT DIR="I" NAME="M02_AXI_awready" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_awready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_WDATA"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_awready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="3" NAME="M00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_wstrb">
+        <PORT DIR="O" LEFT="31" NAME="M02_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_wdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_WSTRB"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_wdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M00_AXI_wvalid" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_wvalid">
+        <PORT DIR="O" LEFT="3" NAME="M02_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_wstrb">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_WVALID"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_wstrb"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M00_AXI_wready" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_wready">
+        <PORT DIR="O" NAME="M02_AXI_wvalid" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_wvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_WREADY"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_wvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M00_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_bresp">
+        <PORT DIR="I" NAME="M02_AXI_wready" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_wready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_BRESP"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_wready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M00_AXI_bvalid" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_bvalid">
+        <PORT DIR="I" LEFT="1" NAME="M02_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_bresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_BVALID"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_bresp"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M00_AXI_bready" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_bready">
+        <PORT DIR="I" NAME="M02_AXI_bvalid" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_bvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_BREADY"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_bvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_araddr">
+        <PORT DIR="O" NAME="M02_AXI_bready" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_bready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_ARADDR"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_bready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M00_AXI_arprot" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M00_AXI_arvalid" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_arvalid">
+        <PORT DIR="O" LEFT="31" NAME="M02_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_araddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_ARVALID"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_araddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M00_AXI_arready" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_arready">
+        <PORT DIR="O" LEFT="2" NAME="M02_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_arprot">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_ARREADY"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_arprot"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="31" NAME="M00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_rdata">
+        <PORT DIR="O" NAME="M02_AXI_arvalid" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_arvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_RDATA"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_arvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M00_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_rresp">
+        <PORT DIR="I" NAME="M02_AXI_arready" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_arready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_RRESP"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_arready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M00_AXI_rvalid" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_rvalid">
+        <PORT DIR="I" LEFT="31" NAME="M02_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_rdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_RVALID"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_rdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="ps7_0_axi_periph_M00_AXI_rready">
+        <PORT DIR="I" LEFT="1" NAME="M02_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_rresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="zed_audio_ctrl_0" PORT="S_AXI_RREADY"/>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_rresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M02_AXI_rvalid" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_rvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M02_AXI_rready" SIGIS="undef" SIGNAME="audio_fetcher_0_s_axi_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="audio_fetcher_0" PORT="s_axi_rready"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>

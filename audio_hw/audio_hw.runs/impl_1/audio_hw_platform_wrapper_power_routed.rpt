@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-| Date             : Mon Mar  4 02:05:13 2024
+| Date             : Mon Mar  4 04:17:22 2024
 | Host             : IC-VivoBook running 64-bit major release  (build 9200)
 | Command          : report_power -file audio_hw_platform_wrapper_power_routed.rpt -pb audio_hw_platform_wrapper_power_summary_routed.pb -rpx audio_hw_platform_wrapper_power_routed.rpx
 | Design           : audio_hw_platform_wrapper
@@ -53,14 +53,14 @@ Table of Contents
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
 | Clocks                   |     0.012 |        4 |       --- |             --- |
-| Slice Logic              |     0.004 |     3445 |       --- |             --- |
-|   LUT as Logic           |     0.003 |     1077 |     53200 |            2.02 |
+| Slice Logic              |     0.003 |     3445 |       --- |             --- |
+|   LUT as Logic           |     0.003 |     1069 |     53200 |            2.01 |
 |   Register               |    <0.001 |     1664 |    106400 |            1.56 |
 |   CARRY4                 |    <0.001 |       18 |     13300 |            0.14 |
 |   LUT as Shift Register  |    <0.001 |       77 |     17400 |            0.44 |
 |   Others                 |     0.000 |      275 |       --- |             --- |
 |   LUT as Distributed RAM |     0.000 |       10 |     17400 |            0.06 |
-| Signals                  |     0.006 |     2499 |       --- |             --- |
+| Signals                  |     0.005 |     2501 |       --- |             --- |
 | I/O                      |     0.006 |        8 |       200 |            4.00 |
 | PS7                      |     1.384 |        1 |       --- |             --- |
 | Static Power             |     0.141 |          |           |                 |
