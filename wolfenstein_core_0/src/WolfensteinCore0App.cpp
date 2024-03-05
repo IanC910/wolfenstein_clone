@@ -10,6 +10,9 @@
 #include "xtime_l.h"
 
 #include "Constants.h"
+#include "Gpio.h"
+
+#define MAX_SPEED 0.1
 
 WolfensteinCore0App::WolfensteinCore0App() {
 	Xil_DCacheDisable();
@@ -21,6 +24,8 @@ void WolfensteinCore0App::runCore0App() {
 	clearMem();
 
 	startCore1();
+
+	jstkInitialize();
 
 	this->currentLevel = getLevel(0);
 
@@ -101,9 +106,26 @@ void WolfensteinCore0App::startCore1() {
 }
 
 void WolfensteinCore0App::gameLogicPerFrame() {
-	// Sample logic for demo: slowly rotate player
+	jstkPosition1 = JSTK2_getPosition(&jstk1);
+	jstkPosition2 = JSTK2_getPosition(&jstk2);
 
-	player.setAngle(player.getAngle() + 0.01);
+	player.setPositionX(player.getPositionX() + cos(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED);
+	player.setPositionY(player.getPositionY() + sin(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED);
+
+	if(currentLevel->getBlockAtWorldCoord(player.getPositionX(), player.getPositionY()) == '#') {
+		player.setPositionX(player.getPositionX() - cos(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED);
+		player.setPositionY(player.getPositionY() - sin(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED);
+	}
+
+	player.setPositionX(player.getPositionX() + sin(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED);
+	player.setPositionY(player.getPositionY() - cos(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED);
+
+	if(currentLevel->getBlockAtWorldCoord(player.getPositionX(), player.getPositionY()) == '#') {
+		player.setPositionX(player.getPositionX() - sin(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED);
+		player.setPositionY(player.getPositionY() + cos(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED);
+	}
+
+	player.setAngle(player.getAngle() - mapJSTK(jstkPosition2.XData)*MAX_SPEED);
 }
 
 void WolfensteinCore0App::castRays() {
