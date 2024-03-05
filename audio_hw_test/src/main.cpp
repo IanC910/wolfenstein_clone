@@ -69,16 +69,15 @@ void gunshotFileTest() {
 	const char* GUNSHOT_FILE_POINTER = (char*)0x018D0000;
 	int numSamples 			= *(int*)(GUNSHOT_FILE_POINTER + 0);
 	int bytesPerSample 		= *(int*)(GUNSHOT_FILE_POINTER + 4);
-	int sampleRateHz 		= *(int*)(GUNSHOT_FILE_POINTER + 8);
+	int samplePeriodUs 		= *(int*)(GUNSHOT_FILE_POINTER + 8);
 
-	float samplePeriodS = 1.0 / (float)sampleRateHz;
-	u32 samplePeriodDoubleCycles = (int)(samplePeriodS * CPU_CLK_FREQ_Hz / 2);
+	u32 samplePeriodDoubleCycles = (int)(samplePeriodUs * CPU_CLK_FREQ_MHz / 2);
 
 	int16_t* dataPointer = (int16_t*)(GUNSHOT_FILE_POINTER + 12);
 
 	xil_printf("numSamples = %d\n", numSamples);
 	xil_printf("bytesPerSample = %d\n", bytesPerSample);
-	xil_printf("sampleRateHz = %d\n", sampleRateHz);
+	xil_printf("samplePeriodUs = %d\n", samplePeriodUs);
 	xil_printf("sample 0 = %d\n", dataPointer[0]);
 	xil_printf("sample 1 = %d\n", dataPointer[1]);
 
@@ -126,7 +125,7 @@ void dmaTest() {
 
 int main() {
 //	sineTest();
-//	gunshotFileTest();
-	dmaTest();
+	gunshotFileTest();
+//	dmaTest();
 }
 
