@@ -31,17 +31,6 @@
  
  
 /******************************************************************/
-/* Definitions for driver AUDIO_FETCHER */
-#define XPAR_AUDIO_FETCHER_NUM_INSTANCES 1
-
-/* Definitions for peripheral AUDIO_FETCHER_0 */
-#define XPAR_AUDIO_FETCHER_0_DEVICE_ID 0
-#define XPAR_AUDIO_FETCHER_0_S_AXI_BASEADDR 0x43C10000
-#define XPAR_AUDIO_FETCHER_0_S_AXI_HIGHADDR 0x43C1FFFF
-
-
-/******************************************************************/
-
 
 /* Definitions for peripheral PS7_DDR_0 */
 #define XPAR_PS7_DDR_0_S_AXI_BASEADDR 0x00100000
@@ -232,6 +221,11 @@
 /* Definitions for peripheral ZED_AUDIO_CTRL_0 */
 #define XPAR_ZED_AUDIO_CTRL_0_BASEADDR 0x43C00000
 #define XPAR_ZED_AUDIO_CTRL_0_HIGHADDR 0x43C0FFFF
+
+
+/* Definitions for peripheral AUDIO_FETCHER_V1_0_0 */
+#define XPAR_AUDIO_FETCHER_V1_0_0_BASEADDR 0x43C10000
+#define XPAR_AUDIO_FETCHER_V1_0_0_HIGHADDR 0x43C1007F
 
 
 /******************************************************************/

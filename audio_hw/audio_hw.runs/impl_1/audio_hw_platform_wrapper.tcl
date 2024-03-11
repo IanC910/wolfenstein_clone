@@ -132,10 +132,7 @@ OPTRACE "create in-memory project" END { }
 OPTRACE "set parameters" START { }
   set_property webtalk.parent_dir C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.cache/wt [current_project]
   set_property parent.project_path C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.xpr [current_project]
-  set_property ip_repo_paths {
-  C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/ip_repo/audio_fetcher_1.0
-  C:/Users/Ian/Projects/school/ensc452/ip_repo/zed_audio_ctrl
-} [current_project]
+  set_property ip_repo_paths C:/Users/Ian/Projects/school/ensc452/ip_repo/zed_audio_ctrl [current_project]
   update_ip_catalog
   set_property ip_output_repo C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]

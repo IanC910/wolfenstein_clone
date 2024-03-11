@@ -1,4 +1,4 @@
-set_property SRC_FILE_INFO {cfile:c:/Users/Ian/Projects/school/ensc452/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/ip/audio_hw_platform_processing_system7_0_0/audio_hw_platform_processing_system7_0_0.xdc rfile:../../../audio_hw.gen/sources_1/bd/audio_hw_platform/ip/audio_hw_platform_processing_system7_0_0/audio_hw_platform_processing_system7_0_0.xdc id:1 order:EARLY scoped_inst:inst} [current_design]
+set_property SRC_FILE_INFO {cfile:c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/ip/audio_hw_platform_processing_system7_0_0/audio_hw_platform_processing_system7_0_0.xdc rfile:../../../audio_hw.gen/sources_1/bd/audio_hw_platform/ip/audio_hw_platform_processing_system7_0_0/audio_hw_platform_processing_system7_0_0.xdc id:1 order:EARLY scoped_inst:inst} [current_design]
 current_instance inst
 set_property src_info {type:SCOPED_XDC file:1 line:21 export:INPUT save:INPUT read:READ} [current_design]
 set_input_jitter clk_fpga_1 3

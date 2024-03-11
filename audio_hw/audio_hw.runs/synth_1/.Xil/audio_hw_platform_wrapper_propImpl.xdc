@@ -15,6 +15,22 @@ set_property src_info {type:XDC file:1 line:76 export:INPUT save:INPUT read:READ
 set_property PACKAGE_PIN AB4 [get_ports {IIC_0_scl_io}];  # "AC-SCK"
 set_property src_info {type:XDC file:1 line:77 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN AB5 [get_ports {IIC_0_sda_io}];  # "AC-SDA"
+set_property src_info {type:XDC file:1 line:175 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN T22 [get_ports {leds[0]}];  # "LD0"
+set_property src_info {type:XDC file:1 line:176 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN T21 [get_ports {leds[1]}];  # "LD1"
+set_property src_info {type:XDC file:1 line:177 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN U22 [get_ports {leds[2]}];  # "LD2"
+set_property src_info {type:XDC file:1 line:178 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN U21 [get_ports {leds[3]}];  # "LD3"
+set_property src_info {type:XDC file:1 line:179 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN V22 [get_ports {leds[4]}];  # "LD4"
+set_property src_info {type:XDC file:1 line:180 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN W22 [get_ports {leds[5]}];  # "LD5"
+set_property src_info {type:XDC file:1 line:181 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN U19 [get_ports {leds[6]}];  # "LD6"
+set_property src_info {type:XDC file:1 line:182 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN U14 [get_ports {leds[7]}];  # "LD7"
 set_property src_info {type:XDC file:1 line:362 export:INPUT save:INPUT read:READ} [current_design]
 set_property IOSTANDARD LVCMOS33 [get_ports -of_objects [get_iobanks 33]];
 set_property src_info {type:XDC file:1 line:367 export:INPUT save:INPUT read:READ} [current_design]

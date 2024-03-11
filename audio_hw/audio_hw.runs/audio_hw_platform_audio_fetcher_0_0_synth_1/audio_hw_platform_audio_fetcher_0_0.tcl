@@ -84,15 +84,19 @@ set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
 set_property board_part em.avnet.com:zed:part0:1.4 [current_project]
-set_property ip_repo_paths {
-  c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/ip_repo/audio_fetcher_1.0
-  c:/Users/Ian/Projects/school/ensc452/ip_repo/zed_audio_ctrl
-} [current_project]
+set_property ip_repo_paths c:/Users/Ian/Projects/school/ensc452/ip_repo/zed_audio_ctrl [current_project]
 update_ip_catalog
 set_property ip_output_repo c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
+read_vhdl -library xil_defaultlib {
+  C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.srcs/sources_1/modules/audio_fetcher/audio_fetcher_M_AXI_AUDIO_OUT.vhd
+  C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.srcs/sources_1/modules/audio_fetcher/audio_fetcher_M_AXI_DMA.vhd
+  C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.srcs/sources_1/modules/audio_fetcher/audio_fetcher_S_AXI.vhd
+  C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.srcs/sources_1/modules/audio_fetcher/audio_fetcher_controller.vhd
+  C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.srcs/sources_1/modules/audio_fetcher/audio_fetcher.vhd
+}
 read_ip -quiet C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.srcs/sources_1/bd/audio_hw_platform/ip/audio_hw_platform_audio_fetcher_0_0/audio_hw_platform_audio_fetcher_0_0.xci
 
 OPTRACE "Adding files" END { }

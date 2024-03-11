@@ -27,6 +27,9 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_pl
 # IP: bd/audio_hw_platform/ip/audio_hw_platform_axi_mem_intercon_0/audio_hw_platform_axi_mem_intercon_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_axi_mem_intercon_0 || ORIG_REF_NAME==audio_hw_platform_axi_mem_intercon_0} -quiet] -quiet
 
+# IP: bd/audio_hw_platform/ip/audio_hw_platform_xlslice_0_0/audio_hw_platform_xlslice_0_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_xlslice_0_0 || ORIG_REF_NAME==audio_hw_platform_xlslice_0_0} -quiet] -quiet
+
 # IP: bd/audio_hw_platform/ip/audio_hw_platform_audio_fetcher_0_0/audio_hw_platform_audio_fetcher_0_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==audio_hw_platform_audio_fetcher_0_0 || ORIG_REF_NAME==audio_hw_platform_audio_fetcher_0_0} -quiet] -quiet
 

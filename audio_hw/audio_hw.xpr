@@ -36,7 +36,6 @@
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
-    <Option Name="IPRepoPath" Val="$PPRDIR/../ip_repo/audio_fetcher_1.0"/>
     <Option Name="IPRepoPath" Val="$PPRDIR/../../ip_repo/zed_audio_ctrl"/>
     <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
     <Option Name="IPDefaultOutputPath" Val="$PGENDIR/sources_1"/>
@@ -77,29 +76,56 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
       <Filter Type="Srcs"/>
+      <File Path="$PSRCDIR/sources_1/modules/audio_fetcher/audio_fetcher_M_AXI_AUDIO_OUT.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/modules/audio_fetcher/audio_fetcher_M_AXI_DMA.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/modules/audio_fetcher/audio_fetcher_S_AXI.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/modules/audio_fetcher/audio_fetcher_controller.vhd">
+        <FileInfo RelPath="audio_fetcher_controller.vhd">
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/modules/audio_fetcher/audio_fetcher.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PSRCDIR/sources_1/bd/audio_hw_platform/audio_hw_platform.bd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="audio_hw_platform.bd" FileRelPathName="ip/audio_hw_platform_xbar_0/audio_hw_platform_xbar_0.xci">
-          <Proxy FileSetName="audio_hw_platform_xbar_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="audio_hw_platform.bd" FileRelPathName="ip/audio_hw_platform_zed_audio_ctrl_0_1/audio_hw_platform_zed_audio_ctrl_0_1.xci">
-          <Proxy FileSetName="audio_hw_platform_zed_audio_ctrl_0_1"/>
+        <CompFileExtendedInfo CompFileName="audio_hw_platform.bd" FileRelPathName="ip/audio_hw_platform_processing_system7_0_0/audio_hw_platform_processing_system7_0_0.xci">
+          <Proxy FileSetName="audio_hw_platform_processing_system7_0_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="audio_hw_platform.bd" FileRelPathName="ip/audio_hw_platform_axi_gpio_0_0/audio_hw_platform_axi_gpio_0_0.xci">
           <Proxy FileSetName="audio_hw_platform_axi_gpio_0_0"/>
         </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="audio_hw_platform.bd" FileRelPathName="ip/audio_hw_platform_rst_ps7_0_200M_0/audio_hw_platform_rst_ps7_0_200M_0.xci">
+          <Proxy FileSetName="audio_hw_platform_rst_ps7_0_200M_0"/>
+        </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="audio_hw_platform.bd" FileRelPathName="ip/audio_hw_platform_audio_fetcher_0_0/audio_hw_platform_audio_fetcher_0_0.xci">
           <Proxy FileSetName="audio_hw_platform_audio_fetcher_0_0"/>
         </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="audio_hw_platform.bd" FileRelPathName="ip/audio_hw_platform_processing_system7_0_0/audio_hw_platform_processing_system7_0_0.xci">
-          <Proxy FileSetName="audio_hw_platform_processing_system7_0_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="audio_hw_platform.bd" FileRelPathName="ip/audio_hw_platform_rst_ps7_0_200M_0/audio_hw_platform_rst_ps7_0_200M_0.xci">
-          <Proxy FileSetName="audio_hw_platform_rst_ps7_0_200M_0"/>
+        <CompFileExtendedInfo CompFileName="audio_hw_platform.bd" FileRelPathName="ip/audio_hw_platform_zed_audio_ctrl_0_1/audio_hw_platform_zed_audio_ctrl_0_1.xci">
+          <Proxy FileSetName="audio_hw_platform_zed_audio_ctrl_0_1"/>
         </CompFileExtendedInfo>
       </File>
       <File Path="$PGENDIR/sources_1/bd/audio_hw_platform/hdl/audio_hw_platform_wrapper.vhd">
@@ -166,12 +192,6 @@
     <FileSet Name="audio_hw_platform_rst_ps7_0_200M_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/audio_hw_platform_rst_ps7_0_200M_0" RelGenDir="$PGENDIR/audio_hw_platform_rst_ps7_0_200M_0">
       <Config>
         <Option Name="TopModule" Val="audio_hw_platform_rst_ps7_0_200M_0"/>
-        <Option Name="UseBlackboxStub" Val="1"/>
-      </Config>
-    </FileSet>
-    <FileSet Name="audio_hw_platform_xbar_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/audio_hw_platform_xbar_0" RelGenDir="$PGENDIR/audio_hw_platform_xbar_0">
-      <Config>
-        <Option Name="TopModule" Val="audio_hw_platform_xbar_0"/>
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
@@ -247,16 +267,6 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="audio_hw_platform_xbar_0_synth_1" Type="Ft3:Synth" SrcSet="audio_hw_platform_xbar_0" Part="xc7z020clg484-1" ConstrsSet="audio_hw_platform_xbar_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/audio_hw_platform_xbar_0_synth_1" IncludeInArchive="true" AutoIncrementalDir="$PPRDIR/../../audio_hw/audio_hw.srcs/utils_1/imports/audio_hw_platform_xbar_0_synth_1">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2020"/>
-        <Step Id="synth_design"/>
-      </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2020"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
     <Run Id="audio_hw_platform_axi_gpio_0_0_synth_1" Type="Ft3:Synth" SrcSet="audio_hw_platform_axi_gpio_0_0" Part="xc7z020clg484-1" ConstrsSet="audio_hw_platform_axi_gpio_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/audio_hw_platform_axi_gpio_0_0_synth_1" IncludeInArchive="true" AutoIncrementalDir="$PPRDIR/../../audio_hw/audio_hw.srcs/utils_1/imports/audio_hw_platform_axi_gpio_0_0_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2020"/>
@@ -269,7 +279,9 @@
     </Run>
     <Run Id="audio_hw_platform_audio_fetcher_0_0_synth_1" Type="Ft3:Synth" SrcSet="audio_hw_platform_audio_fetcher_0_0" Part="xc7z020clg484-1" ConstrsSet="audio_hw_platform_audio_fetcher_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/audio_hw_platform_audio_fetcher_0_0_synth_1" IncludeInArchive="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/audio_hw_platform_audio_fetcher_0_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2020"/>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2020">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -346,23 +358,6 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="audio_hw_platform_xbar_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg484-1" ConstrsSet="audio_hw_platform_xbar_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="audio_hw_platform_xbar_0_synth_1" IncludeInArchive="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../audio_hw/audio_hw.srcs/utils_1/imports/audio_hw_platform_xbar_0_impl_1">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2020"/>
-        <Step Id="init_design"/>
-        <Step Id="opt_design"/>
-        <Step Id="power_opt_design"/>
-        <Step Id="place_design"/>
-        <Step Id="post_place_power_opt_design"/>
-        <Step Id="phys_opt_design"/>
-        <Step Id="route_design"/>
-        <Step Id="post_route_phys_opt_design"/>
-        <Step Id="write_bitstream"/>
-      </Strategy>
-      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2020"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
     <Run Id="audio_hw_platform_axi_gpio_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg484-1" ConstrsSet="audio_hw_platform_axi_gpio_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="audio_hw_platform_axi_gpio_0_0_synth_1" IncludeInArchive="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../audio_hw/audio_hw.srcs/utils_1/imports/audio_hw_platform_axi_gpio_0_0_impl_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2020"/>
@@ -382,7 +377,9 @@
     </Run>
     <Run Id="audio_hw_platform_audio_fetcher_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg484-1" ConstrsSet="audio_hw_platform_audio_fetcher_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="audio_hw_platform_audio_fetcher_0_0_synth_1" IncludeInArchive="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/audio_hw_platform_audio_fetcher_0_0_impl_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2020"/>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2020">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>

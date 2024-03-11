@@ -14,7 +14,6 @@ const int CPU_CLK_FREQ_Hz = XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ;
 const int CPU_CLK_FREQ_MHz = CPU_CLK_FREQ_Hz / 1000000;
 
 void configAudio() {
-	IicConfig(XPAR_XIICPS_0_DEVICE_ID);
 	AudioPllConfig();
 	AudioConfigureJacks();
 }
@@ -63,17 +62,17 @@ void sineTest() {
 	}
 }
 
-void gunshotFileTest() {
+void soundFileTest() {
 	configAudio();
 
-	const char* GUNSHOT_FILE_POINTER = (char*)0x018D0000;
-	int numSamples 			= *(int*)(GUNSHOT_FILE_POINTER + 0);
-	int bytesPerSample 		= *(int*)(GUNSHOT_FILE_POINTER + 4);
-	int samplePeriodUs 		= *(int*)(GUNSHOT_FILE_POINTER + 8);
+	const char* SOUND_FILE_POINTER = (char*)0x018D0000;
+	int numSamples 			= *(int*)(SOUND_FILE_POINTER + 0);
+	int bytesPerSample 		= *(int*)(SOUND_FILE_POINTER + 4);
+	int samplePeriodUs 		= *(int*)(SOUND_FILE_POINTER + 8);
 
 	u32 samplePeriodDoubleCycles = (int)(samplePeriodUs * CPU_CLK_FREQ_MHz / 2);
 
-	int16_t* dataPointer = (int16_t*)(GUNSHOT_FILE_POINTER + 12);
+	int16_t* dataPointer = (int16_t*)(SOUND_FILE_POINTER + 12);
 
 	xil_printf("numSamples = %d\n", numSamples);
 	xil_printf("bytesPerSample = %d\n", bytesPerSample);
@@ -105,10 +104,10 @@ void gunshotFileTest() {
 void dmaTest() {
 	Xil_DCacheDisable();
 
-	const int AUDIO_FETCHER_BASE_ADDR = XPAR_AUDIO_FETCHER_0_S_AXI_BASEADDR;
-	const char* GUNSHOT_FILE_POINTER = (char*)0x018D0000;
+	const int AUDIO_FETCHER_BASE_ADDR = XPAR_AUDIO_FETCHER_0_BASEADDR;
+	const char* SOUND_FILE_POINTER = (char*)0x018D0000;
 
-	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 0, (int)GUNSHOT_FILE_POINTER);
+	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 0, (int)(SOUND_FILE_POINTER));
 	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 4, 100);
 	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 8, 1);
 
@@ -118,14 +117,14 @@ void dmaTest() {
 		int reg1 = Xil_In32(AUDIO_FETCHER_BASE_ADDR + 4);
 		int reg2 = Xil_In32(AUDIO_FETCHER_BASE_ADDR + 8);
 		int reg3 = Xil_In32(AUDIO_FETCHER_BASE_ADDR + 12);
-		xil_printf("%d, %d, %d, %d, %d\n", *((int*)GUNSHOT_FILE_POINTER), reg0, reg1, reg2, reg3);
+		xil_printf("%d, %d, %d, %d, %x\n", *((int*)SOUND_FILE_POINTER), reg0, reg1, reg2, reg3);
 		sleep(1);
 	}
 }
 
 int main() {
 //	sineTest();
-	gunshotFileTest();
-//	dmaTest();
+//	soundFileTest();
+	dmaTest();
 }
 

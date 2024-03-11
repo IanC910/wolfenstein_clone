@@ -5,16 +5,17 @@ clear
 close all
 
 % Configurables
-playSound = 1;
-
 audioFileName = 'assets/gunshot.wav';
 
 startTimeS = 0.1;
 endTimeS = 0.35;
+playSound = 1;
 
 downSampleFactor = 2;
 smoothingTimeConstant = 10000;
+
 bytesPerSample = 2;
+volumeCoef = 10000;
 
 
 
@@ -45,17 +46,17 @@ if(playSound)
     sound(downsampledAudio, newSampleRateHz);
 end
 
-intAudio = cast(round(downsampledAudio * 10000), "int" + 8 * bytesPerSample);
+intAudio = cast(round(downsampledAudio * volumeCoef), "int" + 8 * bytesPerSample);
 
 outFileId = fopen('processed_audio.audioData', 'w');
 fclose(outFileId);
 
 outFileId = fopen('processed_audio.audioData', 'a');
 
-fwrite(outFileId, length(intAudio), "integer*4");
-fwrite(outFileId, cast(bytesPerSample, "int32"), "integer*4");
-fwrite(outFileId, newSamplePeriodUs, "integer*4");
-fwrite(outFileId, intAudio, "integer*" + bytesPerSample);
+fwrite(outFileId, length(intAudio),                     "integer*4");
+fwrite(outFileId, cast(bytesPerSample,      "int16"),   "integer*2");
+fwrite(outFileId, cast(newSamplePeriodUs,   "int16"),   "integer*2");
+fwrite(outFileId, intAudio,                             "integer*" + bytesPerSample);
 
 fclose(outFileId);
 

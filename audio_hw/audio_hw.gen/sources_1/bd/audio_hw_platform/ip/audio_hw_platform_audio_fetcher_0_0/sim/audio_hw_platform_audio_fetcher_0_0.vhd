@@ -46,8 +46,8 @@
 -- 
 -- DO NOT MODIFY THIS FILE.
 
--- IP VLNV: xilinx.com:user:audio_fetcher:1.0
--- IP Revision: 10
+-- IP VLNV: xilinx.com:module_ref:audio_fetcher:1.0
+-- IP Revision: 1
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -76,9 +76,6 @@ ENTITY audio_hw_platform_audio_fetcher_0_0 IS
     s_axi_rresp : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
     s_axi_rvalid : OUT STD_LOGIC;
     s_axi_rready : IN STD_LOGIC;
-    m_axi_audio_out_init_axi_txn : IN STD_LOGIC;
-    m_axi_audio_out_error : OUT STD_LOGIC;
-    m_axi_audio_out_txn_done : OUT STD_LOGIC;
     m_axi_audio_out_aclk : IN STD_LOGIC;
     m_axi_audio_out_aresetn : IN STD_LOGIC;
     m_axi_audio_out_awaddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -143,35 +140,27 @@ ENTITY audio_hw_platform_audio_fetcher_0_0 IS
     m_axi_dma_rlast : IN STD_LOGIC;
     m_axi_dma_ruser : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_dma_rvalid : IN STD_LOGIC;
-    m_axi_dma_rready : OUT STD_LOGIC
+    m_axi_dma_rready : OUT STD_LOGIC;
+    debug_data_o : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
   );
 END audio_hw_platform_audio_fetcher_0_0;
 
 ARCHITECTURE audio_hw_platform_audio_fetcher_0_0_arch OF audio_hw_platform_audio_fetcher_0_0 IS
   ATTRIBUTE DowngradeIPIdentifiedWarnings : STRING;
   ATTRIBUTE DowngradeIPIdentifiedWarnings OF audio_hw_platform_audio_fetcher_0_0_arch: ARCHITECTURE IS "yes";
-  COMPONENT audio_fetcher_v1_0 IS
+  COMPONENT audio_fetcher IS
     GENERIC (
-      C_M_AXI_DMA_BURST_LEN : INTEGER; -- Burst Length. Supports 1, 2, 4, 8, 16, 32, 64, 128, 256 burst lengths
-      C_M_AXI_DMA_ID_WIDTH : INTEGER; -- Thread ID Width
-      C_M_AXI_DMA_ADDR_WIDTH : INTEGER; -- Width of Address Bus
-      C_M_AXI_DMA_DATA_WIDTH : INTEGER; -- Width of Data Bus
-      C_M_AXI_DMA_AWUSER_WIDTH : INTEGER; -- Width of User Write Address Bus
-      C_M_AXI_DMA_ARUSER_WIDTH : INTEGER; -- Width of User Read Address Bus
-      C_M_AXI_DMA_WUSER_WIDTH : INTEGER; -- Width of User Write Data Bus
-      C_M_AXI_DMA_RUSER_WIDTH : INTEGER; -- Width of User Read Data Bus
-      C_M_AXI_DMA_BUSER_WIDTH : INTEGER; -- Width of User Response Bus
-      C_M_AXI_AUDIO_OUT_START_DATA_VALUE : STD_LOGIC_VECTOR; -- The master will start generating data from the C_M_START_DATA_VALUE value
-      C_M_AXI_AUDIO_OUT_TARGET_SLAVE_BASE_ADDR : STD_LOGIC_VECTOR; -- The master requires a target slave base address.
-    -- The master will initiate read and write transactions on the slave with base address specified here as a parameter.
-      C_M_AXI_AUDIO_OUT_ADDR_WIDTH : INTEGER; -- Width of M_AXI address bus. 
-    -- The master generates the read and write addresses of width specified as C_M_AXI_ADDR_WIDTH.
-      C_M_AXI_AUDIO_OUT_DATA_WIDTH : INTEGER; -- Width of M_AXI data bus. 
-    -- The master issues write data and accept read data where the width of the data bus is C_M_AXI_DATA_WIDTH
-      C_M_AXI_AUDIO_OUT_TRANSACTIONS_NUM : INTEGER; -- Transaction number is the number of write 
-    -- and read transactions the master will perform as a part of this example memory test.
-      C_S_AXI_DATA_WIDTH : INTEGER; -- Width of S_AXI data bus
-      C_S_AXI_ADDR_WIDTH : INTEGER -- Width of S_AXI address bus
+      AXI_DATA_WIDTH : INTEGER;
+      C_S_AXI_ADDR_WIDTH : INTEGER;
+      C_M_AXI_AUDIO_OUT_ADDR_WIDTH : INTEGER;
+      C_M_AXI_DMA_BURST_LEN : INTEGER;
+      C_M_AXI_DMA_ID_WIDTH : INTEGER;
+      C_M_AXI_DMA_ADDR_WIDTH : INTEGER;
+      C_M_AXI_DMA_AWUSER_WIDTH : INTEGER;
+      C_M_AXI_DMA_ARUSER_WIDTH : INTEGER;
+      C_M_AXI_DMA_WUSER_WIDTH : INTEGER;
+      C_M_AXI_DMA_RUSER_WIDTH : INTEGER;
+      C_M_AXI_DMA_BUSER_WIDTH : INTEGER
     );
     PORT (
       s_axi_aclk : IN STD_LOGIC;
@@ -195,9 +184,6 @@ ARCHITECTURE audio_hw_platform_audio_fetcher_0_0_arch OF audio_hw_platform_audio
       s_axi_rresp : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
       s_axi_rvalid : OUT STD_LOGIC;
       s_axi_rready : IN STD_LOGIC;
-      m_axi_audio_out_init_axi_txn : IN STD_LOGIC;
-      m_axi_audio_out_error : OUT STD_LOGIC;
-      m_axi_audio_out_txn_done : OUT STD_LOGIC;
       m_axi_audio_out_aclk : IN STD_LOGIC;
       m_axi_audio_out_aresetn : IN STD_LOGIC;
       m_axi_audio_out_awaddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -262,128 +248,126 @@ ARCHITECTURE audio_hw_platform_audio_fetcher_0_0_arch OF audio_hw_platform_audio
       m_axi_dma_rlast : IN STD_LOGIC;
       m_axi_dma_ruser : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_dma_rvalid : IN STD_LOGIC;
-      m_axi_dma_rready : OUT STD_LOGIC
+      m_axi_dma_rready : OUT STD_LOGIC;
+      debug_data_o : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
     );
-  END COMPONENT audio_fetcher_v1_0;
+  END COMPONENT audio_fetcher;
+  ATTRIBUTE IP_DEFINITION_SOURCE : STRING;
+  ATTRIBUTE IP_DEFINITION_SOURCE OF audio_hw_platform_audio_fetcher_0_0_arch: ARCHITECTURE IS "module_ref";
   ATTRIBUTE X_INTERFACE_INFO : STRING;
   ATTRIBUTE X_INTERFACE_PARAMETER : STRING;
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_rready: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA RREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_rvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA RVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_ruser: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA RUSER";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_rlast: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA RLAST";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_rresp: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA RRESP";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_rdata: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA RDATA";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_rid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA RID";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arready: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA ARREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA ARVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_aruser: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA ARUSER";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arqos: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA ARQOS";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arprot: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA ARPROT";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arcache: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA ARCACHE";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arlock: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA ARLOCK";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arburst: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA ARBURST";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arsize: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA ARSIZE";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arlen: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA ARLEN";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_araddr: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA ARADDR";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA ARID";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_bready: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA BREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_bvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA BVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_buser: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA BUSER";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_bresp: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA BRESP";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_bid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA BID";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_wready: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA WREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_wvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA WVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_wuser: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA WUSER";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_wlast: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA WLAST";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_wstrb: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA WSTRB";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_wdata: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA WDATA";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awready: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA AWREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA AWVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awuser: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA AWUSER";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awqos: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA AWQOS";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awprot: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA AWPROT";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awcache: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA AWCACHE";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awlock: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA AWLOCK";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awburst: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA AWBURST";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awsize: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA AWSIZE";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awlen: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA AWLEN";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awaddr: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA AWADDR";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axi_dma_awid: SIGNAL IS "XIL_INTERFACENAME M_AXI_DMA, WIZ_DATA_WIDTH 32, SUPPORTS_NARROW_BURST 0, DATA_WIDTH 32, PROTOCOL AXI4, FREQ_HZ 200000000, ID_WIDTH 2, ADDR_WIDTH 32, AWUSER_WIDTH 1, ARUSER_WIDTH 1, WUSER_WIDTH 1, RUSER_WIDTH 1, BUSER_WIDTH 1, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, NUM_READ_OUTSTANDING 8, NUM_WRITE_OUTSTANDING 8, MAX_BURST_LENGTH 256, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_" & 
-"0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_DMA AWID";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axi_dma_aresetn: SIGNAL IS "XIL_INTERFACENAME M_AXI_DMA_RST, POLARITY ACTIVE_LOW, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_aresetn: SIGNAL IS "xilinx.com:signal:reset:1.0 M_AXI_DMA_RST RST";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axi_dma_aclk: SIGNAL IS "XIL_INTERFACENAME M_AXI_DMA_CLK, ASSOCIATED_BUSIF M_AXI_DMA, ASSOCIATED_RESET m_axi_dma_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_aclk: SIGNAL IS "xilinx.com:signal:clock:1.0 M_AXI_DMA_CLK CLK";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_rready: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT RREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_rvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT RVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_rresp: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT RRESP";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_rdata: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT RDATA";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_arready: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT ARREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_arvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT ARVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_arprot: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT ARPROT";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_araddr: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT ARADDR";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_bready: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT BREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_bvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT BVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_bresp: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT BRESP";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_wready: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT WREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_wvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT WVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_wstrb: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT WSTRB";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_wdata: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT WDATA";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_awready: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT AWREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_awvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT AWVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_awprot: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT AWPROT";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axi_audio_out_awaddr: SIGNAL IS "XIL_INTERFACENAME M_AXI_AUDIO_OUT, WIZ_DATA_WIDTH 32, SUPPORTS_NARROW_BURST 0, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 200000000, ID_WIDTH 0, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_" & 
-"system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_awaddr: SIGNAL IS "xilinx.com:interface:aximm:1.0 M_AXI_AUDIO_OUT AWADDR";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axi_audio_out_aresetn: SIGNAL IS "XIL_INTERFACENAME M_AXI_AUDIO_OUT_RST, POLARITY ACTIVE_LOW, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_aresetn: SIGNAL IS "xilinx.com:signal:reset:1.0 M_AXI_AUDIO_OUT_RST RST";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axi_audio_out_aclk: SIGNAL IS "XIL_INTERFACENAME M_AXI_AUDIO_OUT_CLK, ASSOCIATED_BUSIF M_AXI_AUDIO_OUT, ASSOCIATED_RESET m_axi_audio_out_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_aclk: SIGNAL IS "xilinx.com:signal:clock:1.0 M_AXI_AUDIO_OUT_CLK CLK";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_rready: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI RREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_rvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI RVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_rresp: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI RRESP";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_rdata: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI RDATA";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_arready: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI ARREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_arvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI ARVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_arprot: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI ARPROT";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_araddr: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI ARADDR";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_bready: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI BREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_bvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI BVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_bresp: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI BRESP";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_wready: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI WREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_wvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI WVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_wstrb: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI WSTRB";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_wdata: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI WDATA";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_awready: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI AWREADY";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_awvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI AWVALID";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_awprot: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI AWPROT";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s_axi_awaddr: SIGNAL IS "XIL_INTERFACENAME S_AXI, WIZ_DATA_WIDTH 32, WIZ_NUM_REG 4, SUPPORTS_NARROW_BURST 0, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 200000000, ID_WIDTH 0, ADDR_WIDTH 4, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN audio_hw_platform_process" & 
-"ing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_awaddr: SIGNAL IS "xilinx.com:interface:aximm:1.0 S_AXI AWADDR";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s_axi_aresetn: SIGNAL IS "XIL_INTERFACENAME S_AXI_RST, POLARITY ACTIVE_LOW, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_aresetn: SIGNAL IS "xilinx.com:signal:reset:1.0 S_AXI_RST RST";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s_axi_aclk: SIGNAL IS "XIL_INTERFACENAME S_AXI_CLK, ASSOCIATED_BUSIF S_AXI, ASSOCIATED_RESET s_axi_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0";
-  ATTRIBUTE X_INTERFACE_INFO OF s_axi_aclk: SIGNAL IS "xilinx.com:signal:clock:1.0 S_AXI_CLK CLK";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_rready: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma RREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_rvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma RVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_ruser: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma RUSER";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_rlast: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma RLAST";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_rresp: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma RRESP";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_rdata: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma RDATA";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_rid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma RID";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arready: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma ARREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma ARVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_aruser: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma ARUSER";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arqos: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma ARQOS";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arprot: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma ARPROT";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arcache: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma ARCACHE";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arlock: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma ARLOCK";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arburst: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma ARBURST";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arsize: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma ARSIZE";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arlen: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma ARLEN";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_araddr: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma ARADDR";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_arid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma ARID";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_bready: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma BREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_bvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma BVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_buser: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma BUSER";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_bresp: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma BRESP";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_bid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma BID";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_wready: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma WREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_wvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma WVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_wuser: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma WUSER";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_wlast: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma WLAST";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_wstrb: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma WSTRB";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_wdata: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma WDATA";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awready: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma AWREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma AWVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awuser: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma AWUSER";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awqos: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma AWQOS";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awprot: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma AWPROT";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awcache: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma AWCACHE";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awlock: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma AWLOCK";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awburst: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma AWBURST";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awsize: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma AWSIZE";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awlen: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma AWLEN";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awaddr: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma AWADDR";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axi_dma_awid: SIGNAL IS "XIL_INTERFACENAME m_axi_dma, DATA_WIDTH 32, PROTOCOL AXI4, FREQ_HZ 200000000, ID_WIDTH 2, ADDR_WIDTH 32, AWUSER_WIDTH 1, ARUSER_WIDTH 1, WUSER_WIDTH 1, RUSER_WIDTH 1, BUSER_WIDTH 1, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 1, NUM_READ_OUTSTANDING 2, NUM_WRITE_OUTSTANDING 2, MAX_BURST_LENGTH 256, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, NUM_" & 
+"READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_awid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma AWID";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axi_dma_aresetn: SIGNAL IS "XIL_INTERFACENAME m_axi_dma_aresetn, POLARITY ACTIVE_LOW, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_aresetn: SIGNAL IS "xilinx.com:signal:reset:1.0 m_axi_dma_aresetn RST";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axi_dma_aclk: SIGNAL IS "XIL_INTERFACENAME m_axi_dma_aclk, ASSOCIATED_BUSIF m_axi_dma, ASSOCIATED_RESET m_axi_dma_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_aclk: SIGNAL IS "xilinx.com:signal:clock:1.0 m_axi_dma_aclk CLK";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_rready: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out RREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_rvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out RVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_rresp: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out RRESP";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_rdata: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out RDATA";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_arready: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out ARREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_arvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out ARVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_arprot: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out ARPROT";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_araddr: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out ARADDR";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_bready: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out BREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_bvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out BVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_bresp: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out BRESP";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_wready: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out WREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_wvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out WVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_wstrb: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out WSTRB";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_wdata: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out WDATA";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_awready: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out AWREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_awvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out AWVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_awprot: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out AWPROT";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axi_audio_out_awaddr: SIGNAL IS "XIL_INTERFACENAME m_axi_audio_out, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 200000000, ID_WIDTH 0, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CL" & 
+"K0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_awaddr: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_audio_out AWADDR";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axi_audio_out_aresetn: SIGNAL IS "XIL_INTERFACENAME m_axi_audio_out_aresetn, POLARITY ACTIVE_LOW, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_aresetn: SIGNAL IS "xilinx.com:signal:reset:1.0 m_axi_audio_out_aresetn RST";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF m_axi_audio_out_aclk: SIGNAL IS "XIL_INTERFACENAME m_axi_audio_out_aclk, ASSOCIATED_BUSIF m_axi_audio_out, ASSOCIATED_RESET m_axi_audio_out_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF m_axi_audio_out_aclk: SIGNAL IS "xilinx.com:signal:clock:1.0 m_axi_audio_out_aclk CLK";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_rready: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi RREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_rvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi RVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_rresp: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi RRESP";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_rdata: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi RDATA";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_arready: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi ARREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_arvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi ARVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_arprot: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi ARPROT";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_araddr: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi ARADDR";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_bready: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi BREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_bvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi BVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_bresp: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi BRESP";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_wready: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi WREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_wvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi WVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_wstrb: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi WSTRB";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_wdata: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi WDATA";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_awready: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi AWREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_awvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi AWVALID";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_awprot: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi AWPROT";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s_axi_awaddr: SIGNAL IS "XIL_INTERFACENAME s_axi, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 200000000, ID_WIDTH 0, ADDR_WIDTH 4, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, NUM_REA" & 
+"D_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_awaddr: SIGNAL IS "xilinx.com:interface:aximm:1.0 s_axi AWADDR";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s_axi_aresetn: SIGNAL IS "XIL_INTERFACENAME s_axi_aresetn, POLARITY ACTIVE_LOW, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_aresetn: SIGNAL IS "xilinx.com:signal:reset:1.0 s_axi_aresetn RST";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s_axi_aclk: SIGNAL IS "XIL_INTERFACENAME s_axi_aclk, ASSOCIATED_BUSIF s_axi, ASSOCIATED_RESET s_axi_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_INFO OF s_axi_aclk: SIGNAL IS "xilinx.com:signal:clock:1.0 s_axi_aclk CLK";
 BEGIN
-  U0 : audio_fetcher_v1_0
+  U0 : audio_fetcher
     GENERIC MAP (
+      AXI_DATA_WIDTH => 32,
+      C_S_AXI_ADDR_WIDTH => 4,
+      C_M_AXI_AUDIO_OUT_ADDR_WIDTH => 32,
       C_M_AXI_DMA_BURST_LEN => 1,
       C_M_AXI_DMA_ID_WIDTH => 2,
       C_M_AXI_DMA_ADDR_WIDTH => 32,
-      C_M_AXI_DMA_DATA_WIDTH => 32,
       C_M_AXI_DMA_AWUSER_WIDTH => 1,
       C_M_AXI_DMA_ARUSER_WIDTH => 1,
       C_M_AXI_DMA_WUSER_WIDTH => 1,
       C_M_AXI_DMA_RUSER_WIDTH => 1,
-      C_M_AXI_DMA_BUSER_WIDTH => 1,
-      C_M_AXI_AUDIO_OUT_START_DATA_VALUE => X"00000000",
-      C_M_AXI_AUDIO_OUT_TARGET_SLAVE_BASE_ADDR => X"00000000",
-      C_M_AXI_AUDIO_OUT_ADDR_WIDTH => 32,
-      C_M_AXI_AUDIO_OUT_DATA_WIDTH => 32,
-      C_M_AXI_AUDIO_OUT_TRANSACTIONS_NUM => 4,
-      C_S_AXI_DATA_WIDTH => 32,
-      C_S_AXI_ADDR_WIDTH => 4
+      C_M_AXI_DMA_BUSER_WIDTH => 1
     )
     PORT MAP (
       s_axi_aclk => s_axi_aclk,
@@ -407,9 +391,6 @@ BEGIN
       s_axi_rresp => s_axi_rresp,
       s_axi_rvalid => s_axi_rvalid,
       s_axi_rready => s_axi_rready,
-      m_axi_audio_out_init_axi_txn => m_axi_audio_out_init_axi_txn,
-      m_axi_audio_out_error => m_axi_audio_out_error,
-      m_axi_audio_out_txn_done => m_axi_audio_out_txn_done,
       m_axi_audio_out_aclk => m_axi_audio_out_aclk,
       m_axi_audio_out_aresetn => m_axi_audio_out_aresetn,
       m_axi_audio_out_awaddr => m_axi_audio_out_awaddr,
@@ -474,6 +455,7 @@ BEGIN
       m_axi_dma_rlast => m_axi_dma_rlast,
       m_axi_dma_ruser => m_axi_dma_ruser,
       m_axi_dma_rvalid => m_axi_dma_rvalid,
-      m_axi_dma_rready => m_axi_dma_rready
+      m_axi_dma_rready => m_axi_dma_rready,
+      debug_data_o => debug_data_o
     );
 END audio_hw_platform_audio_fetcher_0_0_arch;

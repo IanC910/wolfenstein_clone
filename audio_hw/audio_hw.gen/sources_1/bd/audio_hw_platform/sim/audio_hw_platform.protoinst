@@ -3,7 +3,7 @@
 	"modules": {
 		"audio_hw_platform": {
 			"proto_instances": {
-				"/audio_fetcher_0/M_AXI_DMA": {
+				"/audio_fetcher_0/m_axi_dma": {
 					"interface": "xilinx.com:interface:aximm:1.0",
 					"ports": {
 						"ACLK": { "actual": "m_axi_dma_aclk"},
@@ -52,7 +52,7 @@
 						"WVALID": { "actual": "m_axi_dma_wvalid"}
 					}
 				},
-				"/audio_fetcher_0/S_AXI": {
+				"/audio_fetcher_0/s_axi": {
 					"interface": "xilinx.com:interface:aximm:1.0",
 					"ports": {
 						"ACLK": { "actual": "s_axi_aclk"},

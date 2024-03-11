@@ -1,7 +1,7 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-// Date        : Mon Mar  4 04:14:38 2024
+// Date        : Mon Mar 11 04:12:53 2024
 // Host        : IC-VivoBook running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
 //               c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/ip/audio_hw_platform_audio_fetcher_0_0/audio_hw_platform_audio_fetcher_0_0_stub.v
@@ -13,12 +13,11 @@
 // This empty module with port declaration file causes synthesis tools to infer a black box for IP.
 // The synthesis directives are for Synopsys Synplify support to prevent IO buffer insertion.
 // Please paste the declaration into a Verilog source file or add the file as an additional source.
-(* x_core_info = "audio_fetcher_v1_0,Vivado 2020.2" *)
+(* x_core_info = "audio_fetcher,Vivado 2020.2" *)
 module audio_hw_platform_audio_fetcher_0_0(s_axi_aclk, s_axi_aresetn, s_axi_awaddr, 
   s_axi_awprot, s_axi_awvalid, s_axi_awready, s_axi_wdata, s_axi_wstrb, s_axi_wvalid, 
   s_axi_wready, s_axi_bresp, s_axi_bvalid, s_axi_bready, s_axi_araddr, s_axi_arprot, 
   s_axi_arvalid, s_axi_arready, s_axi_rdata, s_axi_rresp, s_axi_rvalid, s_axi_rready, 
-  m_axi_audio_out_init_axi_txn, m_axi_audio_out_error, m_axi_audio_out_txn_done, 
   m_axi_audio_out_aclk, m_axi_audio_out_aresetn, m_axi_audio_out_awaddr, 
   m_axi_audio_out_awprot, m_axi_audio_out_awvalid, m_axi_audio_out_awready, 
   m_axi_audio_out_wdata, m_axi_audio_out_wstrb, m_axi_audio_out_wvalid, 
@@ -34,8 +33,8 @@ module audio_hw_platform_audio_fetcher_0_0(s_axi_aclk, s_axi_aresetn, s_axi_awad
   m_axi_dma_arid, m_axi_dma_araddr, m_axi_dma_arlen, m_axi_dma_arsize, m_axi_dma_arburst, 
   m_axi_dma_arlock, m_axi_dma_arcache, m_axi_dma_arprot, m_axi_dma_arqos, m_axi_dma_aruser, 
   m_axi_dma_arvalid, m_axi_dma_arready, m_axi_dma_rid, m_axi_dma_rdata, m_axi_dma_rresp, 
-  m_axi_dma_rlast, m_axi_dma_ruser, m_axi_dma_rvalid, m_axi_dma_rready)
-/* synthesis syn_black_box black_box_pad_pin="s_axi_aclk,s_axi_aresetn,s_axi_awaddr[3:0],s_axi_awprot[2:0],s_axi_awvalid,s_axi_awready,s_axi_wdata[31:0],s_axi_wstrb[3:0],s_axi_wvalid,s_axi_wready,s_axi_bresp[1:0],s_axi_bvalid,s_axi_bready,s_axi_araddr[3:0],s_axi_arprot[2:0],s_axi_arvalid,s_axi_arready,s_axi_rdata[31:0],s_axi_rresp[1:0],s_axi_rvalid,s_axi_rready,m_axi_audio_out_init_axi_txn,m_axi_audio_out_error,m_axi_audio_out_txn_done,m_axi_audio_out_aclk,m_axi_audio_out_aresetn,m_axi_audio_out_awaddr[31:0],m_axi_audio_out_awprot[2:0],m_axi_audio_out_awvalid,m_axi_audio_out_awready,m_axi_audio_out_wdata[31:0],m_axi_audio_out_wstrb[3:0],m_axi_audio_out_wvalid,m_axi_audio_out_wready,m_axi_audio_out_bresp[1:0],m_axi_audio_out_bvalid,m_axi_audio_out_bready,m_axi_audio_out_araddr[31:0],m_axi_audio_out_arprot[2:0],m_axi_audio_out_arvalid,m_axi_audio_out_arready,m_axi_audio_out_rdata[31:0],m_axi_audio_out_rresp[1:0],m_axi_audio_out_rvalid,m_axi_audio_out_rready,m_axi_dma_aclk,m_axi_dma_aresetn,m_axi_dma_awid[1:0],m_axi_dma_awaddr[31:0],m_axi_dma_awlen[7:0],m_axi_dma_awsize[2:0],m_axi_dma_awburst[1:0],m_axi_dma_awlock,m_axi_dma_awcache[3:0],m_axi_dma_awprot[2:0],m_axi_dma_awqos[3:0],m_axi_dma_awuser[0:0],m_axi_dma_awvalid,m_axi_dma_awready,m_axi_dma_wdata[31:0],m_axi_dma_wstrb[3:0],m_axi_dma_wlast,m_axi_dma_wuser[0:0],m_axi_dma_wvalid,m_axi_dma_wready,m_axi_dma_bid[1:0],m_axi_dma_bresp[1:0],m_axi_dma_buser[0:0],m_axi_dma_bvalid,m_axi_dma_bready,m_axi_dma_arid[1:0],m_axi_dma_araddr[31:0],m_axi_dma_arlen[7:0],m_axi_dma_arsize[2:0],m_axi_dma_arburst[1:0],m_axi_dma_arlock,m_axi_dma_arcache[3:0],m_axi_dma_arprot[2:0],m_axi_dma_arqos[3:0],m_axi_dma_aruser[0:0],m_axi_dma_arvalid,m_axi_dma_arready,m_axi_dma_rid[1:0],m_axi_dma_rdata[31:0],m_axi_dma_rresp[1:0],m_axi_dma_rlast,m_axi_dma_ruser[0:0],m_axi_dma_rvalid,m_axi_dma_rready" */;
+  m_axi_dma_rlast, m_axi_dma_ruser, m_axi_dma_rvalid, m_axi_dma_rready, debug_data_o)
+/* synthesis syn_black_box black_box_pad_pin="s_axi_aclk,s_axi_aresetn,s_axi_awaddr[3:0],s_axi_awprot[2:0],s_axi_awvalid,s_axi_awready,s_axi_wdata[31:0],s_axi_wstrb[3:0],s_axi_wvalid,s_axi_wready,s_axi_bresp[1:0],s_axi_bvalid,s_axi_bready,s_axi_araddr[3:0],s_axi_arprot[2:0],s_axi_arvalid,s_axi_arready,s_axi_rdata[31:0],s_axi_rresp[1:0],s_axi_rvalid,s_axi_rready,m_axi_audio_out_aclk,m_axi_audio_out_aresetn,m_axi_audio_out_awaddr[31:0],m_axi_audio_out_awprot[2:0],m_axi_audio_out_awvalid,m_axi_audio_out_awready,m_axi_audio_out_wdata[31:0],m_axi_audio_out_wstrb[3:0],m_axi_audio_out_wvalid,m_axi_audio_out_wready,m_axi_audio_out_bresp[1:0],m_axi_audio_out_bvalid,m_axi_audio_out_bready,m_axi_audio_out_araddr[31:0],m_axi_audio_out_arprot[2:0],m_axi_audio_out_arvalid,m_axi_audio_out_arready,m_axi_audio_out_rdata[31:0],m_axi_audio_out_rresp[1:0],m_axi_audio_out_rvalid,m_axi_audio_out_rready,m_axi_dma_aclk,m_axi_dma_aresetn,m_axi_dma_awid[1:0],m_axi_dma_awaddr[31:0],m_axi_dma_awlen[7:0],m_axi_dma_awsize[2:0],m_axi_dma_awburst[1:0],m_axi_dma_awlock,m_axi_dma_awcache[3:0],m_axi_dma_awprot[2:0],m_axi_dma_awqos[3:0],m_axi_dma_awuser[0:0],m_axi_dma_awvalid,m_axi_dma_awready,m_axi_dma_wdata[31:0],m_axi_dma_wstrb[3:0],m_axi_dma_wlast,m_axi_dma_wuser[0:0],m_axi_dma_wvalid,m_axi_dma_wready,m_axi_dma_bid[1:0],m_axi_dma_bresp[1:0],m_axi_dma_buser[0:0],m_axi_dma_bvalid,m_axi_dma_bready,m_axi_dma_arid[1:0],m_axi_dma_araddr[31:0],m_axi_dma_arlen[7:0],m_axi_dma_arsize[2:0],m_axi_dma_arburst[1:0],m_axi_dma_arlock,m_axi_dma_arcache[3:0],m_axi_dma_arprot[2:0],m_axi_dma_arqos[3:0],m_axi_dma_aruser[0:0],m_axi_dma_arvalid,m_axi_dma_arready,m_axi_dma_rid[1:0],m_axi_dma_rdata[31:0],m_axi_dma_rresp[1:0],m_axi_dma_rlast,m_axi_dma_ruser[0:0],m_axi_dma_rvalid,m_axi_dma_rready,debug_data_o[31:0]" */;
   input s_axi_aclk;
   input s_axi_aresetn;
   input [3:0]s_axi_awaddr;
@@ -57,9 +56,6 @@ module audio_hw_platform_audio_fetcher_0_0(s_axi_aclk, s_axi_aresetn, s_axi_awad
   output [1:0]s_axi_rresp;
   output s_axi_rvalid;
   input s_axi_rready;
-  input m_axi_audio_out_init_axi_txn;
-  output m_axi_audio_out_error;
-  output m_axi_audio_out_txn_done;
   input m_axi_audio_out_aclk;
   input m_axi_audio_out_aresetn;
   output [31:0]m_axi_audio_out_awaddr;
@@ -125,4 +121,5 @@ module audio_hw_platform_audio_fetcher_0_0(s_axi_aclk, s_axi_aresetn, s_axi_awad
   input [0:0]m_axi_dma_ruser;
   input m_axi_dma_rvalid;
   output m_axi_dma_rready;
+  output [31:0]debug_data_o;
 endmodule

@@ -1,7 +1,7 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-// Date        : Mon Mar  4 00:35:50 2024
+// Date        : Mon Mar 11 00:22:35 2024
 // Host        : IC-VivoBook running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim -rename_top audio_hw_platform_auto_us_0 -prefix
 //               audio_hw_platform_auto_us_0_ audio_hw_platform_auto_us_0_sim_netlist.v

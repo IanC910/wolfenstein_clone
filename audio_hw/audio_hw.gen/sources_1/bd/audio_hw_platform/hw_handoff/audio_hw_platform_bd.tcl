@@ -37,6 +37,13 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 # To test this script, run the following commands from Vivado Tcl console:
 # source audio_hw_platform_script.tcl
 
+
+# The design that will be created by this Tcl script contains the following 
+# module references:
+# audio_fetcher
+
+# Please add the sources of those modules before sourcing this Tcl script.
+
 # If there is no project opened, this script will create a
 # project, but make sure you do not have an existing project
 # <./myproj/project_1.xpr> in the current working folder.
@@ -173,14 +180,24 @@ proc create_root_design { parentCell } {
  ] $FCLK_CLK1
   set LRCLK [ create_bd_port -dir O LRCLK ]
   set SDATA_O [ create_bd_port -dir O SDATA_O ]
+  set leds [ create_bd_port -dir O -from 7 -to 0 leds ]
 
   # Create instance: audio_fetcher_0, and set properties
-  set audio_fetcher_0 [ create_bd_cell -type ip -vlnv xilinx.com:user:audio_fetcher:1.0 audio_fetcher_0 ]
-  set_property -dict [ list \
-   CONFIG.C_M_AXI_AUDIO_OUT_START_DATA_VALUE {0x00000000} \
-   CONFIG.C_M_AXI_AUDIO_OUT_TARGET_SLAVE_BASE_ADDR {0x00000000} \
-   CONFIG.C_M_AXI_DMA_BURST_LEN {1} \
-   CONFIG.C_M_AXI_DMA_ID_WIDTH {2} \
+  set block_name audio_fetcher
+  set block_cell_name audio_fetcher_0
+  if { [catch {set audio_fetcher_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   } elseif { $audio_fetcher_0 eq "" } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   }
+    set_property -dict [ list \
+   CONFIG.C_M_AXI_DMA_ARUSER_WIDTH {1} \
+   CONFIG.C_M_AXI_DMA_AWUSER_WIDTH {1} \
+   CONFIG.C_M_AXI_DMA_BUSER_WIDTH {1} \
+   CONFIG.C_M_AXI_DMA_RUSER_WIDTH {1} \
+   CONFIG.C_M_AXI_DMA_WUSER_WIDTH {1} \
  ] $audio_fetcher_0
 
   # Create instance: axi_mem_intercon, and set properties
@@ -194,6 +211,13 @@ proc create_root_design { parentCell } {
   set_property -dict [ list \
    CONFIG.C_GPIO_WIDTH {2} \
  ] $axi_to_i2c_0
+
+  # Create instance: debug_slice_0, and set properties
+  set debug_slice_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 debug_slice_0 ]
+  set_property -dict [ list \
+   CONFIG.DIN_FROM {7} \
+   CONFIG.DOUT_WIDTH {8} \
+ ] $debug_slice_0
 
   # Create instance: processing_system7_0, and set properties
   set processing_system7_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 processing_system7_0 ]
@@ -612,7 +636,7 @@ proc create_root_design { parentCell } {
   set zed_audio_ctrl_0 [ create_bd_cell -type ip -vlnv xilinx.com:user:zed_audio_ctrl:1.0 zed_audio_ctrl_0 ]
 
   # Create interface connections
-  connect_bd_intf_net -intf_net audio_fetcher_0_M_AXI_DMA [get_bd_intf_pins audio_fetcher_0/M_AXI_DMA] [get_bd_intf_pins axi_mem_intercon/S00_AXI]
+  connect_bd_intf_net -intf_net audio_fetcher_0_m_axi_dma [get_bd_intf_pins audio_fetcher_0/m_axi_dma] [get_bd_intf_pins axi_mem_intercon/S00_AXI]
   connect_bd_intf_net -intf_net axi_gpio_0_GPIO [get_bd_intf_ports GPIO] [get_bd_intf_pins axi_to_i2c_0/GPIO]
   connect_bd_intf_net -intf_net axi_mem_intercon_M00_AXI [get_bd_intf_pins axi_mem_intercon/M00_AXI] [get_bd_intf_pins processing_system7_0/S_AXI_HP1]
   connect_bd_intf_net -intf_net processing_system7_0_DDR [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system7_0/DDR]
@@ -621,20 +645,22 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net processing_system7_0_M_AXI_GP0 [get_bd_intf_pins processing_system7_0/M_AXI_GP0] [get_bd_intf_pins ps7_0_axi_periph/S00_AXI]
   connect_bd_intf_net -intf_net ps7_0_axi_periph_M00_AXI [get_bd_intf_pins ps7_0_axi_periph/M00_AXI] [get_bd_intf_pins zed_audio_ctrl_0/S_AXI]
   connect_bd_intf_net -intf_net ps7_0_axi_periph_M01_AXI [get_bd_intf_pins axi_to_i2c_0/S_AXI] [get_bd_intf_pins ps7_0_axi_periph/M01_AXI]
-  connect_bd_intf_net -intf_net ps7_0_axi_periph_M02_AXI [get_bd_intf_pins audio_fetcher_0/S_AXI] [get_bd_intf_pins ps7_0_axi_periph/M02_AXI]
+  connect_bd_intf_net -intf_net ps7_0_axi_periph_M02_AXI [get_bd_intf_pins audio_fetcher_0/s_axi] [get_bd_intf_pins ps7_0_axi_periph/M02_AXI]
 
   # Create port connections
+  connect_bd_net -net audio_fetcher_0_debug_data_o [get_bd_pins audio_fetcher_0/debug_data_o] [get_bd_pins debug_slice_0/Din]
+  connect_bd_net -net debug_slice_0_Dout [get_bd_ports leds] [get_bd_pins debug_slice_0/Dout]
   connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins audio_fetcher_0/m_axi_audio_out_aclk] [get_bd_pins audio_fetcher_0/m_axi_dma_aclk] [get_bd_pins audio_fetcher_0/s_axi_aclk] [get_bd_pins axi_mem_intercon/ACLK] [get_bd_pins axi_mem_intercon/M00_ACLK] [get_bd_pins axi_mem_intercon/S00_ACLK] [get_bd_pins axi_to_i2c_0/s_axi_aclk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/S_AXI_HP1_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/M01_ACLK] [get_bd_pins ps7_0_axi_periph/M02_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK] [get_bd_pins rst_ps7_0_200M/slowest_sync_clk] [get_bd_pins zed_audio_ctrl_0/S_AXI_ACLK]
   connect_bd_net -net processing_system7_0_FCLK_CLK1 [get_bd_ports FCLK_CLK1] [get_bd_pins processing_system7_0/FCLK_CLK1]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_ps7_0_200M/ext_reset_in]
-  connect_bd_net -net rst_ps7_0_200M_peripheral_aresetn [get_bd_pins audio_fetcher_0/m_axi_dma_aresetn] [get_bd_pins audio_fetcher_0/s_axi_aresetn] [get_bd_pins axi_mem_intercon/ARESETN] [get_bd_pins axi_mem_intercon/M00_ARESETN] [get_bd_pins axi_mem_intercon/S00_ARESETN] [get_bd_pins axi_to_i2c_0/s_axi_aresetn] [get_bd_pins ps7_0_axi_periph/ARESETN] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/M01_ARESETN] [get_bd_pins ps7_0_axi_periph/M02_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_ps7_0_200M/peripheral_aresetn] [get_bd_pins zed_audio_ctrl_0/S_AXI_ARESETN]
+  connect_bd_net -net rst_ps7_0_200M_peripheral_aresetn [get_bd_pins audio_fetcher_0/m_axi_audio_out_aresetn] [get_bd_pins audio_fetcher_0/m_axi_dma_aresetn] [get_bd_pins audio_fetcher_0/s_axi_aresetn] [get_bd_pins axi_mem_intercon/ARESETN] [get_bd_pins axi_mem_intercon/M00_ARESETN] [get_bd_pins axi_mem_intercon/S00_ARESETN] [get_bd_pins axi_to_i2c_0/s_axi_aresetn] [get_bd_pins ps7_0_axi_periph/ARESETN] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/M01_ARESETN] [get_bd_pins ps7_0_axi_periph/M02_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_ps7_0_200M/peripheral_aresetn] [get_bd_pins zed_audio_ctrl_0/S_AXI_ARESETN]
   connect_bd_net -net zed_audio_ctrl_0_BCLK [get_bd_ports BCLK] [get_bd_pins zed_audio_ctrl_0/BCLK]
   connect_bd_net -net zed_audio_ctrl_0_LRCLK [get_bd_ports LRCLK] [get_bd_pins zed_audio_ctrl_0/LRCLK]
   connect_bd_net -net zed_audio_ctrl_0_SDATA_O [get_bd_ports SDATA_O] [get_bd_pins zed_audio_ctrl_0/SDATA_O]
 
   # Create address segments
-  assign_bd_address -offset 0x00000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces audio_fetcher_0/M_AXI_DMA] [get_bd_addr_segs processing_system7_0/S_AXI_HP1/HP1_DDR_LOWOCM] -force
-  assign_bd_address -offset 0x43C10000 -range 0x00010000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs audio_fetcher_0/S_AXI/S_AXI_reg] -force
+  assign_bd_address -offset 0x00000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces audio_fetcher_0/m_axi_dma] [get_bd_addr_segs processing_system7_0/S_AXI_HP1/HP1_DDR_LOWOCM] -force
+  assign_bd_address -offset 0x43C10000 -range 0x00000080 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs audio_fetcher_0/s_axi/reg0] -force
   assign_bd_address -offset 0x41200000 -range 0x00010000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs axi_to_i2c_0/S_AXI/Reg] -force
   assign_bd_address -offset 0x43C00000 -range 0x00010000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs zed_audio_ctrl_0/S_AXI/reg0] -force
 

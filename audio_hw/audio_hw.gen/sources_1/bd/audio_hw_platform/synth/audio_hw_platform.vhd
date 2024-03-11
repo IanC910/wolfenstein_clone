@@ -1,7 +1,7 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
---Date        : Mon Mar  4 04:13:46 2024
+--Date        : Mon Mar 11 04:11:50 2024
 --Host        : IC-VivoBook running 64-bit major release  (build 9200)
 --Command     : generate_target audio_hw_platform.bd
 --Design      : audio_hw_platform
@@ -2306,10 +2306,11 @@ entity audio_hw_platform is
     IIC_0_sda_o : out STD_LOGIC;
     IIC_0_sda_t : out STD_LOGIC;
     LRCLK : out STD_LOGIC;
-    SDATA_O : out STD_LOGIC
+    SDATA_O : out STD_LOGIC;
+    leds : out STD_LOGIC_VECTOR ( 7 downto 0 )
   );
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of audio_hw_platform : entity is "audio_hw_platform,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=audio_hw_platform,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=16,numReposBlks=9,numNonXlnxBlks=0,numHierBlks=7,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=5,da_ps7_cnt=1,synth_mode=OOC_per_IP}";
+  attribute CORE_GENERATION_INFO of audio_hw_platform : entity is "audio_hw_platform,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=audio_hw_platform,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=17,numReposBlks=10,numNonXlnxBlks=0,numHierBlks=7,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=5,da_ps7_cnt=1,synth_mode=OOC_per_IP}";
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of audio_hw_platform : entity is "audio_hw_platform.hwdef";
 end audio_hw_platform;
@@ -2506,6 +2507,12 @@ architecture STRUCTURE of audio_hw_platform is
     gpio_io_t : out STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   end component audio_hw_platform_axi_gpio_0_0;
+  component audio_hw_platform_xlslice_0_0 is
+  port (
+    Din : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    Dout : out STD_LOGIC_VECTOR ( 7 downto 0 )
+  );
+  end component audio_hw_platform_xlslice_0_0;
   component audio_hw_platform_audio_fetcher_0_0 is
   port (
     s_axi_aclk : in STD_LOGIC;
@@ -2529,9 +2536,6 @@ architecture STRUCTURE of audio_hw_platform is
     s_axi_rresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
     s_axi_rvalid : out STD_LOGIC;
     s_axi_rready : in STD_LOGIC;
-    m_axi_audio_out_init_axi_txn : in STD_LOGIC;
-    m_axi_audio_out_error : out STD_LOGIC;
-    m_axi_audio_out_txn_done : out STD_LOGIC;
     m_axi_audio_out_aclk : in STD_LOGIC;
     m_axi_audio_out_aresetn : in STD_LOGIC;
     m_axi_audio_out_awaddr : out STD_LOGIC_VECTOR ( 31 downto 0 );
@@ -2596,50 +2600,52 @@ architecture STRUCTURE of audio_hw_platform is
     m_axi_dma_rlast : in STD_LOGIC;
     m_axi_dma_ruser : in STD_LOGIC_VECTOR ( 0 to 0 );
     m_axi_dma_rvalid : in STD_LOGIC;
-    m_axi_dma_rready : out STD_LOGIC
+    m_axi_dma_rready : out STD_LOGIC;
+    debug_data_o : out STD_LOGIC_VECTOR ( 31 downto 0 )
   );
   end component audio_hw_platform_audio_fetcher_0_0;
-  signal audio_fetcher_0_M_AXI_DMA_ARADDR : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_ARBURST : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_ARCACHE : STD_LOGIC_VECTOR ( 3 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_ARID : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_ARLEN : STD_LOGIC_VECTOR ( 7 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_ARLOCK : STD_LOGIC;
-  signal audio_fetcher_0_M_AXI_DMA_ARPROT : STD_LOGIC_VECTOR ( 2 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_ARQOS : STD_LOGIC_VECTOR ( 3 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_ARREADY : STD_LOGIC;
-  signal audio_fetcher_0_M_AXI_DMA_ARSIZE : STD_LOGIC_VECTOR ( 2 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_ARUSER : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal audio_fetcher_0_M_AXI_DMA_ARVALID : STD_LOGIC;
-  signal audio_fetcher_0_M_AXI_DMA_AWADDR : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_AWBURST : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_AWCACHE : STD_LOGIC_VECTOR ( 3 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_AWID : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_AWLEN : STD_LOGIC_VECTOR ( 7 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_AWLOCK : STD_LOGIC;
-  signal audio_fetcher_0_M_AXI_DMA_AWPROT : STD_LOGIC_VECTOR ( 2 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_AWQOS : STD_LOGIC_VECTOR ( 3 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_AWREADY : STD_LOGIC;
-  signal audio_fetcher_0_M_AXI_DMA_AWSIZE : STD_LOGIC_VECTOR ( 2 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_AWUSER : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal audio_fetcher_0_M_AXI_DMA_AWVALID : STD_LOGIC;
-  signal audio_fetcher_0_M_AXI_DMA_BID : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_BREADY : STD_LOGIC;
-  signal audio_fetcher_0_M_AXI_DMA_BRESP : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_BVALID : STD_LOGIC;
-  signal audio_fetcher_0_M_AXI_DMA_RDATA : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_RID : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_RLAST : STD_LOGIC;
-  signal audio_fetcher_0_M_AXI_DMA_RREADY : STD_LOGIC;
-  signal audio_fetcher_0_M_AXI_DMA_RRESP : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_RUSER : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal audio_fetcher_0_M_AXI_DMA_RVALID : STD_LOGIC;
-  signal audio_fetcher_0_M_AXI_DMA_WDATA : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_WLAST : STD_LOGIC;
-  signal audio_fetcher_0_M_AXI_DMA_WREADY : STD_LOGIC;
-  signal audio_fetcher_0_M_AXI_DMA_WSTRB : STD_LOGIC_VECTOR ( 3 downto 0 );
-  signal audio_fetcher_0_M_AXI_DMA_WUSER : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal audio_fetcher_0_M_AXI_DMA_WVALID : STD_LOGIC;
+  signal audio_fetcher_0_debug_data_o : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_ARADDR : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_ARBURST : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_ARCACHE : STD_LOGIC_VECTOR ( 3 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_ARID : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_ARLEN : STD_LOGIC_VECTOR ( 7 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_ARLOCK : STD_LOGIC;
+  signal audio_fetcher_0_m_axi_dma_ARPROT : STD_LOGIC_VECTOR ( 2 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_ARQOS : STD_LOGIC_VECTOR ( 3 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_ARREADY : STD_LOGIC;
+  signal audio_fetcher_0_m_axi_dma_ARSIZE : STD_LOGIC_VECTOR ( 2 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_ARUSER : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal audio_fetcher_0_m_axi_dma_ARVALID : STD_LOGIC;
+  signal audio_fetcher_0_m_axi_dma_AWADDR : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_AWBURST : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_AWCACHE : STD_LOGIC_VECTOR ( 3 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_AWID : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_AWLEN : STD_LOGIC_VECTOR ( 7 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_AWLOCK : STD_LOGIC;
+  signal audio_fetcher_0_m_axi_dma_AWPROT : STD_LOGIC_VECTOR ( 2 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_AWQOS : STD_LOGIC_VECTOR ( 3 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_AWREADY : STD_LOGIC;
+  signal audio_fetcher_0_m_axi_dma_AWSIZE : STD_LOGIC_VECTOR ( 2 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_AWUSER : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal audio_fetcher_0_m_axi_dma_AWVALID : STD_LOGIC;
+  signal audio_fetcher_0_m_axi_dma_BID : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_BREADY : STD_LOGIC;
+  signal audio_fetcher_0_m_axi_dma_BRESP : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_BVALID : STD_LOGIC;
+  signal audio_fetcher_0_m_axi_dma_RDATA : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_RID : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_RLAST : STD_LOGIC;
+  signal audio_fetcher_0_m_axi_dma_RREADY : STD_LOGIC;
+  signal audio_fetcher_0_m_axi_dma_RRESP : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_RUSER : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal audio_fetcher_0_m_axi_dma_RVALID : STD_LOGIC;
+  signal audio_fetcher_0_m_axi_dma_WDATA : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_WLAST : STD_LOGIC;
+  signal audio_fetcher_0_m_axi_dma_WREADY : STD_LOGIC;
+  signal audio_fetcher_0_m_axi_dma_WSTRB : STD_LOGIC_VECTOR ( 3 downto 0 );
+  signal audio_fetcher_0_m_axi_dma_WUSER : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal audio_fetcher_0_m_axi_dma_WVALID : STD_LOGIC;
   signal axi_gpio_0_GPIO_TRI_I : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal axi_gpio_0_GPIO_TRI_O : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal axi_gpio_0_GPIO_TRI_T : STD_LOGIC_VECTOR ( 1 downto 0 );
@@ -2676,6 +2682,7 @@ architecture STRUCTURE of audio_hw_platform is
   signal axi_mem_intercon_M00_AXI_WREADY : STD_LOGIC;
   signal axi_mem_intercon_M00_AXI_WSTRB : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal axi_mem_intercon_M00_AXI_WVALID : STD_LOGIC;
+  signal debug_slice_0_Dout : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal processing_system7_0_DDR_ADDR : STD_LOGIC_VECTOR ( 14 downto 0 );
   signal processing_system7_0_DDR_BA : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal processing_system7_0_DDR_CAS_N : STD_LOGIC;
@@ -2804,9 +2811,7 @@ architecture STRUCTURE of audio_hw_platform is
   signal NLW_audio_fetcher_0_m_axi_audio_out_arvalid_UNCONNECTED : STD_LOGIC;
   signal NLW_audio_fetcher_0_m_axi_audio_out_awvalid_UNCONNECTED : STD_LOGIC;
   signal NLW_audio_fetcher_0_m_axi_audio_out_bready_UNCONNECTED : STD_LOGIC;
-  signal NLW_audio_fetcher_0_m_axi_audio_out_error_UNCONNECTED : STD_LOGIC;
   signal NLW_audio_fetcher_0_m_axi_audio_out_rready_UNCONNECTED : STD_LOGIC;
-  signal NLW_audio_fetcher_0_m_axi_audio_out_txn_done_UNCONNECTED : STD_LOGIC;
   signal NLW_audio_fetcher_0_m_axi_audio_out_wvalid_UNCONNECTED : STD_LOGIC;
   signal NLW_audio_fetcher_0_m_axi_audio_out_araddr_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal NLW_audio_fetcher_0_m_axi_audio_out_arprot_UNCONNECTED : STD_LOGIC_VECTOR ( 2 downto 0 );
@@ -2877,13 +2882,15 @@ begin
   LRCLK <= zed_audio_ctrl_0_LRCLK;
   SDATA_O <= zed_audio_ctrl_0_SDATA_O;
   axi_gpio_0_GPIO_TRI_I(1 downto 0) <= GPIO_tri_i(1 downto 0);
+  leds(7 downto 0) <= debug_slice_0_Dout(7 downto 0);
   processing_system7_0_IIC_0_SCL_I <= IIC_0_scl_i;
   processing_system7_0_IIC_0_SDA_I <= IIC_0_sda_i;
 audio_fetcher_0: component audio_hw_platform_audio_fetcher_0_0
      port map (
+      debug_data_o(31 downto 0) => audio_fetcher_0_debug_data_o(31 downto 0),
       m_axi_audio_out_aclk => processing_system7_0_FCLK_CLK0,
       m_axi_audio_out_araddr(31 downto 0) => NLW_audio_fetcher_0_m_axi_audio_out_araddr_UNCONNECTED(31 downto 0),
-      m_axi_audio_out_aresetn => '0',
+      m_axi_audio_out_aresetn => rst_ps7_0_200M_peripheral_aresetn(0),
       m_axi_audio_out_arprot(2 downto 0) => NLW_audio_fetcher_0_m_axi_audio_out_arprot_UNCONNECTED(2 downto 0),
       m_axi_audio_out_arready => '0',
       m_axi_audio_out_arvalid => NLW_audio_fetcher_0_m_axi_audio_out_arvalid_UNCONNECTED,
@@ -2894,61 +2901,58 @@ audio_fetcher_0: component audio_hw_platform_audio_fetcher_0_0
       m_axi_audio_out_bready => NLW_audio_fetcher_0_m_axi_audio_out_bready_UNCONNECTED,
       m_axi_audio_out_bresp(1 downto 0) => B"00",
       m_axi_audio_out_bvalid => '0',
-      m_axi_audio_out_error => NLW_audio_fetcher_0_m_axi_audio_out_error_UNCONNECTED,
-      m_axi_audio_out_init_axi_txn => '0',
       m_axi_audio_out_rdata(31 downto 0) => B"00000000000000000000000000000000",
       m_axi_audio_out_rready => NLW_audio_fetcher_0_m_axi_audio_out_rready_UNCONNECTED,
       m_axi_audio_out_rresp(1 downto 0) => B"00",
       m_axi_audio_out_rvalid => '0',
-      m_axi_audio_out_txn_done => NLW_audio_fetcher_0_m_axi_audio_out_txn_done_UNCONNECTED,
       m_axi_audio_out_wdata(31 downto 0) => NLW_audio_fetcher_0_m_axi_audio_out_wdata_UNCONNECTED(31 downto 0),
       m_axi_audio_out_wready => '0',
       m_axi_audio_out_wstrb(3 downto 0) => NLW_audio_fetcher_0_m_axi_audio_out_wstrb_UNCONNECTED(3 downto 0),
       m_axi_audio_out_wvalid => NLW_audio_fetcher_0_m_axi_audio_out_wvalid_UNCONNECTED,
       m_axi_dma_aclk => processing_system7_0_FCLK_CLK0,
-      m_axi_dma_araddr(31 downto 0) => audio_fetcher_0_M_AXI_DMA_ARADDR(31 downto 0),
-      m_axi_dma_arburst(1 downto 0) => audio_fetcher_0_M_AXI_DMA_ARBURST(1 downto 0),
-      m_axi_dma_arcache(3 downto 0) => audio_fetcher_0_M_AXI_DMA_ARCACHE(3 downto 0),
+      m_axi_dma_araddr(31 downto 0) => audio_fetcher_0_m_axi_dma_ARADDR(31 downto 0),
+      m_axi_dma_arburst(1 downto 0) => audio_fetcher_0_m_axi_dma_ARBURST(1 downto 0),
+      m_axi_dma_arcache(3 downto 0) => audio_fetcher_0_m_axi_dma_ARCACHE(3 downto 0),
       m_axi_dma_aresetn => rst_ps7_0_200M_peripheral_aresetn(0),
-      m_axi_dma_arid(1 downto 0) => audio_fetcher_0_M_AXI_DMA_ARID(1 downto 0),
-      m_axi_dma_arlen(7 downto 0) => audio_fetcher_0_M_AXI_DMA_ARLEN(7 downto 0),
-      m_axi_dma_arlock => audio_fetcher_0_M_AXI_DMA_ARLOCK,
-      m_axi_dma_arprot(2 downto 0) => audio_fetcher_0_M_AXI_DMA_ARPROT(2 downto 0),
-      m_axi_dma_arqos(3 downto 0) => audio_fetcher_0_M_AXI_DMA_ARQOS(3 downto 0),
-      m_axi_dma_arready => audio_fetcher_0_M_AXI_DMA_ARREADY,
-      m_axi_dma_arsize(2 downto 0) => audio_fetcher_0_M_AXI_DMA_ARSIZE(2 downto 0),
-      m_axi_dma_aruser(0) => audio_fetcher_0_M_AXI_DMA_ARUSER(0),
-      m_axi_dma_arvalid => audio_fetcher_0_M_AXI_DMA_ARVALID,
-      m_axi_dma_awaddr(31 downto 0) => audio_fetcher_0_M_AXI_DMA_AWADDR(31 downto 0),
-      m_axi_dma_awburst(1 downto 0) => audio_fetcher_0_M_AXI_DMA_AWBURST(1 downto 0),
-      m_axi_dma_awcache(3 downto 0) => audio_fetcher_0_M_AXI_DMA_AWCACHE(3 downto 0),
-      m_axi_dma_awid(1 downto 0) => audio_fetcher_0_M_AXI_DMA_AWID(1 downto 0),
-      m_axi_dma_awlen(7 downto 0) => audio_fetcher_0_M_AXI_DMA_AWLEN(7 downto 0),
-      m_axi_dma_awlock => audio_fetcher_0_M_AXI_DMA_AWLOCK,
-      m_axi_dma_awprot(2 downto 0) => audio_fetcher_0_M_AXI_DMA_AWPROT(2 downto 0),
-      m_axi_dma_awqos(3 downto 0) => audio_fetcher_0_M_AXI_DMA_AWQOS(3 downto 0),
-      m_axi_dma_awready => audio_fetcher_0_M_AXI_DMA_AWREADY,
-      m_axi_dma_awsize(2 downto 0) => audio_fetcher_0_M_AXI_DMA_AWSIZE(2 downto 0),
-      m_axi_dma_awuser(0) => audio_fetcher_0_M_AXI_DMA_AWUSER(0),
-      m_axi_dma_awvalid => audio_fetcher_0_M_AXI_DMA_AWVALID,
-      m_axi_dma_bid(1 downto 0) => audio_fetcher_0_M_AXI_DMA_BID(1 downto 0),
-      m_axi_dma_bready => audio_fetcher_0_M_AXI_DMA_BREADY,
-      m_axi_dma_bresp(1 downto 0) => audio_fetcher_0_M_AXI_DMA_BRESP(1 downto 0),
+      m_axi_dma_arid(1 downto 0) => audio_fetcher_0_m_axi_dma_ARID(1 downto 0),
+      m_axi_dma_arlen(7 downto 0) => audio_fetcher_0_m_axi_dma_ARLEN(7 downto 0),
+      m_axi_dma_arlock => audio_fetcher_0_m_axi_dma_ARLOCK,
+      m_axi_dma_arprot(2 downto 0) => audio_fetcher_0_m_axi_dma_ARPROT(2 downto 0),
+      m_axi_dma_arqos(3 downto 0) => audio_fetcher_0_m_axi_dma_ARQOS(3 downto 0),
+      m_axi_dma_arready => audio_fetcher_0_m_axi_dma_ARREADY,
+      m_axi_dma_arsize(2 downto 0) => audio_fetcher_0_m_axi_dma_ARSIZE(2 downto 0),
+      m_axi_dma_aruser(0) => audio_fetcher_0_m_axi_dma_ARUSER(0),
+      m_axi_dma_arvalid => audio_fetcher_0_m_axi_dma_ARVALID,
+      m_axi_dma_awaddr(31 downto 0) => audio_fetcher_0_m_axi_dma_AWADDR(31 downto 0),
+      m_axi_dma_awburst(1 downto 0) => audio_fetcher_0_m_axi_dma_AWBURST(1 downto 0),
+      m_axi_dma_awcache(3 downto 0) => audio_fetcher_0_m_axi_dma_AWCACHE(3 downto 0),
+      m_axi_dma_awid(1 downto 0) => audio_fetcher_0_m_axi_dma_AWID(1 downto 0),
+      m_axi_dma_awlen(7 downto 0) => audio_fetcher_0_m_axi_dma_AWLEN(7 downto 0),
+      m_axi_dma_awlock => audio_fetcher_0_m_axi_dma_AWLOCK,
+      m_axi_dma_awprot(2 downto 0) => audio_fetcher_0_m_axi_dma_AWPROT(2 downto 0),
+      m_axi_dma_awqos(3 downto 0) => audio_fetcher_0_m_axi_dma_AWQOS(3 downto 0),
+      m_axi_dma_awready => audio_fetcher_0_m_axi_dma_AWREADY,
+      m_axi_dma_awsize(2 downto 0) => audio_fetcher_0_m_axi_dma_AWSIZE(2 downto 0),
+      m_axi_dma_awuser(0) => audio_fetcher_0_m_axi_dma_AWUSER(0),
+      m_axi_dma_awvalid => audio_fetcher_0_m_axi_dma_AWVALID,
+      m_axi_dma_bid(1 downto 0) => audio_fetcher_0_m_axi_dma_BID(1 downto 0),
+      m_axi_dma_bready => audio_fetcher_0_m_axi_dma_BREADY,
+      m_axi_dma_bresp(1 downto 0) => audio_fetcher_0_m_axi_dma_BRESP(1 downto 0),
       m_axi_dma_buser(0) => '0',
-      m_axi_dma_bvalid => audio_fetcher_0_M_AXI_DMA_BVALID,
-      m_axi_dma_rdata(31 downto 0) => audio_fetcher_0_M_AXI_DMA_RDATA(31 downto 0),
-      m_axi_dma_rid(1 downto 0) => audio_fetcher_0_M_AXI_DMA_RID(1 downto 0),
-      m_axi_dma_rlast => audio_fetcher_0_M_AXI_DMA_RLAST,
-      m_axi_dma_rready => audio_fetcher_0_M_AXI_DMA_RREADY,
-      m_axi_dma_rresp(1 downto 0) => audio_fetcher_0_M_AXI_DMA_RRESP(1 downto 0),
-      m_axi_dma_ruser(0) => audio_fetcher_0_M_AXI_DMA_RUSER(0),
-      m_axi_dma_rvalid => audio_fetcher_0_M_AXI_DMA_RVALID,
-      m_axi_dma_wdata(31 downto 0) => audio_fetcher_0_M_AXI_DMA_WDATA(31 downto 0),
-      m_axi_dma_wlast => audio_fetcher_0_M_AXI_DMA_WLAST,
-      m_axi_dma_wready => audio_fetcher_0_M_AXI_DMA_WREADY,
-      m_axi_dma_wstrb(3 downto 0) => audio_fetcher_0_M_AXI_DMA_WSTRB(3 downto 0),
-      m_axi_dma_wuser(0) => audio_fetcher_0_M_AXI_DMA_WUSER(0),
-      m_axi_dma_wvalid => audio_fetcher_0_M_AXI_DMA_WVALID,
+      m_axi_dma_bvalid => audio_fetcher_0_m_axi_dma_BVALID,
+      m_axi_dma_rdata(31 downto 0) => audio_fetcher_0_m_axi_dma_RDATA(31 downto 0),
+      m_axi_dma_rid(1 downto 0) => audio_fetcher_0_m_axi_dma_RID(1 downto 0),
+      m_axi_dma_rlast => audio_fetcher_0_m_axi_dma_RLAST,
+      m_axi_dma_rready => audio_fetcher_0_m_axi_dma_RREADY,
+      m_axi_dma_rresp(1 downto 0) => audio_fetcher_0_m_axi_dma_RRESP(1 downto 0),
+      m_axi_dma_ruser(0) => audio_fetcher_0_m_axi_dma_RUSER(0),
+      m_axi_dma_rvalid => audio_fetcher_0_m_axi_dma_RVALID,
+      m_axi_dma_wdata(31 downto 0) => audio_fetcher_0_m_axi_dma_WDATA(31 downto 0),
+      m_axi_dma_wlast => audio_fetcher_0_m_axi_dma_WLAST,
+      m_axi_dma_wready => audio_fetcher_0_m_axi_dma_WREADY,
+      m_axi_dma_wstrb(3 downto 0) => audio_fetcher_0_m_axi_dma_WSTRB(3 downto 0),
+      m_axi_dma_wuser(0) => audio_fetcher_0_m_axi_dma_WUSER(0),
+      m_axi_dma_wvalid => audio_fetcher_0_m_axi_dma_WVALID,
       s_axi_aclk => processing_system7_0_FCLK_CLK0,
       s_axi_araddr(3 downto 0) => ps7_0_axi_periph_M02_AXI_ARADDR(3 downto 0),
       s_axi_aresetn => rst_ps7_0_200M_peripheral_aresetn(0),
@@ -3012,47 +3016,47 @@ axi_mem_intercon: entity work.audio_hw_platform_axi_mem_intercon_0
       M00_AXI_wvalid => axi_mem_intercon_M00_AXI_WVALID,
       S00_ACLK => processing_system7_0_FCLK_CLK0,
       S00_ARESETN => rst_ps7_0_200M_peripheral_aresetn(0),
-      S00_AXI_araddr(31 downto 0) => audio_fetcher_0_M_AXI_DMA_ARADDR(31 downto 0),
-      S00_AXI_arburst(1 downto 0) => audio_fetcher_0_M_AXI_DMA_ARBURST(1 downto 0),
-      S00_AXI_arcache(3 downto 0) => audio_fetcher_0_M_AXI_DMA_ARCACHE(3 downto 0),
-      S00_AXI_arid(1 downto 0) => audio_fetcher_0_M_AXI_DMA_ARID(1 downto 0),
-      S00_AXI_arlen(7 downto 0) => audio_fetcher_0_M_AXI_DMA_ARLEN(7 downto 0),
-      S00_AXI_arlock => audio_fetcher_0_M_AXI_DMA_ARLOCK,
-      S00_AXI_arprot(2 downto 0) => audio_fetcher_0_M_AXI_DMA_ARPROT(2 downto 0),
-      S00_AXI_arqos(3 downto 0) => audio_fetcher_0_M_AXI_DMA_ARQOS(3 downto 0),
-      S00_AXI_arready => audio_fetcher_0_M_AXI_DMA_ARREADY,
-      S00_AXI_arsize(2 downto 0) => audio_fetcher_0_M_AXI_DMA_ARSIZE(2 downto 0),
-      S00_AXI_aruser(0) => audio_fetcher_0_M_AXI_DMA_ARUSER(0),
-      S00_AXI_arvalid => audio_fetcher_0_M_AXI_DMA_ARVALID,
-      S00_AXI_awaddr(31 downto 0) => audio_fetcher_0_M_AXI_DMA_AWADDR(31 downto 0),
-      S00_AXI_awburst(1 downto 0) => audio_fetcher_0_M_AXI_DMA_AWBURST(1 downto 0),
-      S00_AXI_awcache(3 downto 0) => audio_fetcher_0_M_AXI_DMA_AWCACHE(3 downto 0),
-      S00_AXI_awid(1 downto 0) => audio_fetcher_0_M_AXI_DMA_AWID(1 downto 0),
-      S00_AXI_awlen(7 downto 0) => audio_fetcher_0_M_AXI_DMA_AWLEN(7 downto 0),
-      S00_AXI_awlock => audio_fetcher_0_M_AXI_DMA_AWLOCK,
-      S00_AXI_awprot(2 downto 0) => audio_fetcher_0_M_AXI_DMA_AWPROT(2 downto 0),
-      S00_AXI_awqos(3 downto 0) => audio_fetcher_0_M_AXI_DMA_AWQOS(3 downto 0),
-      S00_AXI_awready => audio_fetcher_0_M_AXI_DMA_AWREADY,
-      S00_AXI_awsize(2 downto 0) => audio_fetcher_0_M_AXI_DMA_AWSIZE(2 downto 0),
-      S00_AXI_awuser(0) => audio_fetcher_0_M_AXI_DMA_AWUSER(0),
-      S00_AXI_awvalid => audio_fetcher_0_M_AXI_DMA_AWVALID,
-      S00_AXI_bid(1 downto 0) => audio_fetcher_0_M_AXI_DMA_BID(1 downto 0),
-      S00_AXI_bready => audio_fetcher_0_M_AXI_DMA_BREADY,
-      S00_AXI_bresp(1 downto 0) => audio_fetcher_0_M_AXI_DMA_BRESP(1 downto 0),
-      S00_AXI_bvalid => audio_fetcher_0_M_AXI_DMA_BVALID,
-      S00_AXI_rdata(31 downto 0) => audio_fetcher_0_M_AXI_DMA_RDATA(31 downto 0),
-      S00_AXI_rid(1 downto 0) => audio_fetcher_0_M_AXI_DMA_RID(1 downto 0),
-      S00_AXI_rlast => audio_fetcher_0_M_AXI_DMA_RLAST,
-      S00_AXI_rready => audio_fetcher_0_M_AXI_DMA_RREADY,
-      S00_AXI_rresp(1 downto 0) => audio_fetcher_0_M_AXI_DMA_RRESP(1 downto 0),
-      S00_AXI_ruser(0) => audio_fetcher_0_M_AXI_DMA_RUSER(0),
-      S00_AXI_rvalid => audio_fetcher_0_M_AXI_DMA_RVALID,
-      S00_AXI_wdata(31 downto 0) => audio_fetcher_0_M_AXI_DMA_WDATA(31 downto 0),
-      S00_AXI_wlast => audio_fetcher_0_M_AXI_DMA_WLAST,
-      S00_AXI_wready => audio_fetcher_0_M_AXI_DMA_WREADY,
-      S00_AXI_wstrb(3 downto 0) => audio_fetcher_0_M_AXI_DMA_WSTRB(3 downto 0),
-      S00_AXI_wuser(0) => audio_fetcher_0_M_AXI_DMA_WUSER(0),
-      S00_AXI_wvalid => audio_fetcher_0_M_AXI_DMA_WVALID
+      S00_AXI_araddr(31 downto 0) => audio_fetcher_0_m_axi_dma_ARADDR(31 downto 0),
+      S00_AXI_arburst(1 downto 0) => audio_fetcher_0_m_axi_dma_ARBURST(1 downto 0),
+      S00_AXI_arcache(3 downto 0) => audio_fetcher_0_m_axi_dma_ARCACHE(3 downto 0),
+      S00_AXI_arid(1 downto 0) => audio_fetcher_0_m_axi_dma_ARID(1 downto 0),
+      S00_AXI_arlen(7 downto 0) => audio_fetcher_0_m_axi_dma_ARLEN(7 downto 0),
+      S00_AXI_arlock => audio_fetcher_0_m_axi_dma_ARLOCK,
+      S00_AXI_arprot(2 downto 0) => audio_fetcher_0_m_axi_dma_ARPROT(2 downto 0),
+      S00_AXI_arqos(3 downto 0) => audio_fetcher_0_m_axi_dma_ARQOS(3 downto 0),
+      S00_AXI_arready => audio_fetcher_0_m_axi_dma_ARREADY,
+      S00_AXI_arsize(2 downto 0) => audio_fetcher_0_m_axi_dma_ARSIZE(2 downto 0),
+      S00_AXI_aruser(0) => audio_fetcher_0_m_axi_dma_ARUSER(0),
+      S00_AXI_arvalid => audio_fetcher_0_m_axi_dma_ARVALID,
+      S00_AXI_awaddr(31 downto 0) => audio_fetcher_0_m_axi_dma_AWADDR(31 downto 0),
+      S00_AXI_awburst(1 downto 0) => audio_fetcher_0_m_axi_dma_AWBURST(1 downto 0),
+      S00_AXI_awcache(3 downto 0) => audio_fetcher_0_m_axi_dma_AWCACHE(3 downto 0),
+      S00_AXI_awid(1 downto 0) => audio_fetcher_0_m_axi_dma_AWID(1 downto 0),
+      S00_AXI_awlen(7 downto 0) => audio_fetcher_0_m_axi_dma_AWLEN(7 downto 0),
+      S00_AXI_awlock => audio_fetcher_0_m_axi_dma_AWLOCK,
+      S00_AXI_awprot(2 downto 0) => audio_fetcher_0_m_axi_dma_AWPROT(2 downto 0),
+      S00_AXI_awqos(3 downto 0) => audio_fetcher_0_m_axi_dma_AWQOS(3 downto 0),
+      S00_AXI_awready => audio_fetcher_0_m_axi_dma_AWREADY,
+      S00_AXI_awsize(2 downto 0) => audio_fetcher_0_m_axi_dma_AWSIZE(2 downto 0),
+      S00_AXI_awuser(0) => audio_fetcher_0_m_axi_dma_AWUSER(0),
+      S00_AXI_awvalid => audio_fetcher_0_m_axi_dma_AWVALID,
+      S00_AXI_bid(1 downto 0) => audio_fetcher_0_m_axi_dma_BID(1 downto 0),
+      S00_AXI_bready => audio_fetcher_0_m_axi_dma_BREADY,
+      S00_AXI_bresp(1 downto 0) => audio_fetcher_0_m_axi_dma_BRESP(1 downto 0),
+      S00_AXI_bvalid => audio_fetcher_0_m_axi_dma_BVALID,
+      S00_AXI_rdata(31 downto 0) => audio_fetcher_0_m_axi_dma_RDATA(31 downto 0),
+      S00_AXI_rid(1 downto 0) => audio_fetcher_0_m_axi_dma_RID(1 downto 0),
+      S00_AXI_rlast => audio_fetcher_0_m_axi_dma_RLAST,
+      S00_AXI_rready => audio_fetcher_0_m_axi_dma_RREADY,
+      S00_AXI_rresp(1 downto 0) => audio_fetcher_0_m_axi_dma_RRESP(1 downto 0),
+      S00_AXI_ruser(0) => audio_fetcher_0_m_axi_dma_RUSER(0),
+      S00_AXI_rvalid => audio_fetcher_0_m_axi_dma_RVALID,
+      S00_AXI_wdata(31 downto 0) => audio_fetcher_0_m_axi_dma_WDATA(31 downto 0),
+      S00_AXI_wlast => audio_fetcher_0_m_axi_dma_WLAST,
+      S00_AXI_wready => audio_fetcher_0_m_axi_dma_WREADY,
+      S00_AXI_wstrb(3 downto 0) => audio_fetcher_0_m_axi_dma_WSTRB(3 downto 0),
+      S00_AXI_wuser(0) => audio_fetcher_0_m_axi_dma_WUSER(0),
+      S00_AXI_wvalid => audio_fetcher_0_m_axi_dma_WVALID
     );
 axi_to_i2c_0: component audio_hw_platform_axi_gpio_0_0
      port map (
@@ -3078,6 +3082,11 @@ axi_to_i2c_0: component audio_hw_platform_axi_gpio_0_0
       s_axi_wready => ps7_0_axi_periph_M01_AXI_WREADY,
       s_axi_wstrb(3 downto 0) => ps7_0_axi_periph_M01_AXI_WSTRB(3 downto 0),
       s_axi_wvalid => ps7_0_axi_periph_M01_AXI_WVALID
+    );
+debug_slice_0: component audio_hw_platform_xlslice_0_0
+     port map (
+      Din(31 downto 0) => audio_fetcher_0_debug_data_o(31 downto 0),
+      Dout(7 downto 0) => debug_slice_0_Dout(7 downto 0)
     );
 processing_system7_0: component audio_hw_platform_processing_system7_0_0
      port map (
