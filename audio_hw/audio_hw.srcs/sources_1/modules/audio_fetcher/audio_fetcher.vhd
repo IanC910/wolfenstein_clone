@@ -12,6 +12,11 @@ entity audio_fetcher is
         -- Parameters of Axi Master Bus Interface M_AXI_AUDIO_OUT
         C_M_AXI_AUDIO_OUT_ADDR_WIDTH    : integer	:= 32;
 
+        CLOCK_FREQ_MHz                  : integer := 200;
+        ZED_AUDIO_CTRL_ADDR             : integer := 16#43C0_0000#;
+        I2S_DATA_TX_L_REG_OFFSET        : integer := 8;
+        I2S_DATA_TX_R_REG_OFFSET        : integer := 12;
+
         -- Parameters of Axi Master Bus Interface M_AXI_DMA
         C_M_AXI_DMA_BURST_LEN	    : integer	:= 1;
         C_M_AXI_DMA_ID_WIDTH	    : integer	:= 2;
@@ -274,7 +279,11 @@ architecture arch_imp of audio_fetcher is
             AXI_DATA_WIDTH                  : integer := 32;
             C_M_AXI_DMA_ADDR_WIDTH          : integer := 32;
             C_M_AXI_DMA_ID_WIDTH            : integer := 1;
-            C_M_AXI_AUDIO_OUT_ADDR_WIDTH    : integer := 32
+            C_M_AXI_AUDIO_OUT_ADDR_WIDTH    : integer := 32;
+            CLOCK_FREQ_MHz                  : integer := 200;
+            ZED_AUDIO_CTRL_ADDR             : integer := 16#43C0_0000#;
+            I2S_DATA_TX_L_REG_OFFSET        : integer := 8;
+            I2S_DATA_TX_R_REG_OFFSET        : integer := 12
         );
         port(
             clk                 : in    std_logic;
@@ -337,7 +346,11 @@ begin
             AXI_DATA_WIDTH                  => AXI_DATA_WIDTH,
             C_M_AXI_DMA_ADDR_WIDTH          => C_M_AXI_DMA_ADDR_WIDTH,
             C_M_AXI_DMA_ID_WIDTH            => C_M_AXI_DMA_ID_WIDTH,
-            C_M_AXI_AUDIO_OUT_ADDR_WIDTH    => C_M_AXI_AUDIO_OUT_ADDR_WIDTH
+            C_M_AXI_AUDIO_OUT_ADDR_WIDTH    => C_M_AXI_AUDIO_OUT_ADDR_WIDTH,
+            CLOCK_FREQ_MHz                  => CLOCK_FREQ_MHz,
+            ZED_AUDIO_CTRL_ADDR             => ZED_AUDIO_CTRL_ADDR,
+            I2S_DATA_TX_L_REG_OFFSET        => I2S_DATA_TX_L_REG_OFFSET,
+            I2S_DATA_TX_R_REG_OFFSET        => I2S_DATA_TX_R_REG_OFFSET
         )
         port map (
             clk                 => s_axi_aclk,

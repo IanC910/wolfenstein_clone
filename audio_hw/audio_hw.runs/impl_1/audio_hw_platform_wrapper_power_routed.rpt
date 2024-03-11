@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-| Date             : Mon Mar 11 04:15:42 2024
+| Date             : Mon Mar 11 05:53:20 2024
 | Host             : IC-VivoBook running 64-bit major release  (build 9200)
 | Command          : report_power -file audio_hw_platform_wrapper_power_routed.rpt -pb audio_hw_platform_wrapper_power_summary_routed.pb -rpx audio_hw_platform_wrapper_power_routed.rpx
 | Design           : audio_hw_platform_wrapper
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 1.553        |
+| Total On-Chip Power (W)  | 1.558        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 1.412        |
+| Dynamic (W)              | 1.417        |
 | Device Static (W)        | 0.141        |
 | Effective TJA (C/W)      | 11.5         |
-| Max Ambient (C)          | 67.1         |
-| Junction Temperature (C) | 42.9         |
+| Max Ambient (C)          | 67.0         |
+| Junction Temperature (C) | 43.0         |
 | Confidence Level         | Low          |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -52,19 +52,20 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.012 |        4 |       --- |             --- |
-| Slice Logic              |     0.004 |     3934 |       --- |             --- |
-|   LUT as Logic           |     0.003 |     1228 |     53200 |            2.31 |
-|   Register               |    <0.001 |     1921 |    106400 |            1.81 |
-|   CARRY4                 |    <0.001 |       59 |     13300 |            0.44 |
+| Clocks                   |     0.014 |        4 |       --- |             --- |
+| Slice Logic              |     0.004 |     4093 |       --- |             --- |
+|   LUT as Logic           |     0.003 |     1318 |     53200 |            2.48 |
+|   Register               |    <0.001 |     1949 |    106400 |            1.83 |
+|   CARRY4                 |    <0.001 |       67 |     13300 |            0.50 |
 |   LUT as Shift Register  |    <0.001 |       77 |     17400 |            0.44 |
-|   Others                 |     0.000 |      279 |       --- |             --- |
+|   Others                 |     0.000 |      281 |       --- |             --- |
 |   LUT as Distributed RAM |     0.000 |       10 |     17400 |            0.06 |
-| Signals                  |     0.006 |     2900 |       --- |             --- |
+| Signals                  |     0.006 |     3113 |       --- |             --- |
+| DSPs                     |     0.003 |        2 |       220 |            0.91 |
 | I/O                      |     0.006 |       16 |       200 |            8.00 |
 | PS7                      |     1.384 |        1 |       --- |             --- |
 | Static Power             |     0.141 |          |           |                 |
-| Total                    |     1.553 |          |           |                 |
+| Total                    |     1.558 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -74,7 +75,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.036 |       0.022 |      0.014 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.041 |       0.027 |      0.014 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.015 |       0.000 |      0.015 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.003 |       0.002 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -151,12 +152,12 @@ Table of Contents
 +---------------------------+-----------+
 | Name                      | Power (W) |
 +---------------------------+-----------+
-| audio_hw_platform_wrapper |     1.412 |
+| audio_hw_platform_wrapper |     1.417 |
 |   IIC_0_scl_iobuf         |     0.002 |
 |   IIC_0_sda_iobuf         |     0.002 |
-|   audio_hw_platform_i     |     1.406 |
-|     audio_fetcher_0       |     0.004 |
-|       U0                  |     0.004 |
+|   audio_hw_platform_i     |     1.411 |
+|     audio_fetcher_0       |     0.008 |
+|       U0                  |     0.008 |
 |     axi_mem_intercon      |     0.005 |
 |       s00_couplers        |     0.005 |
 |     processing_system7_0  |     1.386 |

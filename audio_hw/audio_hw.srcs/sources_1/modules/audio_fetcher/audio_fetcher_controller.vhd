@@ -10,8 +10,9 @@ entity audio_fetcher_controller is
         C_M_AXI_DMA_ID_WIDTH            : integer := 1;
         C_M_AXI_AUDIO_OUT_ADDR_WIDTH    : integer := 32;
         CLOCK_FREQ_MHz                  : integer := 200;
-        I2S_DATA_TX_L_REG_ADDR          : integer := 8;
-        I2S_DATA_TX_R_REG_ADDR          : integer := 12
+        ZED_AUDIO_CTRL_ADDR             : integer := 16#43C0_0000#;
+        I2S_DATA_TX_L_REG_OFFSET        : integer := 8;
+        I2S_DATA_TX_R_REG_OFFSET        : integer := 12
     );
     port(
         clk                 : in    std_logic;
@@ -43,13 +44,17 @@ entity audio_fetcher_controller is
 end entity;
 
 architecture behaviour of audio_fetcher_controller is
+    constant BYTES_PER_SAMPLE           : integer := 2;
+
+    constant I2S_DATA_TX_L_REG_ADDR     : integer := ZED_AUDIO_CTRL_ADDR + I2S_DATA_TX_L_REG_OFFSET;
+    constant I2S_DATA_TX_R_REG_ADDR     : integer := ZED_AUDIO_CTRL_ADDR + I2S_DATA_TX_R_REG_OFFSET;
 
     constant NUM_SAMPLES_OFFSET         : integer := 0;
-    constant BYTES_PER_SAMPLE_OFFSET    : integer := 4;
-    constant SAMPLE_PERIOD_OFFSET       : integer := 6;
+    constant SAMPLE_PERIOD_OFFSET       : integer := 4;
     constant DATA_OFFSET                : integer := 8;
+
     constant HEADER_0_OFFSET            : integer := NUM_SAMPLES_OFFSET;
-    constant HEADER_1_OFFSET            : integer := BYTES_PER_SAMPLE_OFFSET;
+    constant HEADER_1_OFFSET            : integer := SAMPLE_PERIOD_OFFSET;
 
     constant MAX_SLEEP_TIME_US      : integer := 63; -- Arbitrary but 63 us period is less than 20 kHz, so it's safe
     constant MAX_SLEEP_CYCLES       : integer := MAX_SLEEP_TIME_US * CLOCK_FREQ_MHz;
@@ -59,7 +64,6 @@ architecture behaviour of audio_fetcher_controller is
     signal vol_coef_ff              : signed(AXI_DATA_WIDTH - 1 downto 0);
 
     signal num_samples_ff           : unsigned(4 * 8 - 1 downto 0);
-    signal bytes_per_sample_ff      : unsigned(2 * 8 - 1 downto 0);
     signal sample_period_us_ff      : unsigned(2 * 8 - 1 downto 0);
     signal sample_period_cycles_ff  : unsigned(SLEEP_COUNTER_WIDTH - 1 downto 0);
 
@@ -72,7 +76,7 @@ architecture behaviour of audio_fetcher_controller is
     signal req_addr_offset_ff       : unsigned(C_M_AXI_DMA_ADDR_WIDTH - 1 downto 0);
     signal last_sample              : std_logic;
 
-    signal scaled_sample            : signed(AXI_DATA_WIDTH - 1 downto 0);
+    signal scaled_sample_ff            : signed(AXI_DATA_WIDTH - 1 downto 0);
 
 
     type state_t is (
@@ -83,13 +87,15 @@ architecture behaviour of audio_fetcher_controller is
         RETURNING_HEADER_1,
         REQUESTING_DATA,
         RETURNING_DATA,
-        SLEEPING,
+        SCALING,
         WRITING_L,
-        WRITING_R
+        WRITING_R,
+        SLEEPING
     );
 
-    signal curr_state_ff  : state_t;
-    signal next_state     : state_t;
+    signal curr_state_ff    : state_t;
+    signal next_state       : state_t;
+    signal prev_state_ff    : state_t;
 
 begin
     -- Main FSM
@@ -97,8 +103,10 @@ begin
         if(rising_edge(clk)) then
             if(aresetn = '0') then
                 curr_state_ff <= IDLE;
+                prev_state_ff <= IDLE;
             else
                 curr_state_ff <= next_state;
+                prev_state_ff <= curr_state_ff;
             end if;
         end if;
     end process;
@@ -133,8 +141,6 @@ begin
             when RETURNING_HEADER_0 =>
                 if(return_rv_valid = '1') then
                     next_state <= REQUESTING_HEADER_1;
-                    -- TODO Temp
-                    next_state <= IDLE;
                 end if;
 
             when REQUESTING_HEADER_1 =>
@@ -154,8 +160,11 @@ begin
 
             when RETURNING_DATA =>
                 if(return_rv_valid = '1') then
-                    next_state <= WRITING_L;
+                    next_state <= SCALING;
                 end if;
+
+            when SCALING =>
+                next_state <= WRITING_L;
 
             when WRITING_L =>
                 if(out_rv_ready = '1') then
@@ -222,14 +231,12 @@ begin
     req_rv_addr     <=  std_logic_vector(sound_addr_ff + req_addr_offset_ff);
 
     -- Return RV Interface
-    process(clk)
-        variable bit_index : integer := 0;
-    begin
+    process(clk) begin
         if(rising_edge(clk)) then
             if(aresetn = '0') then
-                num_samples_ff      <= (others => '0');
-                bytes_per_sample_ff <= (others => '0');
-                sample_period_us_ff <= (others => '0');
+                num_samples_ff          <= (others => '0');
+                sample_period_us_ff     <= (others => '0');
+                sample_period_cycles_ff <= (others => '0');
             else
                 if(curr_state_ff = RETURNING_HEADER_0 and return_rv_valid = '1') then
                     num_samples_ff  <= unsigned(return_rv_data);
@@ -237,14 +244,25 @@ begin
                 end if;
 
                 if(curr_state_ff = RETURNING_HEADER_1 and return_rv_valid = '1') then
-                    bytes_per_sample_ff <= unsigned(return_rv_data(15 downto 0));
-                    sample_period_us_ff <= unsigned(return_rv_data(31 downto 16));
+                    sample_period_us_ff <= unsigned(return_rv_data(15 downto 0));
+                    debug_data          <= return_rv_data;
+                end if;
+
+                if(prev_state_ff = RETURNING_HEADER_1) then
+                    sample_period_cycles_ff <= resize(
+                        sample_period_us_ff * to_unsigned(CLOCK_FREQ_MHz, 16),
+                        sample_period_cycles_ff'length
+                    );
                 end if;
 
                 if(curr_state_ff = RETURNING_DATA and return_rv_valid = '1') then
-                    -- TODO: take into account the sample index
-                    bit_index := to_integer(byte_index_ff) * 8;
-                    sample_ff <= resize(signed(return_rv_data(bit_index + 7 downto bit_index)), sample_ff'length);
+                    if(sample_index_ff(0) = '0') then
+                        sample_ff <= resize(signed(return_rv_data(15 downto 0)), sample_ff'length);
+                    else
+                        sample_ff <= resize(signed(return_rv_data(31 downto 16)), sample_ff'length);
+                    end if;
+
+                    debug_data <= return_rv_data;
                 end if;
             end if;
         end if;
@@ -272,7 +290,7 @@ begin
                 if(curr_state_ff = WRITING_R and out_rv_ready = '1') then
                     if(last_sample = '0') then
                         sample_index_ff <= sample_index_ff + to_unsigned(1, sample_index_ff'length);
-                        byte_index_ff   <= byte_index_ff + bytes_per_sample_ff;
+                        byte_index_ff   <= byte_index_ff + to_unsigned(BYTES_PER_SAMPLE, byte_index_ff'length);
                     end if;
                 end if;
             end if;
@@ -295,11 +313,24 @@ begin
     sleep_counter_done <= '1' when (sleep_counter_ff = sample_period_cycles_ff - 1) else '0';
 
     -- Out RV Interface
+    process(clk) begin
+        if(rising_edge(clk)) then
+            if(aresetn = '0') then
+                scaled_sample_ff <= (others => '0');
+            else
+                if(curr_state_ff = SCALING) then
+                    scaled_sample_ff <= resize(
+                        resize(sample_ff, 16) * resize(vol_coef_ff, 16),
+                        scaled_sample_ff'length
+                    );
+                end if;
+            end if;
+        end if;
+    end process;
+
     out_rv_valid    <=  '1' when (curr_state_ff = WRITING_L or curr_state_ff = WRITING_R) else '0';
     out_rv_addr     <=  std_logic_vector(to_unsigned(I2S_DATA_TX_R_REG_ADDR, out_rv_addr'length)) when (curr_state_ff = WRITING_R) else
                         std_logic_vector(to_unsigned(I2S_DATA_TX_L_REG_ADDR, out_rv_addr'length));
-
-    scaled_sample   <=  resize(sample_ff * vol_coef_ff, scaled_sample'length);
-    out_rv_data     <=  std_logic_vector(scaled_sample);
+    out_rv_data     <=  std_logic_vector(scaled_sample_ff);
 
 end architecture;

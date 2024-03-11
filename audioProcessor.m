@@ -14,11 +14,10 @@ playSound = 1;
 downSampleFactor = 2;
 smoothingTimeConstant = 10000;
 
-bytesPerSample = 2;
 volumeCoef = 10000;
 
 
-
+BYTES_PER_SAMPLE = 2;
 [audioData, sampleRateHz] = audioread(audioFileName);
 % audioData = m x n matrix, m = number of samples, n = number of audio channels
 
@@ -46,7 +45,7 @@ if(playSound)
     sound(downsampledAudio, newSampleRateHz);
 end
 
-intAudio = cast(round(downsampledAudio * volumeCoef), "int" + 8 * bytesPerSample);
+intAudio = cast(round(downsampledAudio * volumeCoef), "int" + 8 * BYTES_PER_SAMPLE);
 
 outFileId = fopen('processed_audio.audioData', 'w');
 fclose(outFileId);
@@ -54,9 +53,9 @@ fclose(outFileId);
 outFileId = fopen('processed_audio.audioData', 'a');
 
 fwrite(outFileId, length(intAudio),                     "integer*4");
-fwrite(outFileId, cast(bytesPerSample,      "int16"),   "integer*2");
-fwrite(outFileId, cast(newSamplePeriodUs,   "int16"),   "integer*2");
-fwrite(outFileId, intAudio,                             "integer*" + bytesPerSample);
+fwrite(outFileId, cast(newSamplePeriodUs, "int16"),     "integer*2");
+fwrite(outFileId, cast(0, "int16"),                     "integer*2");
+fwrite(outFileId, intAudio,                             "integer*" + BYTES_PER_SAMPLE);
 
 fclose(outFileId);
 

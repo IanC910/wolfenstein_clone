@@ -67,15 +67,13 @@ void soundFileTest() {
 
 	const char* SOUND_FILE_POINTER = (char*)0x018D0000;
 	int numSamples 			= *(int*)(SOUND_FILE_POINTER + 0);
-	int bytesPerSample 		= *(int*)(SOUND_FILE_POINTER + 4);
-	int samplePeriodUs 		= *(int*)(SOUND_FILE_POINTER + 8);
+	int samplePeriodUs 		= *(int*)(SOUND_FILE_POINTER + 4);
 
 	u32 samplePeriodDoubleCycles = (int)(samplePeriodUs * CPU_CLK_FREQ_MHz / 2);
 
-	int16_t* dataPointer = (int16_t*)(SOUND_FILE_POINTER + 12);
+	int16_t* dataPointer = (int16_t*)(SOUND_FILE_POINTER + 8);
 
 	xil_printf("numSamples = %d\n", numSamples);
-	xil_printf("bytesPerSample = %d\n", bytesPerSample);
 	xil_printf("samplePeriodUs = %d\n", samplePeriodUs);
 	xil_printf("sample 0 = %d\n", dataPointer[0]);
 	xil_printf("sample 1 = %d\n", dataPointer[1]);
@@ -122,9 +120,28 @@ void dmaTest() {
 	}
 }
 
+void dmaSoundTest() {
+	Xil_DCacheDisable();
+
+	configAudio();
+
+	const int AUDIO_FETCHER_BASE_ADDR = XPAR_AUDIO_FETCHER_0_BASEADDR;
+	const char* SOUND_FILE_POINTER = (char*)0x018D0000;
+
+	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 0, (int)(SOUND_FILE_POINTER));
+	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 4, 100);
+	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 8, 1);
+
+	while(true) {
+		Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 8, 1);
+		sleep(2);
+	}
+}
+
 int main() {
 //	sineTest();
 //	soundFileTest();
-	dmaTest();
+//	dmaTest();
+	dmaSoundTest();
 }
 

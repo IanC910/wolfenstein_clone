@@ -31,3 +31,9 @@ platform generate -domains
 platform active {audio_hw_platform}
 platform config -updatehw {C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw_platform_wrapper.xsa}
 platform generate -domains 
+platform active {audio_hw_platform}
+platform config -updatehw {C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw_platform_wrapper.xsa}
+platform generate -domains 
+platform active {audio_hw_platform}
+platform config -updatehw {C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw_platform_wrapper.xsa}
+platform generate -domains 

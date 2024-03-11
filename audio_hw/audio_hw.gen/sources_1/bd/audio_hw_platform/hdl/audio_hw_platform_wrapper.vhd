@@ -1,7 +1,7 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
---Date        : Mon Mar 11 04:11:50 2024
+--Date        : Mon Mar 11 05:49:33 2024
 --Host        : IC-VivoBook running 64-bit major release  (build 9200)
 --Command     : generate_target audio_hw_platform_wrapper.bd
 --Design      : audio_hw_platform_wrapper
@@ -68,9 +68,6 @@ architecture STRUCTURE of audio_hw_platform_wrapper is
     DDR_dq : inout STD_LOGIC_VECTOR ( 31 downto 0 );
     DDR_dqs_n : inout STD_LOGIC_VECTOR ( 3 downto 0 );
     DDR_dqs_p : inout STD_LOGIC_VECTOR ( 3 downto 0 );
-    GPIO_tri_i : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    GPIO_tri_o : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    GPIO_tri_t : out STD_LOGIC_VECTOR ( 1 downto 0 );
     IIC_0_sda_i : in STD_LOGIC;
     IIC_0_sda_o : out STD_LOGIC;
     IIC_0_sda_t : out STD_LOGIC;
@@ -82,7 +79,10 @@ architecture STRUCTURE of audio_hw_platform_wrapper is
     FIXED_IO_ddr_vrp : inout STD_LOGIC;
     FIXED_IO_ps_srstb : inout STD_LOGIC;
     FIXED_IO_ps_clk : inout STD_LOGIC;
-    FIXED_IO_ps_porb : inout STD_LOGIC
+    FIXED_IO_ps_porb : inout STD_LOGIC;
+    GPIO_tri_i : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    GPIO_tri_o : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    GPIO_tri_t : out STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   end component audio_hw_platform;
   component IOBUF is

@@ -4,6 +4,7 @@ proc init_gui { IPINST } {
   #Adding Page
   set Page_0 [ipgui::add_page $IPINST -name "Page 0"]
   ipgui::add_param $IPINST -name "AXI_DATA_WIDTH" -parent ${Page_0}
+  ipgui::add_param $IPINST -name "CLOCK_FREQ_MHz" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_M_AXI_AUDIO_OUT_ADDR_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_M_AXI_DMA_ADDR_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_M_AXI_DMA_ARUSER_WIDTH" -parent ${Page_0}
@@ -14,6 +15,9 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "C_M_AXI_DMA_RUSER_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_M_AXI_DMA_WUSER_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "C_S_AXI_ADDR_WIDTH" -parent ${Page_0}
+  ipgui::add_param $IPINST -name "I2S_DATA_TX_L_REG_OFFSET" -parent ${Page_0}
+  ipgui::add_param $IPINST -name "I2S_DATA_TX_R_REG_OFFSET" -parent ${Page_0}
+  ipgui::add_param $IPINST -name "ZED_AUDIO_CTRL_ADDR" -parent ${Page_0}
 
 
 }
@@ -24,6 +28,15 @@ proc update_PARAM_VALUE.AXI_DATA_WIDTH { PARAM_VALUE.AXI_DATA_WIDTH } {
 
 proc validate_PARAM_VALUE.AXI_DATA_WIDTH { PARAM_VALUE.AXI_DATA_WIDTH } {
 	# Procedure called to validate AXI_DATA_WIDTH
+	return true
+}
+
+proc update_PARAM_VALUE.CLOCK_FREQ_MHz { PARAM_VALUE.CLOCK_FREQ_MHz } {
+	# Procedure called to update CLOCK_FREQ_MHz when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.CLOCK_FREQ_MHz { PARAM_VALUE.CLOCK_FREQ_MHz } {
+	# Procedure called to validate CLOCK_FREQ_MHz
 	return true
 }
 
@@ -117,6 +130,33 @@ proc validate_PARAM_VALUE.C_S_AXI_ADDR_WIDTH { PARAM_VALUE.C_S_AXI_ADDR_WIDTH } 
 	return true
 }
 
+proc update_PARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET { PARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET } {
+	# Procedure called to update I2S_DATA_TX_L_REG_OFFSET when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET { PARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET } {
+	# Procedure called to validate I2S_DATA_TX_L_REG_OFFSET
+	return true
+}
+
+proc update_PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET { PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET } {
+	# Procedure called to update I2S_DATA_TX_R_REG_OFFSET when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET { PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET } {
+	# Procedure called to validate I2S_DATA_TX_R_REG_OFFSET
+	return true
+}
+
+proc update_PARAM_VALUE.ZED_AUDIO_CTRL_ADDR { PARAM_VALUE.ZED_AUDIO_CTRL_ADDR } {
+	# Procedure called to update ZED_AUDIO_CTRL_ADDR when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.ZED_AUDIO_CTRL_ADDR { PARAM_VALUE.ZED_AUDIO_CTRL_ADDR } {
+	# Procedure called to validate ZED_AUDIO_CTRL_ADDR
+	return true
+}
+
 
 proc update_MODELPARAM_VALUE.AXI_DATA_WIDTH { MODELPARAM_VALUE.AXI_DATA_WIDTH PARAM_VALUE.AXI_DATA_WIDTH } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
@@ -131,6 +171,26 @@ proc update_MODELPARAM_VALUE.C_S_AXI_ADDR_WIDTH { MODELPARAM_VALUE.C_S_AXI_ADDR_
 proc update_MODELPARAM_VALUE.C_M_AXI_AUDIO_OUT_ADDR_WIDTH { MODELPARAM_VALUE.C_M_AXI_AUDIO_OUT_ADDR_WIDTH PARAM_VALUE.C_M_AXI_AUDIO_OUT_ADDR_WIDTH } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.C_M_AXI_AUDIO_OUT_ADDR_WIDTH}] ${MODELPARAM_VALUE.C_M_AXI_AUDIO_OUT_ADDR_WIDTH}
+}
+
+proc update_MODELPARAM_VALUE.CLOCK_FREQ_MHz { MODELPARAM_VALUE.CLOCK_FREQ_MHz PARAM_VALUE.CLOCK_FREQ_MHz } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.CLOCK_FREQ_MHz}] ${MODELPARAM_VALUE.CLOCK_FREQ_MHz}
+}
+
+proc update_MODELPARAM_VALUE.ZED_AUDIO_CTRL_ADDR { MODELPARAM_VALUE.ZED_AUDIO_CTRL_ADDR PARAM_VALUE.ZED_AUDIO_CTRL_ADDR } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.ZED_AUDIO_CTRL_ADDR}] ${MODELPARAM_VALUE.ZED_AUDIO_CTRL_ADDR}
+}
+
+proc update_MODELPARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET { MODELPARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET PARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET}] ${MODELPARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET}
+}
+
+proc update_MODELPARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET { MODELPARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET}] ${MODELPARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET}
 }
 
 proc update_MODELPARAM_VALUE.C_M_AXI_DMA_BURST_LEN { MODELPARAM_VALUE.C_M_AXI_DMA_BURST_LEN PARAM_VALUE.C_M_AXI_DMA_BURST_LEN } {

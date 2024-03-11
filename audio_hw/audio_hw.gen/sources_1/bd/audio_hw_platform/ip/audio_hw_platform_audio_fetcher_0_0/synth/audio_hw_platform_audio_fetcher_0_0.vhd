@@ -153,6 +153,10 @@ ARCHITECTURE audio_hw_platform_audio_fetcher_0_0_arch OF audio_hw_platform_audio
       AXI_DATA_WIDTH : INTEGER;
       C_S_AXI_ADDR_WIDTH : INTEGER;
       C_M_AXI_AUDIO_OUT_ADDR_WIDTH : INTEGER;
+      CLOCK_FREQ_MHz : INTEGER;
+      ZED_AUDIO_CTRL_ADDR : INTEGER;
+      I2S_DATA_TX_L_REG_OFFSET : INTEGER;
+      I2S_DATA_TX_R_REG_OFFSET : INTEGER;
       C_M_AXI_DMA_BURST_LEN : INTEGER;
       C_M_AXI_DMA_ID_WIDTH : INTEGER;
       C_M_AXI_DMA_ADDR_WIDTH : INTEGER;
@@ -257,7 +261,8 @@ ARCHITECTURE audio_hw_platform_audio_fetcher_0_0_arch OF audio_hw_platform_audio
   ATTRIBUTE CHECK_LICENSE_TYPE : STRING;
   ATTRIBUTE CHECK_LICENSE_TYPE OF audio_hw_platform_audio_fetcher_0_0_arch : ARCHITECTURE IS "audio_hw_platform_audio_fetcher_0_0,audio_fetcher,{}";
   ATTRIBUTE CORE_GENERATION_INFO : STRING;
-  ATTRIBUTE CORE_GENERATION_INFO OF audio_hw_platform_audio_fetcher_0_0_arch: ARCHITECTURE IS "audio_hw_platform_audio_fetcher_0_0,audio_fetcher,{x_ipProduct=Vivado 2020.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=audio_fetcher,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,AXI_DATA_WIDTH=32,C_S_AXI_ADDR_WIDTH=4,C_M_AXI_AUDIO_OUT_ADDR_WIDTH=32,C_M_AXI_DMA_BURST_LEN=1,C_M_AXI_DMA_ID_WIDTH=2,C_M_AXI_DMA_ADDR_WIDTH=32,C_M_AXI_DMA_AWUSER_WIDTH=1,C_M_AXI_DMA_ARUSER_WIDTH=1,C_M_AXI_DMA_WUSER_WIDTH=1,C_M_AXI_DMA_RUSER_WIDTH=1,C_M_AXI_DMA_BUSER_WIDTH=1}";
+  ATTRIBUTE CORE_GENERATION_INFO OF audio_hw_platform_audio_fetcher_0_0_arch: ARCHITECTURE IS "audio_hw_platform_audio_fetcher_0_0,audio_fetcher,{x_ipProduct=Vivado 2020.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=audio_fetcher,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,AXI_DATA_WIDTH=32,C_S_AXI_ADDR_WIDTH=4,C_M_AXI_AUDIO_OUT_ADDR_WIDTH=32,CLOCK_FREQ_MHz=200,ZED_AUDIO_CTRL_ADDR=1136656384,I2S_DATA_TX_L_REG_OFFSET=8,I2S_DATA_TX_R_REG_OFFSET=12,C_M_AXI_DMA_BURST_LEN=1,C_M_AXI_DMA_ID_WIDTH=2,C_M_AXI_DMA_ADDR_WIDTH=32,C_M_AXI_DMA_AWUSER_WIDTH=1,C_M_" & 
+"AXI_DMA_ARUSER_WIDTH=1,C_M_AXI_DMA_WUSER_WIDTH=1,C_M_AXI_DMA_RUSER_WIDTH=1,C_M_AXI_DMA_BUSER_WIDTH=1}";
   ATTRIBUTE IP_DEFINITION_SOURCE : STRING;
   ATTRIBUTE IP_DEFINITION_SOURCE OF audio_hw_platform_audio_fetcher_0_0_arch: ARCHITECTURE IS "module_ref";
   ATTRIBUTE X_INTERFACE_INFO : STRING;
@@ -366,6 +371,10 @@ BEGIN
       AXI_DATA_WIDTH => 32,
       C_S_AXI_ADDR_WIDTH => 4,
       C_M_AXI_AUDIO_OUT_ADDR_WIDTH => 32,
+      CLOCK_FREQ_MHz => 200,
+      ZED_AUDIO_CTRL_ADDR => 1136656384,
+      I2S_DATA_TX_L_REG_OFFSET => 8,
+      I2S_DATA_TX_R_REG_OFFSET => 12,
       C_M_AXI_DMA_BURST_LEN => 1,
       C_M_AXI_DMA_ID_WIDTH => 2,
       C_M_AXI_DMA_ADDR_WIDTH => 32,

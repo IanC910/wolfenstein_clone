@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7z020clg484-1" LaunchTime="1710155519">
+<GenRun Id="impl_1" LaunchPart="xc7z020clg484-1" LaunchTime="1710161381">
   <File Type="BITSTR-BMM" Name="audio_hw_platform_wrapper_bd.bmm"/>
   <File Type="OPT-METHODOLOGY-DRC" Name="audio_hw_platform_wrapper_methodology_drc_opted.rpt"/>
   <File Type="INIT-TIMING" Name="audio_hw_platform_wrapper_timing_summary_init.rpt"/>
@@ -163,4 +163,5 @@
   <BlockFileSet Type="BlockSrcs" Name="audio_hw_platform_axi_gpio_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="audio_hw_platform_processing_system7_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="audio_hw_platform_rst_ps7_0_200M_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="audio_hw_platform_xbar_0"/>
 </GenRun>

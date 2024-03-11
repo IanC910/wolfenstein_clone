@@ -2,6 +2,6 @@ Specification for .audioData file types
 
 -- File Start -- 
 [Number of Samples] 			- 4 bytes
-[Bytes per Sample] 			- 2 bytes
 [Sample Period in Microseconds]		- 2 bytes
+[Reserved]				- 2 bytes
 [Data] 					- (Number of Samples) * (Bytes per Sample) bytes

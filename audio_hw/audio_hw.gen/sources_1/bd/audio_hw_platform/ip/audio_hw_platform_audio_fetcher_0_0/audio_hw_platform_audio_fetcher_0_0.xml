@@ -1859,7 +1859,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:7fbb041e</spirit:value>
+            <spirit:value>9:c9be81ad</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1870,7 +1870,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:7fbb041e</spirit:value>
+            <spirit:value>9:c9be81ad</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1886,11 +1886,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon Mar 11 11:11:50 UTC 2024</spirit:value>
+            <spirit:value>Mon Mar 11 12:49:34 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:7fbb041e</spirit:value>
+            <spirit:value>9:c9be81ad</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1902,7 +1902,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:99e362f6</spirit:value>
+            <spirit:value>9:2d69d037</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1918,11 +1918,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon Mar 11 11:11:50 UTC 2024</spirit:value>
+            <spirit:value>Mon Mar 11 12:49:34 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:99e362f6</spirit:value>
+            <spirit:value>9:2d69d037</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1936,11 +1936,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon Mar 11 11:12:54 UTC 2024</spirit:value>
+            <spirit:value>Mon Mar 11 12:50:27 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:7fbb041e</spirit:value>
+            <spirit:value>9:c9be81ad</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -3379,6 +3379,26 @@
         <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_M_AXI_AUDIO_OUT_ADDR_WIDTH">32</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>CLOCK_FREQ_MHz</spirit:name>
+        <spirit:displayName>Clock Freq Mhz</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.CLOCK_FREQ_MHz">200</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>ZED_AUDIO_CTRL_ADDR</spirit:name>
+        <spirit:displayName>Zed Audio Ctrl Addr</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.ZED_AUDIO_CTRL_ADDR">1136656384</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>I2S_DATA_TX_L_REG_OFFSET</spirit:name>
+        <spirit:displayName>I2s Data Tx L Reg Offset</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET">8</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>I2S_DATA_TX_R_REG_OFFSET</spirit:name>
+        <spirit:displayName>I2s Data Tx R Reg Offset</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET">12</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_M_AXI_DMA_BURST_LEN</spirit:name>
         <spirit:displayName>C M Axi Dma Burst Len</spirit:displayName>
         <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_M_AXI_DMA_BURST_LEN">1</spirit:value>
@@ -3497,6 +3517,26 @@
       <spirit:name>C_M_AXI_AUDIO_OUT_ADDR_WIDTH</spirit:name>
       <spirit:displayName>C M Axi Audio Out Addr Width</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_M_AXI_AUDIO_OUT_ADDR_WIDTH">32</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>CLOCK_FREQ_MHz</spirit:name>
+      <spirit:displayName>Clock Freq Mhz</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.CLOCK_FREQ_MHz">200</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>ZED_AUDIO_CTRL_ADDR</spirit:name>
+      <spirit:displayName>Zed Audio Ctrl Addr</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.ZED_AUDIO_CTRL_ADDR">1136656384</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>I2S_DATA_TX_L_REG_OFFSET</spirit:name>
+      <spirit:displayName>I2s Data Tx L Reg Offset</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET">8</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>I2S_DATA_TX_R_REG_OFFSET</spirit:name>
+      <spirit:displayName>I2s Data Tx R Reg Offset</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET">12</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>C_M_AXI_DMA_BURST_LEN</spirit:name>
