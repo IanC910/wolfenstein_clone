@@ -5,10 +5,10 @@ clear
 close all
 
 % Configurables
-audioFileName = 'assets/gunshot.wav';
+audioFileName = 'assets/symphony.wav';
 
-startTimeS = 0.1;
-endTimeS = 0.35;
+startTimeS = 0;
+endTimeS = 10.66;
 playSound = 1;
 
 downSampleFactor = 2;
@@ -21,8 +21,8 @@ BYTES_PER_SAMPLE = 2;
 [audioData, sampleRateHz] = audioread(audioFileName);
 % audioData = m x n matrix, m = number of samples, n = number of audio channels
 
-startSample = startTimeS * sampleRateHz;
-endSample = endTimeS * sampleRateHz;
+startSample = startTimeS * sampleRateHz + 1;
+endSample = endTimeS * sampleRateHz + 1;
 
 shortenedAudioData = audioData(startSample : endSample, 1);
 
@@ -34,13 +34,20 @@ downsampledAudio = downsample(shortenedAudioData, downSampleFactor);
 newSampleRateHz = sampleRateHz / downSampleFactor;
 newSamplePeriodUs = 1 / newSampleRateHz * 1000000;
 
-% figure;
-% plot ((1:1:length(downsampledAudio)) / newSampleRateHz, downsampledAudio)
-% title(audioFileName + " Shortened and Downsampled")
-% xlabel("Time (s)")
-% ylabel("Sound Wave")
+figure;
+plot ((1:1:length(audioData)) / sampleRateHz, audioData)
+title(audioFileName)
+xlabel("Time (s)")
+ylabel("Sound Wave")
+
+figure;
+plot ((1:1:length(downsampledAudio)) / newSampleRateHz, downsampledAudio)
+title(audioFileName + " Shortened and Downsampled")
+xlabel("Time (s)")
+ylabel("Sound Wave")
 
 if(playSound)
+    %sound(audioData, sampleRateHz);
     %sound(shortenedAudioData, sampleRateHz);
     sound(downsampledAudio, newSampleRateHz);
 end

@@ -23,7 +23,7 @@ source C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw_test/_ide
 ps7_init
 ps7_post_config
 targets -set -nocase -filter {name =~ "*A9*#0"}
-dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/gunshot.audioData 0x18d0000
+dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/symphony.audioData 0x18d0000
 targets -set -nocase -filter {name =~ "*A9*#0"}
 dow C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw_test/Debug/audio_hw_test.elf
 configparams force-mem-access 0

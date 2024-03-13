@@ -134,7 +134,7 @@ void dmaSoundTest() {
 
 	while(true) {
 		Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 8, 1);
-		sleep(2);
+		sleep(15);
 	}
 }
 
