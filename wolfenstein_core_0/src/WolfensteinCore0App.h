@@ -22,6 +22,7 @@ private:
 
 	Player player;
 	Level* currentLevel = nullptr;
+	double frameTimeInSec = 0;
 };
 
 #endif

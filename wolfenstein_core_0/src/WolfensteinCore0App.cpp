@@ -12,7 +12,7 @@
 #include "Constants.h"
 #include "Gpio.h"
 
-#define MAX_SPEED 0.1
+#define MAX_SPEED 1.5
 
 WolfensteinCore0App::WolfensteinCore0App() {
 	Xil_DCacheDisable();
@@ -88,6 +88,7 @@ void WolfensteinCore0App::runCore0App() {
 		}
 
 		xil_printf("Core 0 frame time: %8d\n", frameTime);
+		frameTimeInSec = (double)frameTime/(double)COUNTS_PER_SECOND;
 	}
 }
 
@@ -109,19 +110,19 @@ void WolfensteinCore0App::gameLogicPerFrame() {
 	jstkPosition1 = JSTK2_getPosition(&jstk1);
 	jstkPosition2 = JSTK2_getPosition(&jstk2);
 
-	float newPositionXFromY = player.getPositionX() + cos(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED;
-	float newPositionYFromY = player.getPositionY() + sin(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED;
+	float newPositionXFromY = player.getPositionX() + cos(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED*frameTimeInSec;
+	float newPositionYFromY = player.getPositionY() + sin(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED*frameTimeInSec;
 
-	float newPositionXFromX = player.getPositionX() + sin(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED;
-	float newPositionYFromX = player.getPositionY() - cos(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED;
+	float newPositionXFromX = player.getPositionX() + sin(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED*frameTimeInSec;
+	float newPositionYFromX = player.getPositionY() - cos(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED*frameTimeInSec;
 
-	float newAngle = player.getAngle() - mapJSTK(jstkPosition2.XData)*MAX_SPEED;
+	float newAngle = player.getAngle() - mapJSTK(jstkPosition2.XData)*MAX_SPEED*frameTimeInSec;
 
 	if(currentLevel->getBlockAtWorldCoord(newPositionXFromY, newPositionYFromY) != '#') {
 		player.setPositionX(newPositionXFromY);
 		player.setPositionY(newPositionYFromY);
-		newPositionXFromX = newPositionXFromY + sin(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED;
-		newPositionYFromX = newPositionYFromY - cos(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED;
+		newPositionXFromX = newPositionXFromY + sin(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED*frameTimeInSec;
+		newPositionYFromX = newPositionYFromY - cos(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED*frameTimeInSec;
 	}
 
 	if(currentLevel->getBlockAtWorldCoord(newPositionXFromX, newPositionYFromX) != '#') {
