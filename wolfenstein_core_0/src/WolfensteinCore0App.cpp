@@ -109,23 +109,27 @@ void WolfensteinCore0App::gameLogicPerFrame() {
 	jstkPosition1 = JSTK2_getPosition(&jstk1);
 	jstkPosition2 = JSTK2_getPosition(&jstk2);
 
-	player.setPositionX(player.getPositionX() + cos(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED);
-	player.setPositionY(player.getPositionY() + sin(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED);
+	float newPositionXFromY = player.getPositionX() + cos(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED;
+	float newPositionYFromY = player.getPositionY() + sin(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED;
 
-	if(currentLevel->getBlockAtWorldCoord(player.getPositionX(), player.getPositionY()) == '#') {
-		player.setPositionX(player.getPositionX() - cos(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED);
-		player.setPositionY(player.getPositionY() - sin(player.getAngle())*mapJSTK(jstkPosition1.YData)*MAX_SPEED);
+	float newPositionXFromX = player.getPositionX() + sin(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED;
+	float newPositionYFromX = player.getPositionY() - cos(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED;
+
+	float newAngle = player.getAngle() - mapJSTK(jstkPosition2.XData)*MAX_SPEED;
+
+	if(currentLevel->getBlockAtWorldCoord(newPositionXFromY, newPositionYFromY) != '#') {
+		player.setPositionX(newPositionXFromY);
+		player.setPositionY(newPositionYFromY);
+		newPositionXFromX = newPositionXFromY + sin(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED;
+		newPositionYFromX = newPositionYFromY - cos(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED;
 	}
 
-	player.setPositionX(player.getPositionX() + sin(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED);
-	player.setPositionY(player.getPositionY() - cos(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED);
-
-	if(currentLevel->getBlockAtWorldCoord(player.getPositionX(), player.getPositionY()) == '#') {
-		player.setPositionX(player.getPositionX() - sin(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED);
-		player.setPositionY(player.getPositionY() + cos(player.getAngle())*mapJSTK(jstkPosition1.XData)*MAX_SPEED);
+	if(currentLevel->getBlockAtWorldCoord(newPositionXFromX, newPositionYFromX) != '#') {
+		player.setPositionX(newPositionXFromX);
+		player.setPositionY(newPositionYFromX);
 	}
 
-	player.setAngle(player.getAngle() - mapJSTK(jstkPosition2.XData)*MAX_SPEED);
+	player.setAngle(newAngle);
 }
 
 void WolfensteinCore0App::castRays() {
