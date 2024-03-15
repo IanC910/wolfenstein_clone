@@ -37,6 +37,13 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 # To test this script, run the following commands from Vivado Tcl console:
 # source wolfenstein_platform_script.tcl
 
+
+# The design that will be created by this Tcl script contains the following 
+# module references:
+# debouncer
+
+# Please add the sources of those modules before sourcing this Tcl script.
+
 # If there is no project opened, this script will create a
 # project, but make sure you do not have an existing project
 # <./myproj/project_1.xpr> in the current working folder.
@@ -160,6 +167,10 @@ proc create_root_design { parentCell } {
 
   set FIXED_IO [ create_bd_intf_port -mode Master -vlnv xilinx.com:display_processing_system7:fixedio_rtl:1.0 FIXED_IO ]
 
+  set JC [ create_bd_intf_port -mode Master -vlnv digilentinc.com:interface:pmod_rtl:1.0 JC ]
+
+  set JD [ create_bd_intf_port -mode Master -vlnv digilentinc.com:interface:pmod_rtl:1.0 JD ]
+
 
   # Create ports
   set VGA_B [ create_bd_port -dir O -from 3 -to 0 VGA_B ]
@@ -167,9 +178,23 @@ proc create_root_design { parentCell } {
   set VGA_HS [ create_bd_port -dir O VGA_HS ]
   set VGA_R [ create_bd_port -dir O -from 3 -to 0 VGA_R ]
   set VGA_VS [ create_bd_port -dir O VGA_VS ]
+  set btns [ create_bd_port -dir I -from 4 -to 0 btns ]
 
   # Create instance: FCLK_CLK0_rst, and set properties
   set FCLK_CLK0_rst [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 FCLK_CLK0_rst ]
+
+  # Create instance: PmodJSTK2_0, and set properties
+  set PmodJSTK2_0 [ create_bd_cell -type ip -vlnv digilentinc.com:IP:PmodJSTK2:1.0 PmodJSTK2_0 ]
+
+  # Create instance: PmodJSTK2_1, and set properties
+  set PmodJSTK2_1 [ create_bd_cell -type ip -vlnv digilentinc.com:IP:PmodJSTK2:1.0 PmodJSTK2_1 ]
+
+  # Create instance: axi_gpio_0, and set properties
+  set axi_gpio_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_gpio:2.0 axi_gpio_0 ]
+  set_property -dict [ list \
+   CONFIG.C_ALL_INPUTS {1} \
+   CONFIG.C_GPIO_WIDTH {5} \
+ ] $axi_gpio_0
 
   # Create instance: clk_wiz_0, and set properties
   set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0 ]
@@ -185,6 +210,17 @@ proc create_root_design { parentCell } {
    CONFIG.RESET_TYPE {ACTIVE_LOW} \
  ] $clk_wiz_0
 
+  # Create instance: debouncer_0, and set properties
+  set block_name debouncer
+  set block_cell_name debouncer_0
+  if { [catch {set debouncer_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   } elseif { $debouncer_0 eq "" } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   }
+  
   # Create instance: pixel_clk_rst, and set properties
   set pixel_clk_rst [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 pixel_clk_rst ]
 
@@ -197,7 +233,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ACT_ENET0_PERIPHERAL_FREQMHZ {125.000000} \
    CONFIG.PCW_ACT_ENET1_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ {200.000000} \
-   CONFIG.PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ {10.000000} \
+   CONFIG.PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ {15.873016} \
    CONFIG.PCW_ACT_FPGA2_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_FPGA3_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_PCAP_PERIPHERAL_FREQMHZ {200.000000} \
@@ -220,7 +256,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_CAN_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_CAN_PERIPHERAL_FREQMHZ {100} \
    CONFIG.PCW_CLK0_FREQ {200000000} \
-   CONFIG.PCW_CLK1_FREQ {10000000} \
+   CONFIG.PCW_CLK1_FREQ {15873016} \
    CONFIG.PCW_CLK2_FREQ {10000000} \
    CONFIG.PCW_CLK3_FREQ {10000000} \
    CONFIG.PCW_CPU_CPU_PLL_FREQMHZ {1600.000} \
@@ -244,6 +280,8 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ENET1_RESET_ENABLE {0} \
    CONFIG.PCW_ENET_RESET_ENABLE {1} \
    CONFIG.PCW_ENET_RESET_SELECT {Share reset pin} \
+   CONFIG.PCW_EN_CLK0_PORT {1} \
+   CONFIG.PCW_EN_CLK1_PORT {1} \
    CONFIG.PCW_EN_EMIO_TTC0 {1} \
    CONFIG.PCW_EN_ENET0 {1} \
    CONFIG.PCW_EN_GPIO {1} \
@@ -254,17 +292,19 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_EN_USB0 {1} \
    CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {5} \
    CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR1 {1} \
-   CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR0 {1} \
+   CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR0 {63} \
    CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_FCLK2_PERIPHERAL_DIVISOR0 {1} \
    CONFIG.PCW_FCLK2_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_FCLK3_PERIPHERAL_DIVISOR0 {1} \
    CONFIG.PCW_FCLK3_PERIPHERAL_DIVISOR1 {1} \
+   CONFIG.PCW_FCLK_CLK0_BUF {TRUE} \
+   CONFIG.PCW_FCLK_CLK1_BUF {FALSE} \
    CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {200} \
-   CONFIG.PCW_FPGA1_PERIPHERAL_FREQMHZ {150.000000} \
+   CONFIG.PCW_FPGA1_PERIPHERAL_FREQMHZ {16} \
    CONFIG.PCW_FPGA2_PERIPHERAL_FREQMHZ {50.000000} \
    CONFIG.PCW_FPGA_FCLK0_ENABLE {1} \
-   CONFIG.PCW_FPGA_FCLK1_ENABLE {0} \
+   CONFIG.PCW_FPGA_FCLK1_ENABLE {1} \
    CONFIG.PCW_FPGA_FCLK2_ENABLE {0} \
    CONFIG.PCW_FPGA_FCLK3_ENABLE {0} \
    CONFIG.PCW_GPIO_MIO_GPIO_ENABLE {1} \
@@ -584,6 +624,12 @@ proc create_root_design { parentCell } {
    CONFIG.preset {ZedBoard} \
  ] $processing_system7_0
 
+  # Create instance: ps7_0_axi_periph, and set properties
+  set ps7_0_axi_periph [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 ps7_0_axi_periph ]
+  set_property -dict [ list \
+   CONFIG.NUM_MI {5} \
+ ] $ps7_0_axi_periph
+
   # Create instance: vga_controller_0, and set properties
   set vga_controller_0 [ create_bd_cell -type ip -vlnv user.org:user:vga_controller:1.0 vga_controller_0 ]
   set_property -dict [ list \
@@ -600,16 +646,27 @@ proc create_root_design { parentCell } {
  ] $vga_controller_0
 
   # Create interface connections
+  connect_bd_intf_net -intf_net PmodJSTK2_0_Pmod_out [get_bd_intf_ports JD] [get_bd_intf_pins PmodJSTK2_0/Pmod_out]
+  connect_bd_intf_net -intf_net PmodJSTK2_1_Pmod_out [get_bd_intf_ports JC] [get_bd_intf_pins PmodJSTK2_1/Pmod_out]
   connect_bd_intf_net -intf_net processing_system7_0_DDR [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system7_0/DDR]
   connect_bd_intf_net -intf_net processing_system7_0_FIXED_IO [get_bd_intf_ports FIXED_IO] [get_bd_intf_pins processing_system7_0/FIXED_IO]
+  connect_bd_intf_net -intf_net processing_system7_0_M_AXI_GP0 [get_bd_intf_pins processing_system7_0/M_AXI_GP0] [get_bd_intf_pins ps7_0_axi_periph/S00_AXI]
+  connect_bd_intf_net -intf_net ps7_0_axi_periph_M00_AXI [get_bd_intf_pins PmodJSTK2_0/AXI_LITE_GPIO] [get_bd_intf_pins ps7_0_axi_periph/M00_AXI]
+  connect_bd_intf_net -intf_net ps7_0_axi_periph_M01_AXI [get_bd_intf_pins PmodJSTK2_0/AXI_LITE_SPI] [get_bd_intf_pins ps7_0_axi_periph/M01_AXI]
+  connect_bd_intf_net -intf_net ps7_0_axi_periph_M02_AXI [get_bd_intf_pins PmodJSTK2_1/AXI_LITE_GPIO] [get_bd_intf_pins ps7_0_axi_periph/M02_AXI]
+  connect_bd_intf_net -intf_net ps7_0_axi_periph_M03_AXI [get_bd_intf_pins PmodJSTK2_1/AXI_LITE_SPI] [get_bd_intf_pins ps7_0_axi_periph/M03_AXI]
+  connect_bd_intf_net -intf_net ps7_0_axi_periph_M04_AXI [get_bd_intf_pins axi_gpio_0/S_AXI] [get_bd_intf_pins ps7_0_axi_periph/M04_AXI]
   connect_bd_intf_net -intf_net vga_controller_0_M_AXI [get_bd_intf_pins processing_system7_0/S_AXI_HP0] [get_bd_intf_pins vga_controller_0/M_AXI]
 
   # Create port connections
-  connect_bd_net -net FCLK_CLK0_rst_peripheral_aresetn [get_bd_pins FCLK_CLK0_rst/peripheral_aresetn] [get_bd_pins vga_controller_0/rstn]
+  connect_bd_net -net BUTTONS_0_1 [get_bd_ports btns] [get_bd_pins debouncer_0/BUTTONS]
+  connect_bd_net -net FCLK_CLK0_rst_peripheral_aresetn [get_bd_pins FCLK_CLK0_rst/peripheral_aresetn] [get_bd_pins PmodJSTK2_0/s_axi_aresetn] [get_bd_pins PmodJSTK2_1/s_axi_aresetn] [get_bd_pins axi_gpio_0/s_axi_aresetn] [get_bd_pins ps7_0_axi_periph/ARESETN] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/M01_ARESETN] [get_bd_pins ps7_0_axi_periph/M02_ARESETN] [get_bd_pins ps7_0_axi_periph/M03_ARESETN] [get_bd_pins ps7_0_axi_periph/M04_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN] [get_bd_pins vga_controller_0/rstn]
   connect_bd_net -net clk_wiz_0_pixel_clk [get_bd_pins clk_wiz_0/pixel_clk] [get_bd_pins pixel_clk_rst/slowest_sync_clk] [get_bd_pins vga_controller_0/pixel_clk]
+  connect_bd_net -net debouncer_0_debounced_BTNS [get_bd_pins axi_gpio_0/gpio_io_i] [get_bd_pins debouncer_0/debounced_BTNS]
   connect_bd_net -net pixel_clk_rst_peripheral_aresetn [get_bd_pins pixel_clk_rst/peripheral_aresetn] [get_bd_pins vga_controller_0/pixel_rstn]
   connect_bd_net -net pixel_clk_rst_peripheral_reset [get_bd_pins pixel_clk_rst/peripheral_reset] [get_bd_pins vga_controller_0/fifo_rst]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins FCLK_CLK0_rst/slowest_sync_clk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK] [get_bd_pins vga_controller_0/clk]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins FCLK_CLK0_rst/slowest_sync_clk] [get_bd_pins PmodJSTK2_0/s_axi_aclk] [get_bd_pins PmodJSTK2_1/s_axi_aclk] [get_bd_pins axi_gpio_0/s_axi_aclk] [get_bd_pins clk_wiz_0/clk_in1] [get_bd_pins debouncer_0/clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/M01_ACLK] [get_bd_pins ps7_0_axi_periph/M02_ACLK] [get_bd_pins ps7_0_axi_periph/M03_ACLK] [get_bd_pins ps7_0_axi_periph/M04_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK] [get_bd_pins vga_controller_0/clk]
+  connect_bd_net -net processing_system7_0_FCLK_CLK1 [get_bd_pins PmodJSTK2_0/ext_spi_clk] [get_bd_pins PmodJSTK2_1/ext_spi_clk] [get_bd_pins processing_system7_0/FCLK_CLK1]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins FCLK_CLK0_rst/ext_reset_in] [get_bd_pins clk_wiz_0/resetn] [get_bd_pins pixel_clk_rst/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
   connect_bd_net -net processing_system7_0_S_AXI_HP0_RCOUNT [get_bd_pins processing_system7_0/S_AXI_HP0_RCOUNT] [get_bd_pins vga_controller_0/rfifo_count]
   connect_bd_net -net vga_controller_0_VGA_B [get_bd_ports VGA_B] [get_bd_pins vga_controller_0/VGA_B]
@@ -619,6 +676,11 @@ proc create_root_design { parentCell } {
   connect_bd_net -net vga_controller_0_VGA_VS [get_bd_ports VGA_VS] [get_bd_pins vga_controller_0/VGA_VS]
 
   # Create address segments
+  assign_bd_address -offset 0x40000000 -range 0x00001000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs PmodJSTK2_0/AXI_LITE_GPIO/Reg0] -force
+  assign_bd_address -offset 0x40010000 -range 0x00010000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs PmodJSTK2_0/AXI_LITE_SPI/Reg0] -force
+  assign_bd_address -offset 0x40001000 -range 0x00001000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs PmodJSTK2_1/AXI_LITE_GPIO/Reg0] -force
+  assign_bd_address -offset 0x40020000 -range 0x00010000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs PmodJSTK2_1/AXI_LITE_SPI/Reg0] -force
+  assign_bd_address -offset 0x41200000 -range 0x00010000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs axi_gpio_0/S_AXI/Reg] -force
   assign_bd_address -offset 0x00000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces vga_controller_0/M_AXI] [get_bd_addr_segs processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM] -force
 
 

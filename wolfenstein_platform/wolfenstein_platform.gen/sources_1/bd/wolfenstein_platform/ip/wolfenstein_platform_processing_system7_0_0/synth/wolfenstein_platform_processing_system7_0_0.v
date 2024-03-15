@@ -149,6 +149,7 @@ module wolfenstein_platform_processing_system7_0_0 (
   S_AXI_HP0_WDATA,
   S_AXI_HP0_WSTRB,
   FCLK_CLK0,
+  FCLK_CLK1,
   FCLK_RESET0_N,
   MIO,
   DDR_CAS_n,
@@ -359,6 +360,9 @@ input wire [7 : 0] S_AXI_HP0_WSTRB;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME FCLK_CLK0, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN wolfenstein_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 FCLK_CLK0 CLK" *)
 output wire FCLK_CLK0;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME FCLK_CLK1, FREQ_HZ 15873016, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN wolfenstein_platform_processing_system7_0_0_FCLK_CLK1, INSERT_VIP 0" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 FCLK_CLK1 CLK" *)
+output wire FCLK_CLK1;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME FCLK_RESET0_N, POLARITY ACTIVE_LOW, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 FCLK_RESET0_N RST" *)
 output wire FCLK_RESET0_N;
@@ -1077,7 +1081,7 @@ inout wire PS_PORB;
     .DMA2_DRTYPE(2'B0),
     .DMA3_DRTYPE(2'B0),
     .FCLK_CLK0(FCLK_CLK0),
-    .FCLK_CLK1(),
+    .FCLK_CLK1(FCLK_CLK1),
     .FCLK_CLK2(),
     .FCLK_CLK3(),
     .FCLK_CLKTRIG0_N(1'B0),

@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Level.h"
 
+
 class WolfensteinCore0App {
 
 public:
@@ -21,6 +22,7 @@ private:
 
 	Player player;
 	Level* currentLevel = nullptr;
+	double frameTimeInSec = 0;
 };
 
 #endif

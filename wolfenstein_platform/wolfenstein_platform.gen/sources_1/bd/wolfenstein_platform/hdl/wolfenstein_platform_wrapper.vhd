@@ -1,8 +1,8 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
---Date        : Thu Feb 22 22:56:41 2024
---Host        : IC-VivoBook running 64-bit major release  (build 9200)
+--Date        : Mon Mar  4 14:20:11 2024
+--Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
 --Command     : generate_target wolfenstein_platform_wrapper.bd
 --Design      : wolfenstein_platform_wrapper
 --Purpose     : IP block netlist
@@ -34,11 +34,28 @@ entity wolfenstein_platform_wrapper is
     FIXED_IO_ps_clk : inout STD_LOGIC;
     FIXED_IO_ps_porb : inout STD_LOGIC;
     FIXED_IO_ps_srstb : inout STD_LOGIC;
+    JC_pin10_io : inout STD_LOGIC;
+    JC_pin1_io : inout STD_LOGIC;
+    JC_pin2_io : inout STD_LOGIC;
+    JC_pin3_io : inout STD_LOGIC;
+    JC_pin4_io : inout STD_LOGIC;
+    JC_pin7_io : inout STD_LOGIC;
+    JC_pin8_io : inout STD_LOGIC;
+    JC_pin9_io : inout STD_LOGIC;
+    JD_pin10_io : inout STD_LOGIC;
+    JD_pin1_io : inout STD_LOGIC;
+    JD_pin2_io : inout STD_LOGIC;
+    JD_pin3_io : inout STD_LOGIC;
+    JD_pin4_io : inout STD_LOGIC;
+    JD_pin7_io : inout STD_LOGIC;
+    JD_pin8_io : inout STD_LOGIC;
+    JD_pin9_io : inout STD_LOGIC;
     VGA_B : out STD_LOGIC_VECTOR ( 3 downto 0 );
     VGA_G : out STD_LOGIC_VECTOR ( 3 downto 0 );
     VGA_HS : out STD_LOGIC;
     VGA_R : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    VGA_VS : out STD_LOGIC
+    VGA_VS : out STD_LOGIC;
+    btns : in STD_LOGIC_VECTOR ( 4 downto 0 )
   );
 end wolfenstein_platform_wrapper;
 
@@ -50,6 +67,13 @@ architecture STRUCTURE of wolfenstein_platform_wrapper is
     VGA_B : out STD_LOGIC_VECTOR ( 3 downto 0 );
     VGA_G : out STD_LOGIC_VECTOR ( 3 downto 0 );
     VGA_R : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    btns : in STD_LOGIC_VECTOR ( 4 downto 0 );
+    FIXED_IO_mio : inout STD_LOGIC_VECTOR ( 53 downto 0 );
+    FIXED_IO_ddr_vrn : inout STD_LOGIC;
+    FIXED_IO_ddr_vrp : inout STD_LOGIC;
+    FIXED_IO_ps_srstb : inout STD_LOGIC;
+    FIXED_IO_ps_clk : inout STD_LOGIC;
+    FIXED_IO_ps_porb : inout STD_LOGIC;
     DDR_cas_n : inout STD_LOGIC;
     DDR_cke : inout STD_LOGIC;
     DDR_ck_n : inout STD_LOGIC;
@@ -65,15 +89,225 @@ architecture STRUCTURE of wolfenstein_platform_wrapper is
     DDR_dq : inout STD_LOGIC_VECTOR ( 31 downto 0 );
     DDR_dqs_n : inout STD_LOGIC_VECTOR ( 3 downto 0 );
     DDR_dqs_p : inout STD_LOGIC_VECTOR ( 3 downto 0 );
-    FIXED_IO_mio : inout STD_LOGIC_VECTOR ( 53 downto 0 );
-    FIXED_IO_ddr_vrn : inout STD_LOGIC;
-    FIXED_IO_ddr_vrp : inout STD_LOGIC;
-    FIXED_IO_ps_srstb : inout STD_LOGIC;
-    FIXED_IO_ps_clk : inout STD_LOGIC;
-    FIXED_IO_ps_porb : inout STD_LOGIC
+    JD_pin1_o : out STD_LOGIC;
+    JD_pin7_i : in STD_LOGIC;
+    JD_pin2_o : out STD_LOGIC;
+    JD_pin8_i : in STD_LOGIC;
+    JD_pin3_o : out STD_LOGIC;
+    JD_pin9_i : in STD_LOGIC;
+    JD_pin10_o : out STD_LOGIC;
+    JD_pin4_o : out STD_LOGIC;
+    JD_pin3_i : in STD_LOGIC;
+    JD_pin4_i : in STD_LOGIC;
+    JD_pin1_i : in STD_LOGIC;
+    JD_pin2_i : in STD_LOGIC;
+    JD_pin10_t : out STD_LOGIC;
+    JD_pin8_t : out STD_LOGIC;
+    JD_pin9_t : out STD_LOGIC;
+    JD_pin4_t : out STD_LOGIC;
+    JD_pin9_o : out STD_LOGIC;
+    JD_pin10_i : in STD_LOGIC;
+    JD_pin7_t : out STD_LOGIC;
+    JD_pin1_t : out STD_LOGIC;
+    JD_pin2_t : out STD_LOGIC;
+    JD_pin7_o : out STD_LOGIC;
+    JD_pin3_t : out STD_LOGIC;
+    JD_pin8_o : out STD_LOGIC;
+    JC_pin1_o : out STD_LOGIC;
+    JC_pin7_i : in STD_LOGIC;
+    JC_pin2_o : out STD_LOGIC;
+    JC_pin8_i : in STD_LOGIC;
+    JC_pin3_o : out STD_LOGIC;
+    JC_pin9_i : in STD_LOGIC;
+    JC_pin10_o : out STD_LOGIC;
+    JC_pin4_o : out STD_LOGIC;
+    JC_pin3_i : in STD_LOGIC;
+    JC_pin4_i : in STD_LOGIC;
+    JC_pin1_i : in STD_LOGIC;
+    JC_pin2_i : in STD_LOGIC;
+    JC_pin10_t : out STD_LOGIC;
+    JC_pin8_t : out STD_LOGIC;
+    JC_pin9_t : out STD_LOGIC;
+    JC_pin4_t : out STD_LOGIC;
+    JC_pin9_o : out STD_LOGIC;
+    JC_pin10_i : in STD_LOGIC;
+    JC_pin7_t : out STD_LOGIC;
+    JC_pin1_t : out STD_LOGIC;
+    JC_pin2_t : out STD_LOGIC;
+    JC_pin7_o : out STD_LOGIC;
+    JC_pin3_t : out STD_LOGIC;
+    JC_pin8_o : out STD_LOGIC
   );
   end component wolfenstein_platform;
+  component IOBUF is
+  port (
+    I : in STD_LOGIC;
+    O : out STD_LOGIC;
+    T : in STD_LOGIC;
+    IO : inout STD_LOGIC
+  );
+  end component IOBUF;
+  signal JC_pin10_i : STD_LOGIC;
+  signal JC_pin10_o : STD_LOGIC;
+  signal JC_pin10_t : STD_LOGIC;
+  signal JC_pin1_i : STD_LOGIC;
+  signal JC_pin1_o : STD_LOGIC;
+  signal JC_pin1_t : STD_LOGIC;
+  signal JC_pin2_i : STD_LOGIC;
+  signal JC_pin2_o : STD_LOGIC;
+  signal JC_pin2_t : STD_LOGIC;
+  signal JC_pin3_i : STD_LOGIC;
+  signal JC_pin3_o : STD_LOGIC;
+  signal JC_pin3_t : STD_LOGIC;
+  signal JC_pin4_i : STD_LOGIC;
+  signal JC_pin4_o : STD_LOGIC;
+  signal JC_pin4_t : STD_LOGIC;
+  signal JC_pin7_i : STD_LOGIC;
+  signal JC_pin7_o : STD_LOGIC;
+  signal JC_pin7_t : STD_LOGIC;
+  signal JC_pin8_i : STD_LOGIC;
+  signal JC_pin8_o : STD_LOGIC;
+  signal JC_pin8_t : STD_LOGIC;
+  signal JC_pin9_i : STD_LOGIC;
+  signal JC_pin9_o : STD_LOGIC;
+  signal JC_pin9_t : STD_LOGIC;
+  signal JD_pin10_i : STD_LOGIC;
+  signal JD_pin10_o : STD_LOGIC;
+  signal JD_pin10_t : STD_LOGIC;
+  signal JD_pin1_i : STD_LOGIC;
+  signal JD_pin1_o : STD_LOGIC;
+  signal JD_pin1_t : STD_LOGIC;
+  signal JD_pin2_i : STD_LOGIC;
+  signal JD_pin2_o : STD_LOGIC;
+  signal JD_pin2_t : STD_LOGIC;
+  signal JD_pin3_i : STD_LOGIC;
+  signal JD_pin3_o : STD_LOGIC;
+  signal JD_pin3_t : STD_LOGIC;
+  signal JD_pin4_i : STD_LOGIC;
+  signal JD_pin4_o : STD_LOGIC;
+  signal JD_pin4_t : STD_LOGIC;
+  signal JD_pin7_i : STD_LOGIC;
+  signal JD_pin7_o : STD_LOGIC;
+  signal JD_pin7_t : STD_LOGIC;
+  signal JD_pin8_i : STD_LOGIC;
+  signal JD_pin8_o : STD_LOGIC;
+  signal JD_pin8_t : STD_LOGIC;
+  signal JD_pin9_i : STD_LOGIC;
+  signal JD_pin9_o : STD_LOGIC;
+  signal JD_pin9_t : STD_LOGIC;
 begin
+JC_pin10_iobuf: component IOBUF
+     port map (
+      I => JC_pin10_o,
+      IO => JC_pin10_io,
+      O => JC_pin10_i,
+      T => JC_pin10_t
+    );
+JC_pin1_iobuf: component IOBUF
+     port map (
+      I => JC_pin1_o,
+      IO => JC_pin1_io,
+      O => JC_pin1_i,
+      T => JC_pin1_t
+    );
+JC_pin2_iobuf: component IOBUF
+     port map (
+      I => JC_pin2_o,
+      IO => JC_pin2_io,
+      O => JC_pin2_i,
+      T => JC_pin2_t
+    );
+JC_pin3_iobuf: component IOBUF
+     port map (
+      I => JC_pin3_o,
+      IO => JC_pin3_io,
+      O => JC_pin3_i,
+      T => JC_pin3_t
+    );
+JC_pin4_iobuf: component IOBUF
+     port map (
+      I => JC_pin4_o,
+      IO => JC_pin4_io,
+      O => JC_pin4_i,
+      T => JC_pin4_t
+    );
+JC_pin7_iobuf: component IOBUF
+     port map (
+      I => JC_pin7_o,
+      IO => JC_pin7_io,
+      O => JC_pin7_i,
+      T => JC_pin7_t
+    );
+JC_pin8_iobuf: component IOBUF
+     port map (
+      I => JC_pin8_o,
+      IO => JC_pin8_io,
+      O => JC_pin8_i,
+      T => JC_pin8_t
+    );
+JC_pin9_iobuf: component IOBUF
+     port map (
+      I => JC_pin9_o,
+      IO => JC_pin9_io,
+      O => JC_pin9_i,
+      T => JC_pin9_t
+    );
+JD_pin10_iobuf: component IOBUF
+     port map (
+      I => JD_pin10_o,
+      IO => JD_pin10_io,
+      O => JD_pin10_i,
+      T => JD_pin10_t
+    );
+JD_pin1_iobuf: component IOBUF
+     port map (
+      I => JD_pin1_o,
+      IO => JD_pin1_io,
+      O => JD_pin1_i,
+      T => JD_pin1_t
+    );
+JD_pin2_iobuf: component IOBUF
+     port map (
+      I => JD_pin2_o,
+      IO => JD_pin2_io,
+      O => JD_pin2_i,
+      T => JD_pin2_t
+    );
+JD_pin3_iobuf: component IOBUF
+     port map (
+      I => JD_pin3_o,
+      IO => JD_pin3_io,
+      O => JD_pin3_i,
+      T => JD_pin3_t
+    );
+JD_pin4_iobuf: component IOBUF
+     port map (
+      I => JD_pin4_o,
+      IO => JD_pin4_io,
+      O => JD_pin4_i,
+      T => JD_pin4_t
+    );
+JD_pin7_iobuf: component IOBUF
+     port map (
+      I => JD_pin7_o,
+      IO => JD_pin7_io,
+      O => JD_pin7_i,
+      T => JD_pin7_t
+    );
+JD_pin8_iobuf: component IOBUF
+     port map (
+      I => JD_pin8_o,
+      IO => JD_pin8_io,
+      O => JD_pin8_i,
+      T => JD_pin8_t
+    );
+JD_pin9_iobuf: component IOBUF
+     port map (
+      I => JD_pin9_o,
+      IO => JD_pin9_io,
+      O => JD_pin9_i,
+      T => JD_pin9_t
+    );
 wolfenstein_platform_i: component wolfenstein_platform
      port map (
       DDR_addr(14 downto 0) => DDR_addr(14 downto 0),
@@ -97,10 +331,59 @@ wolfenstein_platform_i: component wolfenstein_platform
       FIXED_IO_ps_clk => FIXED_IO_ps_clk,
       FIXED_IO_ps_porb => FIXED_IO_ps_porb,
       FIXED_IO_ps_srstb => FIXED_IO_ps_srstb,
+      JC_pin10_i => JC_pin10_i,
+      JC_pin10_o => JC_pin10_o,
+      JC_pin10_t => JC_pin10_t,
+      JC_pin1_i => JC_pin1_i,
+      JC_pin1_o => JC_pin1_o,
+      JC_pin1_t => JC_pin1_t,
+      JC_pin2_i => JC_pin2_i,
+      JC_pin2_o => JC_pin2_o,
+      JC_pin2_t => JC_pin2_t,
+      JC_pin3_i => JC_pin3_i,
+      JC_pin3_o => JC_pin3_o,
+      JC_pin3_t => JC_pin3_t,
+      JC_pin4_i => JC_pin4_i,
+      JC_pin4_o => JC_pin4_o,
+      JC_pin4_t => JC_pin4_t,
+      JC_pin7_i => JC_pin7_i,
+      JC_pin7_o => JC_pin7_o,
+      JC_pin7_t => JC_pin7_t,
+      JC_pin8_i => JC_pin8_i,
+      JC_pin8_o => JC_pin8_o,
+      JC_pin8_t => JC_pin8_t,
+      JC_pin9_i => JC_pin9_i,
+      JC_pin9_o => JC_pin9_o,
+      JC_pin9_t => JC_pin9_t,
+      JD_pin10_i => JD_pin10_i,
+      JD_pin10_o => JD_pin10_o,
+      JD_pin10_t => JD_pin10_t,
+      JD_pin1_i => JD_pin1_i,
+      JD_pin1_o => JD_pin1_o,
+      JD_pin1_t => JD_pin1_t,
+      JD_pin2_i => JD_pin2_i,
+      JD_pin2_o => JD_pin2_o,
+      JD_pin2_t => JD_pin2_t,
+      JD_pin3_i => JD_pin3_i,
+      JD_pin3_o => JD_pin3_o,
+      JD_pin3_t => JD_pin3_t,
+      JD_pin4_i => JD_pin4_i,
+      JD_pin4_o => JD_pin4_o,
+      JD_pin4_t => JD_pin4_t,
+      JD_pin7_i => JD_pin7_i,
+      JD_pin7_o => JD_pin7_o,
+      JD_pin7_t => JD_pin7_t,
+      JD_pin8_i => JD_pin8_i,
+      JD_pin8_o => JD_pin8_o,
+      JD_pin8_t => JD_pin8_t,
+      JD_pin9_i => JD_pin9_i,
+      JD_pin9_o => JD_pin9_o,
+      JD_pin9_t => JD_pin9_t,
       VGA_B(3 downto 0) => VGA_B(3 downto 0),
       VGA_G(3 downto 0) => VGA_G(3 downto 0),
       VGA_HS => VGA_HS,
       VGA_R(3 downto 0) => VGA_R(3 downto 0),
-      VGA_VS => VGA_VS
+      VGA_VS => VGA_VS,
+      btns(4 downto 0) => btns(4 downto 0)
     );
 end STRUCTURE;

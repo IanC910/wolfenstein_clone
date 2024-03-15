@@ -1,0 +1,22 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Mon Mar  4 14:23:27 2024
+# Process ID: 9072
+# Current directory: C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/wolfenstein_platform_PmodJSTK2_0_0_synth_1
+# Command line: vivado.exe -log wolfenstein_platform_PmodJSTK2_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source wolfenstein_platform_PmodJSTK2_0_0.tcl
+# Log file: C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/wolfenstein_platform_PmodJSTK2_0_0_synth_1/wolfenstein_platform_PmodJSTK2_0_0.vds
+# Journal file: C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/wolfenstein_platform_PmodJSTK2_0_0_synth_1\vivado.jou
+#-----------------------------------------------------------
+source wolfenstein_platform_PmodJSTK2_0_0.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'c:/Users/Amrit/Downloads/vga_tutorial_students/vga_tutorial_students/vga_controller_ip'.
+WARNING: [IP_Flow 19-395] Problem validating against XML schema: see 'xilinx:packagingInfo' : Bad end of element
+CRITICAL WARNING: [IP_Flow 19-1977] Unable to read IP file f:/vivado-library-master/vivado-library-master/ip/Zmods/ZmodDigitizerController/component.xml. This IP will not be included in the IP Catalog.
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'f:/vivado-library-master'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'F:/Vivado/Vivado/2020.2/data/ip'.
+WARNING: [IP_Flow 19-4995] The host OS only allows 260 characters in a normal path. The IP cache path is more than 80 characters. If you experience issues with IP caching, please consider changing the IP cache to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter. 
+Current IP cache path is c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.cache/ip 
+INFO: [IP_Flow 19-4838] Using cached IP synthesis design for IP wolfenstein_platform_PmodJSTK2_0_0, cache-ID = e1a4280f24b5188d.
+INFO: [Common 17-206] Exiting Vivado at Mon Mar  4 14:23:32 2024...

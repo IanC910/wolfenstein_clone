@@ -3,6 +3,7 @@
 	<name>wolfenstein_core_1</name>
 	<comment>Created by Vitis v2020.2</comment>
 	<projects>
+		<project>wolfenstein_platform_wrapper</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
