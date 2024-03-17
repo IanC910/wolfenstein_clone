@@ -164,6 +164,9 @@ void WolfensteinCore0App::castRays() {
 void WolfensteinCore0App::transferDistanceArray() {
 	INTERFACE_PTR->valid = 1;
 	while(!INTERFACE_PTR->acknowledge);
+	*playerX_0 = player.getPositionX();
+	*playerY_0 = player.getPositionY();
+	*playerA_0 = player.getAngle();
 	INTERFACE_PTR->valid = 0;
 	while(INTERFACE_PTR->acknowledge);
 }

@@ -10,3 +10,4 @@ IDE.log
 
 wolfenstein_platform_wrapper/export
 wolfenstein_platform_wrapper/platform.tcl
+wolfenstein_core_1/_ide/launch/Debugger_wolfenstein_core_1-Default.launch

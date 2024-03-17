@@ -12,13 +12,13 @@
 #include "../../wolfenstein_core_0/src/Constants.h"
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
 
-unsigned char *enemySprite = (unsigned char *)0x018D2008;
 int spriteW = 240;
 int spriteH = 250;
 
 WolfensteinCore1App::WolfensteinCore1App() {
 	Xil_DCacheDisable();
-
+	enemy.setPositionX(0);
+	enemy.setPositionY(0);
 	// initialize floor and ceiling buffers
 	// Draw 1 row and copy
 	int ceilingColourInt = CEILING_GRADIENT[0];
@@ -71,6 +71,16 @@ void WolfensteinCore1App::runCore1App() {
 			xil_printf("Core 1 max draw time: %8d\n", maxDrawTime);
 		}
 
+		// Draw enemy
+		XTime_GetTime(&funcStartTime);
+		drawEnemy();
+		XTime_GetTime(&funcEndTime);
+		/*funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
+		if(funcTime > maxDrawTime) {
+			maxDrawTime = funcTime;
+			xil_printf("Core 1 max draw time: %8d\n", maxDrawTime);
+		}*/
+
 		// Update Screen
 		XTime_GetTime(&funcStartTime);
 		updateScreen();
@@ -94,7 +104,9 @@ void WolfensteinCore1App::getNewDistanceArray() {
 	while(!INTERFACE_PTR->valid);
 
 	memcpy(DISTANCE_ARRAY_1, DISTANCE_ARRAY_0, NUM_RAYS * sizeof(float));
-
+	playerX = *playerX_0;
+	playerY = *playerY_0;
+	playerA = *playerA_0;
 	INTERFACE_PTR->acknowledge = 1;
 	while(INTERFACE_PTR->valid);
 	INTERFACE_PTR->acknowledge = 0;
@@ -144,6 +156,35 @@ void WolfensteinCore1App::drawEnvironment() {
 
 	// Fill in the rest of the floor and ceiling (non rectangular parts) in columns
 	fillNonRectangularCeilingAndFloor(0, NUM_RAYS, maxCeilingRow);
+}
+
+void WolfensteinCore1App::drawEnemy() {
+	float vecX = enemy.getPositionX() - playerX;
+	float vecY = enemy.getPositionY() - playerY;
+	float enemyDistanceFromPlayer = sqrtf(vecX*vecX + vecY*vecY);
+
+	float playerViewX = cosf(playerA);
+	float playerViewY = sinf(playerA);
+	float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(vecY, vecX);
+
+	if (objectAngle < M_PI) {
+		objectAngle += 2.0 * M_PI;
+	}
+	if (objectAngle > M_PI) {
+		objectAngle -= 2.0 * M_PI;
+	}
+
+	bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
+
+	if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5) {
+		float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
+		middleOfEnemy -= spriteW/2;
+		for(int i = 0; i < spriteH; i+=1) {
+				int firstNonTransparentPixel = *(enemySprite+i*spriteW*sizeof(int)+3);
+				int numOfNonTransparentPixel = *(enemySprite+i*spriteW*sizeof(int)+7);
+				memcpy(INTERMEDIATE_IMAGE_BUFFER + (i*SCREEN_WIDTH) + firstNonTransparentPixel + (int)middleOfEnemy, enemySprite+(i*(spriteW)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
+		}
+	}
 }
 
 int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
@@ -198,10 +239,5 @@ void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int startRay, int en
 }
 
 void WolfensteinCore1App::updateScreen() {
-	for(int i = 0; i < spriteH; i+=1) {
-		int firstNonTransparentPixel = *(enemySprite+i*spriteW*sizeof(int)+3);
-		int numOfNonTransparentPixel = *(enemySprite+i*spriteW*sizeof(int)+7);
-		memcpy(INTERMEDIATE_IMAGE_BUFFER + (i*SCREEN_WIDTH) + firstNonTransparentPixel, enemySprite+(i*(spriteW)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
-	}
 	memcpy(VGA_IMAGE_BUFFER_0, INTERMEDIATE_IMAGE_BUFFER, SCREEN_SIZE_BYTES);
 }

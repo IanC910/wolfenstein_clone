@@ -45,11 +45,17 @@ float* const DISTANCE_ARRAY_1						= (float*)(DISTANCE_ARRAY_0 + NUM_RAYS);
 int* const WALL_START_ROW_ARRAY						= (int*)(DISTANCE_ARRAY_1 + NUM_RAYS);
 int* const CEILING_BUFFER							= (int*)(WALL_START_ROW_ARRAY + NUM_RAYS);
 int* const FLOOR_BUFFER								= (int*)(CEILING_BUFFER + SCREEN_SIZE / 2);
+float* const playerX_0								= (float*)(FLOOR_BUFFER + SCREEN_SIZE / 2);
+float* const playerY_0								= (float*)(playerX_0 + 1);
+float* const playerA_0								= (float*)(playerY_0+ 1);
 
-
+unsigned char *enemySprite 							= (unsigned char *)0x018D2008;
 
 // Gameplay params
 const float VERTICAL_FOV	= M_PI * 0.4;
 const float HORIZONTAL_FOV	= M_PI * 0.5;
+float playerX = 0;
+float playerY = 0;
+float playerA = 0;
 
 #endif
