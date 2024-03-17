@@ -175,15 +175,28 @@ void WolfensteinCore1App::drawEnemy() {
 	}
 
 	bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
+
+	float enemyCeiling = (float)(SCREEN_HEIGHT / 2.0) - SCREEN_HEIGHT / ((float)enemyDistanceFromPlayer);
+	float enemyFloor = SCREEN_HEIGHT - enemyCeiling;
+	float enemyHeight = enemyFloor - enemyCeiling;
+
 	float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
 	int startXEnemy = middleOfEnemy - spriteW/2;
-	int startYEnemy = (SCREEN_HEIGHT / 2) - (spriteH / 2);
+	int startYEnemy = (SCREEN_HEIGHT / 2) - ((spriteH/ceilf(enemyDistanceFromPlayer)) / 2);
 
-	if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && DISTANCE_ARRAY_1[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
-		for(int i = 0; i < spriteH; i+=1) {
-				int firstNonTransparentPixel = *(enemySprite+i*spriteW*sizeof(int)+3);
-				int numOfNonTransparentPixel = *(enemySprite+i*spriteW*sizeof(int)+7);
-				memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + firstNonTransparentPixel + startXEnemy, enemySprite+(i*(spriteW)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
+	if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 4 && DISTANCE_ARRAY_1[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
+
+		for(int i = 0; i < spriteH/ceilf(enemyDistanceFromPlayer); i+=1) {
+			int firstNonTransparentPixel = *(enemySprite+i*(int)ceilf(enemyDistanceFromPlayer)*spriteW*sizeof(int)+3);
+			int numOfNonTransparentPixel = *(enemySprite+i*(int)ceilf(enemyDistanceFromPlayer)*spriteW*sizeof(int)+7);
+			if(startXEnemy + firstNonTransparentPixel + numOfNonTransparentPixel > SCREEN_WIDTH){
+				numOfNonTransparentPixel = SCREEN_WIDTH - (startXEnemy+firstNonTransparentPixel);
+			}
+			if(startXEnemy + firstNonTransparentPixel < 0) {
+				numOfNonTransparentPixel -= fabs(startXEnemy + firstNonTransparentPixel);
+				firstNonTransparentPixel += fabs(startXEnemy + firstNonTransparentPixel);
+			}
+			memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + firstNonTransparentPixel + startXEnemy, enemySprite+(i*(int)ceilf(enemyDistanceFromPlayer)*(spriteW)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
 		}
 	}
 }
