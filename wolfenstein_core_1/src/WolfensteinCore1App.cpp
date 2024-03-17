@@ -17,8 +17,8 @@ int spriteH = 250;
 
 WolfensteinCore1App::WolfensteinCore1App() {
 	Xil_DCacheDisable();
-	enemy.setPositionX(0);
-	enemy.setPositionY(0);
+	enemy.setPositionX(4.5);
+	enemy.setPositionY(4.5);
 	// initialize floor and ceiling buffers
 	// Draw 1 row and copy
 	int ceilingColourInt = CEILING_GRADIENT[0];
@@ -175,14 +175,15 @@ void WolfensteinCore1App::drawEnemy() {
 	}
 
 	bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
+	float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
+	int startXEnemy = middleOfEnemy - spriteW/2;
+	int startYEnemy = (SCREEN_HEIGHT / 2) - (spriteH / 2);
 
-	if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5) {
-		float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
-		middleOfEnemy -= spriteW/2;
+	if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && DISTANCE_ARRAY_1[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
 		for(int i = 0; i < spriteH; i+=1) {
 				int firstNonTransparentPixel = *(enemySprite+i*spriteW*sizeof(int)+3);
 				int numOfNonTransparentPixel = *(enemySprite+i*spriteW*sizeof(int)+7);
-				memcpy(INTERMEDIATE_IMAGE_BUFFER + (i*SCREEN_WIDTH) + firstNonTransparentPixel + (int)middleOfEnemy, enemySprite+(i*(spriteW)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
+				memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + firstNonTransparentPixel + startXEnemy, enemySprite+(i*(spriteW)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
 		}
 	}
 }
