@@ -12,6 +12,10 @@
 #include "../../wolfenstein_core_0/src/Constants.h"
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
 
+unsigned char *enemySprite = (unsigned char *)0x018D2008;
+int spriteW = 240;
+int spriteH = 250;
+
 WolfensteinCore1App::WolfensteinCore1App() {
 	Xil_DCacheDisable();
 
@@ -194,5 +198,10 @@ void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int startRay, int en
 }
 
 void WolfensteinCore1App::updateScreen() {
+	for(int i = 0; i < spriteH; i+=1) {
+		int firstNonTransparentPixel = *(enemySprite+i*spriteW*sizeof(int)+3);
+		int numOfNonTransparentPixel = *(enemySprite+i*spriteW*sizeof(int)+7);
+		memcpy(INTERMEDIATE_IMAGE_BUFFER + (i*SCREEN_WIDTH) + firstNonTransparentPixel, enemySprite+(i*(spriteW)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
+	}
 	memcpy(VGA_IMAGE_BUFFER_0, INTERMEDIATE_IMAGE_BUFFER, SCREEN_SIZE_BYTES);
 }
