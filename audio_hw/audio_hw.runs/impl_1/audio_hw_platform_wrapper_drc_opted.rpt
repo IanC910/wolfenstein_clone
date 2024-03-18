@@ -1,0 +1,46 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
+| Date         : Mon Mar 11 05:52:03 2024
+| Host         : IC-VivoBook running 64-bit major release  (build 9200)
+| Command      : report_drc -file audio_hw_platform_wrapper_drc_opted.rpt -pb audio_hw_platform_wrapper_drc_opted.pb -rpx audio_hw_platform_wrapper_drc_opted.rpx
+| Design       : audio_hw_platform_wrapper
+| Device       : xc7z020clg484-1
+| Speed File   : -1
+| Design State : Synthesized
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max violations: <unlimited>
+             Violations found: 2
++--------+----------+------------------------+------------+
+| Rule   | Severity | Description            | Violations |
++--------+----------+------------------------+------------+
+| DPOP-2 | Warning  | MREG Output pipelining | 2          |
++--------+----------+------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+DPOP-2#1 Warning
+MREG Output pipelining  
+DSP audio_hw_platform_i/audio_fetcher_0/U0/audio_fetcher_controller_inst/minusOp multiplier stage audio_hw_platform_i/audio_fetcher_0/U0/audio_fetcher_controller_inst/minusOp/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+DPOP-2#2 Warning
+MREG Output pipelining  
+DSP audio_hw_platform_i/audio_fetcher_0/U0/audio_fetcher_controller_inst/scaled_sample_ff_reg multiplier stage audio_hw_platform_i/audio_fetcher_0/U0/audio_fetcher_controller_inst/scaled_sample_ff_reg/P[47:0] is not pipelined (MREG=0). Pipelining the multiplier function will improve performance and will save significant power so it is suggested whenever possible to fully pipeline this function.  If this multiplier was inferred, it is suggested to describe an additional register stage after this function.  If there is no registered adder/accumulator following the multiply function, two pipeline stages are suggested to allow both the MREG and PREG registers to be used.  If the DSP48 was instantiated in the design, it is suggested to set both the MREG and PREG attributes to 1 when performing multiply functions.
+Related violations: <none>
+
+

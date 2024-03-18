@@ -7,6 +7,10 @@ IDE.log
 *.log
 *.a
 *.elf
+*.asv
+*.rpt
+*.rpx
+*.jou
+*.cache
 
 wolfenstein_platform_wrapper/export
-wolfenstein_platform_wrapper/platform.tcl
