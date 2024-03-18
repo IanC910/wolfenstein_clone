@@ -54,9 +54,8 @@ void WolfensteinCore1App::runCore1App() {
 		getNewDistanceArray();
 		XTime_GetTime(&funcEndTime);
 		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
-		if(funcTime > maxTransferTime && DO_PRINT_FUNC_TIME) {
+		if(funcTime > maxTransferTime) {
 			maxTransferTime = funcTime;
-			xil_printf("Core 1 max transfer time: %8d\n", maxTransferTime);
 		}
 
 		// Draw Environment
@@ -64,9 +63,8 @@ void WolfensteinCore1App::runCore1App() {
 		drawEnvironment();
 		XTime_GetTime(&funcEndTime);
 		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
-		if(funcTime > maxDrawTime && DO_PRINT_FUNC_TIME) {
+		if(funcTime > maxDrawTime) {
 			maxDrawTime = funcTime;
-			xil_printf("Core 1 max draw time: %8d\n", maxDrawTime);
 		}
 
 		// Update Screen
@@ -74,16 +72,14 @@ void WolfensteinCore1App::runCore1App() {
 		updateScreen();
 		XTime_GetTime(&funcEndTime);
 		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
-		if(funcTime > maxUpdateTime && DO_PRINT_FUNC_TIME) {
+		if(funcTime > maxUpdateTime) {
 			maxUpdateTime = funcTime;
-			xil_printf("Core 1 max update time: %8d\n", maxUpdateTime);
 		}
 
 		XTime_GetTime(&frameEndTime);
 		u32 frameTime = (u32)((u64)frameEndTime - (u64)frameStartTime);
-		if(frameTime > maxFrameTime && DO_PRINT_FRAME_TIME) {
+		if(frameTime > maxFrameTime) {
 			maxFrameTime = frameTime;
-			xil_printf("Core 1 max frame time: %8d\n", maxFrameTime);
 		}
 	}
 }

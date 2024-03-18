@@ -71,19 +71,14 @@ void WolfensteinCore0App::runCore0App() {
 			}
 
 			case PLAYING_LEVEL: {
-				// Times are in double-clock-cycles (DC)
-				u32 frameTimeDC = 0;
-				XTime frameStartTimeDC;
-				XTime frameEndTimeDC;
-				XTime funcStartTimeDC;
-				XTime funcEndTimeDC;
-				u32 funcTimeDC;
+				// XTimes are in double-clock-cycles (DC)
 				u32 maxGameLogicTimeDC = 0;
 				u32 maxRayCastTimeDC = 0;
 				u32 maxTransferTimeDC = 0;
 				u32 maxFrameTimeDC = 0;
 
 				while(gameState == PLAYING_LEVEL) {
+					XTime frameStartTimeDC;
 					XTime_GetTime(&frameStartTimeDC);
 
 					if(Buttons_isNewStatus()) {
@@ -93,14 +88,17 @@ void WolfensteinCore0App::runCore0App() {
 						}
 					}
 
+					XTime funcStartTimeDC;
+					XTime funcEndTimeDC;
+					u32 funcTimeDC;
+
 					// Game Logic Per Frame
 					XTime_GetTime(&funcStartTimeDC);
 					this->gameLogicPerFrame();
 					XTime_GetTime(&funcEndTimeDC);
 					funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
-					if(funcTimeDC > maxGameLogicTimeDC && DO_PRINT_FUNC_TIME) {
+					if(funcTimeDC > maxGameLogicTimeDC) {
 						maxGameLogicTimeDC = funcTimeDC;
-						xil_printf("Core 0 max game logic time: %8d\n", maxGameLogicTimeDC);
 					}
 
 					// Cast Rays
@@ -108,9 +106,8 @@ void WolfensteinCore0App::runCore0App() {
 					this->castRays();
 					XTime_GetTime(&funcEndTimeDC);
 					funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
-					if(funcTimeDC > maxRayCastTimeDC && DO_PRINT_FUNC_TIME) {
+					if(funcTimeDC > maxRayCastTimeDC) {
 						maxRayCastTimeDC = funcTimeDC;
-						xil_printf("Core 0 max ray cast time: %8d\n", maxRayCastTimeDC);
 					}
 
 					// Transfer Distance Array
@@ -118,23 +115,23 @@ void WolfensteinCore0App::runCore0App() {
 					this->transferDistanceArray();
 					XTime_GetTime(&funcEndTimeDC);
 					funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
-					if(funcTimeDC > maxTransferTimeDC && DO_PRINT_FUNC_TIME) {
+					if(funcTimeDC > maxTransferTimeDC) {
 						maxTransferTimeDC = funcTimeDC;
-						xil_printf("Core 0 max transfer time: %8d\n", maxTransferTimeDC);
 					}
 
+					XTime frameEndTimeDC;
 					XTime_GetTime(&frameEndTimeDC);
-					frameTimeDC = (u32)((u64)frameEndTimeDC - (u64)frameStartTimeDC);
-					if(frameTimeDC > maxFrameTimeDC && DO_PRINT_FRAME_TIME) {
+					u32 frameTimeDC = (u32)((u64)frameEndTimeDC - (u64)frameStartTimeDC);
+					if(frameTimeDC > maxFrameTimeDC) {
 						maxFrameTimeDC = frameTimeDC;
-						xil_printf("Core 0 max frame time: %8d\n", maxFrameTimeDC);
-					}
-
-					if(DO_PRINT_FRAME_TIME) {
-						xil_printf("Core 0 frame time: %8d\n", frameTimeDC);
 					}
 
 					frameTimeInSec = (double)frameTimeDC / (double)COUNTS_PER_SECOND;
+
+					if(DO_PRINT_FRAME_TIME) {
+						xil_printf("Core 0 frame time ms: %8d\n", (int)(frameTimeInSec * 1000));
+					}
+
 				}
 				break;
 			}
@@ -181,8 +178,6 @@ void WolfensteinCore0App::gameLogicPerFrame() {
 		moveCtrlY = (float)((int)Buttons_isButtonPressed(UP) - (int)Buttons_isButtonPressed(DOWN));
 		turnCtrl = (float)((int)Buttons_isButtonPressed(RIGHT) - (int)Buttons_isButtonPressed(LEFT));
 	}
-
-	xil_printf("frameTime ms: %d\n", (int)(frameTimeInSec * 1000));
 
 	// Position change from joystick y
 	float newPositionXFromY = player.getPositionX() + cos(player.getAngle()) * moveCtrlY * MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;

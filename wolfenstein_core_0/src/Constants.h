@@ -55,8 +55,7 @@ short* const GUNSHOT_SOUND							= (short*)					0x00E2C000; // size: 12288
 
 // Debug params
 const bool DO_USE_JOYSTICKS = false;
-const bool DO_PRINT_FRAME_TIME = false;
-const bool DO_PRINT_FUNC_TIME = false;
+const bool DO_PRINT_FRAME_TIME = true;
 
 
 // Gameplay params
