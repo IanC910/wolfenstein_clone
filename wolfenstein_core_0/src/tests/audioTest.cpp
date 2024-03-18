@@ -8,9 +8,9 @@
 #include "xil_types.h"
 #include "xil_cache.h"
 
-#include "audio.h"
+#include "../audio.h"
 
-#include "audio_test.h"
+#include "audioTest.h"
 
 const int CPU_CLK_FREQ_Hz = XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ;
 const int CPU_CLK_FREQ_MHz = CPU_CLK_FREQ_Hz / 1000000;

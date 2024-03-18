@@ -35,3 +35,6 @@ platform generate
 platform active {wolfenstein_platform_wrapper}
 platform config -updatehw {C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform_wrapper.xsa}
 platform generate -domains 
+platform generate -domains standalone_ps7_cortexa9_0,standalone_domain 
+platform clean
+platform generate

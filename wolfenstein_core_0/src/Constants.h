@@ -4,13 +4,15 @@
 
 #include <math.h>
 
+#include "xparameters.h"
+
 #include "ValidAckInterface.h"
 
 
 
 // Timing
-const int CPU_FREQ 			= 200000000; // 200 MHz
-const int CLOCKS_PER_S 		= CPU_FREQ;
+const int CPU_FREQ_Hz 		= XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ;
+const int CLOCKS_PER_S 		= CPU_FREQ_Hz;
 const int CLOCKS_PER_MS 	= CLOCKS_PER_S / 1000;
 const int CLOCKS_PER_US 	= CLOCKS_PER_MS / 1000;
 

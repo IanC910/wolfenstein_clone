@@ -8,9 +8,13 @@
 #include "xil_io.h"
 #include "xil_cache.h"
 #include "xtime_l.h"
+#include "xil_exception.h"
+#include "xil_types.h"
 
 #include "Constants.h"
 #include "Gpio.h"
+#include "InterruptSetup.h"
+#include "Buttons.h"
 
 WolfensteinCore0App::WolfensteinCore0App() {
 	Xil_DCacheDisable();
@@ -21,9 +25,14 @@ void WolfensteinCore0App::runCore0App() {
 
 	clearMem();
 
-	startCore1();
+	InterruptSetup_setInterruptHandler(
+		INTERRUPT_0_ID,
+		(Xil_ExceptionHandler)Buttons_basicInterruptHandler
+	);
 
 	jstkInitialize();
+
+	startCore1();
 
 	// Times are in double-clock-cycles (DC)
 	u32 frameTimeDC = 0;
@@ -134,7 +143,7 @@ void WolfensteinCore0App::gameLogicPerFrame() {
 
 void WolfensteinCore0App::castRays() {
 	float angleIncrement = HORIZONTAL_FOV / (float)NUM_RAYS;
-	float startAngle = player.getAngle() - HORIZONTAL_FOV / 2.0;
+	float startAngle = player.getAngle() - HORIZONTAL_FOV / 2.0 + angleIncrement / 2.0;
 	float rayAngle = startAngle; // Rays start on right, move towards left
 
 	// For each ray
