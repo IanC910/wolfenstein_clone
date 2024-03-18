@@ -19,11 +19,9 @@
 #include "Buttons.h"
 
 WolfensteinCore0App::WolfensteinCore0App() {
-	Xil_DCacheDisable();
-}
+	xil_printf("Wolfenstein Core 0 App Init\n");
 
-void WolfensteinCore0App::runCore0App() {
-	xil_printf("Starting Wolfenstein Core 0 App\n");
+	Xil_DCacheDisable();
 
 	clearMem();
 
@@ -33,6 +31,10 @@ void WolfensteinCore0App::runCore0App() {
 	);
 
 	jstkInitialize();
+}
+
+void WolfensteinCore0App::runCore0App() {
+	xil_printf("Starting Wolfenstein Core 0 App\n");
 
 	startCore1();
 
@@ -81,9 +83,9 @@ void WolfensteinCore0App::runCore0App() {
 				u32 maxTransferTimeDC = 0;
 				u32 maxFrameTimeDC = 0;
 
-				XTime_GetTime(&frameStartTimeDC);
-
 				while(gameState == PLAYING_LEVEL) {
+					XTime_GetTime(&frameStartTimeDC);
+
 					if(Buttons_isNewStatus()) {
 						if(Buttons_isButtonPressed(CENTRE)) {
 							gameState = MAIN_MENU;
@@ -96,7 +98,7 @@ void WolfensteinCore0App::runCore0App() {
 					this->gameLogicPerFrame();
 					XTime_GetTime(&funcEndTimeDC);
 					funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
-					if(funcTimeDC > maxGameLogicTimeDC) {
+					if(funcTimeDC > maxGameLogicTimeDC && DO_PRINT_FUNC_TIME) {
 						maxGameLogicTimeDC = funcTimeDC;
 						xil_printf("Core 0 max game logic time: %8d\n", maxGameLogicTimeDC);
 					}
@@ -106,7 +108,7 @@ void WolfensteinCore0App::runCore0App() {
 					this->castRays();
 					XTime_GetTime(&funcEndTimeDC);
 					funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
-					if(funcTimeDC > maxRayCastTimeDC) {
+					if(funcTimeDC > maxRayCastTimeDC && DO_PRINT_FUNC_TIME) {
 						maxRayCastTimeDC = funcTimeDC;
 						xil_printf("Core 0 max ray cast time: %8d\n", maxRayCastTimeDC);
 					}
@@ -116,20 +118,23 @@ void WolfensteinCore0App::runCore0App() {
 					this->transferDistanceArray();
 					XTime_GetTime(&funcEndTimeDC);
 					funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
-					if(funcTimeDC > maxTransferTimeDC) {
+					if(funcTimeDC > maxTransferTimeDC && DO_PRINT_FUNC_TIME) {
 						maxTransferTimeDC = funcTimeDC;
 						xil_printf("Core 0 max transfer time: %8d\n", maxTransferTimeDC);
 					}
 
 					XTime_GetTime(&frameEndTimeDC);
 					frameTimeDC = (u32)((u64)frameEndTimeDC - (u64)frameStartTimeDC);
-					if(frameTimeDC > maxFrameTimeDC) {
+					if(frameTimeDC > maxFrameTimeDC && DO_PRINT_FRAME_TIME) {
 						maxFrameTimeDC = frameTimeDC;
 						xil_printf("Core 0 max frame time: %8d\n", maxFrameTimeDC);
 					}
 
-					xil_printf("Core 0 frame time: %8d\n", frameTimeDC);
-					frameTimeInSec = (double)frameTimeDC/(double)COUNTS_PER_SECOND;
+					if(DO_PRINT_FRAME_TIME) {
+						xil_printf("Core 0 frame time: %8d\n", frameTimeDC);
+					}
+
+					frameTimeInSec = (double)frameTimeDC / (double)COUNTS_PER_SECOND;
 				}
 				break;
 			}
@@ -163,28 +168,40 @@ void WolfensteinCore0App::gameLogicPerFrame() {
 	jstkPosition1 = JSTK2_getPosition(&jstk1);
 	jstkPosition2 = JSTK2_getPosition(&jstk2);
 
-	float joystick1X = mapJSTK(jstkPosition1.XData);
-	float joystick1Y = mapJSTK(jstkPosition1.YData);
-	float joystick2X = mapJSTK(jstkPosition2.XData);
+	float moveCtrlX = 0;
+	float moveCtrlY = 0;
+	float turnCtrl = 0;
+
+	if(DO_USE_JOYSTICKS) {
+		moveCtrlX = mapJSTK(jstkPosition1.XData);
+		moveCtrlY = mapJSTK(jstkPosition1.YData);
+		turnCtrl = mapJSTK(jstkPosition2.XData);
+	}
+	else {
+		moveCtrlY = (float)((int)Buttons_isButtonPressed(UP) - (int)Buttons_isButtonPressed(DOWN));
+		turnCtrl = (float)((int)Buttons_isButtonPressed(RIGHT) - (int)Buttons_isButtonPressed(LEFT));
+	}
+
+	xil_printf("frameTime ms: %d\n", (int)(frameTimeInSec * 1000));
 
 	// Position change from joystick y
-	float newPositionXFromY = player.getPositionX() + cos(player.getAngle()) * joystick1Y * MAX_PLAYER_MOVEMENT_SPEED_TILES_PER_SEC * frameTimeInSec;
-	float newPositionYFromY = player.getPositionY() + sin(player.getAngle()) * joystick1Y * MAX_PLAYER_MOVEMENT_SPEED_TILES_PER_SEC * frameTimeInSec;
+	float newPositionXFromY = player.getPositionX() + cos(player.getAngle()) * moveCtrlY * MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
+	float newPositionYFromY = player.getPositionY() + sin(player.getAngle()) * moveCtrlY * MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
 	if(currentLevel->getBlockAtWorldCoord(newPositionXFromY, newPositionYFromY) == ' ') {
 		player.setPositionX(newPositionXFromY);
 		player.setPositionY(newPositionYFromY);
 	}
 
 	// Position change from joystick x
-	float newPositionXFromX = player.getPositionX() + sin(player.getAngle()) * joystick1X * MAX_PLAYER_MOVEMENT_SPEED_TILES_PER_SEC * frameTimeInSec;
-	float newPositionYFromX = player.getPositionY() - cos(player.getAngle()) * joystick1X * MAX_PLAYER_MOVEMENT_SPEED_TILES_PER_SEC * frameTimeInSec;
+	float newPositionXFromX = player.getPositionX() + sin(player.getAngle()) * moveCtrlX * MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
+	float newPositionYFromX = player.getPositionY() - cos(player.getAngle()) * moveCtrlX * MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
 	if(currentLevel->getBlockAtWorldCoord(newPositionXFromX, newPositionYFromX) == ' ') {
 		player.setPositionX(newPositionXFromX);
 		player.setPositionY(newPositionYFromX);
 	}
 
 	// Angle change from joystick
-	float newAngle = player.getAngle() - joystick2X * MAX_PLAYER_ROTATION_SPEED_RAD_PER_SEC * frameTimeInSec;
+	float newAngle = player.getAngle() - turnCtrl * MAX_PLAYER_TURN_SPEED_RAD_PER_SEC * frameTimeInSec;
 	player.setAngle(newAngle);
 }
 

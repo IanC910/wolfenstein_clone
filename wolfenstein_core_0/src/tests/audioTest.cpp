@@ -8,9 +8,9 @@
 #include "xil_types.h"
 #include "xil_cache.h"
 
-#include "../audio.h"
-
+#include "../Constants.h"
 #include "audioTest.h"
+#include "../Audio.h"
 
 const int CPU_CLK_FREQ_Hz = XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ;
 const int CPU_CLK_FREQ_MHz = CPU_CLK_FREQ_Hz / 1000000;
@@ -62,7 +62,7 @@ void sineTest() {
 void soundFileTest() {
 	configAudio();
 
-	const char* SOUND_FILE_POINTER = (char*)0x018D0000;
+	const char* SOUND_FILE_POINTER = (char*)GUNSHOT_SOUND;
 	int numSamples 			= *(int*)(SOUND_FILE_POINTER + 0);
 	int samplePeriodUs 		= *(int*)(SOUND_FILE_POINTER + 4);
 
@@ -100,7 +100,7 @@ void dmaTest() {
 	Xil_DCacheDisable();
 
 	const int AUDIO_FETCHER_BASE_ADDR = XPAR_AUDIO_FETCHER_0_BASEADDR;
-	const char* SOUND_FILE_POINTER = (char*)0x018D0000;
+	const char* SOUND_FILE_POINTER = (char*)GUNSHOT_SOUND;
 
 	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 0, (int)(SOUND_FILE_POINTER));
 	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 4, 100);

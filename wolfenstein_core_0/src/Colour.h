@@ -2,7 +2,7 @@
 #ifndef COLOUR_RGB_H
 #define COLOUR_RGB_H
 
-int colourRGB(int r, int g, int b);
+#define colourRGB(r, g, b) ((b) << 20 | (g) << 12 | (r) << 4)
 
 const int CEILING_GRADIENT_LENGTH = 5;
 const int CEILING_GRADIENT[CEILING_GRADIENT_LENGTH] = {

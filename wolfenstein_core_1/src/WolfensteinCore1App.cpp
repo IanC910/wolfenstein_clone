@@ -8,11 +8,13 @@
 #include "xil_cache.h"
 #include "xtime_l.h"
 
-#include "Colour.h"
+#include "../../wolfenstein_core_0/src/Colour.h"
 #include "../../wolfenstein_core_0/src/Constants.h"
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
 
 WolfensteinCore1App::WolfensteinCore1App() {
+	xil_printf("Wolfenstein Core 1 App Init\n");
+
 	Xil_DCacheDisable();
 
 	// initialize floor and ceiling buffers
@@ -52,7 +54,7 @@ void WolfensteinCore1App::runCore1App() {
 		getNewDistanceArray();
 		XTime_GetTime(&funcEndTime);
 		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
-		if(funcTime > maxTransferTime) {
+		if(funcTime > maxTransferTime && DO_PRINT_FUNC_TIME) {
 			maxTransferTime = funcTime;
 			xil_printf("Core 1 max transfer time: %8d\n", maxTransferTime);
 		}
@@ -62,7 +64,7 @@ void WolfensteinCore1App::runCore1App() {
 		drawEnvironment();
 		XTime_GetTime(&funcEndTime);
 		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
-		if(funcTime > maxDrawTime) {
+		if(funcTime > maxDrawTime && DO_PRINT_FUNC_TIME) {
 			maxDrawTime = funcTime;
 			xil_printf("Core 1 max draw time: %8d\n", maxDrawTime);
 		}
@@ -72,14 +74,14 @@ void WolfensteinCore1App::runCore1App() {
 		updateScreen();
 		XTime_GetTime(&funcEndTime);
 		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
-		if(funcTime > maxUpdateTime) {
+		if(funcTime > maxUpdateTime && DO_PRINT_FUNC_TIME) {
 			maxUpdateTime = funcTime;
 			xil_printf("Core 1 max update time: %8d\n", maxUpdateTime);
 		}
 
 		XTime_GetTime(&frameEndTime);
 		u32 frameTime = (u32)((u64)frameEndTime - (u64)frameStartTime);
-		if(frameTime > maxFrameTime) {
+		if(frameTime > maxFrameTime && DO_PRINT_FRAME_TIME) {
 			maxFrameTime = frameTime;
 			xil_printf("Core 1 max frame time: %8d\n", maxFrameTime);
 		}
