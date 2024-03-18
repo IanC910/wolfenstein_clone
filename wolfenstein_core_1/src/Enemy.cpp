@@ -16,3 +16,8 @@ void Enemy::setPositionX(float x) {
 void Enemy::setPositionY(float y) {
 	positionY = y;
 }
+
+void Enemy::setPositionXY(float x, float y) {
+	positionX = x;
+	positionY = y;
+}

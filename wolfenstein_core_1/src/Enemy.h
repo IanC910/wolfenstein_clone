@@ -9,6 +9,7 @@ public:
 
 	void setPositionX(float x);
 	void setPositionY(float y);
+	void setPositionXY(float x, float y);
 
 private:
 	float positionX = 0;
