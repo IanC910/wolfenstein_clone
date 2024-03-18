@@ -16,6 +16,7 @@ private:
 	void clearMem();
 	void startCore1();
 	void drawMenu();
+	void drawCharacter(int characterIndex, int startRow, int startCol, int scale, int colour);
 	void gameLogicPerFrame();
 	void castRays();
 	void transferDistanceArray();

@@ -17,6 +17,8 @@
 #include "Gpio.h"
 #include "InterruptSetup.h"
 #include "Buttons.h"
+#include "Colour.h"
+#include "CharMatrix.h"
 
 WolfensteinCore0App::WolfensteinCore0App() {
 	xil_printf("Wolfenstein Core 0 App Init\n");
@@ -40,10 +42,11 @@ void WolfensteinCore0App::runCore0App() {
 
 	// Main Loop
 	while(true) {
-
 		switch(gameState) {
 			case MAIN_MENU: {
 				while(gameState == MAIN_MENU) {
+
+					drawMenu();
 
 					// Wait for button press
 					while(!Buttons_isNewStatus());
@@ -63,9 +66,6 @@ void WolfensteinCore0App::runCore0App() {
 
 						gameState = PLAYING_LEVEL;
 					}
-
-					drawMenu();
-
 				}
 				break;
 			}
@@ -157,8 +157,47 @@ void WolfensteinCore0App::startCore1() {
 }
 
 void WolfensteinCore0App::drawMenu() {
-	memset(VGA_IMAGE_BUFFER_0, 0x80, SCREEN_SIZE_BYTES);
-	memset(INTERMEDIATE_IMAGE_BUFFER, 0, SCREEN_SIZE_BYTES);
+	// Dummy Menu. It's bad. TODO: make better
+	int backgroundColour = colourRGB(10, 0, 0);
+
+	for(int i = 0; i < SCREEN_HEIGHT; i++) {
+		for(int j = 0; j < SCREEN_WIDTH; j++) {
+			INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + j] = backgroundColour;
+		}
+	}
+
+	int leftMargin = 50;
+	int scale = 2;
+	int lineSpace = 10;
+
+	int line1Row = 320;
+	int line2Row = line1Row + CHARACTER_HEIGHT * scale + lineSpace;
+
+	drawCharacter(0, line1Row, leftMargin, 2, 0);
+	drawCharacter(1, line2Row, leftMargin, 2, 0);
+
+	// Draw cursor
+	int cursorCol = 40;
+	int cursorRow = line1Row + CHARACTER_HEIGHT * scale / 2 + levelSelectIndex * (line2Row - line1Row);
+	int cursorColour = colourRGB(15, 15, 0);
+
+	for(int i = cursorRow - 2; i < cursorRow + 3; i++) {
+		for(int j = cursorCol - 2; j < cursorCol + 3; j++) {
+			INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + j] = cursorColour;
+		}
+	}
+
+	memcpy(VGA_IMAGE_BUFFER_0, INTERMEDIATE_IMAGE_BUFFER, SCREEN_SIZE_BYTES);
+}
+
+void WolfensteinCore0App::drawCharacter(int characterIndex, int startRow, int startCol, int scale, int colour) {
+	for(int i = 0; i < CHARACTER_HEIGHT * scale; i++) {
+		for(int j = 0; j < CHARACTER_WIDTH * scale; j++) {
+			if(CHARACTERS_MATRIX[characterIndex][i / scale] & (1 << (CHARACTER_WIDTH - 1 - j / scale))) {
+				INTERMEDIATE_IMAGE_BUFFER[(i + startRow) * SCREEN_WIDTH + j + startCol] = colour;
+			}
+		}
+	}
 }
 
 void WolfensteinCore0App::gameLogicPerFrame() {
