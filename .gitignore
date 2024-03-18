@@ -3,6 +3,7 @@ RemoteSystemsTempFiles
 .analytics
 IDE.log
 
+# Vivado Projects and IP Outputs
 *.o
 *.log
 *.a
@@ -17,4 +18,5 @@ IDE.log
 *.ip_user_files
 *.runs
 
+# Vitis Platform Projects
 */export
