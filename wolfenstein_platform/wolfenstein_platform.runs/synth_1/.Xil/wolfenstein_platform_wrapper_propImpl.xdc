@@ -1,4 +1,20 @@
-set_property SRC_FILE_INFO {cfile:C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.srcs/constrs_1/imports/ensc452/zedboard_master.xdc rfile:../../../wolfenstein_platform.srcs/constrs_1/imports/ensc452/zedboard_master.xdc id:1} [current_design]
+set_property SRC_FILE_INFO {cfile:C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.srcs/constrs_1/imports/ensc452/zedboard_master.xdc rfile:../../../wolfenstein_platform.srcs/constrs_1/imports/ensc452/zedboard_master.xdc id:1} [current_design]
+set_property src_info {type:XDC file:1 line:69 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN AB1 [get_ports {GPIO_tri_io[0]}];  # "AC-ADR0"
+set_property src_info {type:XDC file:1 line:70 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN Y5  [get_ports {GPIO_tri_io[1]}];  # "AC-ADR1"
+set_property src_info {type:XDC file:1 line:71 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN Y8  [get_ports {SDATA_O}];  # "AC-GPIO0"
+set_property src_info {type:XDC file:1 line:73 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN AA6 [get_ports {BCLK}];  # "AC-GPIO2"
+set_property src_info {type:XDC file:1 line:74 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN Y6  [get_ports {LRCLK}];  # "AC-GPIO3"
+set_property src_info {type:XDC file:1 line:75 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN AB2 [get_ports {MCLK}];  # "AC-MCLK"
+set_property src_info {type:XDC file:1 line:76 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN AB4 [get_ports {IIC_0_scl_io}];  # "AC-SCK"
+set_property src_info {type:XDC file:1 line:77 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN AB5 [get_ports {IIC_0_sda_io}];  # "AC-SDA"
 set_property src_info {type:XDC file:1 line:112 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN AB6 [get_ports {JC_pin2_io}];  # "JC1_N"
 set_property src_info {type:XDC file:1 line:113 export:INPUT save:INPUT read:READ} [current_design]

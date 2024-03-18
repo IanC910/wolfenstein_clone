@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/synth_1/wolfenstein_platform_wrapper.tcl"
+  variable script "C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/synth_1/wolfenstein_platform_wrapper.tcl"
   variable category "vivado_synth"
 }
 
@@ -70,6 +70,9 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 1
+set_msg_config  -id {IP_Flow 19-1977}  -string {{CRITICAL WARNING: [IP_Flow 19-1977] Unable to read IP file c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/ip_repo/vivado-library-master/vivado-library-master/ip/Zmods/ZmodDigitizerController/component.xml. This IP will not be included in the IP Catalog.}}  -suppress 
+set_msg_config  -id {IP_Flow 19-1977}  -string {{CRITICAL WARNING: [IP_Flow 19-1977] Unable to read IP file c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/ip_repo/vivado-library-master/ip/Zmods/ZmodDigitizerController/component.xml. This IP will not be included in the IP Catalog.}}  -suppress 
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7z020clg484-1
 
@@ -77,63 +80,67 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.cache/wt [current_project]
-set_property parent.project_path C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.xpr [current_project]
+set_property webtalk.parent_dir C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.cache/wt [current_project]
+set_property parent.project_path C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.xpr [current_project]
 set_property XPM_LIBRARIES {XPM_CDC XPM_FIFO XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
 set_property board_part em.avnet.com:zed:part0:1.4 [current_project]
-set_property ip_repo_paths {
-  c:/Users/Amrit/Downloads/vga_tutorial_students/vga_tutorial_students/vga_controller_ip
-  f:/vivado-library-master
-} [current_project]
+set_property ip_repo_paths c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/ip_repo [current_project]
 update_ip_catalog
-set_property ip_output_repo c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.cache/ip [current_project]
+set_property ip_output_repo c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_vhdl -library xil_defaultlib C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/hdl/wolfenstein_platform_wrapper.vhd
-add_files C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.srcs/sources_1/bd/wolfenstein_platform/wolfenstein_platform.bd
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_processing_system7_0_0/wolfenstein_platform_processing_system7_0_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/fifo_generator_0/fifo_generator_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/fifo_generator_0/fifo_generator_0_clocks.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_clk_wiz_0_0/wolfenstein_platform_clk_wiz_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_clk_wiz_0_0/wolfenstein_platform_clk_wiz_0_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_clk_wiz_0_0/wolfenstein_platform_clk_wiz_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_proc_sys_reset_0_0/wolfenstein_platform_proc_sys_reset_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_proc_sys_reset_0_0/wolfenstein_platform_proc_sys_reset_0_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_proc_sys_reset_0_0/wolfenstein_platform_proc_sys_reset_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_proc_sys_reset_0_1/wolfenstein_platform_proc_sys_reset_0_1_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_proc_sys_reset_0_1/wolfenstein_platform_proc_sys_reset_0_1.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_proc_sys_reset_0_1/wolfenstein_platform_proc_sys_reset_0_1_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_xbar_0/wolfenstein_platform_xbar_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_auto_pc_0/wolfenstein_platform_auto_pc_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_axi_gpio_0_0/wolfenstein_platform_axi_gpio_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_axi_gpio_0_0/wolfenstein_platform_axi_gpio_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_axi_gpio_0_0/wolfenstein_platform_axi_gpio_0_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_gpio_0_0/PmodJSTK2_axi_gpio_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_gpio_0_0/PmodJSTK2_axi_gpio_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_gpio_0_0/PmodJSTK2_axi_gpio_0_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/wolfenstein_platform_PmodJSTK2_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_pmod_bridge_0_0/PmodJSTK2_pmod_bridge_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_pmod_bridge_0_0/src/pmod_concat_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0_clocks.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_gpio_0_0/PmodJSTK2_axi_gpio_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_gpio_0_0/PmodJSTK2_axi_gpio_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_gpio_0_0/PmodJSTK2_axi_gpio_0_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/wolfenstein_platform_PmodJSTK2_1_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_pmod_bridge_0_0/PmodJSTK2_pmod_bridge_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_pmod_bridge_0_0/src/pmod_concat_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0_clocks.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/wolfenstein_platform_ooc.xdc]
+read_vhdl -library xil_defaultlib C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/hdl/wolfenstein_platform_wrapper.vhd
+add_files C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.srcs/sources_1/bd/wolfenstein_platform/wolfenstein_platform.bd
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/fifo_generator_0/fifo_generator_0.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/fifo_generator_0/fifo_generator_0_clocks.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_clk_wiz_0_0/wolfenstein_platform_clk_wiz_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_clk_wiz_0_0/wolfenstein_platform_clk_wiz_0_0.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_clk_wiz_0_0/wolfenstein_platform_clk_wiz_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_axi_gpio_0_0_1/wolfenstein_platform_axi_gpio_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_axi_gpio_0_0_1/wolfenstein_platform_axi_gpio_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_axi_gpio_0_0_1/wolfenstein_platform_axi_gpio_0_0.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_processing_system7_0_2/wolfenstein_platform_processing_system7_0_2.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_xbar_3/wolfenstein_platform_xbar_3_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_rst_ps7_0_200M_1/wolfenstein_platform_rst_ps7_0_200M_1_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_rst_ps7_0_200M_1/wolfenstein_platform_rst_ps7_0_200M_1.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_rst_ps7_0_200M_1/wolfenstein_platform_rst_ps7_0_200M_1_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_proc_sys_reset_0_2/wolfenstein_platform_proc_sys_reset_0_2_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_proc_sys_reset_0_2/wolfenstein_platform_proc_sys_reset_0_2.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_proc_sys_reset_0_2/wolfenstein_platform_proc_sys_reset_0_2_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_gpio_0_0/PmodJSTK2_axi_gpio_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_gpio_0_0/PmodJSTK2_axi_gpio_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_gpio_0_0/PmodJSTK2_axi_gpio_0_0.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/wolfenstein_platform_PmodJSTK2_1_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_pmod_bridge_0_0/PmodJSTK2_pmod_bridge_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_pmod_bridge_0_0/src/pmod_concat_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0_clocks.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_gpio_0_0/PmodJSTK2_axi_gpio_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_gpio_0_0/PmodJSTK2_axi_gpio_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_gpio_0_0/PmodJSTK2_axi_gpio_0_0.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/wolfenstein_platform_PmodJSTK2_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_pmod_bridge_0_0/PmodJSTK2_pmod_bridge_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_pmod_bridge_0_0/src/pmod_concat_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/src/PmodJSTK2_axi_quad_spi_0_0/PmodJSTK2_axi_quad_spi_0_0_clocks.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_axi_gpio_1_0/wolfenstein_platform_axi_gpio_1_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_axi_gpio_1_0/wolfenstein_platform_axi_gpio_1_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_axi_gpio_1_0/wolfenstein_platform_axi_gpio_1_0.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_auto_pc_0/wolfenstein_platform_auto_pc_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_auto_pc_1/wolfenstein_platform_auto_pc_1_ooc.xdc]
+set_property used_in_synthesis false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_auto_us_0/wolfenstein_platform_auto_us_0_clocks.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_auto_us_0/wolfenstein_platform_auto_us_0_clocks.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_auto_us_0/wolfenstein_platform_auto_us_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/wolfenstein_platform_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -144,8 +151,8 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.srcs/constrs_1/imports/ensc452/zedboard_master.xdc
-set_property used_in_implementation false [get_files C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.srcs/constrs_1/imports/ensc452/zedboard_master.xdc]
+read_xdc C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.srcs/constrs_1/imports/ensc452/zedboard_master.xdc
+set_property used_in_implementation false [get_files C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.srcs/constrs_1/imports/ensc452/zedboard_master.xdc]
 
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]

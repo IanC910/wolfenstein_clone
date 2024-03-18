@@ -1,10 +1,10 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-// Date        : Mon Mar  4 13:45:41 2024
-// Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_clk_wiz_0_0/wolfenstein_platform_clk_wiz_0_0_sim_netlist.v
+// Date        : Sun Mar 17 20:27:59 2024
+// Host        : IC-VivoBook running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode funcsim -rename_top wolfenstein_platform_clk_wiz_0_0 -prefix
+//               wolfenstein_platform_clk_wiz_0_0_ wolfenstein_platform_clk_wiz_0_0_sim_netlist.v
 // Design      : wolfenstein_platform_clk_wiz_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -16,41 +16,33 @@
 module wolfenstein_platform_clk_wiz_0_0
    (pixel_clk,
     resetn,
-    locked,
     clk_in1);
   output pixel_clk;
   input resetn;
-  output locked;
   input clk_in1;
 
   (* IBUF_LOW_PWR *) wire clk_in1;
-  wire locked;
   wire pixel_clk;
   wire resetn;
 
   wolfenstein_platform_clk_wiz_0_0_wolfenstein_platform_clk_wiz_0_0_clk_wiz inst
        (.clk_in1(clk_in1),
-        .locked(locked),
         .pixel_clk(pixel_clk),
         .resetn(resetn));
 endmodule
 
-(* ORIG_REF_NAME = "wolfenstein_platform_clk_wiz_0_0_clk_wiz" *) 
 module wolfenstein_platform_clk_wiz_0_0_wolfenstein_platform_clk_wiz_0_0_clk_wiz
    (pixel_clk,
     resetn,
-    locked,
     clk_in1);
   output pixel_clk;
   input resetn;
-  output locked;
   input clk_in1;
 
   wire clk_in1;
   wire clk_in1_wolfenstein_platform_clk_wiz_0_0;
   wire clkfbout_buf_wolfenstein_platform_clk_wiz_0_0;
   wire clkfbout_wolfenstein_platform_clk_wiz_0_0;
-  wire locked;
   wire pixel_clk;
   wire pixel_clk_wolfenstein_platform_clk_wiz_0_0;
   wire reset_high;
@@ -69,6 +61,7 @@ module wolfenstein_platform_clk_wiz_0_0_wolfenstein_platform_clk_wiz_0_0_clk_wiz
   wire NLW_mmcm_adv_inst_CLKOUT5_UNCONNECTED;
   wire NLW_mmcm_adv_inst_CLKOUT6_UNCONNECTED;
   wire NLW_mmcm_adv_inst_DRDY_UNCONNECTED;
+  wire NLW_mmcm_adv_inst_LOCKED_UNCONNECTED;
   wire NLW_mmcm_adv_inst_PSDONE_UNCONNECTED;
   wire [15:0]NLW_mmcm_adv_inst_DO_UNCONNECTED;
 
@@ -166,7 +159,7 @@ module wolfenstein_platform_clk_wiz_0_0_wolfenstein_platform_clk_wiz_0_0_clk_wiz
         .DO(NLW_mmcm_adv_inst_DO_UNCONNECTED[15:0]),
         .DRDY(NLW_mmcm_adv_inst_DRDY_UNCONNECTED),
         .DWE(1'b0),
-        .LOCKED(locked),
+        .LOCKED(NLW_mmcm_adv_inst_LOCKED_UNCONNECTED),
         .PSCLK(1'b0),
         .PSDONE(NLW_mmcm_adv_inst_PSDONE_UNCONNECTED),
         .PSEN(1'b0),

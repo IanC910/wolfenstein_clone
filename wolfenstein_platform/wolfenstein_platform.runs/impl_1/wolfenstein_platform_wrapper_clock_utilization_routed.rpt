@@ -1,8 +1,8 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-| Date         : Mon Mar  4 14:26:57 2024
-| Host         : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
+| Date         : Sun Mar 17 20:51:18 2024
+| Host         : IC-VivoBook running 64-bit major release  (build 9200)
 | Command      : report_clock_utilization -file wolfenstein_platform_wrapper_clock_utilization_routed.rpt
 | Design       : wolfenstein_platform_wrapper
 | Device       : 7z020-clg484
@@ -52,9 +52,9 @@ Table of Contents
 +-----------+-----------+-----------------+------------+----------------+--------------+-------------------+-------------+-----------------+--------------+--------------------------------------------+--------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
 | Global Id | Source Id | Driver Type/Pin | Constraint | Site           | Clock Region | Load Clock Region | Clock Loads | Non-Clock Loads | Clock Period | Clock                                      | Driver Pin                                                                           | Net                                                                                 |
 +-----------+-----------+-----------------+------------+----------------+--------------+-------------------+-------------+-----------------+--------------+--------------------------------------------+--------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
-| g0        | src0      | BUFG/O          | None       | BUFGCTRL_X0Y16 | n/a          |                 6 |        1899 |               0 |        5.000 | clk_fpga_0                                 | wolfenstein_platform_i/processing_system7_0/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG/O | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0                          |
+| g0        | src0      | BUFG/O          | None       | BUFGCTRL_X0Y16 | n/a          |                 6 |        3204 |               0 |        5.000 | clk_fpga_0                                 | wolfenstein_platform_i/processing_system7_0/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG/O | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0                          |
 | g1        | src1      | BUFG/O          | None       | BUFGCTRL_X0Y17 | n/a          |                 4 |         434 |               0 |       63.000 | clk_fpga_1                                 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG_inst/O               | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG                     |
-| g2        | src2      | BUFG/O          | None       | BUFGCTRL_X0Y0  | n/a          |                 2 |         179 |               0 |       39.720 | pixel_clk_wolfenstein_platform_clk_wiz_0_0 | wolfenstein_platform_i/clk_wiz_0/inst/clkout1_buf/O                                  | wolfenstein_platform_i/clk_wiz_0/inst/pixel_clk                                     |
+| g2        | src2      | BUFG/O          | None       | BUFGCTRL_X0Y0  | n/a          |                 1 |         179 |               0 |       39.720 | pixel_clk_wolfenstein_platform_clk_wiz_0_0 | wolfenstein_platform_i/clk_wiz_0/inst/clkout1_buf/O                                  | wolfenstein_platform_i/clk_wiz_0/inst/pixel_clk                                     |
 | g3        | src3      | BUFG/O          | None       | BUFGCTRL_X0Y1  | n/a          |                 1 |           1 |               0 |       35.000 | clkfbout_wolfenstein_platform_clk_wiz_0_0  | wolfenstein_platform_i/clk_wiz_0/inst/clkf_buf/O                                     | wolfenstein_platform_i/clk_wiz_0/inst/clkfbout_buf_wolfenstein_platform_clk_wiz_0_0 |
 +-----------+-----------+-----------------+------------+----------------+--------------+-------------------+-------------+-----------------+--------------+--------------------------------------------+--------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
 * Clock Loads column represents the clock pin loads (pin count)
@@ -84,12 +84,12 @@ Table of Contents
 +-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
 | Clock Region Name | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail |
 +-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
-| X0Y0              |    3 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    4 |    50 |    2 |    50 |  328 |  2500 |  129 |  1000 |    0 |    60 |    5 |    30 |    0 |    60 |
+| X0Y0              |    3 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    4 |    50 |    2 |    50 |  359 |  2500 |  148 |  1000 |    0 |    60 |    5 |    30 |    0 |    60 |
 | X1Y0              |    2 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |    0 |  3200 |    0 |   850 |    0 |    60 |    0 |    30 |    0 |    40 |
-| X0Y1              |    3 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 | 1350 |  1200 |  470 |   400 |    0 |    20 |    0 |    10 |    0 |    20 |
-| X1Y1              |    2 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |  101 |  2600 |   47 |   850 |    0 |    60 |    0 |    30 |    0 |    40 |
-| X0Y2              |    2 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |  635 |  1200 |  253 |   400 |    0 |    20 |    0 |    10 |    0 |    20 |
-| X1Y2              |    1 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |   10 |  2600 |    3 |   850 |    0 |    60 |    0 |    30 |    0 |    40 |
+| X0Y1              |    2 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 | 2215 |  1200 |  889 |   400 |    0 |    20 |    0 |    10 |    2 |    20 |
+| X1Y1              |    1 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |  126 |  2600 |   40 |   850 |    0 |    60 |    0 |    30 |    0 |    40 |
+| X0Y2              |    2 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |  892 |  1200 |  313 |   400 |    0 |    20 |    0 |    10 |    0 |    20 |
+| X1Y2              |    2 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |  116 |  2600 |   60 |   850 |    0 |    60 |    0 |    30 |    0 |    40 |
 +-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
 * Global Clock column represents track count; while other columns represents cell counts
 
@@ -101,8 +101,8 @@ All Modules
 +----+----+----+
 |    | X0 | X1 |
 +----+----+----+
-| Y2 |  2 |  1 |
-| Y1 |  3 |  2 |
+| Y2 |  2 |  2 |
+| Y1 |  2 |  1 |
 | Y0 |  3 |  2 |
 +----+----+----+
 
@@ -113,7 +113,7 @@ All Modules
 +-----------+-----------------+-------------------+------------+-------------+---------------+-------------+----------+----------------+----------+------------------------------------------------------------+
 | Global Id | Driver Type/Pin | Driver Region (D) | Clock      | Period (ns) | Waveform (ns) | Slice Loads | IO Loads | Clocking Loads | GT Loads | Net                                                        |
 +-----------+-----------------+-------------------+------------+-------------+---------------+-------------+----------+----------------+----------+------------------------------------------------------------+
-| g0        | BUFG/O          | n/a               | clk_fpga_0 |       5.000 | {0.000 2.500} |        1893 |        0 |              1 |        0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0 |
+| g0        | BUFG/O          | n/a               | clk_fpga_0 |       5.000 | {0.000 2.500} |        3194 |        0 |              1 |        0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0 |
 +-----------+-----------------+-------------------+------------+-------------+---------------+-------------+----------+----------------+----------+------------------------------------------------------------+
 * Slice Loads column represents load cell count of all cell types other than IO, GT and clock resources
 ** IO Loads column represents load cell count of IO types
@@ -121,13 +121,13 @@ All Modules
 **** GT Loads column represents load cell count of GT types
 
 
-+----+-------+-----+-----------------------+
-|    | X0    | X1  | HORIZONTAL PROG DELAY |
-+----+-------+-----+-----------------------+
-| Y2 |   517 |  10 |                     0 |
-| Y1 |  1150 |  33 |                     0 |
-| Y0 |   183 |   1 |                     0 |
-+----+-------+-----+-----------------------+
++----+-------+------+-----------------------+
+|    | X0    | X1   | HORIZONTAL PROG DELAY |
++----+-------+------+-----------------------+
+| Y2 |   530 |   77 |                     0 |
+| Y1 |  2278 |  126 |                     0 |
+| Y0 |   183 |    1 |                     0 |
++----+-------+------+-----------------------+
 
 
 7. Device Cell Placement Summary for Global Clock g1
@@ -147,8 +147,8 @@ All Modules
 +----+------+-----+-----------------------+
 |    | X0   | X1  | HORIZONTAL PROG DELAY |
 +----+------+-----+-----------------------+
-| Y2 |  133 |   0 |                     0 |
-| Y1 |  221 |  68 |                     0 |
+| Y2 |  375 |  39 |                     0 |
+| Y1 |    8 |   0 |                     0 |
 | Y0 |    8 |   0 |                     0 |
 +----+------+-----+-----------------------+
 
@@ -171,8 +171,8 @@ All Modules
 |    | X0   | X1 | HORIZONTAL PROG DELAY |
 +----+------+----+-----------------------+
 | Y2 |    0 |  0 |                     0 |
-| Y1 |   32 |  0 |                     0 |
-| Y0 |  147 |  0 |                     0 |
+| Y1 |    0 |  0 |                     0 |
+| Y0 |  179 |  0 |                     0 |
 +----+------+----+-----------------------+
 
 
@@ -207,7 +207,7 @@ All Modules
 +-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
 | g0        | n/a   | BUFG/O          | None       |         183 |               0 | 178 |      0 |    5 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0      |
 | g1        | n/a   | BUFG/O          | None       |           8 |               0 |   8 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG |
-| g2        | n/a   | BUFG/O          | None       |         147 |               0 | 142 |      0 |    5 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/clk_wiz_0/inst/pixel_clk                 |
+| g2        | n/a   | BUFG/O          | None       |         179 |               0 | 173 |      1 |    5 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/clk_wiz_0/inst/pixel_clk                 |
 +-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
 * Clock Loads column represents the clock pin loads (pin count)
 ** Non-Clock Loads column represents the non-clock pin loads (pin count)
@@ -234,9 +234,8 @@ All Modules
 +-----------+-------+-----------------+------------+-------------+-----------------+------+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
 | Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF   | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                                                             |
 +-----------+-------+-----------------+------------+-------------+-----------------+------+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
-| g0        | n/a   | BUFG/O          | None       |        1150 |               0 | 1098 |     52 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0      |
-| g1        | n/a   | BUFG/O          | None       |         221 |               0 |  221 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG |
-| g2        | n/a   | BUFG/O          | None       |          32 |               0 |   31 |      1 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/clk_wiz_0/inst/pixel_clk                 |
+| g0        | n/a   | BUFG/O          | None       |        2278 |               0 | 2207 |     69 |    0 |   2 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0      |
+| g1        | n/a   | BUFG/O          | None       |           8 |               0 |    8 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG |
 +-----------+-------+-----------------+------------+-------------+-----------------+------+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
 * Clock Loads column represents the clock pin loads (pin count)
 ** Non-Clock Loads column represents the non-clock pin loads (pin count)
@@ -246,12 +245,11 @@ All Modules
 13. Clock Region Cell Placement per Global Clock: Region X1Y1
 -------------------------------------------------------------
 
-+-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
-| Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                                                             |
-+-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
-| g0        | n/a   | BUFG/O          | None       |          33 |               0 | 33 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0      |
-| g1        | n/a   | BUFG/O          | None       |          68 |               0 | 68 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG |
-+-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
++-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+------------------------------------------------------------+
+| Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF  | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                                                        |
++-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+------------------------------------------------------------+
+| g0        | n/a   | BUFG/O          | None       |         126 |               0 | 126 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0 |
++-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+------------------------------------------------------------+
 * Clock Loads column represents the clock pin loads (pin count)
 ** Non-Clock Loads column represents the non-clock pin loads (pin count)
 *** Columns FF, LUTRAM, RAMB through 'Hard IP' represents load cell counts
@@ -263,8 +261,8 @@ All Modules
 +-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
 | Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF  | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                                                             |
 +-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
-| g0        | n/a   | BUFG/O          | None       |         517 |               0 | 502 |     14 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0      |
-| g1        | n/a   | BUFG/O          | None       |         133 |               0 | 133 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG |
+| g0        | n/a   | BUFG/O          | None       |         530 |               0 | 517 |     12 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0      |
+| g1        | n/a   | BUFG/O          | None       |         375 |               0 | 375 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG |
 +-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
 * Clock Loads column represents the clock pin loads (pin count)
 ** Non-Clock Loads column represents the non-clock pin loads (pin count)
@@ -274,11 +272,12 @@ All Modules
 15. Clock Region Cell Placement per Global Clock: Region X1Y2
 -------------------------------------------------------------
 
-+-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+------------------------------------------------------------+
-| Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                                                        |
-+-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+------------------------------------------------------------+
-| g0        | n/a   | BUFG/O          | None       |          10 |               0 | 10 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0 |
-+-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+------------------------------------------------------------+
++-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
+| Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                                                             |
++-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
+| g0        | n/a   | BUFG/O          | None       |          77 |               0 | 77 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0      |
+| g1        | n/a   | BUFG/O          | None       |          39 |               0 | 39 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG |
++-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-----------------------------------------------------------------+
 * Clock Loads column represents the clock pin loads (pin count)
 ** Non-Clock Loads column represents the non-clock pin loads (pin count)
 *** Columns FF, LUTRAM, RAMB through 'Hard IP' represents load cell counts
@@ -299,7 +298,7 @@ set_property LOC BUFGCTRL_X0Y1 [get_cells wolfenstein_platform_i/clk_wiz_0/inst/
 #startgroup
 create_pblock {CLKAG_wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG}
 add_cells_to_pblock [get_pblocks  {CLKAG_wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG}] [get_cells -filter { PRIMITIVE_GROUP != I/O && IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG"}]]]
-resize_pblock [get_pblocks {CLKAG_wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG}] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y0 CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X1Y1:CLOCKREGION_X1Y1}
+resize_pblock [get_pblocks {CLKAG_wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1_BUFG}] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y0 CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2}
 #endgroup
 
 # Clock net "wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0" driven by instance "wolfenstein_platform_i/processing_system7_0/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG" located at site "BUFGCTRL_X0Y16"
@@ -313,5 +312,5 @@ resize_pblock [get_pblocks {CLKAG_wolfenstein_platform_i/processing_system7_0/in
 #startgroup
 create_pblock {CLKAG_wolfenstein_platform_i/clk_wiz_0/inst/pixel_clk}
 add_cells_to_pblock [get_pblocks  {CLKAG_wolfenstein_platform_i/clk_wiz_0/inst/pixel_clk}] [get_cells -filter { PRIMITIVE_GROUP != I/O && IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="wolfenstein_platform_i/clk_wiz_0/inst/pixel_clk"}]]]
-resize_pblock [get_pblocks {CLKAG_wolfenstein_platform_i/clk_wiz_0/inst/pixel_clk}] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y0 CLOCKREGION_X0Y1:CLOCKREGION_X0Y1}
+resize_pblock [get_pblocks {CLKAG_wolfenstein_platform_i/clk_wiz_0/inst/pixel_clk}] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y0}
 #endgroup

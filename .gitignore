@@ -11,6 +11,10 @@ IDE.log
 *.rpt
 *.rpx
 *.jou
-*.cache
 
-wolfenstein_platform_wrapper/export
+*.cache
+*.gen
+*.ip_user_files
+*.runs
+
+*/export

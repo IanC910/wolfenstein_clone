@@ -17,7 +17,7 @@ proc create_report { reportName command } {
   }
 }
 namespace eval ::optrace {
-  variable script "C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/impl_1/wolfenstein_platform_wrapper.tcl"
+  variable script "C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/impl_1/wolfenstein_platform_wrapper.tcl"
   variable category "vivado_impl"
 }
 
@@ -115,6 +115,8 @@ proc step_failed { step } {
 OPTRACE "impl_1" END { }
 }
 
+set_msg_config  -id {IP_Flow 19-1977}  -string {{CRITICAL WARNING: [IP_Flow 19-1977] Unable to read IP file c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/ip_repo/vivado-library-master/vivado-library-master/ip/Zmods/ZmodDigitizerController/component.xml. This IP will not be included in the IP Catalog.}}  -suppress 
+set_msg_config  -id {IP_Flow 19-1977}  -string {{CRITICAL WARNING: [IP_Flow 19-1977] Unable to read IP file c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/ip_repo/vivado-library-master/ip/Zmods/ZmodDigitizerController/component.xml. This IP will not be included in the IP Catalog.}}  -suppress 
 
 OPTRACE "impl_1" START { ROLLUP_1 }
 OPTRACE "Phase: Init Design" START { ROLLUP_AUTO }
@@ -122,7 +124,7 @@ start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
-  set_param chipscope.maxJobs 2
+  set_param chipscope.maxJobs 1
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7z020clg484-1
   set_property board_part em.avnet.com:zed:part0:1.4 [current_project]
@@ -130,25 +132,22 @@ OPTRACE "create in-memory project" START { }
   set_param project.singleFileAddWarning.threshold 0
 OPTRACE "create in-memory project" END { }
 OPTRACE "set parameters" START { }
-  set_property webtalk.parent_dir C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.cache/wt [current_project]
-  set_property parent.project_path C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.xpr [current_project]
-  set_property ip_repo_paths {
-  C:/Users/Amrit/Downloads/vga_tutorial_students/vga_tutorial_students/vga_controller_ip
-  f:/vivado-library-master
-} [current_project]
+  set_property webtalk.parent_dir C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.cache/wt [current_project]
+  set_property parent.project_path C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.xpr [current_project]
+  set_property ip_repo_paths C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/ip_repo [current_project]
   update_ip_catalog
-  set_property ip_output_repo C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.cache/ip [current_project]
+  set_property ip_output_repo C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
   set_property XPM_LIBRARIES {XPM_CDC XPM_FIFO XPM_MEMORY} [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
-  add_files -quiet C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/synth_1/wolfenstein_platform_wrapper.dcp
+  add_files -quiet C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/synth_1/wolfenstein_platform_wrapper.dcp
   set_msg_config -source 4 -id {BD 41-1661} -limit 0
   set_param project.isImplRun true
-  add_files C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.srcs/sources_1/bd/wolfenstein_platform/wolfenstein_platform.bd
+  add_files C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.srcs/sources_1/bd/wolfenstein_platform/wolfenstein_platform.bd
   set_param project.isImplRun false
 OPTRACE "read constraints: implementation" START { }
-  read_xdc C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.srcs/constrs_1/imports/ensc452/zedboard_master.xdc
+  read_xdc C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.srcs/constrs_1/imports/ensc452/zedboard_master.xdc
 OPTRACE "read constraints: implementation" END { }
 OPTRACE "add files" END { }
 OPTRACE "link_design" START { }

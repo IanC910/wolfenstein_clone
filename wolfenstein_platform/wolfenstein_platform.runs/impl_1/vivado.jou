@@ -2,11 +2,11 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Mon Mar  4 14:24:30 2024
-# Process ID: 1428
-# Current directory: C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/impl_1
+# Start of session at: Sun Mar 17 20:48:22 2024
+# Process ID: 15420
+# Current directory: C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/impl_1
 # Command line: vivado.exe -log wolfenstein_platform_wrapper.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source wolfenstein_platform_wrapper.tcl -notrace
-# Log file: C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/impl_1/wolfenstein_platform_wrapper.vdi
-# Journal file: C:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/impl_1\vivado.jou
+# Log file: C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/impl_1/wolfenstein_platform_wrapper.vdi
+# Journal file: C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.runs/impl_1\vivado.jou
 #-----------------------------------------------------------
 source wolfenstein_platform_wrapper.tcl -notrace

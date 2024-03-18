@@ -1,8 +1,8 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
---Date        : Mon Mar  4 14:20:11 2024
---Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
+--Date        : Sun Mar 17 20:40:31 2024
+--Host        : IC-VivoBook running 64-bit major release  (build 9200)
 --Command     : generate_target wolfenstein_platform_wrapper.bd
 --Design      : wolfenstein_platform_wrapper
 --Purpose     : IP block netlist
@@ -13,6 +13,7 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity wolfenstein_platform_wrapper is
   port (
+    BCLK : out STD_LOGIC;
     DDR_addr : inout STD_LOGIC_VECTOR ( 14 downto 0 );
     DDR_ba : inout STD_LOGIC_VECTOR ( 2 downto 0 );
     DDR_cas_n : inout STD_LOGIC;
@@ -34,6 +35,9 @@ entity wolfenstein_platform_wrapper is
     FIXED_IO_ps_clk : inout STD_LOGIC;
     FIXED_IO_ps_porb : inout STD_LOGIC;
     FIXED_IO_ps_srstb : inout STD_LOGIC;
+    GPIO_tri_io : inout STD_LOGIC_VECTOR ( 1 downto 0 );
+    IIC_0_scl_io : inout STD_LOGIC;
+    IIC_0_sda_io : inout STD_LOGIC;
     JC_pin10_io : inout STD_LOGIC;
     JC_pin1_io : inout STD_LOGIC;
     JC_pin2_io : inout STD_LOGIC;
@@ -50,6 +54,9 @@ entity wolfenstein_platform_wrapper is
     JD_pin7_io : inout STD_LOGIC;
     JD_pin8_io : inout STD_LOGIC;
     JD_pin9_io : inout STD_LOGIC;
+    LRCLK : out STD_LOGIC;
+    MCLK : out STD_LOGIC;
+    SDATA_O : out STD_LOGIC;
     VGA_B : out STD_LOGIC_VECTOR ( 3 downto 0 );
     VGA_G : out STD_LOGIC_VECTOR ( 3 downto 0 );
     VGA_HS : out STD_LOGIC;
@@ -68,27 +75,10 @@ architecture STRUCTURE of wolfenstein_platform_wrapper is
     VGA_G : out STD_LOGIC_VECTOR ( 3 downto 0 );
     VGA_R : out STD_LOGIC_VECTOR ( 3 downto 0 );
     btns : in STD_LOGIC_VECTOR ( 4 downto 0 );
-    FIXED_IO_mio : inout STD_LOGIC_VECTOR ( 53 downto 0 );
-    FIXED_IO_ddr_vrn : inout STD_LOGIC;
-    FIXED_IO_ddr_vrp : inout STD_LOGIC;
-    FIXED_IO_ps_srstb : inout STD_LOGIC;
-    FIXED_IO_ps_clk : inout STD_LOGIC;
-    FIXED_IO_ps_porb : inout STD_LOGIC;
-    DDR_cas_n : inout STD_LOGIC;
-    DDR_cke : inout STD_LOGIC;
-    DDR_ck_n : inout STD_LOGIC;
-    DDR_ck_p : inout STD_LOGIC;
-    DDR_cs_n : inout STD_LOGIC;
-    DDR_reset_n : inout STD_LOGIC;
-    DDR_odt : inout STD_LOGIC;
-    DDR_ras_n : inout STD_LOGIC;
-    DDR_we_n : inout STD_LOGIC;
-    DDR_ba : inout STD_LOGIC_VECTOR ( 2 downto 0 );
-    DDR_addr : inout STD_LOGIC_VECTOR ( 14 downto 0 );
-    DDR_dm : inout STD_LOGIC_VECTOR ( 3 downto 0 );
-    DDR_dq : inout STD_LOGIC_VECTOR ( 31 downto 0 );
-    DDR_dqs_n : inout STD_LOGIC_VECTOR ( 3 downto 0 );
-    DDR_dqs_p : inout STD_LOGIC_VECTOR ( 3 downto 0 );
+    MCLK : out STD_LOGIC;
+    SDATA_O : out STD_LOGIC;
+    LRCLK : out STD_LOGIC;
+    BCLK : out STD_LOGIC;
     JD_pin1_o : out STD_LOGIC;
     JD_pin7_i : in STD_LOGIC;
     JD_pin2_o : out STD_LOGIC;
@@ -113,6 +103,36 @@ architecture STRUCTURE of wolfenstein_platform_wrapper is
     JD_pin7_o : out STD_LOGIC;
     JD_pin3_t : out STD_LOGIC;
     JD_pin8_o : out STD_LOGIC;
+    GPIO_tri_i : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    GPIO_tri_o : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    GPIO_tri_t : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    FIXED_IO_mio : inout STD_LOGIC_VECTOR ( 53 downto 0 );
+    FIXED_IO_ddr_vrn : inout STD_LOGIC;
+    FIXED_IO_ddr_vrp : inout STD_LOGIC;
+    FIXED_IO_ps_srstb : inout STD_LOGIC;
+    FIXED_IO_ps_clk : inout STD_LOGIC;
+    FIXED_IO_ps_porb : inout STD_LOGIC;
+    DDR_cas_n : inout STD_LOGIC;
+    DDR_cke : inout STD_LOGIC;
+    DDR_ck_n : inout STD_LOGIC;
+    DDR_ck_p : inout STD_LOGIC;
+    DDR_cs_n : inout STD_LOGIC;
+    DDR_reset_n : inout STD_LOGIC;
+    DDR_odt : inout STD_LOGIC;
+    DDR_ras_n : inout STD_LOGIC;
+    DDR_we_n : inout STD_LOGIC;
+    DDR_ba : inout STD_LOGIC_VECTOR ( 2 downto 0 );
+    DDR_addr : inout STD_LOGIC_VECTOR ( 14 downto 0 );
+    DDR_dm : inout STD_LOGIC_VECTOR ( 3 downto 0 );
+    DDR_dq : inout STD_LOGIC_VECTOR ( 31 downto 0 );
+    DDR_dqs_n : inout STD_LOGIC_VECTOR ( 3 downto 0 );
+    DDR_dqs_p : inout STD_LOGIC_VECTOR ( 3 downto 0 );
+    IIC_0_sda_i : in STD_LOGIC;
+    IIC_0_sda_o : out STD_LOGIC;
+    IIC_0_sda_t : out STD_LOGIC;
+    IIC_0_scl_i : in STD_LOGIC;
+    IIC_0_scl_o : out STD_LOGIC;
+    IIC_0_scl_t : out STD_LOGIC;
     JC_pin1_o : out STD_LOGIC;
     JC_pin7_i : in STD_LOGIC;
     JC_pin2_o : out STD_LOGIC;
@@ -147,6 +167,20 @@ architecture STRUCTURE of wolfenstein_platform_wrapper is
     IO : inout STD_LOGIC
   );
   end component IOBUF;
+  signal GPIO_tri_i_0 : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal GPIO_tri_i_1 : STD_LOGIC_VECTOR ( 1 to 1 );
+  signal GPIO_tri_io_0 : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal GPIO_tri_io_1 : STD_LOGIC_VECTOR ( 1 to 1 );
+  signal GPIO_tri_o_0 : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal GPIO_tri_o_1 : STD_LOGIC_VECTOR ( 1 to 1 );
+  signal GPIO_tri_t_0 : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal GPIO_tri_t_1 : STD_LOGIC_VECTOR ( 1 to 1 );
+  signal IIC_0_scl_i : STD_LOGIC;
+  signal IIC_0_scl_o : STD_LOGIC;
+  signal IIC_0_scl_t : STD_LOGIC;
+  signal IIC_0_sda_i : STD_LOGIC;
+  signal IIC_0_sda_o : STD_LOGIC;
+  signal IIC_0_sda_t : STD_LOGIC;
   signal JC_pin10_i : STD_LOGIC;
   signal JC_pin10_o : STD_LOGIC;
   signal JC_pin10_t : STD_LOGIC;
@@ -196,6 +230,34 @@ architecture STRUCTURE of wolfenstein_platform_wrapper is
   signal JD_pin9_o : STD_LOGIC;
   signal JD_pin9_t : STD_LOGIC;
 begin
+GPIO_tri_iobuf_0: component IOBUF
+     port map (
+      I => GPIO_tri_o_0(0),
+      IO => GPIO_tri_io(0),
+      O => GPIO_tri_i_0(0),
+      T => GPIO_tri_t_0(0)
+    );
+GPIO_tri_iobuf_1: component IOBUF
+     port map (
+      I => GPIO_tri_o_1(1),
+      IO => GPIO_tri_io(1),
+      O => GPIO_tri_i_1(1),
+      T => GPIO_tri_t_1(1)
+    );
+IIC_0_scl_iobuf: component IOBUF
+     port map (
+      I => IIC_0_scl_o,
+      IO => IIC_0_scl_io,
+      O => IIC_0_scl_i,
+      T => IIC_0_scl_t
+    );
+IIC_0_sda_iobuf: component IOBUF
+     port map (
+      I => IIC_0_sda_o,
+      IO => IIC_0_sda_io,
+      O => IIC_0_sda_i,
+      T => IIC_0_sda_t
+    );
 JC_pin10_iobuf: component IOBUF
      port map (
       I => JC_pin10_o,
@@ -310,6 +372,7 @@ JD_pin9_iobuf: component IOBUF
     );
 wolfenstein_platform_i: component wolfenstein_platform
      port map (
+      BCLK => BCLK,
       DDR_addr(14 downto 0) => DDR_addr(14 downto 0),
       DDR_ba(2 downto 0) => DDR_ba(2 downto 0),
       DDR_cas_n => DDR_cas_n,
@@ -331,6 +394,18 @@ wolfenstein_platform_i: component wolfenstein_platform
       FIXED_IO_ps_clk => FIXED_IO_ps_clk,
       FIXED_IO_ps_porb => FIXED_IO_ps_porb,
       FIXED_IO_ps_srstb => FIXED_IO_ps_srstb,
+      GPIO_tri_i(1) => GPIO_tri_i_1(1),
+      GPIO_tri_i(0) => GPIO_tri_i_0(0),
+      GPIO_tri_o(1) => GPIO_tri_o_1(1),
+      GPIO_tri_o(0) => GPIO_tri_o_0(0),
+      GPIO_tri_t(1) => GPIO_tri_t_1(1),
+      GPIO_tri_t(0) => GPIO_tri_t_0(0),
+      IIC_0_scl_i => IIC_0_scl_i,
+      IIC_0_scl_o => IIC_0_scl_o,
+      IIC_0_scl_t => IIC_0_scl_t,
+      IIC_0_sda_i => IIC_0_sda_i,
+      IIC_0_sda_o => IIC_0_sda_o,
+      IIC_0_sda_t => IIC_0_sda_t,
       JC_pin10_i => JC_pin10_i,
       JC_pin10_o => JC_pin10_o,
       JC_pin10_t => JC_pin10_t,
@@ -379,6 +454,9 @@ wolfenstein_platform_i: component wolfenstein_platform
       JD_pin9_i => JD_pin9_i,
       JD_pin9_o => JD_pin9_o,
       JD_pin9_t => JD_pin9_t,
+      LRCLK => LRCLK,
+      MCLK => MCLK,
+      SDATA_O => SDATA_O,
       VGA_B(3 downto 0) => VGA_B(3 downto 0),
       VGA_G(3 downto 0) => VGA_G(3 downto 0),
       VGA_HS => VGA_HS,

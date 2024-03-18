@@ -1,8 +1,8 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-| Date             : Mon Mar  4 14:26:56 2024
-| Host             : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
+| Date             : Sun Mar 17 20:51:17 2024
+| Host             : IC-VivoBook running 64-bit major release  (build 9200)
 | Command          : report_power -file wolfenstein_platform_wrapper_power_routed.rpt -pb wolfenstein_platform_wrapper_power_summary_routed.pb -rpx wolfenstein_platform_wrapper_power_routed.rpx
 | Design           : wolfenstein_platform_wrapper
 | Device           : xc7z020clg484-1
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 1.690        |
+| Total On-Chip Power (W)  | 1.720        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 1.545        |
-| Device Static (W)        | 0.145        |
+| Dynamic (W)              | 1.574        |
+| Device Static (W)        | 0.146        |
 | Effective TJA (C/W)      | 11.5         |
-| Max Ambient (C)          | 65.5         |
-| Junction Temperature (C) | 44.5         |
+| Max Ambient (C)          | 65.2         |
+| Junction Temperature (C) | 44.8         |
 | Confidence Level         | Low          |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -52,21 +52,22 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.020 |        7 |       --- |             --- |
-| Slice Logic              |     0.005 |     5132 |       --- |             --- |
-|   LUT as Logic           |     0.004 |     1607 |     53200 |            3.02 |
-|   Register               |    <0.001 |     2418 |    106400 |            2.27 |
-|   CARRY4                 |    <0.001 |       52 |     13300 |            0.39 |
-|   LUT as Distributed RAM |    <0.001 |       32 |     17400 |            0.18 |
-|   LUT as Shift Register  |    <0.001 |       63 |     17400 |            0.36 |
-|   Others                 |     0.000 |      502 |       --- |             --- |
-| Signals                  |     0.008 |     3595 |       --- |             --- |
+| Clocks                   |     0.028 |        8 |       --- |             --- |
+| Slice Logic              |     0.006 |     7714 |       --- |             --- |
+|   LUT as Logic           |     0.005 |     2503 |     53200 |            4.70 |
+|   Register               |    <0.001 |     3702 |    106400 |            3.48 |
+|   CARRY4                 |    <0.001 |      102 |     13300 |            0.77 |
+|   LUT as Distributed RAM |    <0.001 |       42 |     17400 |            0.24 |
+|   LUT as Shift Register  |    <0.001 |       78 |     17400 |            0.45 |
+|   Others                 |     0.000 |      591 |       --- |             --- |
+| Signals                  |     0.010 |     5564 |       --- |             --- |
 | Block RAM                |    <0.001 |        5 |       140 |            3.57 |
 | MMCM                     |     0.127 |        1 |         4 |           25.00 |
-| I/O                      |    <0.001 |       35 |       200 |           17.50 |
-| PS7                      |     1.384 |        1 |       --- |             --- |
-| Static Power             |     0.145 |          |           |                 |
-| Total                    |     1.690 |          |           |                 |
+| DSPs                     |     0.003 |        2 |       220 |            0.91 |
+| I/O                      |     0.007 |       43 |       200 |           21.50 |
+| PS7                      |     1.393 |        1 |       --- |             --- |
+| Static Power             |     0.146 |          |           |                 |
+| Total                    |     1.720 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -76,9 +77,9 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.048 |       0.033 |      0.015 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.063 |       0.048 |      0.015 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.086 |       0.071 |      0.015 |       NA    | Unspecified | NA         |
-| Vcco33    |       3.300 |     0.001 |       0.000 |      0.001 |       NA    | Unspecified | NA         |
+| Vcco33    |       3.300 |     0.003 |       0.002 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -89,7 +90,7 @@ Table of Contents
 | MGTAVcc   |       1.000 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | MGTAVtt   |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | MGTVccaux |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
-| Vccpint   |       1.000 |     0.602 |       0.572 |      0.030 |       NA    | Unspecified | NA         |
+| Vccpint   |       1.000 |     0.611 |       0.580 |      0.030 |       NA    | Unspecified | NA         |
 | Vccpaux   |       1.800 |     0.061 |       0.051 |      0.010 |       NA    | Unspecified | NA         |
 | Vccpll    |       1.800 |     0.018 |       0.015 |      0.003 |       NA    | Unspecified | NA         |
 | Vcco_ddr  |       1.500 |     0.459 |       0.457 |      0.002 |       NA    | Unspecified | NA         |
@@ -142,6 +143,7 @@ Table of Contents
 | clk_fpga_0                                 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK0                       |             5.0 |
 | clk_fpga_0                                 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK_unbuffered[0]          |             5.0 |
 | clk_fpga_1                                 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK1                       |            63.0 |
+| clk_fpga_2                                 | wolfenstein_platform_i/processing_system7_0/inst/FCLK_CLK2                       |           100.0 |
 | clkfbout_wolfenstein_platform_clk_wiz_0_0  | wolfenstein_platform_i/clk_wiz_0/inst/clkfbout_wolfenstein_platform_clk_wiz_0_0  |            35.0 |
 | pixel_clk_wolfenstein_platform_clk_wiz_0_0 | wolfenstein_platform_i/clk_wiz_0/inst/pixel_clk_wolfenstein_platform_clk_wiz_0_0 |            39.7 |
 +--------------------------------------------+----------------------------------------------------------------------------------+-----------------+
@@ -156,21 +158,31 @@ Table of Contents
 +------------------------------+-----------+
 | Name                         | Power (W) |
 +------------------------------+-----------+
-| wolfenstein_platform_wrapper |     1.545 |
-|   wolfenstein_platform_i     |     1.544 |
-|     PmodJSTK2_0              |     0.007 |
-|       inst                   |     0.007 |
+| wolfenstein_platform_wrapper |     1.574 |
+|   IIC_0_scl_iobuf            |     0.002 |
+|   IIC_0_sda_iobuf            |     0.002 |
+|   wolfenstein_platform_i     |     1.567 |
+|     PmodJSTK2_0              |     0.006 |
+|       inst                   |     0.006 |
 |     PmodJSTK2_1              |     0.006 |
 |       inst                   |     0.006 |
+|     audio_fetcher_0          |     0.009 |
+|       U0                     |     0.009 |
+|     axi_gpio_btns            |     0.001 |
+|       U0                     |     0.001 |
+|     axi_mem_intercon_1       |     0.006 |
+|       s00_couplers           |     0.006 |
 |     clk_wiz_0                |     0.127 |
 |       inst                   |     0.127 |
-|     processing_system7_0     |     1.386 |
-|       inst                   |     1.386 |
-|     ps7_0_axi_periph         |     0.012 |
-|       s00_couplers           |     0.010 |
+|     processing_system7_0     |     1.394 |
+|       inst                   |     1.394 |
+|     ps7_0_axi_periph         |     0.011 |
+|       s00_couplers           |     0.008 |
 |       xbar                   |     0.003 |
 |     vga_controller_0         |     0.004 |
 |       U0                     |     0.004 |
+|     zed_audio_ctrl_0         |     0.002 |
+|       U0                     |     0.002 |
 +------------------------------+-----------+
 
 
