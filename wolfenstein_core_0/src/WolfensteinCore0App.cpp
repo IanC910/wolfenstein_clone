@@ -12,6 +12,8 @@
 #include "xil_types.h"
 
 #include "Constants.h"
+#include "Player.h"
+#include "Level.h"
 #include "Gpio.h"
 #include "InterruptSetup.h"
 #include "Buttons.h"
@@ -34,69 +36,109 @@ void WolfensteinCore0App::runCore0App() {
 
 	startCore1();
 
-	// Times are in double-clock-cycles (DC)
-	u32 frameTimeDC = 0;
-
-	u32 maxGameLogicTimeDC = 0;
-	u32 maxRayCastTimeDC = 0;
-	u32 maxTransferTimeDC = 0;
-	u32 maxFrameTimeDC = 0;
-
-	this->currentLevel = getLevel(0);
-
-	player.setPositionX(5);
-	player.setPositionY(2);
-	player.setAngle(M_PI / 2);
-
+	// Main Loop
 	while(true) {
-		XTime frameStartTimeDC;
-		XTime frameEndTimeDC;
-		XTime funcStartTimeDC;
-		XTime funcEndTimeDC;
-		u32 funcTimeDC;
 
-		XTime_GetTime(&frameStartTimeDC);
+		switch(gameState) {
+			case MAIN_MENU: {
+				while(gameState == MAIN_MENU) {
 
-		// Game Logic Per Frame
-		XTime_GetTime(&funcStartTimeDC);
-		this->gameLogicPerFrame();
-		XTime_GetTime(&funcEndTimeDC);
-		funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
-		if(funcTimeDC > maxGameLogicTimeDC) {
-			maxGameLogicTimeDC = funcTimeDC;
-			xil_printf("Core 0 max game logic time: %8d\n", maxGameLogicTimeDC);
-		}
+					// Wait for button press
+					while(!Buttons_isNewStatus());
 
-		// Cast Rays
-		XTime_GetTime(&funcStartTimeDC);
-		this->castRays();
-		XTime_GetTime(&funcEndTimeDC);
-		funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
-		if(funcTimeDC > maxRayCastTimeDC) {
-			maxRayCastTimeDC = funcTimeDC;
-			xil_printf("Core 0 max ray cast time: %8d\n", maxRayCastTimeDC);
-		}
+					if(Buttons_isButtonPressed(UP) && levelSelectIndex > 0) {
+						levelSelectIndex--;
+					}
+					if(Buttons_isButtonPressed(DOWN) && levelSelectIndex < NUM_LEVELS) {
+						levelSelectIndex++;
+					}
+					if(Buttons_isButtonPressed(CENTRE)) {
+						this->currentLevel = getLevel(0);
 
-		// Transfer Distance Array
-		XTime_GetTime(&funcStartTimeDC);
-		this->transferDistanceArray();
-		XTime_GetTime(&funcEndTimeDC);
-		funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
-		if(funcTimeDC > maxTransferTimeDC) {
-			maxTransferTimeDC = funcTimeDC;
-			xil_printf("Core 0 max transfer time: %8d\n", maxTransferTimeDC);
-		}
+						player.setPositionX(5);
+						player.setPositionY(2);
+						player.setAngle(M_PI / 2);
 
-		XTime_GetTime(&frameEndTimeDC);
-		frameTimeDC = (u32)((u64)frameEndTimeDC - (u64)frameStartTimeDC);
-		if(frameTimeDC > maxFrameTimeDC) {
-			maxFrameTimeDC = frameTimeDC;
-			xil_printf("Core 0 max frame time: %8d\n", maxFrameTimeDC);
-		}
+						gameState = PLAYING_LEVEL;
+					}
 
-		xil_printf("Core 0 frame time: %8d\n", frameTimeDC);
-		frameTimeInSec = (double)frameTimeDC/(double)COUNTS_PER_SECOND;
-	}
+					drawMenu();
+
+				}
+				break;
+			}
+
+			case PLAYING_LEVEL: {
+				// Times are in double-clock-cycles (DC)
+				u32 frameTimeDC = 0;
+				XTime frameStartTimeDC;
+				XTime frameEndTimeDC;
+				XTime funcStartTimeDC;
+				XTime funcEndTimeDC;
+				u32 funcTimeDC;
+				u32 maxGameLogicTimeDC = 0;
+				u32 maxRayCastTimeDC = 0;
+				u32 maxTransferTimeDC = 0;
+				u32 maxFrameTimeDC = 0;
+
+				XTime_GetTime(&frameStartTimeDC);
+
+				while(gameState == PLAYING_LEVEL) {
+					if(Buttons_isNewStatus()) {
+						if(Buttons_isButtonPressed(CENTRE)) {
+							gameState = MAIN_MENU;
+							break;
+						}
+					}
+
+					// Game Logic Per Frame
+					XTime_GetTime(&funcStartTimeDC);
+					this->gameLogicPerFrame();
+					XTime_GetTime(&funcEndTimeDC);
+					funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
+					if(funcTimeDC > maxGameLogicTimeDC) {
+						maxGameLogicTimeDC = funcTimeDC;
+						xil_printf("Core 0 max game logic time: %8d\n", maxGameLogicTimeDC);
+					}
+
+					// Cast Rays
+					XTime_GetTime(&funcStartTimeDC);
+					this->castRays();
+					XTime_GetTime(&funcEndTimeDC);
+					funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
+					if(funcTimeDC > maxRayCastTimeDC) {
+						maxRayCastTimeDC = funcTimeDC;
+						xil_printf("Core 0 max ray cast time: %8d\n", maxRayCastTimeDC);
+					}
+
+					// Transfer Distance Array
+					XTime_GetTime(&funcStartTimeDC);
+					this->transferDistanceArray();
+					XTime_GetTime(&funcEndTimeDC);
+					funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
+					if(funcTimeDC > maxTransferTimeDC) {
+						maxTransferTimeDC = funcTimeDC;
+						xil_printf("Core 0 max transfer time: %8d\n", maxTransferTimeDC);
+					}
+
+					XTime_GetTime(&frameEndTimeDC);
+					frameTimeDC = (u32)((u64)frameEndTimeDC - (u64)frameStartTimeDC);
+					if(frameTimeDC > maxFrameTimeDC) {
+						maxFrameTimeDC = frameTimeDC;
+						xil_printf("Core 0 max frame time: %8d\n", maxFrameTimeDC);
+					}
+
+					xil_printf("Core 0 frame time: %8d\n", frameTimeDC);
+					frameTimeInSec = (double)frameTimeDC/(double)COUNTS_PER_SECOND;
+				}
+				break;
+			}
+
+			default: {
+				break;
+			}
+		} // game state switch
+	} // Main Loop
 }
 
 void WolfensteinCore0App::clearMem() {
@@ -110,6 +152,11 @@ void WolfensteinCore0App::clearMem() {
 void WolfensteinCore0App::startCore1() {
 	Xil_Out32(0xFFFFFFF0, (u32)CORE_1_BASE_ADDR);
 	__asm__("sev");
+}
+
+void WolfensteinCore0App::drawMenu() {
+	memset(VGA_IMAGE_BUFFER_0, 0x80, SCREEN_SIZE_BYTES);
+	memset(INTERMEDIATE_IMAGE_BUFFER, 0, SCREEN_SIZE_BYTES);
 }
 
 void WolfensteinCore0App::gameLogicPerFrame() {

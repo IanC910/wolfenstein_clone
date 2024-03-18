@@ -17,11 +17,11 @@ void buttonTest() {
 
 	while(true) {
 		xil_printf("\nButton::\nC: %d\nD: %d\nL: %d\nR: %d\nU: %d\n",
-			Buttons_getButtonStatus(CENTRE),
-			Buttons_getButtonStatus(DOWN),
-			Buttons_getButtonStatus(LEFT),
-			Buttons_getButtonStatus(RIGHT),
-			Buttons_getButtonStatus(UP)
+			Buttons_isButtonPressed(CENTRE),
+			Buttons_isButtonPressed(DOWN),
+			Buttons_isButtonPressed(LEFT),
+			Buttons_isButtonPressed(RIGHT),
+			Buttons_isButtonPressed(UP)
 		);
 
 		sleep(1);
