@@ -23,6 +23,8 @@ source C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_core_0
 ps7_init
 ps7_post_config
 targets -set -nocase -filter {name =~ "*A9*#0"}
+dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/symphony.audioData 0x18d0000
+targets -set -nocase -filter {name =~ "*A9*#0"}
 dow C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_core_0/Debug/wolfenstein_core_0.elf
 configparams force-mem-access 0
 targets -set -nocase -filter {name =~ "*A9*#0"}

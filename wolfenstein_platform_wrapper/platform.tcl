@@ -29,3 +29,6 @@ domain -report -json
 platform generate -domains standalone_ps7_cortexa9_0 
 platform clean
 platform generate
+platform active {wolfenstein_platform_wrapper}
+platform config -updatehw {C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform_wrapper.xsa}
+platform generate
