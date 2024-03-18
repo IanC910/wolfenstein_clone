@@ -51,5 +51,7 @@ int* const FLOOR_BUFFER								= (int*)(CEILING_BUFFER + SCREEN_SIZE / 2);
 // Gameplay params
 const float VERTICAL_FOV	= M_PI * 0.4;
 const float HORIZONTAL_FOV	= M_PI * 0.5;
+const float MAX_PLAYER_ROTATION_SPEED_RAD_PER_SEC = 1.5;
+const float MAX_PLAYER_MOVEMENT_SPEED_TILES_PER_SEC = 1.5;
 
 #endif
