@@ -213,7 +213,6 @@ void WolfensteinCore1App::drawEnemy() {
 				//Check if right part of sprite is behind wall
 				while(DISTANCE_ARRAY_1[(startXEnemy + (firstNonTransparentPixel + numOfNonTransparentPixel))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
 					numOfNonTransparentPixel--;
-					//firstNonTransparentPixel++;
 				}
 
 				//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
@@ -224,6 +223,11 @@ void WolfensteinCore1App::drawEnemy() {
 					for(int j = 0; j < numOfNonTransparentPixel; j++) {
 						memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + startXEnemy + j + (firstNonTransparentPixel), enemySprite+(i*scaleFactor*(spriteW)*sizeof(int)+((firstNonTransparentPixel+j)*scaleFactor)*sizeof(int)), sizeof(int));
 					}
+				}
+
+				//Update distance array with new distances for drawn enemies
+				for(int i = 0; i < numOfNonTransparentPixel; i++) {
+					DISTANCE_ARRAY_1[(firstNonTransparentPixel + startXEnemy + i)/RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
 				}
 			}
 		}
