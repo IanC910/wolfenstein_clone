@@ -2,12 +2,12 @@
 # In Vitis IDE create a Single Application Debug launch configuration,
 # change the debug type to 'Attach to running target' and provide this 
 # tcl script in 'Execute Script' option.
-# Path of this script: C:\Users\Ian\Projects\school\ensc452\wolfenstein_clone\wolfenstein_system\_ide\scripts\main_wolfenstein_launch.tcl
+# Path of this script: C:\Users\Ian\Projects\school\ensc452\wolfenstein_clone\wolfenstein_system\_ide\scripts\ian_wolfenstein_launch.tcl
 # 
 # 
 # Usage with xsct:
 # To debug using xsct, launch xsct and run below command
-# source C:\Users\Ian\Projects\school\ensc452\wolfenstein_clone\wolfenstein_system\_ide\scripts\main_wolfenstein_launch.tcl
+# source C:\Users\Ian\Projects\school\ensc452\wolfenstein_clone\wolfenstein_system\_ide\scripts\ian_wolfenstein_launch.tcl
 # 
 connect -url tcp:127.0.0.1:3121
 targets -set -nocase -filter {name =~"APU*"}
@@ -22,7 +22,7 @@ targets -set -nocase -filter {name =~"APU*"}
 source C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_core_0/_ide/psinit/ps7_init.tcl
 ps7_init
 ps7_post_config
-targets -set -nocase -filter {name =~ "*A9*#0"}
+targets -set -nocase -filter {name =~ "*A9*#1"}
 dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/gunshot.audioData 0xe2c000
 targets -set -nocase -filter {name =~ "*A9*#0"}
 dow C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_core_0/Debug/wolfenstein_core_0.elf
