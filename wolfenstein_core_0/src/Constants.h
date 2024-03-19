@@ -46,6 +46,7 @@ float* const DISTANCE_ARRAY_1						= (float*)					0x00B58A10; // size: NUM_RAYS 
 int* const WALL_START_ROW_ARRAY						= (int*)					0x00B59410; // size: NUM_RAYS * sizeof(int)
 int* const CEILING_BUFFER							= (int*)					0x00B59550; // size: SCREEN_SIZE_BYTES / 2
 int* const FLOOR_BUFFER								= (int*)					0x00BEF550; // size: SCREEN_SIZE_BYTES / 2
+int* const PLAYER_HEALTH							= (int*)					0x00C85550; // size: sizeof(int)
 
 // Game Asset Addresses
 int* const MAIN_MENU_BACKGROUND_IMAGE				= (int*)					0x00D00000; // size: SCREEN_SIZE_BYTES
@@ -62,6 +63,7 @@ const bool DO_PRINT_FRAME_TIME = true;
 const int NUM_LEVELS = 1;
 const float VERTICAL_FOV	= M_PI * 0.4;
 const float HORIZONTAL_FOV	= M_PI * 0.5;
+const int MAX_PLAYER_HEALTH = 100;
 const float MAX_PLAYER_TURN_SPEED_RAD_PER_SEC = 1.5;
 const float MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC = 1.5;
 

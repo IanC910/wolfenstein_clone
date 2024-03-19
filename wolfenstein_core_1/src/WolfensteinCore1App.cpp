@@ -67,6 +67,8 @@ void WolfensteinCore1App::runCore1App() {
 			maxDrawTime = funcTime;
 		}
 
+		drawHUD();
+
 		// Update Screen
 		XTime_GetTime(&funcStartTime);
 		updateScreen();
@@ -88,9 +90,11 @@ void WolfensteinCore1App::getNewDistanceArray() {
 	while(!INTERFACE_PTR->valid);
 
 	memcpy(DISTANCE_ARRAY_1, DISTANCE_ARRAY_0, NUM_RAYS * sizeof(float));
+	this->playerHealth = *PLAYER_HEALTH;
 
 	INTERFACE_PTR->acknowledge = 1;
 	while(INTERFACE_PTR->valid);
+
 	INTERFACE_PTR->acknowledge = 0;
 }
 
@@ -187,6 +191,27 @@ void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int startRay, int en
 
 		if(!drawingThisRow) {
 			return;
+		}
+	}
+}
+
+void WolfensteinCore1App::drawHUD() {
+
+	// Draw health bar
+	int healthBarHeight = 20;
+	int healthBarLength = MAX_PLAYER_HEALTH;
+	int healthBarTopRow = SCREEN_HEIGHT - 1 - 20 - healthBarHeight;
+	int	healthBarLeftCol = SCREEN_WIDTH - 1 - 20 - healthBarLength;
+
+	int healthBarEmptyColour = colourRGB(8, 0, 0);
+	int healthBarFullColour = colourRGB(0, 15, 0);
+
+	for(int i = 0; i < healthBarHeight; i++) {
+		for(int j = 0; j < playerHealth; j++) {
+			INTERMEDIATE_IMAGE_BUFFER[(healthBarTopRow + i) * SCREEN_WIDTH + healthBarLeftCol + j] = healthBarFullColour;
+		}
+		for(int j = playerHealth; j < healthBarLength; j++) {
+			INTERMEDIATE_IMAGE_BUFFER[(healthBarTopRow + i) * SCREEN_WIDTH + healthBarLeftCol + j] = healthBarEmptyColour;
 		}
 	}
 }

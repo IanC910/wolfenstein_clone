@@ -60,6 +60,8 @@ void WolfensteinCore0App::runCore0App() {
 					if(Buttons_isButtonPressed(CENTRE)) {
 						this->currentLevel = getLevel(0);
 
+						player.setHealth(MAX_PLAYER_HEALTH);
+
 						player.setPositionX(5);
 						player.setPositionY(2);
 						player.setAngle(M_PI / 2);
@@ -270,8 +272,11 @@ void WolfensteinCore0App::castRays() {
 }
 
 void WolfensteinCore0App::transferDistanceArray() {
+	*PLAYER_HEALTH = player.getHealth();
+
 	INTERFACE_PTR->valid = 1;
 	while(!INTERFACE_PTR->acknowledge);
+
 	INTERFACE_PTR->valid = 0;
 	while(INTERFACE_PTR->acknowledge);
 }
