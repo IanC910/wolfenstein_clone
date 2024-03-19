@@ -50,7 +50,7 @@ int* const PLAYER_HEALTH							= (int*)					0x00C85550; // size: sizeof(int)
 
 // Game Asset Addresses
 int* const MAIN_MENU_BACKGROUND_IMAGE				= (int*)					0x00D00000; // size: SCREEN_SIZE_BYTES
-short* const GUNSHOT_SOUND							= (short*)					0x00E2C000; // size: 12288
+int* const GUNSHOT_SOUND							= (int*)					0x00E2C000; // size: 12288
 
 
 
