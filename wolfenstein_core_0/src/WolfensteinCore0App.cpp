@@ -220,20 +220,13 @@ void WolfensteinCore0App::gameLogicPerFrame() {
 		turnCtrl = (float)((int)Buttons_isButtonPressed(RIGHT) - (int)Buttons_isButtonPressed(LEFT));
 	}
 
-	// Position change from joystick y
-	float newPositionXFromY = player.getPositionX() + cos(player.getAngle()) * moveCtrlY * MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
-	float newPositionYFromY = player.getPositionY() + sin(player.getAngle()) * moveCtrlY * MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
-	if(currentLevel->getBlockAtWorldCoord(newPositionXFromY, newPositionYFromY) == ' ') {
-		player.setPositionX(newPositionXFromY);
-		player.setPositionY(newPositionYFromY);
+	float deltaX = (cos(player.getAngle()) * moveCtrlY + sin(player.getAngle()) * moveCtrlX) * MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
+	float deltaY = (sin(player.getAngle()) * moveCtrlY - cos(player.getAngle()) * moveCtrlX) * MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
+	if(currentLevel->getBlockAtWorldCoord(player.getPositionX() + deltaX, player.getPositionY()) == ' ') {
+		player.setPositionX(player.getPositionX() + deltaX);
 	}
-
-	// Position change from joystick x
-	float newPositionXFromX = player.getPositionX() + sin(player.getAngle()) * moveCtrlX * MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
-	float newPositionYFromX = player.getPositionY() - cos(player.getAngle()) * moveCtrlX * MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
-	if(currentLevel->getBlockAtWorldCoord(newPositionXFromX, newPositionYFromX) == ' ') {
-		player.setPositionX(newPositionXFromX);
-		player.setPositionY(newPositionYFromX);
+	if(currentLevel->getBlockAtWorldCoord(player.getPositionX(), player.getPositionY() + deltaY) == ' ') {
+		player.setPositionY(player.getPositionY() + deltaY);
 	}
 
 	// Angle change from joystick
