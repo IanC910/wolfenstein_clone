@@ -22,3 +22,14 @@ void Player::setAngle(float angle) {
 void Player::setHealth(int health) {
 	this->health = health;
 }
+
+playerData_t Player::getPlayerData() {
+	playerData_t playerData;
+
+	playerData.health = health;
+	playerData.positionX = positionX;
+	playerData.positionY = positionY;
+	playerData.angle = angle;
+
+	return playerData;
+}

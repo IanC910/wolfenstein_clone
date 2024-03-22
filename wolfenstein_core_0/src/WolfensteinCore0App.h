@@ -19,7 +19,7 @@ private:
 	void drawCharacter(int characterIndex, int startRow, int startCol, int scale, int colour);
 	void gameLogicPerFrame();
 	void castRays();
-	void transferDistanceArray();
+	void transferSharedDataPacket();
 
 	enum gameState_t {
 		MAIN_MENU,

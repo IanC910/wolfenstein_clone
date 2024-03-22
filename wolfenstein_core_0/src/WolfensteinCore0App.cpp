@@ -12,6 +12,7 @@
 #include "xil_types.h"
 
 #include "Constants.h"
+#include "Addresses.h"
 #include "Player.h"
 #include "Level.h"
 #include "Gpio.h"
@@ -114,7 +115,7 @@ void WolfensteinCore0App::runCore0App() {
 
 					// Transfer Distance Array
 					XTime_GetTime(&funcStartTimeDC);
-					this->transferDistanceArray();
+					this->transferSharedDataPacket();
 					XTime_GetTime(&funcEndTimeDC);
 					funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
 					if(funcTimeDC > maxTransferTimeDC) {
@@ -149,8 +150,7 @@ void WolfensteinCore0App::clearMem() {
 	memset(VGA_IMAGE_BUFFER_0, 0x80, SCREEN_SIZE_BYTES);
 	memset(INTERMEDIATE_IMAGE_BUFFER, 0, SCREEN_SIZE_BYTES);
 	memset((void*)INTERFACE_PTR, 0, sizeof(validAckInterface_t));
-	memset(DISTANCE_ARRAY_0, 0, NUM_RAYS * sizeof(float));
-	memset(DISTANCE_ARRAY_1, 0, NUM_RAYS * sizeof(float));
+	memset(SHARED_DATA_PACKETS, 0, 2 * sizeof(sharedDataPacket_t));
 }
 
 void WolfensteinCore0App::startCore1() {
@@ -238,6 +238,7 @@ void WolfensteinCore0App::castRays() {
 	float angleIncrement = HORIZONTAL_FOV / (float)NUM_RAYS;
 	float startAngle = player.getAngle() - HORIZONTAL_FOV / 2.0 + angleIncrement / 2.0;
 	float rayAngle = startAngle; // Rays start on right, move towards left
+	float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
 
 	// For each ray
 	for(int r = 0; r < NUM_RAYS; r++) {
@@ -259,13 +260,13 @@ void WolfensteinCore0App::castRays() {
 			distance += RAY_DISTANCE_INCREMENT;
 		}
 
-		DISTANCE_ARRAY_0[NUM_RAYS - 1 - r] = distance; // Reverse index because rays are cast from right to left
+		distanceArray0[NUM_RAYS - 1 - r] = distance; // Reverse index because rays are cast from right to left
 		rayAngle += angleIncrement;
 	}
 }
 
-void WolfensteinCore0App::transferDistanceArray() {
-	*PLAYER_HEALTH = player.getHealth();
+void WolfensteinCore0App::transferSharedDataPacket() {
+	SHARED_DATA_PACKETS[0].playerData = player.getPlayerData();
 
 	INTERFACE_PTR->valid = 1;
 	while(!INTERFACE_PTR->acknowledge);

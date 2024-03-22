@@ -10,15 +10,13 @@ public:
 	void runCore1App();
 
 private:
-	void getNewDistanceArray();
+	void receiveSharedDataPacket();
 	void drawEnvironment();
 	int getScreenRowOfCeilingAtDistance(float distance);
 	int getColourFromGradient(const int* gradient, const int gradientLength, float distance);
 	void fillNonRectangularCeilingAndFloor(int startRay, int endRay, int rowAlreadyDrawn);
 	void drawHUD();
 	void updateScreen();
-
-	int playerHealth = 0;
 };
 
 #endif

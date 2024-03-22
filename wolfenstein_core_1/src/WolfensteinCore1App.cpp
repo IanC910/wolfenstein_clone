@@ -10,7 +10,10 @@
 
 #include "../../wolfenstein_core_0/src/Colour.h"
 #include "../../wolfenstein_core_0/src/Constants.h"
+#include "../../wolfenstein_core_0/src/Addresses.h"
+#include "../../wolfenstein_core_0/src/SharedDataPacket.h"
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
+#include "../../wolfenstein_core_0/src/Player.h"
 
 WolfensteinCore1App::WolfensteinCore1App() {
 	xil_printf("Wolfenstein Core 1 App Init\n");
@@ -51,7 +54,7 @@ void WolfensteinCore1App::runCore1App() {
 
 		// Get New Distance Array
 		XTime_GetTime(&funcStartTime);
-		getNewDistanceArray();
+		receiveSharedDataPacket();
 		XTime_GetTime(&funcEndTime);
 		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
 		if(funcTime > maxTransferTime) {
@@ -86,11 +89,10 @@ void WolfensteinCore1App::runCore1App() {
 	}
 }
 
-void WolfensteinCore1App::getNewDistanceArray() {
+void WolfensteinCore1App::receiveSharedDataPacket() {
 	while(!INTERFACE_PTR->valid);
 
-	memcpy(DISTANCE_ARRAY_1, DISTANCE_ARRAY_0, NUM_RAYS * sizeof(float));
-	this->playerHealth = *PLAYER_HEALTH;
+	memcpy(&SHARED_DATA_PACKETS[1], &SHARED_DATA_PACKETS[0], sizeof(sharedDataPacket_t));
 
 	INTERFACE_PTR->acknowledge = 1;
 	while(INTERFACE_PTR->valid);
@@ -99,15 +101,17 @@ void WolfensteinCore1App::getNewDistanceArray() {
 }
 
 void WolfensteinCore1App::drawEnvironment() {
+	float* distanceArray1 = SHARED_DATA_PACKETS[1].distanceArray;
+
 	// Calculate the wall height (start row) for each ray column
 	for(int r = 0; r < NUM_RAYS; r++) {
-		WALL_START_ROW_ARRAY[r] = getScreenRowOfCeilingAtDistance(DISTANCE_ARRAY_1[r]); // Inclusive for walls, exclusive for ceiling
+		WALL_START_ROW_ARRAY[r] = getScreenRowOfCeilingAtDistance(distanceArray1[r]); // Inclusive for walls, exclusive for ceiling
 	}
 
 	// Find ray column closest to player
 	int indexOfClosest = 0;
 	for(int r = 1; r < NUM_RAYS; r++) {
-		if(DISTANCE_ARRAY_1[r] < DISTANCE_ARRAY_1[indexOfClosest]) {
+		if(distanceArray1[r] < distanceArray1[indexOfClosest]) {
 			indexOfClosest = r;
 		}
 	}
@@ -125,7 +129,7 @@ void WolfensteinCore1App::drawEnvironment() {
 
 	// Draw 1 row of wall and copy to parts of screen that have visible wall
 	for(int r = 0; r < NUM_RAYS; r++) {
-		int wallColourInt = getColourFromGradient(WALL_GRADIENT, WALL_GRADIENT_LENGTH, DISTANCE_ARRAY_1[r]);
+		int wallColourInt = getColourFromGradient(WALL_GRADIENT, WALL_GRADIENT_LENGTH, distanceArray1[r]);
 		for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
 			INTERMEDIATE_IMAGE_BUFFER[r * PIXEL_WIDTHS_PER_RAY + j] = wallColourInt;
 		}
@@ -205,6 +209,7 @@ void WolfensteinCore1App::drawHUD() {
 
 	int healthBarEmptyColour = colourRGB(8, 0, 0);
 	int healthBarFullColour = colourRGB(0, 15, 0);
+	int playerHealth = SHARED_DATA_PACKETS[1].playerData.health;
 
 	for(int i = 0; i < healthBarHeight; i++) {
 		for(int j = 0; j < playerHealth; j++) {

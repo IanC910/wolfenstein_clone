@@ -6,6 +6,13 @@
 
 #include "ObjectWithPosition.h"
 
+typedef struct {
+	int health;
+	float positionX;
+	float positionY;
+	float angle;
+} playerData_t;
+
 class Player : public ObjectWithPosition {
 
 public:
@@ -14,6 +21,8 @@ public:
 
 	void setAngle(float angle);
 	void setHealth(int health);
+
+	playerData_t getPlayerData();
 
 private:
 	float angle = 0;
