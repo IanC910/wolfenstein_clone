@@ -8,11 +8,13 @@
 #include "xil_cache.h"
 #include "xtime_l.h"
 
-#include "Colour.h"
+#include "../../wolfenstein_core_0/src/Colour.h"
 #include "../../wolfenstein_core_0/src/Constants.h"
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
 
 WolfensteinCore1App::WolfensteinCore1App() {
+	xil_printf("Wolfenstein Core 1 App Init\n");
+
 	Xil_DCacheDisable();
 
 	// initialize floor and ceiling buffers
@@ -54,7 +56,6 @@ void WolfensteinCore1App::runCore1App() {
 		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
 		if(funcTime > maxTransferTime) {
 			maxTransferTime = funcTime;
-			xil_printf("Core 1 max transfer time: %8d\n", maxTransferTime);
 		}
 
 		// Draw Environment
@@ -64,8 +65,9 @@ void WolfensteinCore1App::runCore1App() {
 		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
 		if(funcTime > maxDrawTime) {
 			maxDrawTime = funcTime;
-			xil_printf("Core 1 max draw time: %8d\n", maxDrawTime);
 		}
+
+		drawHUD();
 
 		// Update Screen
 		XTime_GetTime(&funcStartTime);
@@ -74,14 +76,12 @@ void WolfensteinCore1App::runCore1App() {
 		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
 		if(funcTime > maxUpdateTime) {
 			maxUpdateTime = funcTime;
-			xil_printf("Core 1 max update time: %8d\n", maxUpdateTime);
 		}
 
 		XTime_GetTime(&frameEndTime);
 		u32 frameTime = (u32)((u64)frameEndTime - (u64)frameStartTime);
 		if(frameTime > maxFrameTime) {
 			maxFrameTime = frameTime;
-			xil_printf("Core 1 max frame time: %8d\n", maxFrameTime);
 		}
 	}
 }
@@ -90,9 +90,11 @@ void WolfensteinCore1App::getNewDistanceArray() {
 	while(!INTERFACE_PTR->valid);
 
 	memcpy(DISTANCE_ARRAY_1, DISTANCE_ARRAY_0, NUM_RAYS * sizeof(float));
+	this->playerHealth = *PLAYER_HEALTH;
 
 	INTERFACE_PTR->acknowledge = 1;
 	while(INTERFACE_PTR->valid);
+
 	INTERFACE_PTR->acknowledge = 0;
 }
 
@@ -189,6 +191,27 @@ void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int startRay, int en
 
 		if(!drawingThisRow) {
 			return;
+		}
+	}
+}
+
+void WolfensteinCore1App::drawHUD() {
+
+	// Draw health bar
+	int healthBarHeight = 20;
+	int healthBarLength = MAX_PLAYER_HEALTH;
+	int healthBarTopRow = SCREEN_HEIGHT - 1 - 20 - healthBarHeight;
+	int	healthBarLeftCol = SCREEN_WIDTH - 1 - 20 - healthBarLength;
+
+	int healthBarEmptyColour = colourRGB(8, 0, 0);
+	int healthBarFullColour = colourRGB(0, 15, 0);
+
+	for(int i = 0; i < healthBarHeight; i++) {
+		for(int j = 0; j < playerHealth; j++) {
+			INTERMEDIATE_IMAGE_BUFFER[(healthBarTopRow + i) * SCREEN_WIDTH + healthBarLeftCol + j] = healthBarFullColour;
+		}
+		for(int j = playerHealth; j < healthBarLength; j++) {
+			INTERMEDIATE_IMAGE_BUFFER[(healthBarTopRow + i) * SCREEN_WIDTH + healthBarLeftCol + j] = healthBarEmptyColour;
 		}
 	}
 }

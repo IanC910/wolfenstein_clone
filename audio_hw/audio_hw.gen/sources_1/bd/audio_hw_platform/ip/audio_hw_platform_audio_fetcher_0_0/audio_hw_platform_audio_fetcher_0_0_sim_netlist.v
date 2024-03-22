@@ -1,7 +1,7 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-// Date        : Mon Mar 11 05:50:27 2024
+// Date        : Sun Mar 17 21:38:50 2024
 // Host        : IC-VivoBook running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/ip/audio_hw_platform_audio_fetcher_0_0/audio_hw_platform_audio_fetcher_0_0_sim_netlist.v
@@ -12,8 +12,7 @@
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CHECK_LICENSE_TYPE = "audio_hw_platform_audio_fetcher_0_0,audio_fetcher,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* ip_definition_source = "module_ref" *) 
-(* x_core_info = "audio_fetcher,Vivado 2020.2" *) 
+(* CHECK_LICENSE_TYPE = "audio_hw_platform_audio_fetcher_0_0,audio_fetcher,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* x_core_info = "audio_fetcher,Vivado 2020.2" *) 
 (* NotValidForBitStream *)
 module audio_hw_platform_audio_fetcher_0_0
    (s_axi_aclk,
@@ -103,132 +102,132 @@ module audio_hw_platform_audio_fetcher_0_0
     m_axi_dma_rvalid,
     m_axi_dma_rready,
     debug_data_o);
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 s_axi_aclk CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME s_axi_aclk, ASSOCIATED_BUSIF s_axi, ASSOCIATED_RESET s_axi_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input s_axi_aclk;
-  (* x_interface_info = "xilinx.com:signal:reset:1.0 s_axi_aresetn RST" *) (* x_interface_parameter = "XIL_INTERFACENAME s_axi_aresetn, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input s_axi_aresetn;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 s_axi_aclk CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME s_axi_aclk, ASSOCIATED_BUSIF s_axi, ASSOCIATED_RESET s_axi_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input [0:0]s_axi_aclk;
+  (* x_interface_info = "xilinx.com:signal:reset:1.0 s_axi_aresetn RST" *) (* x_interface_parameter = "XIL_INTERFACENAME s_axi_aresetn, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input [0:0]s_axi_aresetn;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME s_axi, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 200000000, ID_WIDTH 0, ADDR_WIDTH 4, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input [3:0]s_axi_awaddr;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi AWPROT" *) input [2:0]s_axi_awprot;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi AWVALID" *) input s_axi_awvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi AWREADY" *) output s_axi_awready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi AWVALID" *) input [0:0]s_axi_awvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi AWREADY" *) output [0:0]s_axi_awready;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi WDATA" *) input [31:0]s_axi_wdata;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi WSTRB" *) input [3:0]s_axi_wstrb;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi WVALID" *) input s_axi_wvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi WREADY" *) output s_axi_wready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi WVALID" *) input [0:0]s_axi_wvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi WREADY" *) output [0:0]s_axi_wready;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi BRESP" *) output [1:0]s_axi_bresp;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi BVALID" *) output s_axi_bvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi BREADY" *) input s_axi_bready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi BVALID" *) output [0:0]s_axi_bvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi BREADY" *) input [0:0]s_axi_bready;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi ARADDR" *) input [3:0]s_axi_araddr;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi ARPROT" *) input [2:0]s_axi_arprot;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi ARVALID" *) input s_axi_arvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi ARREADY" *) output s_axi_arready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi ARVALID" *) input [0:0]s_axi_arvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi ARREADY" *) output [0:0]s_axi_arready;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi RDATA" *) output [31:0]s_axi_rdata;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi RRESP" *) output [1:0]s_axi_rresp;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi RVALID" *) output s_axi_rvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi RREADY" *) input s_axi_rready;
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 m_axi_audio_out_aclk CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME m_axi_audio_out_aclk, ASSOCIATED_BUSIF m_axi_audio_out, ASSOCIATED_RESET m_axi_audio_out_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input m_axi_audio_out_aclk;
-  (* x_interface_info = "xilinx.com:signal:reset:1.0 m_axi_audio_out_aresetn RST" *) (* x_interface_parameter = "XIL_INTERFACENAME m_axi_audio_out_aresetn, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input m_axi_audio_out_aresetn;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi RVALID" *) output [0:0]s_axi_rvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 s_axi RREADY" *) input [0:0]s_axi_rready;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 m_axi_audio_out_aclk CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME m_axi_audio_out_aclk, ASSOCIATED_BUSIF m_axi_audio_out, ASSOCIATED_RESET m_axi_audio_out_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input [0:0]m_axi_audio_out_aclk;
+  (* x_interface_info = "xilinx.com:signal:reset:1.0 m_axi_audio_out_aresetn RST" *) (* x_interface_parameter = "XIL_INTERFACENAME m_axi_audio_out_aresetn, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input [0:0]m_axi_audio_out_aresetn;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME m_axi_audio_out, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 200000000, ID_WIDTH 0, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) output [31:0]m_axi_audio_out_awaddr;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out AWPROT" *) output [2:0]m_axi_audio_out_awprot;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out AWVALID" *) output m_axi_audio_out_awvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out AWREADY" *) input m_axi_audio_out_awready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out AWVALID" *) output [0:0]m_axi_audio_out_awvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out AWREADY" *) input [0:0]m_axi_audio_out_awready;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out WDATA" *) output [31:0]m_axi_audio_out_wdata;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out WSTRB" *) output [3:0]m_axi_audio_out_wstrb;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out WVALID" *) output m_axi_audio_out_wvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out WREADY" *) input m_axi_audio_out_wready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out WVALID" *) output [0:0]m_axi_audio_out_wvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out WREADY" *) input [0:0]m_axi_audio_out_wready;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out BRESP" *) input [1:0]m_axi_audio_out_bresp;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out BVALID" *) input m_axi_audio_out_bvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out BREADY" *) output m_axi_audio_out_bready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out BVALID" *) input [0:0]m_axi_audio_out_bvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out BREADY" *) output [0:0]m_axi_audio_out_bready;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out ARADDR" *) output [31:0]m_axi_audio_out_araddr;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out ARPROT" *) output [2:0]m_axi_audio_out_arprot;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out ARVALID" *) output m_axi_audio_out_arvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out ARREADY" *) input m_axi_audio_out_arready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out ARVALID" *) output [0:0]m_axi_audio_out_arvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out ARREADY" *) input [0:0]m_axi_audio_out_arready;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out RDATA" *) input [31:0]m_axi_audio_out_rdata;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out RRESP" *) input [1:0]m_axi_audio_out_rresp;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out RVALID" *) input m_axi_audio_out_rvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out RREADY" *) output m_axi_audio_out_rready;
-  (* x_interface_info = "xilinx.com:signal:clock:1.0 m_axi_dma_aclk CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME m_axi_dma_aclk, ASSOCIATED_BUSIF m_axi_dma, ASSOCIATED_RESET m_axi_dma_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input m_axi_dma_aclk;
-  (* x_interface_info = "xilinx.com:signal:reset:1.0 m_axi_dma_aresetn RST" *) (* x_interface_parameter = "XIL_INTERFACENAME m_axi_dma_aresetn, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input m_axi_dma_aresetn;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out RVALID" *) input [0:0]m_axi_audio_out_rvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_audio_out RREADY" *) output [0:0]m_axi_audio_out_rready;
+  (* x_interface_info = "xilinx.com:signal:clock:1.0 m_axi_dma_aclk CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME m_axi_dma_aclk, ASSOCIATED_BUSIF m_axi_dma, ASSOCIATED_RESET m_axi_dma_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input [0:0]m_axi_dma_aclk;
+  (* x_interface_info = "xilinx.com:signal:reset:1.0 m_axi_dma_aresetn RST" *) (* x_interface_parameter = "XIL_INTERFACENAME m_axi_dma_aresetn, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input [0:0]m_axi_dma_aresetn;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWID" *) (* x_interface_parameter = "XIL_INTERFACENAME m_axi_dma, DATA_WIDTH 32, PROTOCOL AXI4, FREQ_HZ 200000000, ID_WIDTH 2, ADDR_WIDTH 32, AWUSER_WIDTH 1, ARUSER_WIDTH 1, WUSER_WIDTH 1, RUSER_WIDTH 1, BUSER_WIDTH 1, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 1, NUM_READ_OUTSTANDING 2, NUM_WRITE_OUTSTANDING 2, MAX_BURST_LENGTH 256, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) output [1:0]m_axi_dma_awid;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWADDR" *) output [31:0]m_axi_dma_awaddr;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWLEN" *) output [7:0]m_axi_dma_awlen;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWSIZE" *) output [2:0]m_axi_dma_awsize;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWBURST" *) output [1:0]m_axi_dma_awburst;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWLOCK" *) output m_axi_dma_awlock;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWLOCK" *) output [0:0]m_axi_dma_awlock;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWCACHE" *) output [3:0]m_axi_dma_awcache;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWPROT" *) output [2:0]m_axi_dma_awprot;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWQOS" *) output [3:0]m_axi_dma_awqos;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWUSER" *) output [0:0]m_axi_dma_awuser;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWVALID" *) output m_axi_dma_awvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWREADY" *) input m_axi_dma_awready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWVALID" *) output [0:0]m_axi_dma_awvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma AWREADY" *) input [0:0]m_axi_dma_awready;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma WDATA" *) output [31:0]m_axi_dma_wdata;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma WSTRB" *) output [3:0]m_axi_dma_wstrb;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma WLAST" *) output m_axi_dma_wlast;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma WLAST" *) output [0:0]m_axi_dma_wlast;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma WUSER" *) output [0:0]m_axi_dma_wuser;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma WVALID" *) output m_axi_dma_wvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma WREADY" *) input m_axi_dma_wready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma WVALID" *) output [0:0]m_axi_dma_wvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma WREADY" *) input [0:0]m_axi_dma_wready;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma BID" *) input [1:0]m_axi_dma_bid;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma BRESP" *) input [1:0]m_axi_dma_bresp;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma BUSER" *) input [0:0]m_axi_dma_buser;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma BVALID" *) input m_axi_dma_bvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma BREADY" *) output m_axi_dma_bready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma BVALID" *) input [0:0]m_axi_dma_bvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma BREADY" *) output [0:0]m_axi_dma_bready;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARID" *) output [1:0]m_axi_dma_arid;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARADDR" *) output [31:0]m_axi_dma_araddr;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARLEN" *) output [7:0]m_axi_dma_arlen;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARSIZE" *) output [2:0]m_axi_dma_arsize;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARBURST" *) output [1:0]m_axi_dma_arburst;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARLOCK" *) output m_axi_dma_arlock;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARLOCK" *) output [0:0]m_axi_dma_arlock;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARCACHE" *) output [3:0]m_axi_dma_arcache;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARPROT" *) output [2:0]m_axi_dma_arprot;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARQOS" *) output [3:0]m_axi_dma_arqos;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARUSER" *) output [0:0]m_axi_dma_aruser;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARVALID" *) output m_axi_dma_arvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARREADY" *) input m_axi_dma_arready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARVALID" *) output [0:0]m_axi_dma_arvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma ARREADY" *) input [0:0]m_axi_dma_arready;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma RID" *) input [1:0]m_axi_dma_rid;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma RDATA" *) input [31:0]m_axi_dma_rdata;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma RRESP" *) input [1:0]m_axi_dma_rresp;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma RLAST" *) input m_axi_dma_rlast;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma RLAST" *) input [0:0]m_axi_dma_rlast;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma RUSER" *) input [0:0]m_axi_dma_ruser;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma RVALID" *) input m_axi_dma_rvalid;
-  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma RREADY" *) output m_axi_dma_rready;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma RVALID" *) input [0:0]m_axi_dma_rvalid;
+  (* x_interface_info = "xilinx.com:interface:aximm:1.0 m_axi_dma RREADY" *) output [0:0]m_axi_dma_rready;
   output [31:0]debug_data_o;
 
   wire \<const0> ;
   wire \<const1> ;
   wire [31:0]debug_data_o;
-  wire m_axi_audio_out_aclk;
-  wire m_axi_audio_out_aresetn;
+  wire [0:0]m_axi_audio_out_aclk;
+  wire [0:0]m_axi_audio_out_aresetn;
   wire [25:2]\^m_axi_audio_out_awaddr ;
-  wire m_axi_audio_out_awready;
-  wire m_axi_audio_out_awvalid;
-  wire m_axi_audio_out_bready;
-  wire m_axi_audio_out_bvalid;
+  wire [0:0]m_axi_audio_out_awready;
+  wire [0:0]m_axi_audio_out_awvalid;
+  wire [0:0]m_axi_audio_out_bready;
+  wire [0:0]m_axi_audio_out_bvalid;
   wire [31:0]m_axi_audio_out_wdata;
-  wire m_axi_audio_out_wready;
-  wire m_axi_audio_out_wvalid;
-  wire m_axi_dma_aclk;
+  wire [0:0]m_axi_audio_out_wready;
+  wire [0:0]m_axi_audio_out_wvalid;
+  wire [0:0]m_axi_dma_aclk;
   wire [31:0]m_axi_dma_araddr;
-  wire m_axi_dma_aresetn;
-  wire m_axi_dma_arready;
-  wire m_axi_dma_arvalid;
+  wire [0:0]m_axi_dma_aresetn;
+  wire [0:0]m_axi_dma_arready;
+  wire [0:0]m_axi_dma_arvalid;
   wire [31:0]m_axi_dma_rdata;
-  wire m_axi_dma_rready;
-  wire m_axi_dma_rvalid;
-  wire s_axi_aclk;
+  wire [0:0]m_axi_dma_rready;
+  wire [0:0]m_axi_dma_rvalid;
+  wire [0:0]s_axi_aclk;
   wire [3:0]s_axi_araddr;
-  wire s_axi_aresetn;
-  wire s_axi_arready;
-  wire s_axi_arvalid;
+  wire [0:0]s_axi_aresetn;
+  wire [0:0]s_axi_arready;
+  wire [0:0]s_axi_arvalid;
   wire [3:0]s_axi_awaddr;
-  wire s_axi_awready;
-  wire s_axi_awvalid;
-  wire s_axi_bready;
-  wire s_axi_bvalid;
+  wire [0:0]s_axi_awready;
+  wire [0:0]s_axi_awvalid;
+  wire [0:0]s_axi_bready;
+  wire [0:0]s_axi_bvalid;
   wire [31:0]s_axi_rdata;
-  wire s_axi_rready;
-  wire s_axi_rvalid;
+  wire [0:0]s_axi_rready;
+  wire [0:0]s_axi_rvalid;
   wire [31:0]s_axi_wdata;
-  wire s_axi_wready;
+  wire [0:0]s_axi_wready;
   wire [3:0]s_axi_wstrb;
-  wire s_axi_wvalid;
+  wire [0:0]s_axi_wvalid;
 
   assign m_axi_audio_out_araddr[31] = \<const0> ;
   assign m_axi_audio_out_araddr[30] = \<const0> ;
@@ -265,7 +264,7 @@ module audio_hw_platform_audio_fetcher_0_0
   assign m_axi_audio_out_arprot[2] = \<const0> ;
   assign m_axi_audio_out_arprot[1] = \<const0> ;
   assign m_axi_audio_out_arprot[0] = \<const0> ;
-  assign m_axi_audio_out_arvalid = \<const0> ;
+  assign m_axi_audio_out_arvalid[0] = \<const0> ;
   assign m_axi_audio_out_awaddr[31] = \<const0> ;
   assign m_axi_audio_out_awaddr[30] = \^m_axi_audio_out_awaddr [25];
   assign m_axi_audio_out_awaddr[29] = \<const0> ;
@@ -301,7 +300,7 @@ module audio_hw_platform_audio_fetcher_0_0
   assign m_axi_audio_out_awprot[2] = \<const0> ;
   assign m_axi_audio_out_awprot[1] = \<const0> ;
   assign m_axi_audio_out_awprot[0] = \<const0> ;
-  assign m_axi_audio_out_rready = \<const0> ;
+  assign m_axi_audio_out_rready[0] = \<const0> ;
   assign m_axi_audio_out_wstrb[3] = \<const1> ;
   assign m_axi_audio_out_wstrb[2] = \<const1> ;
   assign m_axi_audio_out_wstrb[1] = \<const1> ;
@@ -322,7 +321,7 @@ module audio_hw_platform_audio_fetcher_0_0
   assign m_axi_dma_arlen[2] = \<const0> ;
   assign m_axi_dma_arlen[1] = \<const0> ;
   assign m_axi_dma_arlen[0] = \<const0> ;
-  assign m_axi_dma_arlock = \<const0> ;
+  assign m_axi_dma_arlock[0] = \<const0> ;
   assign m_axi_dma_arprot[2] = \<const0> ;
   assign m_axi_dma_arprot[1] = \<const0> ;
   assign m_axi_dma_arprot[0] = \<const0> ;
@@ -382,7 +381,7 @@ module audio_hw_platform_audio_fetcher_0_0
   assign m_axi_dma_awlen[2] = \<const0> ;
   assign m_axi_dma_awlen[1] = \<const0> ;
   assign m_axi_dma_awlen[0] = \<const0> ;
-  assign m_axi_dma_awlock = \<const0> ;
+  assign m_axi_dma_awlock[0] = \<const0> ;
   assign m_axi_dma_awprot[2] = \<const0> ;
   assign m_axi_dma_awprot[1] = \<const0> ;
   assign m_axi_dma_awprot[0] = \<const0> ;
@@ -394,8 +393,8 @@ module audio_hw_platform_audio_fetcher_0_0
   assign m_axi_dma_awsize[1] = \<const0> ;
   assign m_axi_dma_awsize[0] = \<const0> ;
   assign m_axi_dma_awuser[0] = \<const0> ;
-  assign m_axi_dma_awvalid = \<const0> ;
-  assign m_axi_dma_bready = \<const0> ;
+  assign m_axi_dma_awvalid[0] = \<const0> ;
+  assign m_axi_dma_bready[0] = \<const0> ;
   assign m_axi_dma_wdata[31] = \<const0> ;
   assign m_axi_dma_wdata[30] = \<const0> ;
   assign m_axi_dma_wdata[29] = \<const0> ;
@@ -428,13 +427,13 @@ module audio_hw_platform_audio_fetcher_0_0
   assign m_axi_dma_wdata[2] = \<const0> ;
   assign m_axi_dma_wdata[1] = \<const0> ;
   assign m_axi_dma_wdata[0] = \<const0> ;
-  assign m_axi_dma_wlast = \<const0> ;
+  assign m_axi_dma_wlast[0] = \<const0> ;
   assign m_axi_dma_wstrb[3] = \<const0> ;
   assign m_axi_dma_wstrb[2] = \<const0> ;
   assign m_axi_dma_wstrb[1] = \<const0> ;
   assign m_axi_dma_wstrb[0] = \<const0> ;
   assign m_axi_dma_wuser[0] = \<const0> ;
-  assign m_axi_dma_wvalid = \<const0> ;
+  assign m_axi_dma_wvalid[0] = \<const0> ;
   assign s_axi_bresp[1] = \<const0> ;
   assign s_axi_bresp[0] = \<const0> ;
   assign s_axi_rresp[1] = \<const0> ;
@@ -528,34 +527,34 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher
   output [1:0]m_axi_audio_out_awaddr;
   output [31:0]m_axi_audio_out_wdata;
   output [31:0]m_axi_dma_araddr;
-  output m_axi_audio_out_bready;
-  output m_axi_dma_rready;
-  output m_axi_audio_out_awvalid;
-  output m_axi_audio_out_wvalid;
-  output m_axi_dma_arvalid;
-  output s_axi_rvalid;
-  output s_axi_bvalid;
-  input m_axi_audio_out_wready;
-  input m_axi_audio_out_aresetn;
-  input m_axi_audio_out_aclk;
-  input m_axi_dma_rvalid;
-  input m_axi_dma_aresetn;
-  input m_axi_dma_aclk;
+  output [0:0]m_axi_audio_out_bready;
+  output [0:0]m_axi_dma_rready;
+  output [0:0]m_axi_audio_out_awvalid;
+  output [0:0]m_axi_audio_out_wvalid;
+  output [0:0]m_axi_dma_arvalid;
+  output [0:0]s_axi_rvalid;
+  output [0:0]s_axi_bvalid;
+  input [0:0]m_axi_audio_out_wready;
+  input [0:0]m_axi_audio_out_aresetn;
+  input [0:0]m_axi_audio_out_aclk;
+  input [0:0]m_axi_dma_rvalid;
+  input [0:0]m_axi_dma_aresetn;
+  input [0:0]m_axi_dma_aclk;
   input [1:0]s_axi_awaddr;
-  input s_axi_wvalid;
-  input s_axi_awvalid;
-  input s_axi_aclk;
+  input [0:0]s_axi_wvalid;
+  input [0:0]s_axi_awvalid;
+  input [0:0]s_axi_aclk;
   input [31:0]m_axi_dma_rdata;
   input [1:0]s_axi_araddr;
-  input s_axi_arvalid;
+  input [0:0]s_axi_arvalid;
   input [31:0]s_axi_wdata;
-  input s_axi_aresetn;
-  input m_axi_dma_arready;
-  input m_axi_audio_out_bvalid;
-  input m_axi_audio_out_awready;
+  input [0:0]s_axi_aresetn;
+  input [0:0]m_axi_dma_arready;
+  input [0:0]m_axi_audio_out_bvalid;
+  input [0:0]m_axi_audio_out_awready;
   input [3:0]s_axi_wstrb;
-  input s_axi_bready;
-  input s_axi_rready;
+  input [0:0]s_axi_bready;
+  input [0:0]s_axi_rready;
 
   wire audio_fetcher_M_AXI_AUDIO_OUT_inst_n_3;
   wire audio_fetcher_M_AXI_DMA_inst_n_2;
@@ -663,45 +662,45 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher
   wire [1:0]curr_state_ff_0;
   wire [3:0]curr_state_ff_1;
   wire [31:0]debug_data_o;
-  wire m_axi_audio_out_aclk;
-  wire m_axi_audio_out_aresetn;
+  wire [0:0]m_axi_audio_out_aclk;
+  wire [0:0]m_axi_audio_out_aresetn;
   wire [1:0]m_axi_audio_out_awaddr;
-  wire m_axi_audio_out_awready;
-  wire m_axi_audio_out_awvalid;
-  wire m_axi_audio_out_bready;
-  wire m_axi_audio_out_bvalid;
+  wire [0:0]m_axi_audio_out_awready;
+  wire [0:0]m_axi_audio_out_awvalid;
+  wire [0:0]m_axi_audio_out_bready;
+  wire [0:0]m_axi_audio_out_bvalid;
   wire [31:0]m_axi_audio_out_wdata;
-  wire m_axi_audio_out_wready;
-  wire m_axi_audio_out_wvalid;
-  wire m_axi_dma_aclk;
+  wire [0:0]m_axi_audio_out_wready;
+  wire [0:0]m_axi_audio_out_wvalid;
+  wire [0:0]m_axi_dma_aclk;
   wire [31:0]m_axi_dma_araddr;
-  wire m_axi_dma_aresetn;
-  wire m_axi_dma_arready;
-  wire m_axi_dma_arvalid;
+  wire [0:0]m_axi_dma_aresetn;
+  wire [0:0]m_axi_dma_arready;
+  wire [0:0]m_axi_dma_arvalid;
   wire [31:0]m_axi_dma_rdata;
-  wire m_axi_dma_rready;
-  wire m_axi_dma_rvalid;
+  wire [0:0]m_axi_dma_rready;
+  wire [0:0]m_axi_dma_rvalid;
   wire p_0_out0;
   wire p_0_out0_in0;
   wire p_1_in;
   wire [31:0]req_rv_addr;
-  wire s_axi_aclk;
+  wire [0:0]s_axi_aclk;
   wire [1:0]s_axi_araddr;
-  wire s_axi_aresetn;
+  wire [0:0]s_axi_aresetn;
   wire s_axi_arready;
-  wire s_axi_arvalid;
+  wire [0:0]s_axi_arvalid;
   wire [1:0]s_axi_awaddr;
   wire s_axi_awready;
-  wire s_axi_awvalid;
-  wire s_axi_bready;
-  wire s_axi_bvalid;
+  wire [0:0]s_axi_awvalid;
+  wire [0:0]s_axi_bready;
+  wire [0:0]s_axi_bvalid;
   wire [31:0]s_axi_rdata;
-  wire s_axi_rready;
-  wire s_axi_rvalid;
+  wire [0:0]s_axi_rready;
+  wire [0:0]s_axi_rvalid;
   wire [31:0]s_axi_wdata;
   wire s_axi_wready;
   wire [3:0]s_axi_wstrb;
-  wire s_axi_wvalid;
+  wire [0:0]s_axi_wvalid;
   wire s_rv_valid;
   wire [31:0]sample_ff;
   wire [31:0]slv_reg1;
@@ -748,7 +747,7 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher
         .s_axi_aclk(s_axi_aclk),
         .s_axi_araddr(s_axi_araddr),
         .s_axi_aresetn(s_axi_aresetn),
-        .s_axi_aresetn_0(audio_fetcher_S_AXI_inst_n_1),
+        .s_axi_aresetn_0_sp_1(audio_fetcher_S_AXI_inst_n_1),
         .s_axi_arready(s_axi_arready),
         .s_axi_arvalid(s_axi_arvalid),
         .s_axi_awaddr(s_axi_awaddr),
@@ -811,19 +810,19 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_M_AXI_AUDIO_OUT
     m_axi_audio_out_aclk,
     D);
   output [1:0]curr_state_ff;
-  output m_axi_audio_out_bready;
+  output [0:0]m_axi_audio_out_bready;
   output \FSM_sequential_curr_state_ff_reg[1]_0 ;
-  output m_axi_audio_out_awvalid;
-  output m_axi_audio_out_wvalid;
+  output [0:0]m_axi_audio_out_awvalid;
+  output [0:0]m_axi_audio_out_wvalid;
   output [1:0]m_axi_audio_out_awaddr;
   output [31:0]m_axi_audio_out_wdata;
-  input m_axi_audio_out_wready;
-  input m_axi_audio_out_bvalid;
+  input [0:0]m_axi_audio_out_wready;
+  input [0:0]m_axi_audio_out_bvalid;
   input \axi_awaddr_ff_reg[2]_0 ;
-  input m_axi_audio_out_awready;
+  input [0:0]m_axi_audio_out_awready;
   input [1:0]Q;
-  input m_axi_audio_out_aresetn;
-  input m_axi_audio_out_aclk;
+  input [0:0]m_axi_audio_out_aresetn;
+  input [0:0]m_axi_audio_out_aclk;
   input [31:0]D;
 
   wire [31:0]D;
@@ -835,16 +834,16 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_M_AXI_AUDIO_OUT
   wire \axi_awaddr_ff[30]_i_1_n_0 ;
   wire \axi_awaddr_ff_reg[2]_0 ;
   wire [1:0]curr_state_ff;
-  wire m_axi_audio_out_aclk;
-  wire m_axi_audio_out_aresetn;
+  wire [0:0]m_axi_audio_out_aclk;
+  wire [0:0]m_axi_audio_out_aresetn;
   wire [1:0]m_axi_audio_out_awaddr;
-  wire m_axi_audio_out_awready;
-  wire m_axi_audio_out_awvalid;
-  wire m_axi_audio_out_bready;
-  wire m_axi_audio_out_bvalid;
+  wire [0:0]m_axi_audio_out_awready;
+  wire [0:0]m_axi_audio_out_awvalid;
+  wire [0:0]m_axi_audio_out_bready;
+  wire [0:0]m_axi_audio_out_bvalid;
   wire [31:0]m_axi_audio_out_wdata;
-  wire m_axi_audio_out_wready;
-  wire m_axi_audio_out_wvalid;
+  wire [0:0]m_axi_audio_out_wready;
+  wire [0:0]m_axi_audio_out_wvalid;
 
   (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT5 #(
@@ -1110,21 +1109,21 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_M_AXI_AUDIO_OUT
   (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT2 #(
     .INIT(4'h2)) 
-    m_axi_audio_out_awvalid_INST_0
+    \m_axi_audio_out_awvalid[0]_INST_0 
        (.I0(curr_state_ff[0]),
         .I1(curr_state_ff[1]),
         .O(m_axi_audio_out_awvalid));
   (* SOFT_HLUTNM = "soft_lutpair1" *) 
   LUT2 #(
     .INIT(4'h8)) 
-    m_axi_audio_out_bready_INST_0
+    \m_axi_audio_out_bready[0]_INST_0 
        (.I0(curr_state_ff[0]),
         .I1(curr_state_ff[1]),
         .O(m_axi_audio_out_bready));
   (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT2 #(
     .INIT(4'h2)) 
-    m_axi_audio_out_wvalid_INST_0
+    \m_axi_audio_out_wvalid[0]_INST_0 
        (.I0(curr_state_ff[1]),
         .I1(curr_state_ff[0]),
         .O(m_axi_audio_out_wvalid));
@@ -1152,20 +1151,20 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_M_AXI_DMA
     req_rv_addr);
   output [1:0]curr_state_ff;
   output \FSM_sequential_curr_state_ff_reg[1]_0 ;
-  output m_axi_dma_rready;
+  output [0:0]m_axi_dma_rready;
   output \FSM_sequential_curr_state_ff_reg[1]_1 ;
-  output m_axi_dma_arvalid;
+  output [0:0]m_axi_dma_arvalid;
   output [15:0]A;
   output [31:0]\axi_rdata_ff_reg[31]_0 ;
   output [31:0]m_axi_dma_araddr;
-  input m_axi_dma_arready;
-  input m_axi_dma_rvalid;
+  input [0:0]m_axi_dma_arready;
+  input [0:0]m_axi_dma_rvalid;
   input \FSM_sequential_curr_state_ff_reg[0]_0 ;
   input [0:0]E;
   input [1:0]Q;
   input [0:0]scaled_sample_ff_reg;
-  input m_axi_dma_aresetn;
-  input m_axi_dma_aclk;
+  input [0:0]m_axi_dma_aresetn;
+  input [0:0]m_axi_dma_aclk;
   input [31:0]m_axi_dma_rdata;
   input [31:0]req_rv_addr;
 
@@ -1182,14 +1181,14 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_M_AXI_DMA
   wire axi_rdata_ff0;
   wire [31:0]\axi_rdata_ff_reg[31]_0 ;
   wire [1:0]curr_state_ff;
-  wire m_axi_dma_aclk;
+  wire [0:0]m_axi_dma_aclk;
   wire [31:0]m_axi_dma_araddr;
-  wire m_axi_dma_aresetn;
-  wire m_axi_dma_arready;
-  wire m_axi_dma_arvalid;
+  wire [0:0]m_axi_dma_aresetn;
+  wire [0:0]m_axi_dma_arready;
+  wire [0:0]m_axi_dma_arvalid;
   wire [31:0]m_axi_dma_rdata;
-  wire m_axi_dma_rready;
-  wire m_axi_dma_rvalid;
+  wire [0:0]m_axi_dma_rready;
+  wire [0:0]m_axi_dma_rvalid;
   wire [31:0]req_rv_addr;
   wire [0:0]scaled_sample_ff_reg;
 
@@ -1654,14 +1653,14 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_M_AXI_DMA
   (* SOFT_HLUTNM = "soft_lutpair5" *) 
   LUT2 #(
     .INIT(4'h2)) 
-    m_axi_dma_arvalid_INST_0
+    \m_axi_dma_arvalid[0]_INST_0 
        (.I0(curr_state_ff[0]),
         .I1(curr_state_ff[1]),
         .O(m_axi_dma_arvalid));
   (* SOFT_HLUTNM = "soft_lutpair5" *) 
   LUT2 #(
     .INIT(4'h2)) 
-    m_axi_dma_rready_INST_0
+    \m_axi_dma_rready[0]_INST_0 
        (.I0(curr_state_ff[1]),
         .I1(curr_state_ff[0]),
         .O(m_axi_dma_rready));
@@ -1782,7 +1781,7 @@ endmodule
 (* ORIG_REF_NAME = "audio_fetcher_S_AXI" *) 
 module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
    (s_axi_awready,
-    s_axi_aresetn_0,
+    s_axi_aresetn_0_sp_1,
     s_axi_wready,
     s_axi_arready,
     s_rv_valid,
@@ -1806,27 +1805,27 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
     s_axi_awaddr,
     s_axi_araddr);
   output s_axi_awready;
-  output s_axi_aresetn_0;
+  output s_axi_aresetn_0_sp_1;
   output s_axi_wready;
   output s_axi_arready;
   output s_rv_valid;
-  output s_axi_bvalid;
-  output s_axi_rvalid;
+  output [0:0]s_axi_bvalid;
+  output [0:0]s_axi_rvalid;
   output [0:0]Q;
   output [15:0]\slv_reg1_reg[31]_0 ;
   output [31:0]s_axi_rdata;
   output [31:0]\sound_addr_ff_reg[31]_0 ;
-  input s_axi_aclk;
-  input s_axi_aresetn;
+  input [0:0]s_axi_aclk;
+  input [0:0]s_axi_aresetn;
   input sound_addr_ff0;
   input [3:0]s_axi_wstrb;
-  input s_axi_wvalid;
-  input s_axi_awvalid;
+  input [0:0]s_axi_wvalid;
+  input [0:0]s_axi_awvalid;
   input [31:0]s_axi_wdata;
   input [31:0]debug_data_o;
-  input s_axi_bready;
-  input s_axi_arvalid;
-  input s_axi_rready;
+  input [0:0]s_axi_bready;
+  input [0:0]s_axi_arvalid;
+  input [0:0]s_axi_rready;
   input [1:0]s_axi_awaddr;
   input [1:0]s_axi_araddr;
 
@@ -1846,24 +1845,24 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
   wire [31:0]debug_data_o;
   wire [1:0]p_0_in;
   wire [31:0]reg_data_out;
-  wire s_axi_aclk;
+  wire [0:0]s_axi_aclk;
   wire [1:0]s_axi_araddr;
-  wire s_axi_aresetn;
-  wire s_axi_aresetn_0;
+  wire [0:0]s_axi_aresetn;
+  wire s_axi_aresetn_0_sn_1;
   wire s_axi_arready;
-  wire s_axi_arvalid;
+  wire [0:0]s_axi_arvalid;
   wire [1:0]s_axi_awaddr;
   wire s_axi_awready;
-  wire s_axi_awvalid;
-  wire s_axi_bready;
-  wire s_axi_bvalid;
+  wire [0:0]s_axi_awvalid;
+  wire [0:0]s_axi_bready;
+  wire [0:0]s_axi_bvalid;
   wire [31:0]s_axi_rdata;
-  wire s_axi_rready;
-  wire s_axi_rvalid;
+  wire [0:0]s_axi_rready;
+  wire [0:0]s_axi_rvalid;
   wire [31:0]s_axi_wdata;
   wire s_axi_wready;
   wire [3:0]s_axi_wstrb;
-  wire s_axi_wvalid;
+  wire [0:0]s_axi_wvalid;
   wire s_rv_valid;
   wire [31:0]slv_reg0;
   wire \slv_reg0[15]_i_1_n_0 ;
@@ -1981,6 +1980,7 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
   wire [31:0]\sound_addr_ff_reg[31]_0 ;
   wire valid_ff_i_1_n_0;
 
+  assign s_axi_aresetn_0_sp_1 = s_axi_aresetn_0_sn_1;
   LUT6 #(
     .INIT(64'hF0FFFFFF88888888)) 
     aw_en_i_1
@@ -1996,7 +1996,7 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
         .CE(1'b1),
         .D(aw_en_i_1_n_0),
         .Q(aw_en_reg_n_0),
-        .S(s_axi_aresetn_0));
+        .S(s_axi_aresetn_0_sn_1));
   LUT4 #(
     .INIT(16'hFB08)) 
     \axi_araddr[2]_i_1 
@@ -2018,13 +2018,13 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
         .CE(1'b1),
         .D(\axi_araddr[2]_i_1_n_0 ),
         .Q(axi_araddr[2]),
-        .S(s_axi_aresetn_0));
+        .S(s_axi_aresetn_0_sn_1));
   FDSE \axi_araddr_reg[3] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\axi_araddr[3]_i_1_n_0 ),
         .Q(axi_araddr[3]),
-        .S(s_axi_aresetn_0));
+        .S(s_axi_aresetn_0_sn_1));
   (* SOFT_HLUTNM = "soft_lutpair23" *) 
   LUT2 #(
     .INIT(4'h2)) 
@@ -2037,7 +2037,7 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
         .CE(1'b1),
         .D(axi_arready0),
         .Q(s_axi_arready),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   LUT6 #(
     .INIT(64'hEFFFFFFF20000000)) 
     \axi_awaddr[2]_i_1 
@@ -2063,18 +2063,18 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
         .CE(1'b1),
         .D(\axi_awaddr[2]_i_1_n_0 ),
         .Q(p_0_in[0]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_awaddr_reg[3] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\axi_awaddr[3]_i_1_n_0 ),
         .Q(p_0_in[1]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   LUT1 #(
     .INIT(2'h1)) 
     axi_awready_i_1
        (.I0(s_axi_aresetn),
-        .O(s_axi_aresetn_0));
+        .O(s_axi_aresetn_0_sn_1));
   (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT4 #(
     .INIT(16'h4000)) 
@@ -2089,7 +2089,7 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
         .CE(1'b1),
         .D(axi_awready0),
         .Q(s_axi_awready),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   LUT6 #(
     .INIT(64'h55555555C0000000)) 
     axi_bvalid_i_1
@@ -2105,7 +2105,7 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
         .CE(1'b1),
         .D(axi_bvalid_i_1_n_0),
         .Q(s_axi_bvalid),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   LUT6 #(
     .INIT(64'hF0AAFFCCF0AA00CC)) 
     \axi_rdata[0]_i_1 
@@ -2438,193 +2438,193 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
         .CE(slv_reg_rden),
         .D(reg_data_out[0]),
         .Q(s_axi_rdata[0]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[10] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[10]),
         .Q(s_axi_rdata[10]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[11] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[11]),
         .Q(s_axi_rdata[11]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[12] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[12]),
         .Q(s_axi_rdata[12]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[13] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[13]),
         .Q(s_axi_rdata[13]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[14] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[14]),
         .Q(s_axi_rdata[14]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[15] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[15]),
         .Q(s_axi_rdata[15]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[16] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[16]),
         .Q(s_axi_rdata[16]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[17] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[17]),
         .Q(s_axi_rdata[17]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[18] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[18]),
         .Q(s_axi_rdata[18]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[19] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[19]),
         .Q(s_axi_rdata[19]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[1] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[1]),
         .Q(s_axi_rdata[1]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[20] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[20]),
         .Q(s_axi_rdata[20]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[21] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[21]),
         .Q(s_axi_rdata[21]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[22] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[22]),
         .Q(s_axi_rdata[22]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[23] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[23]),
         .Q(s_axi_rdata[23]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[24] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[24]),
         .Q(s_axi_rdata[24]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[25] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[25]),
         .Q(s_axi_rdata[25]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[26] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[26]),
         .Q(s_axi_rdata[26]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[27] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[27]),
         .Q(s_axi_rdata[27]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[28] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[28]),
         .Q(s_axi_rdata[28]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[29] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[29]),
         .Q(s_axi_rdata[29]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[2] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[2]),
         .Q(s_axi_rdata[2]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[30] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[30]),
         .Q(s_axi_rdata[30]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[31] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[31]),
         .Q(s_axi_rdata[31]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[3] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[3]),
         .Q(s_axi_rdata[3]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[4] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[4]),
         .Q(s_axi_rdata[4]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[5] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[5]),
         .Q(s_axi_rdata[5]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[6] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[6]),
         .Q(s_axi_rdata[6]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[7] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[7]),
         .Q(s_axi_rdata[7]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[8] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[8]),
         .Q(s_axi_rdata[8]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \axi_rdata_reg[9] 
        (.C(s_axi_aclk),
         .CE(slv_reg_rden),
         .D(reg_data_out[9]),
         .Q(s_axi_rdata[9]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   (* SOFT_HLUTNM = "soft_lutpair23" *) 
   LUT4 #(
     .INIT(16'h08F8)) 
@@ -2639,7 +2639,7 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
         .CE(1'b1),
         .D(axi_rvalid_i_1_n_0),
         .Q(s_axi_rvalid),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT4 #(
     .INIT(16'h0080)) 
@@ -2654,7 +2654,7 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
         .CE(1'b1),
         .D(axi_wready0),
         .Q(s_axi_wready),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   LUT2 #(
     .INIT(4'h8)) 
     \slv_reg0[15]_i_1 
@@ -2694,193 +2694,193 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
         .CE(\slv_reg0[7]_i_1_n_0 ),
         .D(s_axi_wdata[0]),
         .Q(slv_reg0[0]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[10] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[15]_i_1_n_0 ),
         .D(s_axi_wdata[10]),
         .Q(slv_reg0[10]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[11] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[15]_i_1_n_0 ),
         .D(s_axi_wdata[11]),
         .Q(slv_reg0[11]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[12] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[15]_i_1_n_0 ),
         .D(s_axi_wdata[12]),
         .Q(slv_reg0[12]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[13] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[15]_i_1_n_0 ),
         .D(s_axi_wdata[13]),
         .Q(slv_reg0[13]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[14] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[15]_i_1_n_0 ),
         .D(s_axi_wdata[14]),
         .Q(slv_reg0[14]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[15] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[15]_i_1_n_0 ),
         .D(s_axi_wdata[15]),
         .Q(slv_reg0[15]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[16] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[23]_i_1_n_0 ),
         .D(s_axi_wdata[16]),
         .Q(slv_reg0[16]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[17] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[23]_i_1_n_0 ),
         .D(s_axi_wdata[17]),
         .Q(slv_reg0[17]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[18] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[23]_i_1_n_0 ),
         .D(s_axi_wdata[18]),
         .Q(slv_reg0[18]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[19] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[23]_i_1_n_0 ),
         .D(s_axi_wdata[19]),
         .Q(slv_reg0[19]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[1] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[7]_i_1_n_0 ),
         .D(s_axi_wdata[1]),
         .Q(slv_reg0[1]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[20] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[23]_i_1_n_0 ),
         .D(s_axi_wdata[20]),
         .Q(slv_reg0[20]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[21] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[23]_i_1_n_0 ),
         .D(s_axi_wdata[21]),
         .Q(slv_reg0[21]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[22] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[23]_i_1_n_0 ),
         .D(s_axi_wdata[22]),
         .Q(slv_reg0[22]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[23] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[23]_i_1_n_0 ),
         .D(s_axi_wdata[23]),
         .Q(slv_reg0[23]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[24] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[31]_i_1_n_0 ),
         .D(s_axi_wdata[24]),
         .Q(slv_reg0[24]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[25] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[31]_i_1_n_0 ),
         .D(s_axi_wdata[25]),
         .Q(slv_reg0[25]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[26] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[31]_i_1_n_0 ),
         .D(s_axi_wdata[26]),
         .Q(slv_reg0[26]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[27] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[31]_i_1_n_0 ),
         .D(s_axi_wdata[27]),
         .Q(slv_reg0[27]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[28] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[31]_i_1_n_0 ),
         .D(s_axi_wdata[28]),
         .Q(slv_reg0[28]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[29] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[31]_i_1_n_0 ),
         .D(s_axi_wdata[29]),
         .Q(slv_reg0[29]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[2] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[7]_i_1_n_0 ),
         .D(s_axi_wdata[2]),
         .Q(slv_reg0[2]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[30] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[31]_i_1_n_0 ),
         .D(s_axi_wdata[30]),
         .Q(slv_reg0[30]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[31] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[31]_i_1_n_0 ),
         .D(s_axi_wdata[31]),
         .Q(slv_reg0[31]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[3] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[7]_i_1_n_0 ),
         .D(s_axi_wdata[3]),
         .Q(slv_reg0[3]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[4] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[7]_i_1_n_0 ),
         .D(s_axi_wdata[4]),
         .Q(slv_reg0[4]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[5] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[7]_i_1_n_0 ),
         .D(s_axi_wdata[5]),
         .Q(slv_reg0[5]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[6] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[7]_i_1_n_0 ),
         .D(s_axi_wdata[6]),
         .Q(slv_reg0[6]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[7] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[7]_i_1_n_0 ),
         .D(s_axi_wdata[7]),
         .Q(slv_reg0[7]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[8] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[15]_i_1_n_0 ),
         .D(s_axi_wdata[8]),
         .Q(slv_reg0[8]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg0_reg[9] 
        (.C(s_axi_aclk),
         .CE(\slv_reg0[15]_i_1_n_0 ),
         .D(s_axi_wdata[9]),
         .Q(slv_reg0[9]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   LUT2 #(
     .INIT(4'h8)) 
     \slv_reg1[15]_i_1 
@@ -2920,193 +2920,193 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
         .CE(\slv_reg1[7]_i_1_n_0 ),
         .D(s_axi_wdata[0]),
         .Q(\slv_reg1_reg[31]_0 [0]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[10] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[15]_i_1_n_0 ),
         .D(s_axi_wdata[10]),
         .Q(\slv_reg1_reg[31]_0 [10]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[11] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[15]_i_1_n_0 ),
         .D(s_axi_wdata[11]),
         .Q(\slv_reg1_reg[31]_0 [11]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[12] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[15]_i_1_n_0 ),
         .D(s_axi_wdata[12]),
         .Q(\slv_reg1_reg[31]_0 [12]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[13] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[15]_i_1_n_0 ),
         .D(s_axi_wdata[13]),
         .Q(\slv_reg1_reg[31]_0 [13]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[14] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[15]_i_1_n_0 ),
         .D(s_axi_wdata[14]),
         .Q(\slv_reg1_reg[31]_0 [14]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[15] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[15]_i_1_n_0 ),
         .D(s_axi_wdata[15]),
         .Q(slv_reg1[15]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[16] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[23]_i_1_n_0 ),
         .D(s_axi_wdata[16]),
         .Q(slv_reg1[16]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[17] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[23]_i_1_n_0 ),
         .D(s_axi_wdata[17]),
         .Q(slv_reg1[17]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[18] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[23]_i_1_n_0 ),
         .D(s_axi_wdata[18]),
         .Q(slv_reg1[18]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[19] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[23]_i_1_n_0 ),
         .D(s_axi_wdata[19]),
         .Q(slv_reg1[19]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[1] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[7]_i_1_n_0 ),
         .D(s_axi_wdata[1]),
         .Q(\slv_reg1_reg[31]_0 [1]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[20] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[23]_i_1_n_0 ),
         .D(s_axi_wdata[20]),
         .Q(slv_reg1[20]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[21] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[23]_i_1_n_0 ),
         .D(s_axi_wdata[21]),
         .Q(slv_reg1[21]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[22] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[23]_i_1_n_0 ),
         .D(s_axi_wdata[22]),
         .Q(slv_reg1[22]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[23] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[23]_i_1_n_0 ),
         .D(s_axi_wdata[23]),
         .Q(slv_reg1[23]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[24] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[31]_i_1_n_0 ),
         .D(s_axi_wdata[24]),
         .Q(slv_reg1[24]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[25] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[31]_i_1_n_0 ),
         .D(s_axi_wdata[25]),
         .Q(slv_reg1[25]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[26] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[31]_i_1_n_0 ),
         .D(s_axi_wdata[26]),
         .Q(slv_reg1[26]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[27] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[31]_i_1_n_0 ),
         .D(s_axi_wdata[27]),
         .Q(slv_reg1[27]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[28] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[31]_i_1_n_0 ),
         .D(s_axi_wdata[28]),
         .Q(slv_reg1[28]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[29] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[31]_i_1_n_0 ),
         .D(s_axi_wdata[29]),
         .Q(slv_reg1[29]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[2] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[7]_i_1_n_0 ),
         .D(s_axi_wdata[2]),
         .Q(\slv_reg1_reg[31]_0 [2]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[30] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[31]_i_1_n_0 ),
         .D(s_axi_wdata[30]),
         .Q(slv_reg1[30]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[31] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[31]_i_1_n_0 ),
         .D(s_axi_wdata[31]),
         .Q(\slv_reg1_reg[31]_0 [15]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[3] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[7]_i_1_n_0 ),
         .D(s_axi_wdata[3]),
         .Q(\slv_reg1_reg[31]_0 [3]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[4] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[7]_i_1_n_0 ),
         .D(s_axi_wdata[4]),
         .Q(\slv_reg1_reg[31]_0 [4]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[5] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[7]_i_1_n_0 ),
         .D(s_axi_wdata[5]),
         .Q(\slv_reg1_reg[31]_0 [5]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[6] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[7]_i_1_n_0 ),
         .D(s_axi_wdata[6]),
         .Q(\slv_reg1_reg[31]_0 [6]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[7] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[7]_i_1_n_0 ),
         .D(s_axi_wdata[7]),
         .Q(\slv_reg1_reg[31]_0 [7]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[8] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[15]_i_1_n_0 ),
         .D(s_axi_wdata[8]),
         .Q(\slv_reg1_reg[31]_0 [8]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg1_reg[9] 
        (.C(s_axi_aclk),
         .CE(\slv_reg1[15]_i_1_n_0 ),
         .D(s_axi_wdata[9]),
         .Q(\slv_reg1_reg[31]_0 [9]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   (* SOFT_HLUTNM = "soft_lutpair19" *) 
   LUT4 #(
     .INIT(16'h0800)) 
@@ -3929,385 +3929,385 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_S_AXI
         .CE(1'b1),
         .D(\slv_reg3[0]_i_1_n_0 ),
         .Q(slv_reg3[0]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[10] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[10]_i_1_n_0 ),
         .Q(slv_reg3[10]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[11] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[11]_i_1_n_0 ),
         .Q(slv_reg3[11]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[12] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[12]_i_1_n_0 ),
         .Q(slv_reg3[12]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[13] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[13]_i_1_n_0 ),
         .Q(slv_reg3[13]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[14] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[14]_i_1_n_0 ),
         .Q(slv_reg3[14]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[15] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[15]_i_1_n_0 ),
         .Q(slv_reg3[15]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[16] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[16]_i_1_n_0 ),
         .Q(slv_reg3[16]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[17] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[17]_i_1_n_0 ),
         .Q(slv_reg3[17]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[18] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[18]_i_1_n_0 ),
         .Q(slv_reg3[18]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[19] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[19]_i_1_n_0 ),
         .Q(slv_reg3[19]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[1] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[1]_i_1_n_0 ),
         .Q(slv_reg3[1]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[20] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[20]_i_1_n_0 ),
         .Q(slv_reg3[20]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[21] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[21]_i_1_n_0 ),
         .Q(slv_reg3[21]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[22] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[22]_i_1_n_0 ),
         .Q(slv_reg3[22]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[23] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[23]_i_1_n_0 ),
         .Q(slv_reg3[23]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[24] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[24]_i_1_n_0 ),
         .Q(slv_reg3[24]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[25] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[25]_i_1_n_0 ),
         .Q(slv_reg3[25]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[26] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[26]_i_1_n_0 ),
         .Q(slv_reg3[26]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[27] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[27]_i_1_n_0 ),
         .Q(slv_reg3[27]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[28] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[28]_i_1_n_0 ),
         .Q(slv_reg3[28]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[29] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[29]_i_1_n_0 ),
         .Q(slv_reg3[29]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[2] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[2]_i_1_n_0 ),
         .Q(slv_reg3[2]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[30] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[30]_i_1_n_0 ),
         .Q(slv_reg3[30]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[31] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[31]_i_1_n_0 ),
         .Q(slv_reg3[31]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[3] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[3]_i_1_n_0 ),
         .Q(slv_reg3[3]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[4] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[4]_i_1_n_0 ),
         .Q(slv_reg3[4]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[5] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[5]_i_1_n_0 ),
         .Q(slv_reg3[5]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[6] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[6]_i_1_n_0 ),
         .Q(slv_reg3[6]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[7] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[7]_i_1_n_0 ),
         .Q(slv_reg3[7]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[8] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[8]_i_1_n_0 ),
         .Q(slv_reg3[8]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \slv_reg3_reg[9] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(\slv_reg3[9]_i_1_n_0 ),
         .Q(slv_reg3[9]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[0] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[0]),
         .Q(\sound_addr_ff_reg[31]_0 [0]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[10] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[10]),
         .Q(\sound_addr_ff_reg[31]_0 [10]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[11] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[11]),
         .Q(\sound_addr_ff_reg[31]_0 [11]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[12] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[12]),
         .Q(\sound_addr_ff_reg[31]_0 [12]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[13] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[13]),
         .Q(\sound_addr_ff_reg[31]_0 [13]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[14] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[14]),
         .Q(\sound_addr_ff_reg[31]_0 [14]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[15] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[15]),
         .Q(\sound_addr_ff_reg[31]_0 [15]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[16] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[16]),
         .Q(\sound_addr_ff_reg[31]_0 [16]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[17] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[17]),
         .Q(\sound_addr_ff_reg[31]_0 [17]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[18] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[18]),
         .Q(\sound_addr_ff_reg[31]_0 [18]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[19] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[19]),
         .Q(\sound_addr_ff_reg[31]_0 [19]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[1] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[1]),
         .Q(\sound_addr_ff_reg[31]_0 [1]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[20] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[20]),
         .Q(\sound_addr_ff_reg[31]_0 [20]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[21] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[21]),
         .Q(\sound_addr_ff_reg[31]_0 [21]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[22] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[22]),
         .Q(\sound_addr_ff_reg[31]_0 [22]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[23] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[23]),
         .Q(\sound_addr_ff_reg[31]_0 [23]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[24] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[24]),
         .Q(\sound_addr_ff_reg[31]_0 [24]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[25] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[25]),
         .Q(\sound_addr_ff_reg[31]_0 [25]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[26] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[26]),
         .Q(\sound_addr_ff_reg[31]_0 [26]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[27] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[27]),
         .Q(\sound_addr_ff_reg[31]_0 [27]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[28] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[28]),
         .Q(\sound_addr_ff_reg[31]_0 [28]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[29] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[29]),
         .Q(\sound_addr_ff_reg[31]_0 [29]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[2] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[2]),
         .Q(\sound_addr_ff_reg[31]_0 [2]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[30] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[30]),
         .Q(\sound_addr_ff_reg[31]_0 [30]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[31] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[31]),
         .Q(\sound_addr_ff_reg[31]_0 [31]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[3] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[3]),
         .Q(\sound_addr_ff_reg[31]_0 [3]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[4] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[4]),
         .Q(\sound_addr_ff_reg[31]_0 [4]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[5] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[5]),
         .Q(\sound_addr_ff_reg[31]_0 [5]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[6] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[6]),
         .Q(\sound_addr_ff_reg[31]_0 [6]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[7] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[7]),
         .Q(\sound_addr_ff_reg[31]_0 [7]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[8] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[8]),
         .Q(\sound_addr_ff_reg[31]_0 [8]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   FDRE \sound_addr_ff_reg[9] 
        (.C(s_axi_aclk),
         .CE(Q),
         .D(slv_reg0[9]),
         .Q(\sound_addr_ff_reg[31]_0 [9]),
-        .R(s_axi_aresetn_0));
+        .R(s_axi_aresetn_0_sn_1));
   LUT4 #(
     .INIT(16'h00A8)) 
     valid_ff_i_1
@@ -4358,13 +4358,13 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_controller
   output [0:0]E;
   output [31:0]debug_data_o;
   output [31:0]req_rv_addr;
-  input s_axi_aclk;
+  input [0:0]s_axi_aclk;
   input minusOp_0;
   input [31:0]D;
   input [0:0]Q;
   input [15:0]scaled_sample_ff_reg_1;
   input [15:0]A;
-  input s_axi_aresetn;
+  input [0:0]s_axi_aresetn;
   input s_rv_valid;
   input \curr_state_ff_reg[1]_0 ;
   input \curr_state_ff_reg[1]_1 ;
@@ -4736,8 +4736,8 @@ module audio_hw_platform_audio_fetcher_0_0_audio_fetcher_controller
   wire \req_addr_offset_ff_reg_n_0_[8] ;
   wire \req_addr_offset_ff_reg_n_0_[9] ;
   wire [31:0]req_rv_addr;
-  wire s_axi_aclk;
-  wire s_axi_aresetn;
+  wire [0:0]s_axi_aclk;
+  wire [0:0]s_axi_aresetn;
   wire s_rv_valid;
   wire sample_ff;
   wire [31:1]sample_index_ff0;

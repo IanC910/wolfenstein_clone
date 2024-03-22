@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="39">
   <CompositeFile CompositeFileTopName="wolfenstein_platform" CanBeSetAsTop="false" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1709590815"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1709590815"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1709590815"/>
-    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1709590815"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1710742153"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1710742153"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1710742153"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1710742153"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="synth\wolfenstein_platform.vhd" Type="VHDL">
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>

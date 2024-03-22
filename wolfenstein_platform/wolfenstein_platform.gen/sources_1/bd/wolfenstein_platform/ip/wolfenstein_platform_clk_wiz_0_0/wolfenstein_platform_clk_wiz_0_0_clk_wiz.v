@@ -72,7 +72,6 @@ module wolfenstein_platform_clk_wiz_0_0_clk_wiz
   output        pixel_clk,
   // Status and control signals
   input         resetn,
-  output        locked,
   input         clk_in1
  );
   // Input buffering
@@ -94,7 +93,7 @@ wire clk_in2_wolfenstein_platform_clk_wiz_0_0;
   //    * Unused outputs are labeled unused
 
   wire        pixel_clk_wolfenstein_platform_clk_wiz_0_0;
-  wire        clk_out2_wolfenstein_platform_clk_wiz_0_0;
+  wire        pmod_clk_wolfenstein_platform_clk_wiz_0_0;
   wire        clk_out3_wolfenstein_platform_clk_wiz_0_0;
   wire        clk_out4_wolfenstein_platform_clk_wiz_0_0;
   wire        clk_out5_wolfenstein_platform_clk_wiz_0_0;
@@ -179,7 +178,6 @@ wire clk_in2_wolfenstein_platform_clk_wiz_0_0;
     .RST                 (reset_high));
   assign reset_high = ~resetn; 
 
-  assign locked = locked_int;
 // Clock Monitor clock assigning
 //--------------------------------------
  // Output buffering

@@ -13,6 +13,10 @@ float Player::getPositionY() {
 	return positionY;
 }
 
+int Player::getHealth() {
+	return health;
+}
+
 void Player::setAngle(float angle) {
 	if(angle < 0) {
 		angle += 2 * M_PI;
@@ -29,4 +33,8 @@ void Player::setPositionX(float x) {
 
 void Player::setPositionY(float y) {
 	positionY = y;
+}
+
+void Player::setHealth(int health) {
+	this->health = health;
 }

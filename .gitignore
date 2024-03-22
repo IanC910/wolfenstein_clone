@@ -3,6 +3,7 @@ RemoteSystemsTempFiles
 .analytics
 IDE.log
 
+# Vivado Projects and IP Outputs
 *.o
 *.log
 *.a
@@ -11,6 +12,10 @@ IDE.log
 *.rpt
 *.rpx
 *.jou
-*.cache
 
-wolfenstein_platform_wrapper/export
+*.cache
+*.ip_user_files
+*.runs
+
+# Vitis Platform Projects
+*/export

@@ -1,10 +1,10 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-// Date        : Mon Mar 11 00:23:29 2024
+// Date        : Sun Mar 17 21:40:43 2024
 // Host        : IC-VivoBook running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub -rename_top audio_hw_platform_auto_pc_1 -prefix
-//               audio_hw_platform_auto_pc_1_ audio_hw_platform_auto_pc_1_stub.v
+// Command     : write_verilog -force -mode synth_stub
+//               c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/ip/audio_hw_platform_auto_pc_1/audio_hw_platform_auto_pc_1_stub.v
 // Design      : audio_hw_platform_auto_pc_1
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7z020clg484-1

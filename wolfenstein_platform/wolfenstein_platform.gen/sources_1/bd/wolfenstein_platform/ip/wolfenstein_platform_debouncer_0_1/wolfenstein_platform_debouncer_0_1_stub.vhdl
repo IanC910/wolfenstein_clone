@@ -1,0 +1,32 @@
+-- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+-- --------------------------------------------------------------------------------
+-- Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
+-- Date        : Sun Mar 17 22:48:23 2024
+-- Host        : IC-VivoBook running 64-bit major release  (build 9200)
+-- Command     : write_vhdl -force -mode synth_stub
+--               c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_debouncer_0_1/wolfenstein_platform_debouncer_0_1_stub.vhdl
+-- Design      : wolfenstein_platform_debouncer_0_1
+-- Purpose     : Stub declaration of top-level module interface
+-- Device      : xc7z020clg484-1
+-- --------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity wolfenstein_platform_debouncer_0_1 is
+  Port ( 
+    clk : in STD_LOGIC;
+    BUTTONS : in STD_LOGIC_VECTOR ( 4 downto 0 );
+    debounced_BTNS : out STD_LOGIC_VECTOR ( 4 downto 0 )
+  );
+
+end wolfenstein_platform_debouncer_0_1;
+
+architecture stub of wolfenstein_platform_debouncer_0_1 is
+attribute syn_black_box : boolean;
+attribute black_box_pad_pin : string;
+attribute syn_black_box of stub : architecture is true;
+attribute black_box_pad_pin of stub : architecture is "clk,BUTTONS[4:0],debounced_BTNS[4:0]";
+attribute x_core_info : string;
+attribute x_core_info of stub : architecture is "debouncer,Vivado 2020.2";
+begin
+end;

@@ -55,92 +55,92 @@ USE ieee.numeric_std.ALL;
 
 ENTITY audio_hw_platform_audio_fetcher_0_0 IS
   PORT (
-    s_axi_aclk : IN STD_LOGIC;
-    s_axi_aresetn : IN STD_LOGIC;
+    s_axi_aclk : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    s_axi_aresetn : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     s_axi_awaddr : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     s_axi_awprot : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
-    s_axi_awvalid : IN STD_LOGIC;
-    s_axi_awready : OUT STD_LOGIC;
+    s_axi_awvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    s_axi_awready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     s_axi_wdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     s_axi_wstrb : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-    s_axi_wvalid : IN STD_LOGIC;
-    s_axi_wready : OUT STD_LOGIC;
+    s_axi_wvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    s_axi_wready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     s_axi_bresp : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
-    s_axi_bvalid : OUT STD_LOGIC;
-    s_axi_bready : IN STD_LOGIC;
+    s_axi_bvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    s_axi_bready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     s_axi_araddr : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     s_axi_arprot : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
-    s_axi_arvalid : IN STD_LOGIC;
-    s_axi_arready : OUT STD_LOGIC;
+    s_axi_arvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    s_axi_arready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     s_axi_rdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     s_axi_rresp : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
-    s_axi_rvalid : OUT STD_LOGIC;
-    s_axi_rready : IN STD_LOGIC;
-    m_axi_audio_out_aclk : IN STD_LOGIC;
-    m_axi_audio_out_aresetn : IN STD_LOGIC;
+    s_axi_rvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    s_axi_rready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_audio_out_aclk : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_audio_out_aresetn : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_audio_out_awaddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     m_axi_audio_out_awprot : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
-    m_axi_audio_out_awvalid : OUT STD_LOGIC;
-    m_axi_audio_out_awready : IN STD_LOGIC;
+    m_axi_audio_out_awvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_audio_out_awready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_audio_out_wdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     m_axi_audio_out_wstrb : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-    m_axi_audio_out_wvalid : OUT STD_LOGIC;
-    m_axi_audio_out_wready : IN STD_LOGIC;
+    m_axi_audio_out_wvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_audio_out_wready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_audio_out_bresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
-    m_axi_audio_out_bvalid : IN STD_LOGIC;
-    m_axi_audio_out_bready : OUT STD_LOGIC;
+    m_axi_audio_out_bvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_audio_out_bready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_audio_out_araddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     m_axi_audio_out_arprot : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
-    m_axi_audio_out_arvalid : OUT STD_LOGIC;
-    m_axi_audio_out_arready : IN STD_LOGIC;
+    m_axi_audio_out_arvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_audio_out_arready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_audio_out_rdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     m_axi_audio_out_rresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
-    m_axi_audio_out_rvalid : IN STD_LOGIC;
-    m_axi_audio_out_rready : OUT STD_LOGIC;
-    m_axi_dma_aclk : IN STD_LOGIC;
-    m_axi_dma_aresetn : IN STD_LOGIC;
+    m_axi_audio_out_rvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_audio_out_rready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_dma_aclk : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_dma_aresetn : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_dma_awid : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
     m_axi_dma_awaddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     m_axi_dma_awlen : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
     m_axi_dma_awsize : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
     m_axi_dma_awburst : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
-    m_axi_dma_awlock : OUT STD_LOGIC;
+    m_axi_dma_awlock : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_dma_awcache : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
     m_axi_dma_awprot : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
     m_axi_dma_awqos : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
     m_axi_dma_awuser : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
-    m_axi_dma_awvalid : OUT STD_LOGIC;
-    m_axi_dma_awready : IN STD_LOGIC;
+    m_axi_dma_awvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_dma_awready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_dma_wdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     m_axi_dma_wstrb : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-    m_axi_dma_wlast : OUT STD_LOGIC;
+    m_axi_dma_wlast : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_dma_wuser : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
-    m_axi_dma_wvalid : OUT STD_LOGIC;
-    m_axi_dma_wready : IN STD_LOGIC;
+    m_axi_dma_wvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_dma_wready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_dma_bid : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
     m_axi_dma_bresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
     m_axi_dma_buser : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    m_axi_dma_bvalid : IN STD_LOGIC;
-    m_axi_dma_bready : OUT STD_LOGIC;
+    m_axi_dma_bvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_dma_bready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_dma_arid : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
     m_axi_dma_araddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     m_axi_dma_arlen : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
     m_axi_dma_arsize : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
     m_axi_dma_arburst : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
-    m_axi_dma_arlock : OUT STD_LOGIC;
+    m_axi_dma_arlock : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_dma_arcache : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
     m_axi_dma_arprot : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
     m_axi_dma_arqos : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
     m_axi_dma_aruser : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
-    m_axi_dma_arvalid : OUT STD_LOGIC;
-    m_axi_dma_arready : IN STD_LOGIC;
+    m_axi_dma_arvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_dma_arready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_dma_rid : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
     m_axi_dma_rdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     m_axi_dma_rresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
-    m_axi_dma_rlast : IN STD_LOGIC;
+    m_axi_dma_rlast : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_axi_dma_ruser : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    m_axi_dma_rvalid : IN STD_LOGIC;
-    m_axi_dma_rready : OUT STD_LOGIC;
+    m_axi_dma_rvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    m_axi_dma_rready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     debug_data_o : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
   );
 END audio_hw_platform_audio_fetcher_0_0;
@@ -149,110 +149,93 @@ ARCHITECTURE audio_hw_platform_audio_fetcher_0_0_arch OF audio_hw_platform_audio
   ATTRIBUTE DowngradeIPIdentifiedWarnings : STRING;
   ATTRIBUTE DowngradeIPIdentifiedWarnings OF audio_hw_platform_audio_fetcher_0_0_arch: ARCHITECTURE IS "yes";
   COMPONENT audio_fetcher IS
-    GENERIC (
-      AXI_DATA_WIDTH : INTEGER;
-      C_S_AXI_ADDR_WIDTH : INTEGER;
-      C_M_AXI_AUDIO_OUT_ADDR_WIDTH : INTEGER;
-      CLOCK_FREQ_MHz : INTEGER;
-      ZED_AUDIO_CTRL_ADDR : INTEGER;
-      I2S_DATA_TX_L_REG_OFFSET : INTEGER;
-      I2S_DATA_TX_R_REG_OFFSET : INTEGER;
-      C_M_AXI_DMA_BURST_LEN : INTEGER;
-      C_M_AXI_DMA_ID_WIDTH : INTEGER;
-      C_M_AXI_DMA_ADDR_WIDTH : INTEGER;
-      C_M_AXI_DMA_AWUSER_WIDTH : INTEGER;
-      C_M_AXI_DMA_ARUSER_WIDTH : INTEGER;
-      C_M_AXI_DMA_WUSER_WIDTH : INTEGER;
-      C_M_AXI_DMA_RUSER_WIDTH : INTEGER;
-      C_M_AXI_DMA_BUSER_WIDTH : INTEGER
-    );
     PORT (
-      s_axi_aclk : IN STD_LOGIC;
-      s_axi_aresetn : IN STD_LOGIC;
+      s_axi_aclk : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      s_axi_aresetn : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       s_axi_awaddr : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
       s_axi_awprot : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
-      s_axi_awvalid : IN STD_LOGIC;
-      s_axi_awready : OUT STD_LOGIC;
+      s_axi_awvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      s_axi_awready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
       s_axi_wdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
       s_axi_wstrb : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-      s_axi_wvalid : IN STD_LOGIC;
-      s_axi_wready : OUT STD_LOGIC;
+      s_axi_wvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      s_axi_wready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
       s_axi_bresp : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
-      s_axi_bvalid : OUT STD_LOGIC;
-      s_axi_bready : IN STD_LOGIC;
+      s_axi_bvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+      s_axi_bready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       s_axi_araddr : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
       s_axi_arprot : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
-      s_axi_arvalid : IN STD_LOGIC;
-      s_axi_arready : OUT STD_LOGIC;
+      s_axi_arvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      s_axi_arready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
       s_axi_rdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
       s_axi_rresp : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
-      s_axi_rvalid : OUT STD_LOGIC;
-      s_axi_rready : IN STD_LOGIC;
-      m_axi_audio_out_aclk : IN STD_LOGIC;
-      m_axi_audio_out_aresetn : IN STD_LOGIC;
+      s_axi_rvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+      s_axi_rready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_audio_out_aclk : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_audio_out_aresetn : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_audio_out_awaddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
       m_axi_audio_out_awprot : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
-      m_axi_audio_out_awvalid : OUT STD_LOGIC;
-      m_axi_audio_out_awready : IN STD_LOGIC;
+      m_axi_audio_out_awvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_audio_out_awready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_audio_out_wdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
       m_axi_audio_out_wstrb : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-      m_axi_audio_out_wvalid : OUT STD_LOGIC;
-      m_axi_audio_out_wready : IN STD_LOGIC;
+      m_axi_audio_out_wvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_audio_out_wready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_audio_out_bresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
-      m_axi_audio_out_bvalid : IN STD_LOGIC;
-      m_axi_audio_out_bready : OUT STD_LOGIC;
+      m_axi_audio_out_bvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_audio_out_bready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_audio_out_araddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
       m_axi_audio_out_arprot : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
-      m_axi_audio_out_arvalid : OUT STD_LOGIC;
-      m_axi_audio_out_arready : IN STD_LOGIC;
+      m_axi_audio_out_arvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_audio_out_arready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_audio_out_rdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
       m_axi_audio_out_rresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
-      m_axi_audio_out_rvalid : IN STD_LOGIC;
-      m_axi_audio_out_rready : OUT STD_LOGIC;
-      m_axi_dma_aclk : IN STD_LOGIC;
-      m_axi_dma_aresetn : IN STD_LOGIC;
+      m_axi_audio_out_rvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_audio_out_rready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_dma_aclk : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_dma_aresetn : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_dma_awid : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
       m_axi_dma_awaddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
       m_axi_dma_awlen : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
       m_axi_dma_awsize : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
       m_axi_dma_awburst : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
-      m_axi_dma_awlock : OUT STD_LOGIC;
+      m_axi_dma_awlock : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_dma_awcache : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
       m_axi_dma_awprot : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
       m_axi_dma_awqos : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
       m_axi_dma_awuser : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
-      m_axi_dma_awvalid : OUT STD_LOGIC;
-      m_axi_dma_awready : IN STD_LOGIC;
+      m_axi_dma_awvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_dma_awready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_dma_wdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
       m_axi_dma_wstrb : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-      m_axi_dma_wlast : OUT STD_LOGIC;
+      m_axi_dma_wlast : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_dma_wuser : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
-      m_axi_dma_wvalid : OUT STD_LOGIC;
-      m_axi_dma_wready : IN STD_LOGIC;
+      m_axi_dma_wvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_dma_wready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_dma_bid : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
       m_axi_dma_bresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
       m_axi_dma_buser : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-      m_axi_dma_bvalid : IN STD_LOGIC;
-      m_axi_dma_bready : OUT STD_LOGIC;
+      m_axi_dma_bvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_dma_bready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_dma_arid : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
       m_axi_dma_araddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
       m_axi_dma_arlen : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
       m_axi_dma_arsize : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
       m_axi_dma_arburst : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
-      m_axi_dma_arlock : OUT STD_LOGIC;
+      m_axi_dma_arlock : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_dma_arcache : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
       m_axi_dma_arprot : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
       m_axi_dma_arqos : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
       m_axi_dma_aruser : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
-      m_axi_dma_arvalid : OUT STD_LOGIC;
-      m_axi_dma_arready : IN STD_LOGIC;
+      m_axi_dma_arvalid : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_dma_arready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_dma_rid : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
       m_axi_dma_rdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
       m_axi_dma_rresp : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
-      m_axi_dma_rlast : IN STD_LOGIC;
+      m_axi_dma_rlast : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axi_dma_ruser : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-      m_axi_dma_rvalid : IN STD_LOGIC;
-      m_axi_dma_rready : OUT STD_LOGIC;
+      m_axi_dma_rvalid : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      m_axi_dma_rready : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
       debug_data_o : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
     );
   END COMPONENT audio_fetcher;
@@ -261,10 +244,8 @@ ARCHITECTURE audio_hw_platform_audio_fetcher_0_0_arch OF audio_hw_platform_audio
   ATTRIBUTE CHECK_LICENSE_TYPE : STRING;
   ATTRIBUTE CHECK_LICENSE_TYPE OF audio_hw_platform_audio_fetcher_0_0_arch : ARCHITECTURE IS "audio_hw_platform_audio_fetcher_0_0,audio_fetcher,{}";
   ATTRIBUTE CORE_GENERATION_INFO : STRING;
-  ATTRIBUTE CORE_GENERATION_INFO OF audio_hw_platform_audio_fetcher_0_0_arch: ARCHITECTURE IS "audio_hw_platform_audio_fetcher_0_0,audio_fetcher,{x_ipProduct=Vivado 2020.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=audio_fetcher,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,AXI_DATA_WIDTH=32,C_S_AXI_ADDR_WIDTH=4,C_M_AXI_AUDIO_OUT_ADDR_WIDTH=32,CLOCK_FREQ_MHz=200,ZED_AUDIO_CTRL_ADDR=1136656384,I2S_DATA_TX_L_REG_OFFSET=8,I2S_DATA_TX_R_REG_OFFSET=12,C_M_AXI_DMA_BURST_LEN=1,C_M_AXI_DMA_ID_WIDTH=2,C_M_AXI_DMA_ADDR_WIDTH=32,C_M_AXI_DMA_AWUSER_WIDTH=1,C_M_" & 
-"AXI_DMA_ARUSER_WIDTH=1,C_M_AXI_DMA_WUSER_WIDTH=1,C_M_AXI_DMA_RUSER_WIDTH=1,C_M_AXI_DMA_BUSER_WIDTH=1}";
-  ATTRIBUTE IP_DEFINITION_SOURCE : STRING;
-  ATTRIBUTE IP_DEFINITION_SOURCE OF audio_hw_platform_audio_fetcher_0_0_arch: ARCHITECTURE IS "module_ref";
+  ATTRIBUTE CORE_GENERATION_INFO OF audio_hw_platform_audio_fetcher_0_0_arch: ARCHITECTURE IS "audio_hw_platform_audio_fetcher_0_0,audio_fetcher,{x_ipProduct=Vivado 2020.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=audio_fetcher,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VHDL,x_ipSimLanguage=MIXED,AXI_DATA_WIDTH=32,CLOCK_FREQ_MHz=200,C_M_AXI_AUDIO_OUT_ADDR_WIDTH=32,C_M_AXI_DMA_ADDR_WIDTH=32,C_M_AXI_DMA_ARUSER_WIDTH=1,C_M_AXI_DMA_AWUSER_WIDTH=1,C_M_AXI_DMA_BURST_LEN=1,C_M_AXI_DMA_BUSER_WIDTH=1,C_M_AXI_DMA_ID_WIDTH=2,C_M_AXI_DMA_RUSER_WIDTH=1,C_M_AXI_DMA_WUSER_WIDTH=1,C_S_AX" & 
+"I_ADDR_WIDTH=4,I2S_DATA_TX_L_REG_OFFSET=8,I2S_DATA_TX_R_REG_OFFSET=12,ZED_AUDIO_CTRL_ADDR=1136656384}";
   ATTRIBUTE X_INTERFACE_INFO : STRING;
   ATTRIBUTE X_INTERFACE_PARAMETER : STRING;
   ATTRIBUTE X_INTERFACE_INFO OF m_axi_dma_rready: SIGNAL IS "xilinx.com:interface:aximm:1.0 m_axi_dma RREADY";
@@ -367,23 +348,6 @@ ARCHITECTURE audio_hw_platform_audio_fetcher_0_0_arch OF audio_hw_platform_audio
   ATTRIBUTE X_INTERFACE_INFO OF s_axi_aclk: SIGNAL IS "xilinx.com:signal:clock:1.0 s_axi_aclk CLK";
 BEGIN
   U0 : audio_fetcher
-    GENERIC MAP (
-      AXI_DATA_WIDTH => 32,
-      C_S_AXI_ADDR_WIDTH => 4,
-      C_M_AXI_AUDIO_OUT_ADDR_WIDTH => 32,
-      CLOCK_FREQ_MHz => 200,
-      ZED_AUDIO_CTRL_ADDR => 1136656384,
-      I2S_DATA_TX_L_REG_OFFSET => 8,
-      I2S_DATA_TX_R_REG_OFFSET => 12,
-      C_M_AXI_DMA_BURST_LEN => 1,
-      C_M_AXI_DMA_ID_WIDTH => 2,
-      C_M_AXI_DMA_ADDR_WIDTH => 32,
-      C_M_AXI_DMA_AWUSER_WIDTH => 1,
-      C_M_AXI_DMA_ARUSER_WIDTH => 1,
-      C_M_AXI_DMA_WUSER_WIDTH => 1,
-      C_M_AXI_DMA_RUSER_WIDTH => 1,
-      C_M_AXI_DMA_BUSER_WIDTH => 1
-    )
     PORT MAP (
       s_axi_aclk => s_axi_aclk,
       s_axi_aresetn => s_axi_aresetn,

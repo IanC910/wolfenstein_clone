@@ -1,10 +1,10 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-// Date        : Mon Mar 11 00:22:35 2024
+// Date        : Sun Mar 17 21:39:48 2024
 // Host        : IC-VivoBook running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim -rename_top audio_hw_platform_auto_us_0 -prefix
-//               audio_hw_platform_auto_us_0_ audio_hw_platform_auto_us_0_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim
+//               c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/audio_hw/audio_hw.gen/sources_1/bd/audio_hw_platform/ip/audio_hw_platform_auto_us_0/audio_hw_platform_auto_us_0_sim_netlist.v
 // Design      : audio_hw_platform_auto_us_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -125,7 +125,7 @@ module audio_hw_platform_auto_us_0
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI RRESP" *) output [1:0]s_axi_rresp;
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI RLAST" *) output s_axi_rlast;
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI RVALID" *) output s_axi_rvalid;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI RREADY" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S_AXI, DATA_WIDTH 32, PROTOCOL AXI3, FREQ_HZ 200000000, ID_WIDTH 2, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 8, NUM_WRITE_OUTSTANDING 8, MAX_BURST_LENGTH 16, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input s_axi_rready;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S_AXI RREADY" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S_AXI, DATA_WIDTH 32, PROTOCOL AXI3, FREQ_HZ 200000000, ID_WIDTH 2, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 1, NUM_READ_OUTSTANDING 8, NUM_WRITE_OUTSTANDING 8, MAX_BURST_LENGTH 16, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input s_axi_rready;
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWADDR" *) output [31:0]m_axi_awaddr;
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWLEN" *) output [3:0]m_axi_awlen;
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI AWSIZE" *) output [2:0]m_axi_awsize;
@@ -158,7 +158,7 @@ module audio_hw_platform_auto_us_0
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RRESP" *) input [1:0]m_axi_rresp;
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RLAST" *) input m_axi_rlast;
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RVALID" *) input m_axi_rvalid;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RREADY" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME M_AXI, DATA_WIDTH 64, PROTOCOL AXI3, FREQ_HZ 200000000, ID_WIDTH 0, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 8, NUM_WRITE_OUTSTANDING 8, MAX_BURST_LENGTH 8, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) output m_axi_rready;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 M_AXI RREADY" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME M_AXI, DATA_WIDTH 64, PROTOCOL AXI3, FREQ_HZ 200000000, ID_WIDTH 0, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 1, NUM_READ_OUTSTANDING 8, NUM_WRITE_OUTSTANDING 8, MAX_BURST_LENGTH 16, PHASE 0.000, CLK_DOMAIN audio_hw_platform_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) output m_axi_rready;
 
   wire [31:0]m_axi_araddr;
   wire [1:0]m_axi_arburst;
@@ -342,6 +342,7 @@ module audio_hw_platform_auto_us_0
         .s_axi_wvalid(s_axi_wvalid));
 endmodule
 
+(* ORIG_REF_NAME = "axi_dwidth_converter_v2_1_22_a_upsizer" *) 
 module audio_hw_platform_auto_us_0_axi_dwidth_converter_v2_1_22_a_upsizer
    (\USE_WRITE.wr_cmd_valid ,
     s_axi_wlast_0,
@@ -756,6 +757,7 @@ module audio_hw_platform_auto_us_0_axi_dwidth_converter_v2_1_22_a_upsizer__param
         .valid_Write_0(valid_Write));
 endmodule
 
+(* ORIG_REF_NAME = "axi_dwidth_converter_v2_1_22_axi_upsizer" *) 
 module audio_hw_platform_auto_us_0_axi_dwidth_converter_v2_1_22_axi_upsizer
    (m_axi_awlen,
     Q,
@@ -1274,6 +1276,7 @@ module audio_hw_platform_auto_us_0_axi_dwidth_converter_v2_1_22_axi_upsizer
         .s_axi_awvalid(s_axi_awvalid));
 endmodule
 
+(* ORIG_REF_NAME = "axi_dwidth_converter_v2_1_22_r_upsizer" *) 
 module audio_hw_platform_auto_us_0_axi_dwidth_converter_v2_1_22_r_upsizer
    (first_word,
     E,
@@ -2441,8 +2444,8 @@ endmodule
 (* C_RATIO = "0" *) (* C_RATIO_LOG = "0" *) (* C_SUPPORTS_ID = "1" *) 
 (* C_SYNCHRONIZER_STAGE = "3" *) (* C_S_AXI_ACLK_RATIO = "1" *) (* C_S_AXI_BYTES_LOG = "2" *) 
 (* C_S_AXI_DATA_WIDTH = "32" *) (* C_S_AXI_ID_WIDTH = "2" *) (* DowngradeIPIdentifiedWarnings = "yes" *) 
-(* P_AXI3 = "1" *) (* P_AXI4 = "0" *) (* P_AXILITE = "2" *) 
-(* P_CONVERSION = "2" *) (* P_MAX_SPLIT_BEATS = "16" *) 
+(* ORIG_REF_NAME = "axi_dwidth_converter_v2_1_22_top" *) (* P_AXI3 = "1" *) (* P_AXI4 = "0" *) 
+(* P_AXILITE = "2" *) (* P_CONVERSION = "2" *) (* P_MAX_SPLIT_BEATS = "16" *) 
 module audio_hw_platform_auto_us_0_axi_dwidth_converter_v2_1_22_top
    (s_axi_aclk,
     s_axi_aresetn,
@@ -2736,6 +2739,7 @@ module audio_hw_platform_auto_us_0_axi_dwidth_converter_v2_1_22_top
         .s_ready_i_reg(m_axi_rready));
 endmodule
 
+(* ORIG_REF_NAME = "axi_dwidth_converter_v2_1_22_w_upsizer" *) 
 module audio_hw_platform_auto_us_0_axi_dwidth_converter_v2_1_22_w_upsizer
    (\USE_RTL_CURR_WORD.first_word_q ,
     SR,
@@ -4946,6 +4950,7 @@ module audio_hw_platform_auto_us_0_axi_dwidth_converter_v2_1_22_w_upsizer
         .R(SR));
 endmodule
 
+(* ORIG_REF_NAME = "axi_register_slice_v2_1_22_axi_register_slice" *) 
 module audio_hw_platform_auto_us_0_axi_register_slice_v2_1_22_axi_register_slice
    (s_ready_i_reg,
     mr_rvalid,
@@ -8695,6 +8700,7 @@ module audio_hw_platform_auto_us_0_axi_register_slice_v2_1_22_axic_register_slic
         .R(1'b0));
 endmodule
 
+(* ORIG_REF_NAME = "generic_baseblocks_v2_1_0_command_fifo" *) 
 module audio_hw_platform_auto_us_0_generic_baseblocks_v2_1_0_command_fifo
    (\USE_RTL_VALID_WRITE.buffer_Full_q ,
     valid_Write,
