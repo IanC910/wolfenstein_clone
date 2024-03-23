@@ -19,6 +19,7 @@ sharedDataPacket_t* const SHARED_DATA_PACKETS	 	= (sharedDataPacket_t*)		0x00C84
 // Game Asset Addresses
 int* const MAIN_MENU_BACKGROUND_IMAGE				= (int*)					0x00D00000; // size: SCREEN_SIZE_BYTES
 int* const GUNSHOT_SOUND							= (int*)					0x00E2C000; // size: 12288
+int* const NEXT										= (int*)					0x00E2F000;
 
 
 #endif
