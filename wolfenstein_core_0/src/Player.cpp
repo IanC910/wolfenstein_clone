@@ -5,12 +5,8 @@ float Player::getAngle() {
 	return angle;
 }
 
-float Player::getPositionX() {
-	return positionX;
-}
-
-float Player::getPositionY() {
-	return positionY;
+int Player::getHealth() {
+	return health;
 }
 
 void Player::setAngle(float angle) {
@@ -23,10 +19,17 @@ void Player::setAngle(float angle) {
 	this->angle = angle;
 }
 
-void Player::setPositionX(float x) {
-	positionX = x;
+void Player::setHealth(int health) {
+	this->health = health;
 }
 
-void Player::setPositionY(float y) {
-	positionY = y;
+playerData_t Player::getPlayerData() {
+	playerData_t playerData;
+
+	playerData.health = health;
+	playerData.positionX = positionX;
+	playerData.positionY = positionY;
+	playerData.angle = angle;
+
+	return playerData;
 }

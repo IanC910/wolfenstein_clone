@@ -1,313 +1,17 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-// Date        : Mon Mar  4 14:23:24 2024
-// Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_1_0/wolfenstein_platform_PmodJSTK2_1_0_sim_netlist.v
-// Design      : wolfenstein_platform_PmodJSTK2_1_0
+// Date        : Sun Mar 17 22:49:25 2024
+// Host        : IC-VivoBook running 64-bit major release  (build 9200)
+// Command     : write_verilog -force -mode funcsim -rename_top wolfenstein_platform_PmodJSTK2_1_0 -prefix
+//               wolfenstein_platform_PmodJSTK2_1_0_ wolfenstein_platform_PmodJSTK2_0_0_sim_netlist.v
+// Design      : wolfenstein_platform_PmodJSTK2_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
 // Device      : xc7z020clg484-1
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CHECK_LICENSE_TYPE = "wolfenstein_platform_PmodJSTK2_1_0,PmodJSTK2,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* X_CORE_INFO = "PmodJSTK2,Vivado 2020.2" *) 
-(* NotValidForBitStream *)
-module wolfenstein_platform_PmodJSTK2_1_0
-   (AXI_LITE_GPIO_araddr,
-    AXI_LITE_GPIO_arready,
-    AXI_LITE_GPIO_arvalid,
-    AXI_LITE_GPIO_awaddr,
-    AXI_LITE_GPIO_awready,
-    AXI_LITE_GPIO_awvalid,
-    AXI_LITE_GPIO_bready,
-    AXI_LITE_GPIO_bresp,
-    AXI_LITE_GPIO_bvalid,
-    AXI_LITE_GPIO_rdata,
-    AXI_LITE_GPIO_rready,
-    AXI_LITE_GPIO_rresp,
-    AXI_LITE_GPIO_rvalid,
-    AXI_LITE_GPIO_wdata,
-    AXI_LITE_GPIO_wready,
-    AXI_LITE_GPIO_wstrb,
-    AXI_LITE_GPIO_wvalid,
-    AXI_LITE_SPI_araddr,
-    AXI_LITE_SPI_arready,
-    AXI_LITE_SPI_arvalid,
-    AXI_LITE_SPI_awaddr,
-    AXI_LITE_SPI_awready,
-    AXI_LITE_SPI_awvalid,
-    AXI_LITE_SPI_bready,
-    AXI_LITE_SPI_bresp,
-    AXI_LITE_SPI_bvalid,
-    AXI_LITE_SPI_rdata,
-    AXI_LITE_SPI_rready,
-    AXI_LITE_SPI_rresp,
-    AXI_LITE_SPI_rvalid,
-    AXI_LITE_SPI_wdata,
-    AXI_LITE_SPI_wready,
-    AXI_LITE_SPI_wstrb,
-    AXI_LITE_SPI_wvalid,
-    Pmod_out_pin10_i,
-    Pmod_out_pin10_o,
-    Pmod_out_pin10_t,
-    Pmod_out_pin1_i,
-    Pmod_out_pin1_o,
-    Pmod_out_pin1_t,
-    Pmod_out_pin2_i,
-    Pmod_out_pin2_o,
-    Pmod_out_pin2_t,
-    Pmod_out_pin3_i,
-    Pmod_out_pin3_o,
-    Pmod_out_pin3_t,
-    Pmod_out_pin4_i,
-    Pmod_out_pin4_o,
-    Pmod_out_pin4_t,
-    Pmod_out_pin7_i,
-    Pmod_out_pin7_o,
-    Pmod_out_pin7_t,
-    Pmod_out_pin8_i,
-    Pmod_out_pin8_o,
-    Pmod_out_pin8_t,
-    Pmod_out_pin9_i,
-    Pmod_out_pin9_o,
-    Pmod_out_pin9_t,
-    ext_spi_clk,
-    s_axi_aclk,
-    s_axi_aresetn);
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO ARADDR" *) input [8:0]AXI_LITE_GPIO_araddr;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO ARREADY" *) output AXI_LITE_GPIO_arready;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO ARVALID" *) input AXI_LITE_GPIO_arvalid;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO AWADDR" *) input [8:0]AXI_LITE_GPIO_awaddr;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO AWREADY" *) output AXI_LITE_GPIO_awready;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO AWVALID" *) input AXI_LITE_GPIO_awvalid;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO BREADY" *) input AXI_LITE_GPIO_bready;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO BRESP" *) output [1:0]AXI_LITE_GPIO_bresp;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO BVALID" *) output AXI_LITE_GPIO_bvalid;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO RDATA" *) output [31:0]AXI_LITE_GPIO_rdata;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO RREADY" *) input AXI_LITE_GPIO_rready;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO RRESP" *) output [1:0]AXI_LITE_GPIO_rresp;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO RVALID" *) output AXI_LITE_GPIO_rvalid;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO WDATA" *) input [31:0]AXI_LITE_GPIO_wdata;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO WREADY" *) output AXI_LITE_GPIO_wready;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO WSTRB" *) input [3:0]AXI_LITE_GPIO_wstrb;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO WVALID" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_LITE_GPIO, DATA_WIDTH 32, PROTOCOL AXI4LITE, ID_WIDTH 0, ADDR_WIDTH 9, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, FREQ_HZ 200000000, PHASE 0.000, CLK_DOMAIN wolfenstein_platform_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input AXI_LITE_GPIO_wvalid;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI ARADDR" *) input [6:0]AXI_LITE_SPI_araddr;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI ARREADY" *) output AXI_LITE_SPI_arready;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI ARVALID" *) input AXI_LITE_SPI_arvalid;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI AWADDR" *) input [6:0]AXI_LITE_SPI_awaddr;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI AWREADY" *) output AXI_LITE_SPI_awready;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI AWVALID" *) input AXI_LITE_SPI_awvalid;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI BREADY" *) input AXI_LITE_SPI_bready;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI BRESP" *) output [1:0]AXI_LITE_SPI_bresp;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI BVALID" *) output AXI_LITE_SPI_bvalid;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI RDATA" *) output [31:0]AXI_LITE_SPI_rdata;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI RREADY" *) input AXI_LITE_SPI_rready;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI RRESP" *) output [1:0]AXI_LITE_SPI_rresp;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI RVALID" *) output AXI_LITE_SPI_rvalid;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI WDATA" *) input [31:0]AXI_LITE_SPI_wdata;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI WREADY" *) output AXI_LITE_SPI_wready;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI WSTRB" *) input [3:0]AXI_LITE_SPI_wstrb;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI WVALID" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_LITE_SPI, DATA_WIDTH 32, PROTOCOL AXI4LITE, ID_WIDTH 0, ADDR_WIDTH 7, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, FREQ_HZ 200000000, PHASE 0.000, CLK_DOMAIN wolfenstein_platform_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input AXI_LITE_SPI_wvalid;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN10_I" *) input Pmod_out_pin10_i;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN10_O" *) output Pmod_out_pin10_o;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN10_T" *) output Pmod_out_pin10_t;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN1_I" *) input Pmod_out_pin1_i;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN1_O" *) output Pmod_out_pin1_o;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN1_T" *) output Pmod_out_pin1_t;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN2_I" *) input Pmod_out_pin2_i;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN2_O" *) output Pmod_out_pin2_o;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN2_T" *) output Pmod_out_pin2_t;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN3_I" *) input Pmod_out_pin3_i;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN3_O" *) output Pmod_out_pin3_o;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN3_T" *) output Pmod_out_pin3_t;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN4_I" *) input Pmod_out_pin4_i;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN4_O" *) output Pmod_out_pin4_o;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN4_T" *) output Pmod_out_pin4_t;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN7_I" *) input Pmod_out_pin7_i;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN7_O" *) output Pmod_out_pin7_o;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN7_T" *) output Pmod_out_pin7_t;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN8_I" *) input Pmod_out_pin8_i;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN8_O" *) output Pmod_out_pin8_o;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN8_T" *) output Pmod_out_pin8_t;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN9_I" *) input Pmod_out_pin9_i;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN9_O" *) output Pmod_out_pin9_o;
-  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN9_T" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME Pmod_out, BUSIF.BOARD_INTERFACE Custom, BOARD.ASSOCIATED_PARAM PMOD" *) output Pmod_out_pin9_t;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.EXT_SPI_CLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.EXT_SPI_CLK, ASSOCIATED_BUSIF Pmod_out, FREQ_HZ 15873016, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN wolfenstein_platform_processing_system7_0_0_FCLK_CLK1, INSERT_VIP 0" *) input ext_spi_clk;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.S_AXI_ACLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.S_AXI_ACLK, ASSOCIATED_BUSIF AXI_LITE_SPI:AXI_LITE_GPIO, ASSOCIATED_RESET s_axi_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN wolfenstein_platform_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input s_axi_aclk;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 RST.S_AXI_ARESETN RST" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME RST.S_AXI_ARESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input s_axi_aresetn;
-
-  wire \<const0> ;
-  wire \<const1> ;
-  wire [8:0]AXI_LITE_GPIO_araddr;
-  wire AXI_LITE_GPIO_arready;
-  wire AXI_LITE_GPIO_arvalid;
-  wire [8:0]AXI_LITE_GPIO_awaddr;
-  wire AXI_LITE_GPIO_awready;
-  wire AXI_LITE_GPIO_awvalid;
-  wire AXI_LITE_GPIO_bready;
-  wire AXI_LITE_GPIO_bvalid;
-  wire [31:0]AXI_LITE_GPIO_rdata;
-  wire AXI_LITE_GPIO_rready;
-  wire AXI_LITE_GPIO_rvalid;
-  wire [31:0]AXI_LITE_GPIO_wdata;
-  wire AXI_LITE_GPIO_wready;
-  wire AXI_LITE_GPIO_wvalid;
-  wire [6:0]AXI_LITE_SPI_araddr;
-  wire AXI_LITE_SPI_arready;
-  wire AXI_LITE_SPI_arvalid;
-  wire [6:0]AXI_LITE_SPI_awaddr;
-  wire AXI_LITE_SPI_awready;
-  wire AXI_LITE_SPI_awvalid;
-  wire AXI_LITE_SPI_bready;
-  wire [1:1]\^AXI_LITE_SPI_bresp ;
-  wire AXI_LITE_SPI_bvalid;
-  wire [31:0]\^AXI_LITE_SPI_rdata ;
-  wire AXI_LITE_SPI_rready;
-  wire [1:1]\^AXI_LITE_SPI_rresp ;
-  wire AXI_LITE_SPI_rvalid;
-  wire [31:0]AXI_LITE_SPI_wdata;
-  wire AXI_LITE_SPI_wready;
-  wire [3:0]AXI_LITE_SPI_wstrb;
-  wire AXI_LITE_SPI_wvalid;
-  wire Pmod_out_pin1_i;
-  wire Pmod_out_pin1_o;
-  wire Pmod_out_pin1_t;
-  wire Pmod_out_pin2_i;
-  wire Pmod_out_pin2_o;
-  wire Pmod_out_pin2_t;
-  wire Pmod_out_pin3_i;
-  wire Pmod_out_pin3_o;
-  wire Pmod_out_pin3_t;
-  wire Pmod_out_pin4_o;
-  wire Pmod_out_pin4_t;
-  wire ext_spi_clk;
-  wire s_axi_aclk;
-  wire s_axi_aresetn;
-  wire NLW_inst_Pmod_out_pin10_o_UNCONNECTED;
-  wire NLW_inst_Pmod_out_pin10_t_UNCONNECTED;
-  wire NLW_inst_Pmod_out_pin7_o_UNCONNECTED;
-  wire NLW_inst_Pmod_out_pin7_t_UNCONNECTED;
-  wire NLW_inst_Pmod_out_pin8_o_UNCONNECTED;
-  wire NLW_inst_Pmod_out_pin8_t_UNCONNECTED;
-  wire NLW_inst_Pmod_out_pin9_o_UNCONNECTED;
-  wire NLW_inst_Pmod_out_pin9_t_UNCONNECTED;
-  wire [1:0]NLW_inst_AXI_LITE_GPIO_bresp_UNCONNECTED;
-  wire [1:0]NLW_inst_AXI_LITE_GPIO_rresp_UNCONNECTED;
-  wire [0:0]NLW_inst_AXI_LITE_SPI_bresp_UNCONNECTED;
-  wire [30:10]NLW_inst_AXI_LITE_SPI_rdata_UNCONNECTED;
-  wire [0:0]NLW_inst_AXI_LITE_SPI_rresp_UNCONNECTED;
-
-  assign AXI_LITE_GPIO_bresp[1] = \<const0> ;
-  assign AXI_LITE_GPIO_bresp[0] = \<const0> ;
-  assign AXI_LITE_GPIO_rresp[1] = \<const0> ;
-  assign AXI_LITE_GPIO_rresp[0] = \<const0> ;
-  assign AXI_LITE_SPI_bresp[1] = \^AXI_LITE_SPI_bresp [1];
-  assign AXI_LITE_SPI_bresp[0] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[31] = \^AXI_LITE_SPI_rdata [31];
-  assign AXI_LITE_SPI_rdata[30] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[29] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[28] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[27] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[26] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[25] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[24] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[23] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[22] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[21] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[20] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[19] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[18] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[17] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[16] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[15] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[14] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[13] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[12] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[11] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[10] = \<const0> ;
-  assign AXI_LITE_SPI_rdata[9:0] = \^AXI_LITE_SPI_rdata [9:0];
-  assign AXI_LITE_SPI_rresp[1] = \^AXI_LITE_SPI_rresp [1];
-  assign AXI_LITE_SPI_rresp[0] = \<const0> ;
-  assign Pmod_out_pin10_o = \<const1> ;
-  assign Pmod_out_pin10_t = \<const1> ;
-  assign Pmod_out_pin7_o = \<const1> ;
-  assign Pmod_out_pin7_t = \<const1> ;
-  assign Pmod_out_pin8_o = \<const1> ;
-  assign Pmod_out_pin8_t = \<const1> ;
-  assign Pmod_out_pin9_o = \<const1> ;
-  assign Pmod_out_pin9_t = \<const1> ;
-  GND GND
-       (.G(\<const0> ));
-  VCC VCC
-       (.P(\<const1> ));
-  (* HW_HANDOFF = "PmodJSTK2.hwdef" *) 
-  wolfenstein_platform_PmodJSTK2_1_0_PmodJSTK2 inst
-       (.AXI_LITE_GPIO_araddr({AXI_LITE_GPIO_araddr[8],1'b0,1'b0,1'b0,1'b0,AXI_LITE_GPIO_araddr[3:2],1'b0,1'b0}),
-        .AXI_LITE_GPIO_arready(AXI_LITE_GPIO_arready),
-        .AXI_LITE_GPIO_arvalid(AXI_LITE_GPIO_arvalid),
-        .AXI_LITE_GPIO_awaddr({AXI_LITE_GPIO_awaddr[8],1'b0,1'b0,1'b0,1'b0,AXI_LITE_GPIO_awaddr[3:2],1'b0,1'b0}),
-        .AXI_LITE_GPIO_awready(AXI_LITE_GPIO_awready),
-        .AXI_LITE_GPIO_awvalid(AXI_LITE_GPIO_awvalid),
-        .AXI_LITE_GPIO_bready(AXI_LITE_GPIO_bready),
-        .AXI_LITE_GPIO_bresp(NLW_inst_AXI_LITE_GPIO_bresp_UNCONNECTED[1:0]),
-        .AXI_LITE_GPIO_bvalid(AXI_LITE_GPIO_bvalid),
-        .AXI_LITE_GPIO_rdata(AXI_LITE_GPIO_rdata),
-        .AXI_LITE_GPIO_rready(AXI_LITE_GPIO_rready),
-        .AXI_LITE_GPIO_rresp(NLW_inst_AXI_LITE_GPIO_rresp_UNCONNECTED[1:0]),
-        .AXI_LITE_GPIO_rvalid(AXI_LITE_GPIO_rvalid),
-        .AXI_LITE_GPIO_wdata({AXI_LITE_GPIO_wdata[31],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,AXI_LITE_GPIO_wdata[0]}),
-        .AXI_LITE_GPIO_wready(AXI_LITE_GPIO_wready),
-        .AXI_LITE_GPIO_wstrb({1'b0,1'b0,1'b0,1'b0}),
-        .AXI_LITE_GPIO_wvalid(AXI_LITE_GPIO_wvalid),
-        .AXI_LITE_SPI_araddr({AXI_LITE_SPI_araddr[6:2],1'b0,1'b0}),
-        .AXI_LITE_SPI_arready(AXI_LITE_SPI_arready),
-        .AXI_LITE_SPI_arvalid(AXI_LITE_SPI_arvalid),
-        .AXI_LITE_SPI_awaddr({AXI_LITE_SPI_awaddr[6:2],1'b0,1'b0}),
-        .AXI_LITE_SPI_awready(AXI_LITE_SPI_awready),
-        .AXI_LITE_SPI_awvalid(AXI_LITE_SPI_awvalid),
-        .AXI_LITE_SPI_bready(AXI_LITE_SPI_bready),
-        .AXI_LITE_SPI_bresp({\^AXI_LITE_SPI_bresp ,NLW_inst_AXI_LITE_SPI_bresp_UNCONNECTED[0]}),
-        .AXI_LITE_SPI_bvalid(AXI_LITE_SPI_bvalid),
-        .AXI_LITE_SPI_rdata(\^AXI_LITE_SPI_rdata ),
-        .AXI_LITE_SPI_rready(AXI_LITE_SPI_rready),
-        .AXI_LITE_SPI_rresp({\^AXI_LITE_SPI_rresp ,NLW_inst_AXI_LITE_SPI_rresp_UNCONNECTED[0]}),
-        .AXI_LITE_SPI_rvalid(AXI_LITE_SPI_rvalid),
-        .AXI_LITE_SPI_wdata({AXI_LITE_SPI_wdata[31],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,AXI_LITE_SPI_wdata[9:0]}),
-        .AXI_LITE_SPI_wready(AXI_LITE_SPI_wready),
-        .AXI_LITE_SPI_wstrb({AXI_LITE_SPI_wstrb[3],1'b0,1'b0,AXI_LITE_SPI_wstrb[0]}),
-        .AXI_LITE_SPI_wvalid(AXI_LITE_SPI_wvalid),
-        .Pmod_out_pin10_i(1'b0),
-        .Pmod_out_pin10_o(NLW_inst_Pmod_out_pin10_o_UNCONNECTED),
-        .Pmod_out_pin10_t(NLW_inst_Pmod_out_pin10_t_UNCONNECTED),
-        .Pmod_out_pin1_i(Pmod_out_pin1_i),
-        .Pmod_out_pin1_o(Pmod_out_pin1_o),
-        .Pmod_out_pin1_t(Pmod_out_pin1_t),
-        .Pmod_out_pin2_i(Pmod_out_pin2_i),
-        .Pmod_out_pin2_o(Pmod_out_pin2_o),
-        .Pmod_out_pin2_t(Pmod_out_pin2_t),
-        .Pmod_out_pin3_i(Pmod_out_pin3_i),
-        .Pmod_out_pin3_o(Pmod_out_pin3_o),
-        .Pmod_out_pin3_t(Pmod_out_pin3_t),
-        .Pmod_out_pin4_i(1'b0),
-        .Pmod_out_pin4_o(Pmod_out_pin4_o),
-        .Pmod_out_pin4_t(Pmod_out_pin4_t),
-        .Pmod_out_pin7_i(1'b0),
-        .Pmod_out_pin7_o(NLW_inst_Pmod_out_pin7_o_UNCONNECTED),
-        .Pmod_out_pin7_t(NLW_inst_Pmod_out_pin7_t_UNCONNECTED),
-        .Pmod_out_pin8_i(1'b0),
-        .Pmod_out_pin8_o(NLW_inst_Pmod_out_pin8_o_UNCONNECTED),
-        .Pmod_out_pin8_t(NLW_inst_Pmod_out_pin8_t_UNCONNECTED),
-        .Pmod_out_pin9_i(1'b0),
-        .Pmod_out_pin9_o(NLW_inst_Pmod_out_pin9_o_UNCONNECTED),
-        .Pmod_out_pin9_t(NLW_inst_Pmod_out_pin9_t_UNCONNECTED),
-        .ext_spi_clk(ext_spi_clk),
-        .s_axi_aclk(s_axi_aclk),
-        .s_axi_aresetn(s_axi_aresetn));
-endmodule
-
-(* ORIG_REF_NAME = "GPIO_Core" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_GPIO_Core
    (GPIO_xferAck_i,
     gpio_xferAck_Reg,
@@ -440,7 +144,7 @@ module wolfenstein_platform_PmodJSTK2_1_0_GPIO_Core
         .O(ip2bus_wrack_i));
 endmodule
 
-(* HW_HANDOFF = "PmodJSTK2.hwdef" *) (* ORIG_REF_NAME = "PmodJSTK2" *) 
+(* HW_HANDOFF = "PmodJSTK2.hwdef" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_PmodJSTK2
    (AXI_LITE_GPIO_araddr,
     AXI_LITE_GPIO_arready,
@@ -786,8 +490,7 @@ module wolfenstein_platform_PmodJSTK2_1_0_PmodJSTK2
         .out7_T(NLW_pmod_bridge_0_out7_T_UNCONNECTED));
 endmodule
 
-(* CHECK_LICENSE_TYPE = "PmodJSTK2_axi_gpio_0_0,axi_gpio,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* ORIG_REF_NAME = "PmodJSTK2_axi_gpio_0_0" *) 
-(* X_CORE_INFO = "axi_gpio,Vivado 2020.2" *) 
+(* CHECK_LICENSE_TYPE = "PmodJSTK2_axi_gpio_0_0,axi_gpio,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* X_CORE_INFO = "axi_gpio,Vivado 2020.2" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_PmodJSTK2_axi_gpio_0_0
    (s_axi_aclk,
     s_axi_aresetn,
@@ -912,8 +615,7 @@ module wolfenstein_platform_PmodJSTK2_1_0_PmodJSTK2_axi_gpio_0_0
         .s_axi_wvalid(s_axi_wvalid));
 endmodule
 
-(* CHECK_LICENSE_TYPE = "PmodJSTK2_axi_quad_spi_0_0,axi_quad_spi,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* ORIG_REF_NAME = "PmodJSTK2_axi_quad_spi_0_0" *) 
-(* X_CORE_INFO = "axi_quad_spi,Vivado 2020.2" *) 
+(* CHECK_LICENSE_TYPE = "PmodJSTK2_axi_quad_spi_0_0,axi_quad_spi,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* X_CORE_INFO = "axi_quad_spi,Vivado 2020.2" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_PmodJSTK2_axi_quad_spi_0_0
    (ext_spi_clk,
     s_axi_aclk,
@@ -1216,8 +918,7 @@ module wolfenstein_platform_PmodJSTK2_1_0_PmodJSTK2_axi_quad_spi_0_0
         .usrdonets(1'b0));
 endmodule
 
-(* CHECK_LICENSE_TYPE = "PmodJSTK2_pmod_bridge_0_0,pmod_concat,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* ORIG_REF_NAME = "PmodJSTK2_pmod_bridge_0_0" *) 
-(* X_CORE_INFO = "pmod_concat,Vivado 2020.2" *) 
+(* CHECK_LICENSE_TYPE = "PmodJSTK2_pmod_bridge_0_0,pmod_concat,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* X_CORE_INFO = "pmod_concat,Vivado 2020.2" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_PmodJSTK2_pmod_bridge_0_0
    (in0_I,
     in1_I,
@@ -1417,7 +1118,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_PmodJSTK2_pmod_bridge_0_0
         .out7_T(NLW_inst_out7_T_UNCONNECTED));
 endmodule
 
-(* ORIG_REF_NAME = "address_decoder" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_address_decoder
    (\MEM_DECODE_GEN[0].cs_out_i_reg[0]_0 ,
     bus2ip_rnw_i_reg,
@@ -3020,7 +2720,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_address_decoder__parameterized0
         .O(wr_en));
 endmodule
 
-(* ORIG_REF_NAME = "async_fifo_fg" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_async_fifo_fg
    (almost_full,
     dout,
@@ -3271,7 +2970,7 @@ endmodule
 (* C_FAMILY = "zynq" *) (* C_GPIO2_WIDTH = "32" *) (* C_GPIO_WIDTH = "1" *) 
 (* C_INTERRUPT_PRESENT = "0" *) (* C_IS_DUAL = "0" *) (* C_S_AXI_ADDR_WIDTH = "9" *) 
 (* C_S_AXI_DATA_WIDTH = "32" *) (* C_TRI_DEFAULT = "-1" *) (* C_TRI_DEFAULT_2 = "-1" *) 
-(* DowngradeIPIdentifiedWarnings = "yes" *) (* ORIG_REF_NAME = "axi_gpio" *) (* ip_group = "LOGICORE" *) 
+(* DowngradeIPIdentifiedWarnings = "yes" *) (* ip_group = "LOGICORE" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_axi_gpio
    (s_axi_aclk,
     s_axi_aresetn,
@@ -3547,7 +3246,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_axi_gpio
         .R(\I_SLAVE_ATTACHMENT/rst ));
 endmodule
 
-(* ORIG_REF_NAME = "axi_lite_ipif" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_axi_lite_ipif
    (rst,
     bus2ip_rnw,
@@ -4502,7 +4200,6 @@ endmodule
 (* C_S_AXI_ADDR_WIDTH = "7" *) (* C_S_AXI_DATA_WIDTH = "32" *) (* C_TYPE_OF_AXI4_INTERFACE = "0" *) 
 (* C_UC_FAMILY = "0" *) (* C_USE_STARTUP = "0" *) (* C_USE_STARTUP_EXT = "0" *) 
 (* C_XIP_MODE = "0" *) (* C_XIP_PERF_MODE = "1" *) (* DowngradeIPIdentifiedWarnings = "yes" *) 
-(* ORIG_REF_NAME = "axi_quad_spi" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_axi_quad_spi
    (ext_spi_clk,
     s_axi_aclk,
@@ -4866,7 +4563,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_axi_quad_spi
         .sck_t(sck_t));
 endmodule
 
-(* ORIG_REF_NAME = "axi_quad_spi_top" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_axi_quad_spi_top
    (sck_t,
     io0_t,
@@ -5256,7 +4952,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_axi_quad_spi_top
         .wr_en(IP2Bus_WrAck_transmit_enable));
 endmodule
 
-(* ORIG_REF_NAME = "cdc_sync" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_cdc_sync
    (scndry_vect_out,
     gpio_io_i,
@@ -6476,7 +6171,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_cdc_sync__parameterized3_0
         .O(Rx_FIFO_Full_Fifo_d1_synced_i));
 endmodule
 
-(* ORIG_REF_NAME = "counter_f" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_counter_f
    (\icount_out_reg[2]_0 ,
     tx_fifo_count,
@@ -6610,7 +6304,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_counter_f
         .R(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "cross_clk_sync_fifo_1" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_cross_clk_sync_fifo_1
    (prmry_in,
     \LOGIC_GENERATION_CDC.drr_Overrun_int_cdc_from_spi_int_2_reg_0 ,
@@ -7060,7 +6753,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_cross_clk_sync_fifo_1
         .R(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "interrupt_control" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_interrupt_control
    (irpt_wrack_d1,
     \GEN_IP_IRPT_STATUS_REG[0].GEN_REG_STATUS.ip_irpt_status_reg_reg[0]_0 ,
@@ -7409,7 +7101,7 @@ module wolfenstein_platform_PmodJSTK2_1_0_interrupt_control
         .R(reset2ip_reset_int));
 endmodule
 
-(* Bottom_Row_Interface = "Disabled" *) (* ORIG_REF_NAME = "pmod_concat" *) (* Top_Row_Interface = "None" *) 
+(* Bottom_Row_Interface = "Disabled" *) (* Top_Row_Interface = "None" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_pmod_concat
    (in_top_bus_I,
     in_top_bus_O,
@@ -7601,7 +7293,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_pmod_concat
        (.G(\<const0> ));
 endmodule
 
-(* ORIG_REF_NAME = "qspi_cntrl_reg" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_qspi_cntrl_reg
    (spicr_bits_7_8_frm_axi_clk,
     prmry_in,
@@ -7833,7 +7524,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_qspi_cntrl_reg
         .O(rst));
 endmodule
 
-(* ORIG_REF_NAME = "qspi_core_interface" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_qspi_core_interface
    (dout,
     empty,
@@ -8875,7 +8565,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_qspi_core_interface
         .R(reset2ip_reset_int));
 endmodule
 
-(* ORIG_REF_NAME = "qspi_fifo_ifmodule" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_qspi_fifo_ifmodule
    (rc_FIFO_Full_d1,
     tx_FIFO_Empty_d1,
@@ -8953,7 +8642,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_qspi_fifo_ifmodule
         .R(reset2ip_reset_int));
 endmodule
 
-(* ORIG_REF_NAME = "qspi_mode_0_module" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_qspi_mode_0_module
    (sck_t,
     io0_t,
@@ -10081,7 +9769,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_qspi_mode_0_module
         .O(rd_en));
 endmodule
 
-(* ORIG_REF_NAME = "qspi_status_slave_sel_reg" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_qspi_status_slave_sel_reg
    (\SPISSR_WR_GEN[0].SPISSR_Data_reg_reg[0]_0 ,
     reset2ip_reset_int,
@@ -10105,7 +9792,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_qspi_status_slave_sel_reg
         .S(reset2ip_reset_int));
 endmodule
 
-(* ORIG_REF_NAME = "reset_sync_module" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_reset_sync_module
    (RESET_SYNC_AX2S_2_0,
     Rst_to_spi,
@@ -10155,7 +9841,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_reset_sync_module
         .R(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "slave_attachment" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_slave_attachment
    (SS,
     bus2ip_rnw_i_reg_0,
@@ -11651,7 +11336,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_slave_attachment__parameterized0
         .R(SR));
 endmodule
 
-(* ORIG_REF_NAME = "soft_reset" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_soft_reset
    (sw_rst_cond_d1,
     wrack,
@@ -12100,10 +11784,305 @@ module wolfenstein_platform_PmodJSTK2_1_0_soft_reset
         .R(bus2ip_reset_ipif_inverted));
 endmodule
 
-(* DEST_SYNC_FF = "2" *) (* INIT_SYNC_FF = "1" *) (* ORIG_REF_NAME = "xpm_cdc_gray" *) 
-(* REG_OUTPUT = "0" *) (* SIM_ASSERT_CHK = "0" *) (* SIM_LOSSLESS_GRAY_CHK = "0" *) 
-(* VERSION = "0" *) (* WIDTH = "4" *) (* XPM_MODULE = "TRUE" *) 
-(* keep_hierarchy = "true" *) (* xpm_cdc = "GRAY" *) 
+(* CHECK_LICENSE_TYPE = "wolfenstein_platform_PmodJSTK2_0_0,PmodJSTK2,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* X_CORE_INFO = "PmodJSTK2,Vivado 2020.2" *) 
+(* NotValidForBitStream *)
+module wolfenstein_platform_PmodJSTK2_1_0
+   (AXI_LITE_GPIO_araddr,
+    AXI_LITE_GPIO_arready,
+    AXI_LITE_GPIO_arvalid,
+    AXI_LITE_GPIO_awaddr,
+    AXI_LITE_GPIO_awready,
+    AXI_LITE_GPIO_awvalid,
+    AXI_LITE_GPIO_bready,
+    AXI_LITE_GPIO_bresp,
+    AXI_LITE_GPIO_bvalid,
+    AXI_LITE_GPIO_rdata,
+    AXI_LITE_GPIO_rready,
+    AXI_LITE_GPIO_rresp,
+    AXI_LITE_GPIO_rvalid,
+    AXI_LITE_GPIO_wdata,
+    AXI_LITE_GPIO_wready,
+    AXI_LITE_GPIO_wstrb,
+    AXI_LITE_GPIO_wvalid,
+    AXI_LITE_SPI_araddr,
+    AXI_LITE_SPI_arready,
+    AXI_LITE_SPI_arvalid,
+    AXI_LITE_SPI_awaddr,
+    AXI_LITE_SPI_awready,
+    AXI_LITE_SPI_awvalid,
+    AXI_LITE_SPI_bready,
+    AXI_LITE_SPI_bresp,
+    AXI_LITE_SPI_bvalid,
+    AXI_LITE_SPI_rdata,
+    AXI_LITE_SPI_rready,
+    AXI_LITE_SPI_rresp,
+    AXI_LITE_SPI_rvalid,
+    AXI_LITE_SPI_wdata,
+    AXI_LITE_SPI_wready,
+    AXI_LITE_SPI_wstrb,
+    AXI_LITE_SPI_wvalid,
+    Pmod_out_pin10_i,
+    Pmod_out_pin10_o,
+    Pmod_out_pin10_t,
+    Pmod_out_pin1_i,
+    Pmod_out_pin1_o,
+    Pmod_out_pin1_t,
+    Pmod_out_pin2_i,
+    Pmod_out_pin2_o,
+    Pmod_out_pin2_t,
+    Pmod_out_pin3_i,
+    Pmod_out_pin3_o,
+    Pmod_out_pin3_t,
+    Pmod_out_pin4_i,
+    Pmod_out_pin4_o,
+    Pmod_out_pin4_t,
+    Pmod_out_pin7_i,
+    Pmod_out_pin7_o,
+    Pmod_out_pin7_t,
+    Pmod_out_pin8_i,
+    Pmod_out_pin8_o,
+    Pmod_out_pin8_t,
+    Pmod_out_pin9_i,
+    Pmod_out_pin9_o,
+    Pmod_out_pin9_t,
+    ext_spi_clk,
+    s_axi_aclk,
+    s_axi_aresetn);
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO ARADDR" *) input [8:0]AXI_LITE_GPIO_araddr;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO ARREADY" *) output AXI_LITE_GPIO_arready;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO ARVALID" *) input AXI_LITE_GPIO_arvalid;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO AWADDR" *) input [8:0]AXI_LITE_GPIO_awaddr;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO AWREADY" *) output AXI_LITE_GPIO_awready;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO AWVALID" *) input AXI_LITE_GPIO_awvalid;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO BREADY" *) input AXI_LITE_GPIO_bready;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO BRESP" *) output [1:0]AXI_LITE_GPIO_bresp;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO BVALID" *) output AXI_LITE_GPIO_bvalid;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO RDATA" *) output [31:0]AXI_LITE_GPIO_rdata;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO RREADY" *) input AXI_LITE_GPIO_rready;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO RRESP" *) output [1:0]AXI_LITE_GPIO_rresp;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO RVALID" *) output AXI_LITE_GPIO_rvalid;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO WDATA" *) input [31:0]AXI_LITE_GPIO_wdata;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO WREADY" *) output AXI_LITE_GPIO_wready;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO WSTRB" *) input [3:0]AXI_LITE_GPIO_wstrb;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_GPIO WVALID" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_LITE_GPIO, DATA_WIDTH 32, PROTOCOL AXI4LITE, ID_WIDTH 0, ADDR_WIDTH 9, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, FREQ_HZ 200000000, PHASE 0.000, CLK_DOMAIN wolfenstein_platform_processing_system7_0_2_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input AXI_LITE_GPIO_wvalid;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI ARADDR" *) input [6:0]AXI_LITE_SPI_araddr;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI ARREADY" *) output AXI_LITE_SPI_arready;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI ARVALID" *) input AXI_LITE_SPI_arvalid;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI AWADDR" *) input [6:0]AXI_LITE_SPI_awaddr;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI AWREADY" *) output AXI_LITE_SPI_awready;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI AWVALID" *) input AXI_LITE_SPI_awvalid;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI BREADY" *) input AXI_LITE_SPI_bready;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI BRESP" *) output [1:0]AXI_LITE_SPI_bresp;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI BVALID" *) output AXI_LITE_SPI_bvalid;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI RDATA" *) output [31:0]AXI_LITE_SPI_rdata;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI RREADY" *) input AXI_LITE_SPI_rready;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI RRESP" *) output [1:0]AXI_LITE_SPI_rresp;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI RVALID" *) output AXI_LITE_SPI_rvalid;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI WDATA" *) input [31:0]AXI_LITE_SPI_wdata;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI WREADY" *) output AXI_LITE_SPI_wready;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI WSTRB" *) input [3:0]AXI_LITE_SPI_wstrb;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 AXI_LITE_SPI WVALID" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME AXI_LITE_SPI, DATA_WIDTH 32, PROTOCOL AXI4LITE, ID_WIDTH 0, ADDR_WIDTH 7, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, FREQ_HZ 200000000, PHASE 0.000, CLK_DOMAIN wolfenstein_platform_processing_system7_0_2_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input AXI_LITE_SPI_wvalid;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN10_I" *) input Pmod_out_pin10_i;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN10_O" *) output Pmod_out_pin10_o;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN10_T" *) output Pmod_out_pin10_t;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN1_I" *) input Pmod_out_pin1_i;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN1_O" *) output Pmod_out_pin1_o;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN1_T" *) output Pmod_out_pin1_t;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN2_I" *) input Pmod_out_pin2_i;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN2_O" *) output Pmod_out_pin2_o;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN2_T" *) output Pmod_out_pin2_t;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN3_I" *) input Pmod_out_pin3_i;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN3_O" *) output Pmod_out_pin3_o;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN3_T" *) output Pmod_out_pin3_t;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN4_I" *) input Pmod_out_pin4_i;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN4_O" *) output Pmod_out_pin4_o;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN4_T" *) output Pmod_out_pin4_t;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN7_I" *) input Pmod_out_pin7_i;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN7_O" *) output Pmod_out_pin7_o;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN7_T" *) output Pmod_out_pin7_t;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN8_I" *) input Pmod_out_pin8_i;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN8_O" *) output Pmod_out_pin8_o;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN8_T" *) output Pmod_out_pin8_t;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN9_I" *) input Pmod_out_pin9_i;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN9_O" *) output Pmod_out_pin9_o;
+  (* X_INTERFACE_INFO = "digilentinc.com:interface:pmod:1.0 Pmod_out PIN9_T" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME Pmod_out, BUSIF.BOARD_INTERFACE Custom, BOARD.ASSOCIATED_PARAM PMOD" *) output Pmod_out_pin9_t;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.EXT_SPI_CLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.EXT_SPI_CLK, ASSOCIATED_BUSIF Pmod_out, FREQ_HZ 15873016, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN wolfenstein_platform_processing_system7_0_2_FCLK_CLK1, INSERT_VIP 0" *) input ext_spi_clk;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.S_AXI_ACLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.S_AXI_ACLK, ASSOCIATED_BUSIF AXI_LITE_SPI:AXI_LITE_GPIO, ASSOCIATED_RESET s_axi_aresetn, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN wolfenstein_platform_processing_system7_0_2_FCLK_CLK0, INSERT_VIP 0" *) input s_axi_aclk;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 RST.S_AXI_ARESETN RST" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME RST.S_AXI_ARESETN, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input s_axi_aresetn;
+
+  wire \<const0> ;
+  wire \<const1> ;
+  wire [8:0]AXI_LITE_GPIO_araddr;
+  wire AXI_LITE_GPIO_arready;
+  wire AXI_LITE_GPIO_arvalid;
+  wire [8:0]AXI_LITE_GPIO_awaddr;
+  wire AXI_LITE_GPIO_awready;
+  wire AXI_LITE_GPIO_awvalid;
+  wire AXI_LITE_GPIO_bready;
+  wire AXI_LITE_GPIO_bvalid;
+  wire [31:0]AXI_LITE_GPIO_rdata;
+  wire AXI_LITE_GPIO_rready;
+  wire AXI_LITE_GPIO_rvalid;
+  wire [31:0]AXI_LITE_GPIO_wdata;
+  wire AXI_LITE_GPIO_wready;
+  wire AXI_LITE_GPIO_wvalid;
+  wire [6:0]AXI_LITE_SPI_araddr;
+  wire AXI_LITE_SPI_arready;
+  wire AXI_LITE_SPI_arvalid;
+  wire [6:0]AXI_LITE_SPI_awaddr;
+  wire AXI_LITE_SPI_awready;
+  wire AXI_LITE_SPI_awvalid;
+  wire AXI_LITE_SPI_bready;
+  wire [1:1]\^AXI_LITE_SPI_bresp ;
+  wire AXI_LITE_SPI_bvalid;
+  wire [31:0]\^AXI_LITE_SPI_rdata ;
+  wire AXI_LITE_SPI_rready;
+  wire [1:1]\^AXI_LITE_SPI_rresp ;
+  wire AXI_LITE_SPI_rvalid;
+  wire [31:0]AXI_LITE_SPI_wdata;
+  wire AXI_LITE_SPI_wready;
+  wire [3:0]AXI_LITE_SPI_wstrb;
+  wire AXI_LITE_SPI_wvalid;
+  wire Pmod_out_pin1_i;
+  wire Pmod_out_pin1_o;
+  wire Pmod_out_pin1_t;
+  wire Pmod_out_pin2_i;
+  wire Pmod_out_pin2_o;
+  wire Pmod_out_pin2_t;
+  wire Pmod_out_pin3_i;
+  wire Pmod_out_pin3_o;
+  wire Pmod_out_pin3_t;
+  wire Pmod_out_pin4_o;
+  wire Pmod_out_pin4_t;
+  wire ext_spi_clk;
+  wire s_axi_aclk;
+  wire s_axi_aresetn;
+  wire NLW_inst_Pmod_out_pin10_o_UNCONNECTED;
+  wire NLW_inst_Pmod_out_pin10_t_UNCONNECTED;
+  wire NLW_inst_Pmod_out_pin7_o_UNCONNECTED;
+  wire NLW_inst_Pmod_out_pin7_t_UNCONNECTED;
+  wire NLW_inst_Pmod_out_pin8_o_UNCONNECTED;
+  wire NLW_inst_Pmod_out_pin8_t_UNCONNECTED;
+  wire NLW_inst_Pmod_out_pin9_o_UNCONNECTED;
+  wire NLW_inst_Pmod_out_pin9_t_UNCONNECTED;
+  wire [1:0]NLW_inst_AXI_LITE_GPIO_bresp_UNCONNECTED;
+  wire [1:0]NLW_inst_AXI_LITE_GPIO_rresp_UNCONNECTED;
+  wire [0:0]NLW_inst_AXI_LITE_SPI_bresp_UNCONNECTED;
+  wire [30:10]NLW_inst_AXI_LITE_SPI_rdata_UNCONNECTED;
+  wire [0:0]NLW_inst_AXI_LITE_SPI_rresp_UNCONNECTED;
+
+  assign AXI_LITE_GPIO_bresp[1] = \<const0> ;
+  assign AXI_LITE_GPIO_bresp[0] = \<const0> ;
+  assign AXI_LITE_GPIO_rresp[1] = \<const0> ;
+  assign AXI_LITE_GPIO_rresp[0] = \<const0> ;
+  assign AXI_LITE_SPI_bresp[1] = \^AXI_LITE_SPI_bresp [1];
+  assign AXI_LITE_SPI_bresp[0] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[31] = \^AXI_LITE_SPI_rdata [31];
+  assign AXI_LITE_SPI_rdata[30] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[29] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[28] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[27] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[26] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[25] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[24] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[23] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[22] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[21] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[20] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[19] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[18] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[17] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[16] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[15] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[14] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[13] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[12] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[11] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[10] = \<const0> ;
+  assign AXI_LITE_SPI_rdata[9:0] = \^AXI_LITE_SPI_rdata [9:0];
+  assign AXI_LITE_SPI_rresp[1] = \^AXI_LITE_SPI_rresp [1];
+  assign AXI_LITE_SPI_rresp[0] = \<const0> ;
+  assign Pmod_out_pin10_o = \<const1> ;
+  assign Pmod_out_pin10_t = \<const1> ;
+  assign Pmod_out_pin7_o = \<const1> ;
+  assign Pmod_out_pin7_t = \<const1> ;
+  assign Pmod_out_pin8_o = \<const1> ;
+  assign Pmod_out_pin8_t = \<const1> ;
+  assign Pmod_out_pin9_o = \<const1> ;
+  assign Pmod_out_pin9_t = \<const1> ;
+  GND GND
+       (.G(\<const0> ));
+  VCC VCC
+       (.P(\<const1> ));
+  (* HW_HANDOFF = "PmodJSTK2.hwdef" *) 
+  wolfenstein_platform_PmodJSTK2_1_0_PmodJSTK2 inst
+       (.AXI_LITE_GPIO_araddr({AXI_LITE_GPIO_araddr[8],1'b0,1'b0,1'b0,1'b0,AXI_LITE_GPIO_araddr[3:2],1'b0,1'b0}),
+        .AXI_LITE_GPIO_arready(AXI_LITE_GPIO_arready),
+        .AXI_LITE_GPIO_arvalid(AXI_LITE_GPIO_arvalid),
+        .AXI_LITE_GPIO_awaddr({AXI_LITE_GPIO_awaddr[8],1'b0,1'b0,1'b0,1'b0,AXI_LITE_GPIO_awaddr[3:2],1'b0,1'b0}),
+        .AXI_LITE_GPIO_awready(AXI_LITE_GPIO_awready),
+        .AXI_LITE_GPIO_awvalid(AXI_LITE_GPIO_awvalid),
+        .AXI_LITE_GPIO_bready(AXI_LITE_GPIO_bready),
+        .AXI_LITE_GPIO_bresp(NLW_inst_AXI_LITE_GPIO_bresp_UNCONNECTED[1:0]),
+        .AXI_LITE_GPIO_bvalid(AXI_LITE_GPIO_bvalid),
+        .AXI_LITE_GPIO_rdata(AXI_LITE_GPIO_rdata),
+        .AXI_LITE_GPIO_rready(AXI_LITE_GPIO_rready),
+        .AXI_LITE_GPIO_rresp(NLW_inst_AXI_LITE_GPIO_rresp_UNCONNECTED[1:0]),
+        .AXI_LITE_GPIO_rvalid(AXI_LITE_GPIO_rvalid),
+        .AXI_LITE_GPIO_wdata({AXI_LITE_GPIO_wdata[31],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,AXI_LITE_GPIO_wdata[0]}),
+        .AXI_LITE_GPIO_wready(AXI_LITE_GPIO_wready),
+        .AXI_LITE_GPIO_wstrb({1'b0,1'b0,1'b0,1'b0}),
+        .AXI_LITE_GPIO_wvalid(AXI_LITE_GPIO_wvalid),
+        .AXI_LITE_SPI_araddr({AXI_LITE_SPI_araddr[6:2],1'b0,1'b0}),
+        .AXI_LITE_SPI_arready(AXI_LITE_SPI_arready),
+        .AXI_LITE_SPI_arvalid(AXI_LITE_SPI_arvalid),
+        .AXI_LITE_SPI_awaddr({AXI_LITE_SPI_awaddr[6:2],1'b0,1'b0}),
+        .AXI_LITE_SPI_awready(AXI_LITE_SPI_awready),
+        .AXI_LITE_SPI_awvalid(AXI_LITE_SPI_awvalid),
+        .AXI_LITE_SPI_bready(AXI_LITE_SPI_bready),
+        .AXI_LITE_SPI_bresp({\^AXI_LITE_SPI_bresp ,NLW_inst_AXI_LITE_SPI_bresp_UNCONNECTED[0]}),
+        .AXI_LITE_SPI_bvalid(AXI_LITE_SPI_bvalid),
+        .AXI_LITE_SPI_rdata(\^AXI_LITE_SPI_rdata ),
+        .AXI_LITE_SPI_rready(AXI_LITE_SPI_rready),
+        .AXI_LITE_SPI_rresp({\^AXI_LITE_SPI_rresp ,NLW_inst_AXI_LITE_SPI_rresp_UNCONNECTED[0]}),
+        .AXI_LITE_SPI_rvalid(AXI_LITE_SPI_rvalid),
+        .AXI_LITE_SPI_wdata({AXI_LITE_SPI_wdata[31],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,AXI_LITE_SPI_wdata[9:0]}),
+        .AXI_LITE_SPI_wready(AXI_LITE_SPI_wready),
+        .AXI_LITE_SPI_wstrb({AXI_LITE_SPI_wstrb[3],1'b0,1'b0,AXI_LITE_SPI_wstrb[0]}),
+        .AXI_LITE_SPI_wvalid(AXI_LITE_SPI_wvalid),
+        .Pmod_out_pin10_i(1'b0),
+        .Pmod_out_pin10_o(NLW_inst_Pmod_out_pin10_o_UNCONNECTED),
+        .Pmod_out_pin10_t(NLW_inst_Pmod_out_pin10_t_UNCONNECTED),
+        .Pmod_out_pin1_i(Pmod_out_pin1_i),
+        .Pmod_out_pin1_o(Pmod_out_pin1_o),
+        .Pmod_out_pin1_t(Pmod_out_pin1_t),
+        .Pmod_out_pin2_i(Pmod_out_pin2_i),
+        .Pmod_out_pin2_o(Pmod_out_pin2_o),
+        .Pmod_out_pin2_t(Pmod_out_pin2_t),
+        .Pmod_out_pin3_i(Pmod_out_pin3_i),
+        .Pmod_out_pin3_o(Pmod_out_pin3_o),
+        .Pmod_out_pin3_t(Pmod_out_pin3_t),
+        .Pmod_out_pin4_i(1'b0),
+        .Pmod_out_pin4_o(Pmod_out_pin4_o),
+        .Pmod_out_pin4_t(Pmod_out_pin4_t),
+        .Pmod_out_pin7_i(1'b0),
+        .Pmod_out_pin7_o(NLW_inst_Pmod_out_pin7_o_UNCONNECTED),
+        .Pmod_out_pin7_t(NLW_inst_Pmod_out_pin7_t_UNCONNECTED),
+        .Pmod_out_pin8_i(1'b0),
+        .Pmod_out_pin8_o(NLW_inst_Pmod_out_pin8_o_UNCONNECTED),
+        .Pmod_out_pin8_t(NLW_inst_Pmod_out_pin8_t_UNCONNECTED),
+        .Pmod_out_pin9_i(1'b0),
+        .Pmod_out_pin9_o(NLW_inst_Pmod_out_pin9_o_UNCONNECTED),
+        .Pmod_out_pin9_t(NLW_inst_Pmod_out_pin9_t_UNCONNECTED),
+        .ext_spi_clk(ext_spi_clk),
+        .s_axi_aclk(s_axi_aclk),
+        .s_axi_aresetn(s_axi_aresetn));
+endmodule
+
+(* DEST_SYNC_FF = "2" *) (* INIT_SYNC_FF = "1" *) (* REG_OUTPUT = "0" *) 
+(* SIM_ASSERT_CHK = "0" *) (* SIM_LOSSLESS_GRAY_CHK = "0" *) (* VERSION = "0" *) 
+(* WIDTH = "4" *) (* XPM_MODULE = "TRUE" *) (* keep_hierarchy = "true" *) 
+(* xpm_cdc = "GRAY" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_xpm_cdc_gray
    (src_clk,
     src_in_bin,
@@ -13761,9 +13740,8 @@ module wolfenstein_platform_PmodJSTK2_1_0_xpm_cdc_gray__parameterized1__2
 endmodule
 
 (* DEF_VAL = "1'b0" *) (* DEST_SYNC_FF = "2" *) (* INIT = "0" *) 
-(* INIT_SYNC_FF = "1" *) (* ORIG_REF_NAME = "xpm_cdc_sync_rst" *) (* SIM_ASSERT_CHK = "0" *) 
-(* VERSION = "0" *) (* XPM_MODULE = "TRUE" *) (* keep_hierarchy = "true" *) 
-(* xpm_cdc = "SYNC_RST" *) 
+(* INIT_SYNC_FF = "1" *) (* SIM_ASSERT_CHK = "0" *) (* VERSION = "0" *) 
+(* XPM_MODULE = "TRUE" *) (* keep_hierarchy = "true" *) (* xpm_cdc = "SYNC_RST" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_xpm_cdc_sync_rst
    (src_rst,
     dest_clk,
@@ -13924,7 +13902,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_xpm_cdc_sync_rst__6
         .R(1'b0));
 endmodule
 
-(* ORIG_REF_NAME = "xpm_counter_updn" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_xpm_counter_updn
    (Q,
     wrst_busy,
@@ -15649,13 +15626,12 @@ endmodule
 (* CASCADE_HEIGHT = "0" *) (* CDC_SYNC_STAGES = "2" *) (* DOUT_RESET_VALUE = "0" *) 
 (* ECC_MODE = "no_ecc" *) (* EN_ADV_FEATURE_ASYNC = "16'b0001111100011111" *) (* FIFO_MEMORY_TYPE = "auto" *) 
 (* FIFO_READ_LATENCY = "0" *) (* FIFO_WRITE_DEPTH = "16" *) (* FULL_RESET_VALUE = "0" *) 
-(* ORIG_REF_NAME = "xpm_fifo_async" *) (* PROG_EMPTY_THRESH = "10" *) (* PROG_FULL_THRESH = "10" *) 
-(* P_COMMON_CLOCK = "0" *) (* P_ECC_MODE = "0" *) (* P_FIFO_MEMORY_TYPE = "0" *) 
-(* P_READ_MODE = "1" *) (* P_WAKEUP_TIME = "2" *) (* RD_DATA_COUNT_WIDTH = "5" *) 
-(* READ_DATA_WIDTH = "8" *) (* READ_MODE = "fwft" *) (* RELATED_CLOCKS = "0" *) 
-(* SIM_ASSERT_CHK = "0" *) (* USE_ADV_FEATURES = "1f1f" *) (* WAKEUP_TIME = "0" *) 
-(* WRITE_DATA_WIDTH = "8" *) (* WR_DATA_COUNT_WIDTH = "5" *) (* XPM_MODULE = "TRUE" *) 
-(* dont_touch = "true" *) 
+(* PROG_EMPTY_THRESH = "10" *) (* PROG_FULL_THRESH = "10" *) (* P_COMMON_CLOCK = "0" *) 
+(* P_ECC_MODE = "0" *) (* P_FIFO_MEMORY_TYPE = "0" *) (* P_READ_MODE = "1" *) 
+(* P_WAKEUP_TIME = "2" *) (* RD_DATA_COUNT_WIDTH = "5" *) (* READ_DATA_WIDTH = "8" *) 
+(* READ_MODE = "fwft" *) (* RELATED_CLOCKS = "0" *) (* SIM_ASSERT_CHK = "0" *) 
+(* USE_ADV_FEATURES = "1f1f" *) (* WAKEUP_TIME = "0" *) (* WRITE_DATA_WIDTH = "8" *) 
+(* WR_DATA_COUNT_WIDTH = "5" *) (* XPM_MODULE = "TRUE" *) (* dont_touch = "true" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_xpm_fifo_async
    (sleep,
     rst,
@@ -16028,19 +16004,19 @@ endmodule
 (* EN_WACK = "1'b1" *) (* EN_WDC = "1'b1" *) (* FG_EQ_ASYM_DOUT = "1'b0" *) 
 (* FIFO_MEMORY_TYPE = "0" *) (* FIFO_MEM_TYPE = "0" *) (* FIFO_READ_DEPTH = "16" *) 
 (* FIFO_READ_LATENCY = "0" *) (* FIFO_SIZE = "128" *) (* FIFO_WRITE_DEPTH = "16" *) 
-(* FULL_RESET_VALUE = "0" *) (* FULL_RST_VAL = "1'b0" *) (* ORIG_REF_NAME = "xpm_fifo_base" *) 
-(* PE_THRESH_ADJ = "8" *) (* PE_THRESH_MAX = "11" *) (* PE_THRESH_MIN = "5" *) 
-(* PF_THRESH_ADJ = "8" *) (* PF_THRESH_MAX = "11" *) (* PF_THRESH_MIN = "7" *) 
-(* PROG_EMPTY_THRESH = "10" *) (* PROG_FULL_THRESH = "10" *) (* RD_DATA_COUNT_WIDTH = "5" *) 
-(* RD_DC_WIDTH_EXT = "5" *) (* RD_LATENCY = "2" *) (* RD_MODE = "1" *) 
-(* RD_PNTR_WIDTH = "4" *) (* READ_DATA_WIDTH = "8" *) (* READ_MODE = "1" *) 
-(* READ_MODE_LL = "1" *) (* RELATED_CLOCKS = "0" *) (* REMOVE_WR_RD_PROT_LOGIC = "0" *) 
-(* SIM_ASSERT_CHK = "0" *) (* USE_ADV_FEATURES = "1f1f" *) (* VERSION = "0" *) 
-(* WAKEUP_TIME = "0" *) (* WIDTH_RATIO = "1" *) (* WRITE_DATA_WIDTH = "8" *) 
-(* WR_DATA_COUNT_WIDTH = "5" *) (* WR_DC_WIDTH_EXT = "5" *) (* WR_DEPTH_LOG = "4" *) 
-(* WR_PNTR_WIDTH = "4" *) (* WR_RD_RATIO = "0" *) (* WR_WIDTH_LOG = "3" *) 
-(* XPM_MODULE = "TRUE" *) (* both_stages_valid = "3" *) (* invalid = "0" *) 
-(* keep_hierarchy = "soft" *) (* stage1_valid = "2" *) (* stage2_valid = "1" *) 
+(* FULL_RESET_VALUE = "0" *) (* FULL_RST_VAL = "1'b0" *) (* PE_THRESH_ADJ = "8" *) 
+(* PE_THRESH_MAX = "11" *) (* PE_THRESH_MIN = "5" *) (* PF_THRESH_ADJ = "8" *) 
+(* PF_THRESH_MAX = "11" *) (* PF_THRESH_MIN = "7" *) (* PROG_EMPTY_THRESH = "10" *) 
+(* PROG_FULL_THRESH = "10" *) (* RD_DATA_COUNT_WIDTH = "5" *) (* RD_DC_WIDTH_EXT = "5" *) 
+(* RD_LATENCY = "2" *) (* RD_MODE = "1" *) (* RD_PNTR_WIDTH = "4" *) 
+(* READ_DATA_WIDTH = "8" *) (* READ_MODE = "1" *) (* READ_MODE_LL = "1" *) 
+(* RELATED_CLOCKS = "0" *) (* REMOVE_WR_RD_PROT_LOGIC = "0" *) (* SIM_ASSERT_CHK = "0" *) 
+(* USE_ADV_FEATURES = "1f1f" *) (* VERSION = "0" *) (* WAKEUP_TIME = "0" *) 
+(* WIDTH_RATIO = "1" *) (* WRITE_DATA_WIDTH = "8" *) (* WR_DATA_COUNT_WIDTH = "5" *) 
+(* WR_DC_WIDTH_EXT = "5" *) (* WR_DEPTH_LOG = "4" *) (* WR_PNTR_WIDTH = "4" *) 
+(* WR_RD_RATIO = "0" *) (* WR_WIDTH_LOG = "3" *) (* XPM_MODULE = "TRUE" *) 
+(* both_stages_valid = "3" *) (* invalid = "0" *) (* keep_hierarchy = "soft" *) 
+(* stage1_valid = "2" *) (* stage2_valid = "1" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_xpm_fifo_base
    (sleep,
     rst,
@@ -17485,7 +17461,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_xpm_fifo_base__parameterized0
         .wrst_busy(wrst_busy));
 endmodule
 
-(* ORIG_REF_NAME = "xpm_fifo_reg_bit" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_xpm_fifo_reg_bit
    (rst_d1,
     \gen_pf_ic_rc.gpf_ic.diff_pntr_pf_q_reg[4] ,
@@ -17620,7 +17595,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_xpm_fifo_reg_bit_25
         .O(overflow_i0));
 endmodule
 
-(* ORIG_REF_NAME = "xpm_fifo_reg_vec" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_xpm_fifo_reg_vec
    (\gen_pf_ic_rc.gen_full_rst_val.ram_full_i_reg ,
     diff_pntr_pf_q0,
@@ -18592,7 +18566,6 @@ module wolfenstein_platform_PmodJSTK2_1_0_xpm_fifo_reg_vec__parameterized0_21
         .R(\reg_out_i_reg[4]_0 ));
 endmodule
 
-(* ORIG_REF_NAME = "xpm_fifo_rst" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_xpm_fifo_rst
    (\gen_rst_ic.fifo_rd_rst_ic_reg_0 ,
     wrst_busy,
@@ -19429,25 +19402,24 @@ endmodule
 (* CLOCKING_MODE = "1" *) (* ECC_MODE = "0" *) (* MAX_NUM_CHAR = "0" *) 
 (* MEMORY_INIT_FILE = "none" *) (* MEMORY_INIT_PARAM = "" *) (* MEMORY_OPTIMIZATION = "true" *) 
 (* MEMORY_PRIMITIVE = "0" *) (* MEMORY_SIZE = "128" *) (* MEMORY_TYPE = "1" *) 
-(* MESSAGE_CONTROL = "0" *) (* NUM_CHAR_LOC = "0" *) (* ORIG_REF_NAME = "xpm_memory_base" *) 
-(* P_ECC_MODE = "no_ecc" *) (* P_ENABLE_BYTE_WRITE_A = "0" *) (* P_ENABLE_BYTE_WRITE_B = "0" *) 
-(* P_MAX_DEPTH_DATA = "16" *) (* P_MEMORY_OPT = "yes" *) (* P_MEMORY_PRIMITIVE = "auto" *) 
-(* P_MIN_WIDTH_DATA = "8" *) (* P_MIN_WIDTH_DATA_A = "8" *) (* P_MIN_WIDTH_DATA_B = "8" *) 
-(* P_MIN_WIDTH_DATA_ECC = "8" *) (* P_MIN_WIDTH_DATA_LDW = "4" *) (* P_MIN_WIDTH_DATA_SHFT = "8" *) 
-(* P_NUM_COLS_WRITE_A = "1" *) (* P_NUM_COLS_WRITE_B = "1" *) (* P_NUM_ROWS_READ_A = "1" *) 
-(* P_NUM_ROWS_READ_B = "1" *) (* P_NUM_ROWS_WRITE_A = "1" *) (* P_NUM_ROWS_WRITE_B = "1" *) 
-(* P_SDP_WRITE_MODE = "yes" *) (* P_WIDTH_ADDR_LSB_READ_A = "0" *) (* P_WIDTH_ADDR_LSB_READ_B = "0" *) 
-(* P_WIDTH_ADDR_LSB_WRITE_A = "0" *) (* P_WIDTH_ADDR_LSB_WRITE_B = "0" *) (* P_WIDTH_ADDR_READ_A = "4" *) 
-(* P_WIDTH_ADDR_READ_B = "4" *) (* P_WIDTH_ADDR_WRITE_A = "4" *) (* P_WIDTH_ADDR_WRITE_B = "4" *) 
-(* P_WIDTH_COL_WRITE_A = "8" *) (* P_WIDTH_COL_WRITE_B = "8" *) (* READ_DATA_WIDTH_A = "8" *) 
-(* READ_DATA_WIDTH_B = "8" *) (* READ_LATENCY_A = "2" *) (* READ_LATENCY_B = "2" *) 
-(* READ_RESET_VALUE_A = "0" *) (* READ_RESET_VALUE_B = "0" *) (* RST_MODE_A = "SYNC" *) 
-(* RST_MODE_B = "SYNC" *) (* SIM_ASSERT_CHK = "0" *) (* USE_EMBEDDED_CONSTRAINT = "0" *) 
-(* USE_MEM_INIT = "0" *) (* USE_MEM_INIT_MMI = "0" *) (* VERSION = "0" *) 
-(* WAKEUP_TIME = "0" *) (* WRITE_DATA_WIDTH_A = "8" *) (* WRITE_DATA_WIDTH_B = "8" *) 
-(* WRITE_MODE_A = "2" *) (* WRITE_MODE_B = "2" *) (* WRITE_PROTECT = "1" *) 
-(* XPM_MODULE = "TRUE" *) (* keep_hierarchy = "soft" *) (* rsta_loop_iter = "8" *) 
-(* rstb_loop_iter = "8" *) 
+(* MESSAGE_CONTROL = "0" *) (* NUM_CHAR_LOC = "0" *) (* P_ECC_MODE = "no_ecc" *) 
+(* P_ENABLE_BYTE_WRITE_A = "0" *) (* P_ENABLE_BYTE_WRITE_B = "0" *) (* P_MAX_DEPTH_DATA = "16" *) 
+(* P_MEMORY_OPT = "yes" *) (* P_MEMORY_PRIMITIVE = "auto" *) (* P_MIN_WIDTH_DATA = "8" *) 
+(* P_MIN_WIDTH_DATA_A = "8" *) (* P_MIN_WIDTH_DATA_B = "8" *) (* P_MIN_WIDTH_DATA_ECC = "8" *) 
+(* P_MIN_WIDTH_DATA_LDW = "4" *) (* P_MIN_WIDTH_DATA_SHFT = "8" *) (* P_NUM_COLS_WRITE_A = "1" *) 
+(* P_NUM_COLS_WRITE_B = "1" *) (* P_NUM_ROWS_READ_A = "1" *) (* P_NUM_ROWS_READ_B = "1" *) 
+(* P_NUM_ROWS_WRITE_A = "1" *) (* P_NUM_ROWS_WRITE_B = "1" *) (* P_SDP_WRITE_MODE = "yes" *) 
+(* P_WIDTH_ADDR_LSB_READ_A = "0" *) (* P_WIDTH_ADDR_LSB_READ_B = "0" *) (* P_WIDTH_ADDR_LSB_WRITE_A = "0" *) 
+(* P_WIDTH_ADDR_LSB_WRITE_B = "0" *) (* P_WIDTH_ADDR_READ_A = "4" *) (* P_WIDTH_ADDR_READ_B = "4" *) 
+(* P_WIDTH_ADDR_WRITE_A = "4" *) (* P_WIDTH_ADDR_WRITE_B = "4" *) (* P_WIDTH_COL_WRITE_A = "8" *) 
+(* P_WIDTH_COL_WRITE_B = "8" *) (* READ_DATA_WIDTH_A = "8" *) (* READ_DATA_WIDTH_B = "8" *) 
+(* READ_LATENCY_A = "2" *) (* READ_LATENCY_B = "2" *) (* READ_RESET_VALUE_A = "0" *) 
+(* READ_RESET_VALUE_B = "0" *) (* RST_MODE_A = "SYNC" *) (* RST_MODE_B = "SYNC" *) 
+(* SIM_ASSERT_CHK = "0" *) (* USE_EMBEDDED_CONSTRAINT = "0" *) (* USE_MEM_INIT = "0" *) 
+(* USE_MEM_INIT_MMI = "0" *) (* VERSION = "0" *) (* WAKEUP_TIME = "0" *) 
+(* WRITE_DATA_WIDTH_A = "8" *) (* WRITE_DATA_WIDTH_B = "8" *) (* WRITE_MODE_A = "2" *) 
+(* WRITE_MODE_B = "2" *) (* WRITE_PROTECT = "1" *) (* XPM_MODULE = "TRUE" *) 
+(* keep_hierarchy = "soft" *) (* rsta_loop_iter = "8" *) (* rstb_loop_iter = "8" *) 
 module wolfenstein_platform_PmodJSTK2_1_0_xpm_memory_base
    (sleep,
     clka,

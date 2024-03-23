@@ -1,6 +1,7 @@
 
 #include <math.h>
 
+#include "Constants.h"
 #include "Level.h"
 
 Level::Level(int width, int height, char* layout) {
@@ -31,8 +32,6 @@ char Level::getBlockAtWorldCoord(float x, float y) {
 }
 
 // Levels
-const int NUM_LEVELS = 1;
-
 const int LEVEL_0_WIDTH = 10;
 const int LEVEL_0_HEIGHT = 10;
 char LEVEL_0_LAYOUT[LEVEL_0_WIDTH * LEVEL_0_HEIGHT + 1] =

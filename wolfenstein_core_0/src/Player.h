@@ -4,22 +4,29 @@
 
 #include <math.h>
 
-class Player {
+#include "ObjectWithPosition.h"
+
+typedef struct {
+	int health;
+	float positionX;
+	float positionY;
+	float angle;
+} playerData_t;
+
+class Player : public ObjectWithPosition {
 
 public:
 	float getAngle();
-	float getPositionX();
-	float getPositionY();
+	int getHealth();
 
 	void setAngle(float angle);
-	void setPositionX(float x);
-	void setPositionY(float y);
+	void setHealth(int health);
+
+	playerData_t getPlayerData();
 
 private:
 	float angle = 0;
-	float positionX = 0;
-	float positionY = 0;
+	int health = 0;
 };
-
 
 #endif

@@ -39,6 +39,7 @@ void jstkInitialize() {
    JSTK2_setInversion(&jstk2, 0, 1);
 }
 
+// Transforms range (0, 256) to (-1, 1)
 float mapJSTK(u8 value) {
 	return (((float)value/128.0)-1.0);
 }

@@ -66,15 +66,15 @@
 # ----------------------------------------------------------------------------
 # Audio Codec - Bank 13
 # ---------------------------------------------------------------------------- 
-#set_property PACKAGE_PIN AB1 [get_ports {AC_ADR0}];  # "AC-ADR0"
-#set_property PACKAGE_PIN Y5  [get_ports {AC_ADR1}];  # "AC-ADR1"
-#set_property PACKAGE_PIN Y8  [get_ports {SDATA_O}];  # "AC-GPIO0"
+set_property PACKAGE_PIN AB1 [get_ports {GPIO_tri_io[0]}];  # "AC-ADR0"
+set_property PACKAGE_PIN Y5  [get_ports {GPIO_tri_io[1]}];  # "AC-ADR1"
+set_property PACKAGE_PIN Y8  [get_ports {SDATA_O}];  # "AC-GPIO0"
 #set_property PACKAGE_PIN AA7 [get_ports {SDATA_I}];  # "AC-GPIO1"
-#set_property PACKAGE_PIN AA6 [get_ports {BCLK_O}];  # "AC-GPIO2"
-#set_property PACKAGE_PIN Y6  [get_ports {LRCLK_O}];  # "AC-GPIO3"
-#set_property PACKAGE_PIN AB2 [get_ports {MCLK_O}];  # "AC-MCLK"
-#set_property PACKAGE_PIN AB4 [get_ports {iic_rtl_scl_io}];  # "AC-SCK"
-#set_property PACKAGE_PIN AB5 [get_ports {iic_rtl_sda_io}];  # "AC-SDA"
+set_property PACKAGE_PIN AA6 [get_ports {BCLK}];  # "AC-GPIO2"
+set_property PACKAGE_PIN Y6  [get_ports {LRCLK}];  # "AC-GPIO3"
+set_property PACKAGE_PIN AB2 [get_ports {MCLK}];  # "AC-MCLK"
+set_property PACKAGE_PIN AB4 [get_ports {IIC_0_scl_io}];  # "AC-SCK"
+set_property PACKAGE_PIN AB5 [get_ports {IIC_0_sda_io}];  # "AC-SDA"
 
 # ----------------------------------------------------------------------------
 # Clock Source - Bank 13
@@ -172,14 +172,14 @@ set_property PACKAGE_PIN U6 [get_ports {JD_pin10_io}];  # "JD4_P"
 # ----------------------------------------------------------------------------
 # User LEDs - Bank 33
 # ---------------------------------------------------------------------------- 
-#set_property PACKAGE_PIN T22 [get_ports {LD0}];  # "LD0"
-#set_property PACKAGE_PIN T21 [get_ports {LD1}];  # "LD1"
-#set_property PACKAGE_PIN U22 [get_ports {LD2}];  # "LD2"
-#set_property PACKAGE_PIN U21 [get_ports {LD3}];  # "LD3"
-#set_property PACKAGE_PIN V22 [get_ports {LD4}];  # "LD4"
-#set_property PACKAGE_PIN W22 [get_ports {LD5}];  # "LD5"
-#set_property PACKAGE_PIN U19 [get_ports {LD6}];  # "LD6"
-#set_property PACKAGE_PIN U14 [get_ports {LD7}];  # "LD7"
+set_property PACKAGE_PIN T22 [get_ports {leds[0]}];  # "LD0"
+set_property PACKAGE_PIN T21 [get_ports {leds[1]}];  # "LD1"
+set_property PACKAGE_PIN U22 [get_ports {leds[2]}];  # "LD2"
+set_property PACKAGE_PIN U21 [get_ports {leds[3]}];  # "LD3"
+set_property PACKAGE_PIN V22 [get_ports {leds[4]}];  # "LD4"
+set_property PACKAGE_PIN W22 [get_ports {leds[5]}];  # "LD5"
+set_property PACKAGE_PIN U19 [get_ports {leds[6]}];  # "LD6"
+set_property PACKAGE_PIN U14 [get_ports {leds[7]}];  # "LD7"
 
 # ----------------------------------------------------------------------------
 # VGA Output - Bank 33
