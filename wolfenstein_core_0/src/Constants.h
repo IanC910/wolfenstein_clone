@@ -50,7 +50,7 @@ float* const playerY_0								= (float*)(playerX_0 + 1);
 float* const playerA_0								= (float*)(playerY_0+ 1);
 
 unsigned char *enemySprite 							= (unsigned char *)0x018D2008;
-
+unsigned char *weaponSprite							= (unsigned char *)0x020BB00C;
 // Gameplay params
 const float VERTICAL_FOV	= M_PI * 0.4;
 const float HORIZONTAL_FOV	= M_PI * 0.5;
