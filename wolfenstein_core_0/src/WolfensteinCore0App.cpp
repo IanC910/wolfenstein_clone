@@ -41,6 +41,8 @@ WolfensteinCore0App::WolfensteinCore0App() {
 void WolfensteinCore0App::runCore0App() {
 	xil_printf("Starting Wolfenstein Core 0 App\n");
 
+	initializeEnemies();
+
 	startCore1();
 
 	// Main Loop
@@ -211,6 +213,7 @@ void WolfensteinCore0App::gameLogicPerFrame() {
 
 	handlePlayerMovement();
 	handlePlayerAction();
+	// updateEnemies();
 }
 
 void WolfensteinCore0App::handlePlayerMovement() {
@@ -294,20 +297,58 @@ void WolfensteinCore0App::castRays() {
 
 void WolfensteinCore0App::transferSharedDataPacket() {
 	SHARED_DATA_PACKETS[0].playerData = player.getPlayerData();
+	SHARED_DATA_PACKETS[0].enemyDataArray[0] = enemies[0].getEnemyData();
+	SHARED_DATA_PACKETS[0].enemyDataArray[1] = enemies[1].getEnemyData();
+	SHARED_DATA_PACKETS[0].enemyDataArray[2] = enemies[2].getEnemyData();
+	INTERFACE_PTR->valid = 1;
+	while(!INTERFACE_PTR->acknowledge);
+
+	INTERFACE_PTR->valid = 0;
+	while(INTERFACE_PTR->acknowledge);
+}
+
+void WolfensteinCore0App::initializeEnemies() {
 	enemies[0].setPositionX(4.5);
 	enemies[0].setPositionY(4.5);
 	enemies[1].setPositionX(8.5);
 	enemies[1].setPositionY(8.5);
 	enemies[2].setPositionX(3.5);
 	enemies[2].setPositionY(8.5);
-	SHARED_DATA_PACKETS[0].enemyDataArray[0] = enemies[0].getEnemyData();
-	SHARED_DATA_PACKETS[0].enemyDataArray[1] = enemies[1].getEnemyData();
-	SHARED_DATA_PACKETS[0].enemyDataArray[2] = enemies[2].getEnemyData();
+}
 
+void WolfensteinCore0App::updateEnemies() {
+	for(int i = 0; i < 3; i++) {
+		float vecX = (player.getPositionX() - enemies[i].getPositionX());
+		float vecY = (player.getPositionY() - enemies[i].getPositionY()) + 1;
+		float playerDistanceFromEnemy = sqrtf(vecX*vecX + vecY*vecY);
+		if(enemies[i].hasSeenPlayer()) {
+			if(playerDistanceFromEnemy > 1.0) {
+				float objectAngle = atan2f(vecY, vecX);
+				if(objectAngle < M_PI) {
+					objectAngle += 2.0 * M_PI;
+				}
+				if(objectAngle > M_PI) {
+					objectAngle -= 2.0 * M_PI;
+				}
+				float deltaX = (cos(objectAngle) + sin(objectAngle)) * MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
+				float deltaY = (sin(objectAngle) - cos(objectAngle)) * MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
+				//add check how close to enemy, if < 1.0 then do something
+				enemies[i].setPositionX(enemies[i].getPositionX() + deltaX);
+				enemies[i].setPositionY(enemies[i].getPositionY() + deltaY);
 
-	INTERFACE_PTR->valid = 1;
-	while(!INTERFACE_PTR->acknowledge);
-
-	INTERFACE_PTR->valid = 0;
-	while(INTERFACE_PTR->acknowledge);
+			}
+			enemies[i].setTimeSinceLastShot(enemies[i].getTimeSinceLastShot() + frameTimeInSec);
+			if(playerDistanceFromEnemy < 1.5 && enemies[i].getTimeSinceLastShot() >= 1.0) {
+				if(player.getHealth() > 0) {
+					player.setHealth(player.getHealth() - 5);
+				} else {
+					gameState = MAIN_MENU;
+				}
+				enemies[i].setTimeSinceLastShot(0.0);
+			}
+		}
+		else if(playerDistanceFromEnemy < 3.0) {
+			enemies[i].setSeenPlayer();
+		}
+	}
 }

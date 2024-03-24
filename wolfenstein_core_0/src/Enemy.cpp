@@ -9,3 +9,21 @@ enemyData_t Enemy::getEnemyData() {
 
 	return enemyData;
 }
+
+float Enemy::getTimeSinceLastShot() {
+	return timeSinceLastShot;
+}
+
+void Enemy::setTimeSinceLastShot(float time) {
+	timeSinceLastShot = time;
+}
+
+
+bool Enemy::hasSeenPlayer() {
+	return seenPlayer;
+}
+
+void Enemy::setSeenPlayer() {
+	seenPlayer = true;
+}
+
