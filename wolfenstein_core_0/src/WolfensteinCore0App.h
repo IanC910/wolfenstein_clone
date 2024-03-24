@@ -4,6 +4,7 @@
 
 #include "Player.h"
 #include "Level.h"
+#include "Enemy.h"
 
 class WolfensteinCore0App {
 
@@ -27,6 +28,7 @@ private:
 	};
 
 	Player player;
+	Enemy enemies[3];
 	int levelSelectIndex = 0;
 	Level* currentLevel = nullptr;
 	gameState_t gameState = MAIN_MENU;

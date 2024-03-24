@@ -267,6 +267,16 @@ void WolfensteinCore0App::castRays() {
 
 void WolfensteinCore0App::transferSharedDataPacket() {
 	SHARED_DATA_PACKETS[0].playerData = player.getPlayerData();
+	enemies[0].setPositionX(4.5);
+	enemies[0].setPositionY(4.5);
+	enemies[1].setPositionX(8.5);
+	enemies[1].setPositionY(8.5);
+	enemies[2].setPositionX(3.5);
+	enemies[2].setPositionY(8.5);
+	SHARED_DATA_PACKETS[0].enemyDataArray[0] = enemies[0].getEnemyData();
+	SHARED_DATA_PACKETS[0].enemyDataArray[1] = enemies[1].getEnemyData();
+	SHARED_DATA_PACKETS[0].enemyDataArray[2] = enemies[2].getEnemyData();
+
 
 	INTERFACE_PTR->valid = 1;
 	while(!INTERFACE_PTR->acknowledge);
