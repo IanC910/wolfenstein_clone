@@ -1,6 +1,6 @@
 
-#ifndef BTN_INTERRUPT_SETUP_H
-#define BTN_INTERRUPT_SETUP_H
+#ifndef INTERRUPT_SETUP_H
+#define INTERRUPT_SETUP_H
 
 #include "xil_types.h"
 #include "xparameters.h"
@@ -8,7 +8,7 @@
 #include "xil_exception.h"
 #include "xscugic.h"
 
-#define INTERRUPT_0_ID	XPAR_FABRIC_BTN_INTERRUPT_GEN_0_INTERRUPT_INTR
+#define INTERRUPT_0_ID	61
 
 int InterruptSetup_setInterruptHandler(int interruptId, Xil_ExceptionHandler interruptHandler);
 
