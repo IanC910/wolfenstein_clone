@@ -17,9 +17,15 @@ class Enemy : public ObjectWithPosition {
 		void setHealth(int health);
 
 		enemyData_t getEnemyData();
+		float getTimeSinceLastShot();
+		void setTimeSinceLastShot(float time);
+		bool hasSeenPlayer();
+		void setSeenPlayer();
 
 	private:
 		int health = 0;
+		float timeSinceLastShot = 1.0;
+		bool seenPlayer = false;
 };
 
 #endif

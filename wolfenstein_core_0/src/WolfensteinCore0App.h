@@ -21,6 +21,9 @@ private:
 	void gameLogicPerFrame();
 	void castRays();
 	void transferSharedDataPacket();
+	void handleUserMovement();
+	void updateEnemies();
+	void initializeEnemies();
 
 	enum gameState_t {
 		MAIN_MENU,
