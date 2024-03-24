@@ -1,5 +1,3 @@
-#include "Enemy.h"
-
 #ifndef WOLFENSTEIN_CORE_1_H
 #define WOLFENSTEIN_CORE_1_H
 
@@ -19,7 +17,6 @@ private:
 	void fillNonRectangularCeilingAndFloor(int startRay, int endRay, int rowAlreadyDrawn);
 	void drawHUD();
 	void updateScreen();
-	Enemy enemy;
 };
 
 #endif

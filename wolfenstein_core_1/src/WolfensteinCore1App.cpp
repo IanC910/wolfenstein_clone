@@ -14,6 +14,7 @@
 #include "../../wolfenstein_core_0/src/SharedDataPacket.h"
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
 #include "../../wolfenstein_core_0/src/Player.h"
+#include "../../wolfenstein_core_0/src/Enemy.h"
 
 int spriteW = 245;
 int spriteH = 240;
@@ -22,15 +23,11 @@ int spriteWG = 139;
 int spriteHG = 105;
 
 #define numEnemies 3
-Enemy enemies[numEnemies];
 
 WolfensteinCore1App::WolfensteinCore1App() {
 	xil_printf("Wolfenstein Core 1 App Init\n");
 
 	Xil_DCacheDisable();
-	enemies[0].setPositionXY(4.5,4.5);
-	enemies[1].setPositionXY(8.5,8.5);
-	enemies[2].setPositionXY(3.5,8.5);
 	// initialize floor and ceiling buffers
 	// Draw 1 row and copy
 	int ceilingColourInt = CEILING_GRADIENT[0];
@@ -170,14 +167,21 @@ void WolfensteinCore1App::drawEnvironment() {
 }
 
 void WolfensteinCore1App::drawEnemy() {
+	float* distanceArray1 = SHARED_DATA_PACKETS[1].distanceArray;
+	float playerAngle = SHARED_DATA_PACKETS[1].playerData.angle;
+	float playerX = SHARED_DATA_PACKETS[1].playerData.positionX;
+	float playerY = SHARED_DATA_PACKETS[1].playerData.positionY;
+
+	enemyData_t* enemies = SHARED_DATA_PACKETS[1].enemyDataArray;
+	enemyData_t enemy;
 	for(int i = 0; i < numEnemies; i++) {
 		enemy = enemies[i];
-		float vecX = enemy.getPositionX() - playerX;
-		float vecY = enemy.getPositionY() - playerY;
+		float vecX = enemy.positionX - playerX;
+		float vecY = enemy.positionY - playerY;
 		float enemyDistanceFromPlayer = sqrtf(vecX*vecX + vecY*vecY);
 
-		float playerViewX = cosf(playerA);
-		float playerViewY = sinf(playerA);
+		float playerViewX = cosf(playerAngle);
+		float playerViewY = sinf(playerAngle);
 		float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(vecY, vecX);
 
 		if(objectAngle < M_PI) {
@@ -198,7 +202,7 @@ void WolfensteinCore1App::drawEnemy() {
 		int startXEnemy = middleOfEnemy - (spriteW/(2*scaleFactor));
 		int startYEnemy = (SCREEN_HEIGHT / 2) - (spriteH/(2*scaleFactor));
 
-		if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 5 && DISTANCE_ARRAY_1[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
+		if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 5 && distanceArray1[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
 			for(int i = 0; i < (int)(spriteH/scaleFactor); i++) {
 				int s = (int)(i * scaleFactor);
 				int firstNonTransparentPixel = ((int)(*(enemySprite+s*(spriteW)*sizeof(int)+3))/scaleFactor) - 1;
@@ -216,13 +220,13 @@ void WolfensteinCore1App::drawEnemy() {
 				}
 
 				//Check if left part of sprite is behind wall
-				while(DISTANCE_ARRAY_1[((startXEnemy + firstNonTransparentPixel))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
+				while(distanceArray1[((startXEnemy + firstNonTransparentPixel))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
 					numOfNonTransparentPixel--;
 					firstNonTransparentPixel++;
 				}
 
 				//Check if right part of sprite is behind wall
-				while(DISTANCE_ARRAY_1[(startXEnemy + ((firstNonTransparentPixel + numOfNonTransparentPixel)))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
+				while(distanceArray1[(startXEnemy + ((firstNonTransparentPixel + numOfNonTransparentPixel)))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
 					numOfNonTransparentPixel--;
 				}
 
@@ -238,7 +242,7 @@ void WolfensteinCore1App::drawEnemy() {
 
 				//Update distance array with new distances for drawn enemies
 				for(int i = 0; i < numOfNonTransparentPixel; i++) {
-					DISTANCE_ARRAY_1[(firstNonTransparentPixel + startXEnemy + i)/RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
+					distanceArray1[(firstNonTransparentPixel + startXEnemy + i)/RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
 				}
 			}
 		}
@@ -319,12 +323,5 @@ void WolfensteinCore1App::drawHUD() {
 }
 
 void WolfensteinCore1App::updateScreen() {
-	/*int weaponY = SCREEN_HEIGHT-spriteHG;
-	int weaponX = ((float)SCREEN_WIDTH * (3.0/4.0)) - (spriteWG/2);
-	for(int i = 0; i < spriteHG; i+=1) {
-			int firstNonTransparentPixel = *(weaponSprite+i*spriteWG*sizeof(int)+3);
-			int numOfNonTransparentPixel = *(weaponSprite+i*spriteWG*sizeof(int)+7);
-			memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i+weaponY)*SCREEN_WIDTH) + firstNonTransparentPixel + weaponX, weaponSprite+(i*(spriteWG)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
-		}*/
 	memcpy(VGA_IMAGE_BUFFER_0, INTERMEDIATE_IMAGE_BUFFER, SCREEN_SIZE_BYTES);
 }
