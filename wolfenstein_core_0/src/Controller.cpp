@@ -45,11 +45,11 @@ float Controller_getNormedJoystickY(int joystickIndex) {
 }
 
 bool Controller_getJoystickButtonStatus(int joystickIndex) {
-	return joystickData[joystickDataIndex].Jstk;
+	return jstkData[joystickIndex].Jstk;
 }
 
 bool Controller_isTriggerPressed(int joystickIndex) {
-	return joystickData[joystickDataIndex].Trigger;
+	return jstkData[joystickIndex].Trigger;
 }
 
 

@@ -35,12 +35,11 @@ const float RAY_DISTANCE_INCREMENT 	= 0.1;
 
 
 // Debug params
-const bool DO_USE_JOYSTICKS = false;
+const bool DO_USE_CONTROLLER = false;
 const bool DO_PRINT_FRAME_TIME = true;
 
 
 // Gameplay params
-const int NUM_LEVELS = 1;
 const float VERTICAL_FOV	= M_PI * 0.4;
 const float HORIZONTAL_FOV	= M_PI * 0.5;
 const int MAX_PLAYER_HEALTH = 100;

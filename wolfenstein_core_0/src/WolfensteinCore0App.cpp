@@ -14,10 +14,10 @@
 #include "Constants.h"
 #include "Addresses.h"
 #include "Player.h"
-#include "Level.h"
-#include "Gpio.h"
+#include "LevelBank.h"
 #include "InterruptSetup.h"
 #include "Buttons.h"
+#include "Controller.h"
 #include "Colour.h"
 #include "CharMatrix.h"
 
@@ -33,7 +33,9 @@ WolfensteinCore0App::WolfensteinCore0App() {
 		(Xil_ExceptionHandler)Buttons_basicInterruptHandler
 	);
 
-	jstkInitialize();
+	if(DO_USE_CONTROLLER) {
+		Controller_initialize();
+	}
 }
 
 void WolfensteinCore0App::runCore0App() {
@@ -52,13 +54,13 @@ void WolfensteinCore0App::runCore0App() {
 					// Wait for button press
 					while(!Buttons_isNewStatus());
 
-					if(Buttons_isButtonPressed(UP) && levelSelectIndex > 0) {
+					if(Buttons_isButtonPressed(BTN_UP) && levelSelectIndex > 0) {
 						levelSelectIndex--;
 					}
-					if(Buttons_isButtonPressed(DOWN) && levelSelectIndex < NUM_LEVELS) {
+					if(Buttons_isButtonPressed(BTN_DOWN) && levelSelectIndex < NUM_LEVELS) {
 						levelSelectIndex++;
 					}
-					if(Buttons_isButtonPressed(CENTRE)) {
+					if(Buttons_isButtonPressed(BTN_CENTRE)) {
 						this->currentLevel = getLevel(0);
 
 						player.setHealth(MAX_PLAYER_HEALTH);
@@ -85,7 +87,7 @@ void WolfensteinCore0App::runCore0App() {
 					XTime_GetTime(&frameStartTimeDC);
 
 					if(Buttons_isNewStatus()) {
-						if(Buttons_isButtonPressed(CENTRE)) {
+						if(Buttons_isButtonPressed(BTN_CENTRE)) {
 							gameState = MAIN_MENU;
 							break;
 						}
@@ -203,21 +205,27 @@ void WolfensteinCore0App::drawCharacter(int characterIndex, int startRow, int st
 }
 
 void WolfensteinCore0App::gameLogicPerFrame() {
-	jstkPosition1 = JSTK2_getPosition(&jstk1);
-	jstkPosition2 = JSTK2_getPosition(&jstk2);
+	if(DO_USE_CONTROLLER) {
+		Controller_update();
+	}
 
+	handlePlayerMovement();
+	handlePlayerAction();
+}
+
+void WolfensteinCore0App::handlePlayerMovement() {
 	float moveCtrlX = 0;
 	float moveCtrlY = 0;
 	float turnCtrl = 0;
 
-	if(DO_USE_JOYSTICKS) {
-		moveCtrlX = mapJSTK(jstkPosition1.XData);
-		moveCtrlY = mapJSTK(jstkPosition1.YData);
-		turnCtrl = mapJSTK(jstkPosition2.XData);
+	if(DO_USE_CONTROLLER) {
+		moveCtrlX = Controller_getNormedJoystickX(0);
+		moveCtrlY = Controller_getNormedJoystickY(0);
+		turnCtrl = Controller_getNormedJoystickX(1);
 	}
 	else {
-		moveCtrlY = (float)((int)Buttons_isButtonPressed(UP) - (int)Buttons_isButtonPressed(DOWN));
-		turnCtrl = (float)((int)Buttons_isButtonPressed(RIGHT) - (int)Buttons_isButtonPressed(LEFT));
+		moveCtrlY = (float)Buttons_isButtonPressed(BTN_UP);
+		turnCtrl = (float)((int)Buttons_isButtonPressed(BTN_RIGHT) - (int)Buttons_isButtonPressed(BTN_LEFT));
 	}
 
 	float deltaX = (cos(player.getAngle()) * moveCtrlY + sin(player.getAngle()) * moveCtrlX) * MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
@@ -232,6 +240,25 @@ void WolfensteinCore0App::gameLogicPerFrame() {
 	// Angle change from joystick
 	float newAngle = player.getAngle() - turnCtrl * MAX_PLAYER_TURN_SPEED_RAD_PER_SEC * frameTimeInSec;
 	player.setAngle(newAngle);
+}
+
+void WolfensteinCore0App::handlePlayerAction() {
+//	static bool playerIsShooting = 0;
+//
+//	bool triggerStatus = 0;
+//
+//	if(DO_USE_CONTROLLER) {
+//		triggerStatus = Controller_isTriggerPressed(1);
+//	}
+//	else {
+//		triggerStatus = Buttons_isButtonPressed(BTN_DOWN);
+//	}
+//
+//	playerIsShooting = triggerStatus && !playerIsShooting;
+//
+//	if(playerIsShooting) {
+//
+//	}
 }
 
 void WolfensteinCore0App::castRays() {

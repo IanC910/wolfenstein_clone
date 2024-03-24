@@ -17,6 +17,4 @@ private:
 	char *layout;
 };
 
-Level* getLevel(int levelIndex);
-
 #endif

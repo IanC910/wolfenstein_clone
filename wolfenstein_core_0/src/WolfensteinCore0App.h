@@ -19,6 +19,8 @@ private:
 	void drawMenu();
 	void drawCharacter(int characterIndex, int startRow, int startCol, int scale, int colour);
 	void gameLogicPerFrame();
+	void handlePlayerMovement();
+	void handlePlayerAction();
 	void castRays();
 	void transferSharedDataPacket();
 

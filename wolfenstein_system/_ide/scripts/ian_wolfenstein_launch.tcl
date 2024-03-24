@@ -23,7 +23,8 @@ source C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_core_0
 ps7_init
 ps7_post_config
 targets -set -nocase -filter {name =~ "*A9*#1"}
-dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/gunshot.audioData 0xe2c000
+dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/sounds/gunshot.audioData 0xe2c000
+dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/images/enemy_sprite.data 0x18d2008
 targets -set -nocase -filter {name =~ "*A9*#0"}
 dow C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_core_0/Debug/wolfenstein_core_0.elf
 targets -set -nocase -filter {name =~ "*A9*#1"}

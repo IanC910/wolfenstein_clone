@@ -6,7 +6,7 @@
 static unsigned int buttonStatus = 0;
 static bool isNewStatus = 0;
 
-void Buttons_updateButtonStatus() {
+void Buttons_update() {
 	buttonStatus = Xil_In32(BTN_INTERRUPT_GEN_BASE + BTN_STATUS_REG);
 }
 
@@ -21,7 +21,7 @@ bool Buttons_isButtonPressed(buttonIndex_t buttonIndex) {
 void Buttons_basicInterruptHandler(void* interruptControllerPtr) {
     Buttons_clearInterrupt();
 
-    Buttons_updateButtonStatus();
+    Buttons_update();
 
     isNewStatus = true;
 }
