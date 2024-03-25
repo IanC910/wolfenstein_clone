@@ -41,8 +41,6 @@ WolfensteinCore0App::WolfensteinCore0App() {
 void WolfensteinCore0App::runCore0App() {
 	xil_printf("Starting Wolfenstein Core 0 App\n");
 
-	initializeEnemies();
-
 	startCore1();
 
 	// Main Loop
@@ -70,6 +68,8 @@ void WolfensteinCore0App::runCore0App() {
 						player.setPositionX(5);
 						player.setPositionY(2);
 						player.setAngle(M_PI / 2);
+
+						initializeEnemies();
 
 						gameState = PLAYING_LEVEL;
 					}
@@ -213,6 +213,7 @@ void WolfensteinCore0App::gameLogicPerFrame() {
 
 	handlePlayerMovement();
 	handlePlayerAction();
+	checkWinCondition();
 	// updateEnemies();
 }
 
@@ -258,7 +259,52 @@ void WolfensteinCore0App::handlePlayerAction() {
 	player.updateIsShooting(triggerStatus);
 
 	if(player.getIsShooting()) {
+		for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
+			Enemy* enemy = &enemies[e];
 
+			if(enemy->getHealth() <= 0) {
+				continue;
+			}
+
+			float playerToEnemyX = enemy->getPositionX() - player.getPositionX();
+			float playerToEnemyY = enemy->getPositionY() - player.getPositionY();
+
+
+			float distanceToEnemy = sqrtf(playerToEnemyX * playerToEnemyX + playerToEnemyY * playerToEnemyY);
+			float angleToEnemy = atan2f(playerToEnemyY, playerToEnemyX);
+			float deltaAngle = angleToEnemy - player.getAngle();
+
+			int enemyMiddleCol = (int)((deltaAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH));
+			int enemyLeftCol = enemyMiddleCol - ENEMY_SPRITE_WIDTH / (2 * distanceToEnemy);
+			int enemyRightCol = enemyMiddleCol + ENEMY_SPRITE_WIDTH / (2 * distanceToEnemy);
+
+			bool enemyInLineOfFire = SCREEN_WIDTH / 2 > enemyLeftCol && SCREEN_WIDTH / 2 + 1 < enemyRightCol;
+
+			if(enemyInLineOfFire) {
+				float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
+
+				// If enemy is not behind a wall
+				if(distanceToEnemy < distanceArray0[NUM_RAYS / 2] || distanceToEnemy < distanceArray0[NUM_RAYS / 2 + 1]) {
+					// Enemy is hit
+					enemy->setHealth(enemy->getHealth() - PLAYER_DAMAGE);
+				}
+			}
+		}
+	}
+}
+
+void WolfensteinCore0App::checkWinCondition() {
+	bool atLeast1EnemyRemains = false;
+
+	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
+		if(enemies[e].getHealth() > 0) {
+			atLeast1EnemyRemains = true;
+			break;
+		}
+	}
+
+	if(!atLeast1EnemyRemains) {
+		gameState = MAIN_MENU;
 	}
 }
 
@@ -298,6 +344,7 @@ void WolfensteinCore0App::transferSharedDataPacket() {
 	SHARED_DATA_PACKETS[0].enemyDataArray[0] = enemies[0].getEnemyData();
 	SHARED_DATA_PACKETS[0].enemyDataArray[1] = enemies[1].getEnemyData();
 	SHARED_DATA_PACKETS[0].enemyDataArray[2] = enemies[2].getEnemyData();
+
 	INTERFACE_PTR->valid = 1;
 	while(!INTERFACE_PTR->acknowledge);
 
@@ -308,10 +355,13 @@ void WolfensteinCore0App::transferSharedDataPacket() {
 void WolfensteinCore0App::initializeEnemies() {
 	enemies[0].setPositionX(4.5);
 	enemies[0].setPositionY(4.5);
+	enemies[0].setHealth(MAX_ENEMY_HEALTH);
 	enemies[1].setPositionX(8.5);
 	enemies[1].setPositionY(8.5);
+	enemies[1].setHealth(MAX_ENEMY_HEALTH);
 	enemies[2].setPositionX(3.5);
 	enemies[2].setPositionY(8.5);
+	enemies[2].setHealth(MAX_ENEMY_HEALTH);
 }
 
 void WolfensteinCore0App::updateEnemies() {

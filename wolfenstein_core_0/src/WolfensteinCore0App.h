@@ -2,6 +2,7 @@
 #ifndef WOLFENSTEIN_CORE_0_H
 #define WOLFENSTEIN_CORE_0_H
 
+#include "Constants.h"
 #include "Player.h"
 #include "Level.h"
 #include "Enemy.h"
@@ -22,6 +23,7 @@ private:
 	void gameLogicPerFrame();
 	void handlePlayerMovement();
 	void handlePlayerAction();
+	void checkWinCondition();
 	void updateEnemies();
 	void castRays();
 	void transferSharedDataPacket();
@@ -32,7 +34,7 @@ private:
 	};
 
 	Player player;
-	Enemy enemies[3];
+	Enemy enemies[MAX_NUM_ENEMIES];
 	int levelSelectIndex = 0;
 	Level* currentLevel = nullptr;
 	gameState_t gameState = MAIN_MENU;

@@ -16,8 +16,8 @@
 #include "../../wolfenstein_core_0/src/Player.h"
 #include "../../wolfenstein_core_0/src/Enemy.h"
 
-int spriteW = 245;
-int spriteH = 240;
+int spriteW = ENEMY_SPRITE_WIDTH;
+int spriteH = ENEMY_SPRITE_HEIGHT;
 
 #define numEnemies 3
 
@@ -173,6 +173,11 @@ void WolfensteinCore1App::drawEnemy() {
 	enemyData_t enemy;
 	for(int i = 0; i < numEnemies; i++) {
 		enemy = enemies[i];
+
+		if(enemy.health <= 0) {
+			continue;
+		}
+
 		float vecX = enemy.positionX - playerX;
 		float vecY = enemy.positionY - playerY;
 		float enemyDistanceFromPlayer = sqrtf(vecX*vecX + vecY*vecY);

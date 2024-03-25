@@ -36,15 +36,23 @@ const float RAY_DISTANCE_INCREMENT 	= 0.1;
 
 // Debug params
 const bool DO_USE_CONTROLLER = false;
-const bool DO_PRINT_FRAME_TIME = true;
+const bool DO_PRINT_FRAME_TIME = false;
 
 
 // Gameplay params
 const float VERTICAL_FOV	= M_PI * 0.4;
 const float HORIZONTAL_FOV	= M_PI * 0.5;
+
 const int MAX_PLAYER_HEALTH = 100;
+const int PLAYER_DAMAGE = 50;
 const float MAX_PLAYER_TURN_SPEED_RAD_PER_SEC = 1.5;
 const float MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC = 1.5;
+
+const int MAX_NUM_ENEMIES = 10;
+const int MAX_ENEMY_HEALTH = 100;
 const float MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC = 0.75;
+
+const int ENEMY_SPRITE_WIDTH = 245;
+const int ENEMY_SPRITE_HEIGHT = 240;
 
 #endif

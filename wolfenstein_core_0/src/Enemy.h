@@ -11,21 +11,22 @@ typedef struct {
 } enemyData_t;
 
 class Enemy : public ObjectWithPosition {
-	public:
-		int getHealth();
+public:
+	int getHealth();
+	void setHealth(int health);
 
-		void setHealth(int health);
+	float getTimeSinceLastShot();
+	void setTimeSinceLastShot(float time);
 
-		enemyData_t getEnemyData();
-		float getTimeSinceLastShot();
-		void setTimeSinceLastShot(float time);
-		bool hasSeenPlayer();
-		void setSeenPlayer();
+	bool hasSeenPlayer();
+	void setSeenPlayer();
 
-	private:
-		int health = 0;
-		float timeSinceLastShot = 1.0;
-		bool seenPlayer = false;
+	enemyData_t getEnemyData();
+
+private:
+	int health = 0;
+	float timeSinceLastShot = 1.0;
+	bool seenPlayer = false;
 };
 
 #endif

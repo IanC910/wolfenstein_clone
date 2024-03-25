@@ -1,13 +1,11 @@
 #include "Enemy.h"
 
-enemyData_t Enemy::getEnemyData() {
-	enemyData_t enemyData;
+int Enemy::getHealth() {
+	return health;
+}
 
-	enemyData.health = health;
-	enemyData.positionX = positionX;
-	enemyData.positionY = positionY;
-
-	return enemyData;
+void Enemy::setHealth(int health) {
+	this->health = health;
 }
 
 float Enemy::getTimeSinceLastShot() {
@@ -18,7 +16,6 @@ void Enemy::setTimeSinceLastShot(float time) {
 	timeSinceLastShot = time;
 }
 
-
 bool Enemy::hasSeenPlayer() {
 	return seenPlayer;
 }
@@ -27,3 +24,12 @@ void Enemy::setSeenPlayer() {
 	seenPlayer = true;
 }
 
+enemyData_t Enemy::getEnemyData() {
+	enemyData_t enemyData;
+
+	enemyData.health = health;
+	enemyData.positionX = positionX;
+	enemyData.positionY = positionY;
+
+	return enemyData;
+}
