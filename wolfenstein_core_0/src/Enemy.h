@@ -21,6 +21,7 @@ class Enemy : public ObjectWithPosition {
 		void setTimeSinceLastShot(float time);
 		bool hasSeenPlayer();
 		void setSeenPlayer();
+		void resetEnemy();
 
 	private:
 		int health = 0;

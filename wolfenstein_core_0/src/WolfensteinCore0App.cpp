@@ -60,6 +60,7 @@ void WolfensteinCore0App::runCore0App() {
 					}
 					if(Buttons_isButtonPressed(CENTRE)) {
 						this->currentLevel = getLevel(0);
+						initializeEnemies();
 
 						player.setHealth(MAX_PLAYER_HEALTH);
 
@@ -79,8 +80,6 @@ void WolfensteinCore0App::runCore0App() {
 				u32 maxRayCastTimeDC = 0;
 				u32 maxTransferTimeDC = 0;
 				u32 maxFrameTimeDC = 0;
-
-				initializeEnemies();
 
 				while(gameState == PLAYING_LEVEL) {
 					XTime frameStartTimeDC;
@@ -285,18 +284,17 @@ void WolfensteinCore0App::handleUserMovement() {
 }
 
 void WolfensteinCore0App::initializeEnemies() {
-	enemies[0].setPositionX(4.5);
-	enemies[0].setPositionY(4.5);
-	enemies[1].setPositionX(8.5);
-	enemies[1].setPositionY(8.5);
-	enemies[2].setPositionX(3.5);
-	enemies[2].setPositionY(8.5);
+	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {
+		enemies[i].resetEnemy();
+		enemies[i].setPositionX(currentLevel->getEnemyX(i));
+		enemies[i].setPositionY(currentLevel->getEnemyY(i));
+	}
 }
 
 void WolfensteinCore0App::updateEnemies() {
 	float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
 
-	for(int i = 0; i < MAX_NUM_ENEMIES; i++) {
+	for(int i = 0; i < currentLevel->getNumEnemies(); i++) { //CHECK IF ENEMY HEALTH > 0
 		float vecX = (player.getPositionX() + i*0.5 - enemies[i].getPositionX());
 		float vecY = (player.getPositionY() + i*0.5 + 0.5 - enemies[i].getPositionY());
 		float playerDistanceFromEnemy = sqrtf(vecX*vecX + vecY*vecY);

@@ -166,7 +166,7 @@ void WolfensteinCore1App::drawEnemy() {
 
 	enemyData_t* enemies = SHARED_DATA_PACKETS[1].enemyDataArray;
 	enemyData_t enemy;
-	for(int i = 0; i < MAX_NUM_ENEMIES; i++) {
+	for(int i = 0; i < 3; i++) { //CHANGE TO MAX ENEMIES AND ADD A CHECK TO SEE IF ENEMY HEALTH > 0
 		enemy = enemies[i];
 		float vecX = enemy.positionX - playerX;
 		float vecY = enemy.positionY - playerY;

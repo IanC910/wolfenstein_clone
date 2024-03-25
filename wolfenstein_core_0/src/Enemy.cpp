@@ -27,3 +27,9 @@ void Enemy::setSeenPlayer() {
 	seenPlayer = true;
 }
 
+void Enemy::resetEnemy() {
+	health = 100;
+	timeSinceLastShot = 1.0;
+	seenPlayer = false;
+}
+

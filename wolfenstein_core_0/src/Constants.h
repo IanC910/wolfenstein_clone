@@ -53,7 +53,7 @@ const float ENEMY_SHOT_DELAY = 1.0;
 // Enemy Params
 const int ENEMY_SPRITE_WIDTH = 245;
 const int ENEMY_SRPITE_HEIGHT = 240;
-const int MAX_NUM_ENEMIES = 3;
+const int MAX_NUM_ENEMIES = 10;
 
 
 
