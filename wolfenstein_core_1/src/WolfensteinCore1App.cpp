@@ -19,9 +19,6 @@
 int spriteW = 245;
 int spriteH = 240;
 
-int spriteWG = 139;
-int spriteHG = 105;
-
 #define numEnemies 3
 
 WolfensteinCore1App::WolfensteinCore1App() {
@@ -268,6 +265,7 @@ int WolfensteinCore1App::getColourFromGradient(const int* gradient, const int gr
 }
 
 void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int startRay, int endRay, int rowAlreadyDrawn) {
+	// TODO incorporate vertical resolution downscaling
 	for(int i = rowAlreadyDrawn; i < SCREEN_HEIGHT / 2; i++) {
 		int startRay = 0;
 		bool startRayIsSet = false;

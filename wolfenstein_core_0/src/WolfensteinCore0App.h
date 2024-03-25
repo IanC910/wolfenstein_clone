@@ -17,15 +17,14 @@ private:
 	void clearMem();
 	void startCore1();
 	void drawMenu();
+	void initializeEnemies();
 	void drawCharacter(int characterIndex, int startRow, int startCol, int scale, int colour);
 	void gameLogicPerFrame();
 	void handlePlayerMovement();
 	void handlePlayerAction();
+	void updateEnemies();
 	void castRays();
 	void transferSharedDataPacket();
-	void handleUserMovement();
-	void updateEnemies();
-	void initializeEnemies();
 
 	enum gameState_t {
 		MAIN_MENU,

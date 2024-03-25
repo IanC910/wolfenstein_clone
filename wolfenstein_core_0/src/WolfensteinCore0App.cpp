@@ -89,7 +89,7 @@ void WolfensteinCore0App::runCore0App() {
 					XTime_GetTime(&frameStartTimeDC);
 
 					if(Buttons_isNewStatus()) {
-						if(Buttons_isButtonPressed(BTN_CENTRE)) {
+						if(Buttons_isButtonPressed(BTN_DOWN)) {
 							gameState = MAIN_MENU;
 							break;
 						}
@@ -246,22 +246,20 @@ void WolfensteinCore0App::handlePlayerMovement() {
 }
 
 void WolfensteinCore0App::handlePlayerAction() {
-//	static bool playerIsShooting = 0;
-//
-//	bool triggerStatus = 0;
-//
-//	if(DO_USE_CONTROLLER) {
-//		triggerStatus = Controller_isTriggerPressed(1);
-//	}
-//	else {
-//		triggerStatus = Buttons_isButtonPressed(BTN_DOWN);
-//	}
-//
-//	playerIsShooting = triggerStatus && !playerIsShooting;
-//
-//	if(playerIsShooting) {
-//
-//	}
+	bool triggerStatus = 0;
+
+	if(DO_USE_CONTROLLER) {
+		triggerStatus = Controller_isTriggerPressed(1);
+	}
+	else {
+		triggerStatus = Buttons_isButtonPressed(BTN_CENTRE);
+	}
+
+	player.updateIsShooting(triggerStatus);
+
+	if(player.getIsShooting()) {
+
+	}
 }
 
 void WolfensteinCore0App::castRays() {
