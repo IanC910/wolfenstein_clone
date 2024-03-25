@@ -39,8 +39,6 @@ WolfensteinCore0App::WolfensteinCore0App() {
 void WolfensteinCore0App::runCore0App() {
 	xil_printf("Starting Wolfenstein Core 0 App\n");
 
-	initializeEnemies();
-
 	startCore1();
 
 	// Main Loop
@@ -81,6 +79,8 @@ void WolfensteinCore0App::runCore0App() {
 				u32 maxRayCastTimeDC = 0;
 				u32 maxTransferTimeDC = 0;
 				u32 maxFrameTimeDC = 0;
+
+				initializeEnemies();
 
 				while(gameState == PLAYING_LEVEL) {
 					XTime frameStartTimeDC;
@@ -294,12 +294,14 @@ void WolfensteinCore0App::initializeEnemies() {
 }
 
 void WolfensteinCore0App::updateEnemies() {
-	for(int i = 0; i < 3; i++) {
-		float vecX = (player.getPositionX() - enemies[i].getPositionX());
-		float vecY = (player.getPositionY() - enemies[i].getPositionY()) + 1;
+	float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
+
+	for(int i = 0; i < MAX_NUM_ENEMIES; i++) {
+		float vecX = (player.getPositionX() + i*0.5 - enemies[i].getPositionX());
+		float vecY = (player.getPositionY() + i*0.5 + 0.5 - enemies[i].getPositionY());
 		float playerDistanceFromEnemy = sqrtf(vecX*vecX + vecY*vecY);
 		if(enemies[i].hasSeenPlayer()) {
-			if(playerDistanceFromEnemy > 1.0) {
+			if(playerDistanceFromEnemy > 1.5) {
 				float objectAngle = atan2f(vecY, vecX);
 				if(objectAngle < M_PI) {
 					objectAngle += 2.0 * M_PI;
@@ -309,23 +311,42 @@ void WolfensteinCore0App::updateEnemies() {
 				}
 				float deltaX = (cos(objectAngle) + sin(objectAngle)) * MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
 				float deltaY = (sin(objectAngle) - cos(objectAngle)) * MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
-				//add check how close to enemy, if < 1.0 then do something
-				enemies[i].setPositionX(enemies[i].getPositionX() + deltaX);
-				enemies[i].setPositionY(enemies[i].getPositionY() + deltaY);
+
+				if(currentLevel->getBlockAtWorldCoord(enemies[i].getPositionX() + deltaX*(12.5), enemies[i].getPositionY()) == ' ') {
+					enemies[i].setPositionX(enemies[i].getPositionX() + deltaX);
+				}
+				if(currentLevel->getBlockAtWorldCoord(enemies[i].getPositionX(), enemies[i].getPositionY() + deltaY*(12.5)) == ' ') {
+					enemies[i].setPositionY(enemies[i].getPositionY() + deltaY);
+				}
 
 			}
 			enemies[i].setTimeSinceLastShot(enemies[i].getTimeSinceLastShot() + frameTimeInSec);
-			if(playerDistanceFromEnemy < 1.5 && enemies[i].getTimeSinceLastShot() >= 1.0) {
-				if(player.getHealth() > 0) {
-					player.setHealth(player.getHealth() - 5);
-				} else {
+			if(playerDistanceFromEnemy < 1.5 && enemies[i].getTimeSinceLastShot() >= ENEMY_SHOT_DELAY) {
+				player.setHealth(player.getHealth() - ENEMY_DAMAGE_PER_SHOT);
+				if(player.getHealth() <= 0) {
 					gameState = MAIN_MENU;
 				}
 				enemies[i].setTimeSinceLastShot(0.0);
 			}
 		}
 		else if(playerDistanceFromEnemy < 3.0) {
-			enemies[i].setSeenPlayer();
+			float playerViewX = cosf(player.getAngle());
+			float playerViewY = sinf(player.getAngle());
+			float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(-vecY, -vecX);
+
+			if(objectAngle < M_PI) {
+				objectAngle += 2.0 * M_PI;
+			}
+			if(objectAngle > M_PI) {
+				objectAngle -= 2.0 * M_PI;
+			}
+
+			bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
+			float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
+
+			if(inPlayerFOV && distanceArray0[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= playerDistanceFromEnemy) {
+				enemies[i].setSeenPlayer();
+			}
 		}
 	}
 }
