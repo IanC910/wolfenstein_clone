@@ -186,10 +186,10 @@ void WolfensteinCore1App::drawEnemy() {
 		float playerViewY = sinf(playerAngle);
 		float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(vecY, vecX);
 
-		if(objectAngle < M_PI) {
+		if(objectAngle < -M_PI) {
 			objectAngle += 2.0 * M_PI;
 		}
-		if(objectAngle > M_PI) {
+		else if(objectAngle > M_PI) {
 			objectAngle -= 2.0 * M_PI;
 		}
 

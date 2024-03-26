@@ -238,6 +238,12 @@ void WolfensteinCore0App::handlePlayerAction() {
 			float distanceToEnemy = sqrtf(playerToEnemyX * playerToEnemyX + playerToEnemyY * playerToEnemyY);
 			float angleToEnemy = atan2f(playerToEnemyY, playerToEnemyX);
 			float deltaAngle = angleToEnemy - player.getAngle();
+			if(deltaAngle < -M_PI) {
+				deltaAngle += 2.0 * M_PI;
+			}
+			else if(deltaAngle > M_PI) {
+				deltaAngle -= 2.0 * M_PI;
+			}
 
 			int enemyMiddleCol = (int)((deltaAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH));
 			int enemyLeftCol = enemyMiddleCol - ENEMY_SPRITE_WIDTH / (2 * distanceToEnemy);
