@@ -10,13 +10,16 @@
 
 #include "../../wolfenstein_core_0/src/Colour.h"
 #include "../../wolfenstein_core_0/src/Constants.h"
+#include "../../wolfenstein_core_0/src/Addresses.h"
+#include "../../wolfenstein_core_0/src/SharedDataPacket.h"
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
+#include "../../wolfenstein_core_0/src/Player.h"
+#include "../../wolfenstein_core_0/src/Enemy.h"
 
 WolfensteinCore1App::WolfensteinCore1App() {
 	xil_printf("Wolfenstein Core 1 App Init\n");
 
 	Xil_DCacheDisable();
-
 	// initialize floor and ceiling buffers
 	// Draw 1 row and copy
 	int ceilingColourInt = CEILING_GRADIENT[0];
@@ -51,7 +54,7 @@ void WolfensteinCore1App::runCore1App() {
 
 		// Get New Distance Array
 		XTime_GetTime(&funcStartTime);
-		getNewDistanceArray();
+		receiveSharedDataPacket();
 		XTime_GetTime(&funcEndTime);
 		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
 		if(funcTime > maxTransferTime) {
@@ -66,6 +69,16 @@ void WolfensteinCore1App::runCore1App() {
 		if(funcTime > maxDrawTime) {
 			maxDrawTime = funcTime;
 		}
+
+		// Draw enemy
+		XTime_GetTime(&funcStartTime);
+		drawEnemy();
+		XTime_GetTime(&funcEndTime);
+		/*funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
+		if(funcTime > maxDrawTime) {
+			maxDrawTime = funcTime;
+			xil_printf("Core 1 max draw time: %8d\n", maxDrawTime);
+		}*/
 
 		drawHUD();
 
@@ -86,11 +99,10 @@ void WolfensteinCore1App::runCore1App() {
 	}
 }
 
-void WolfensteinCore1App::getNewDistanceArray() {
+void WolfensteinCore1App::receiveSharedDataPacket() {
 	while(!INTERFACE_PTR->valid);
 
-	memcpy(DISTANCE_ARRAY_1, DISTANCE_ARRAY_0, NUM_RAYS * sizeof(float));
-	this->playerHealth = *PLAYER_HEALTH;
+	memcpy(&SHARED_DATA_PACKETS[1], &SHARED_DATA_PACKETS[0], sizeof(sharedDataPacket_t));
 
 	INTERFACE_PTR->acknowledge = 1;
 	while(INTERFACE_PTR->valid);
@@ -99,15 +111,17 @@ void WolfensteinCore1App::getNewDistanceArray() {
 }
 
 void WolfensteinCore1App::drawEnvironment() {
+	float* distanceArray1 = SHARED_DATA_PACKETS[1].distanceArray;
+
 	// Calculate the wall height (start row) for each ray column
 	for(int r = 0; r < NUM_RAYS; r++) {
-		WALL_START_ROW_ARRAY[r] = getScreenRowOfCeilingAtDistance(DISTANCE_ARRAY_1[r]); // Inclusive for walls, exclusive for ceiling
+		WALL_START_ROW_ARRAY[r] = getScreenRowOfCeilingAtDistance(distanceArray1[r]); // Inclusive for walls, exclusive for ceiling
 	}
 
 	// Find ray column closest to player
 	int indexOfClosest = 0;
 	for(int r = 1; r < NUM_RAYS; r++) {
-		if(DISTANCE_ARRAY_1[r] < DISTANCE_ARRAY_1[indexOfClosest]) {
+		if(distanceArray1[r] < distanceArray1[indexOfClosest]) {
 			indexOfClosest = r;
 		}
 	}
@@ -125,7 +139,7 @@ void WolfensteinCore1App::drawEnvironment() {
 
 	// Draw 1 row of wall and copy to parts of screen that have visible wall
 	for(int r = 0; r < NUM_RAYS; r++) {
-		int wallColourInt = getColourFromGradient(WALL_GRADIENT, WALL_GRADIENT_LENGTH, DISTANCE_ARRAY_1[r]);
+		int wallColourInt = getColourFromGradient(WALL_GRADIENT, WALL_GRADIENT_LENGTH, distanceArray1[r]);
 		for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
 			INTERMEDIATE_IMAGE_BUFFER[r * PIXEL_WIDTHS_PER_RAY + j] = wallColourInt;
 		}
@@ -142,6 +156,94 @@ void WolfensteinCore1App::drawEnvironment() {
 
 	// Fill in the rest of the floor and ceiling (non rectangular parts) in columns
 	fillNonRectangularCeilingAndFloor(0, NUM_RAYS, maxCeilingRow);
+}
+
+void WolfensteinCore1App::drawEnemy() {
+	float* distanceArray1 = SHARED_DATA_PACKETS[1].distanceArray;
+	float playerAngle = SHARED_DATA_PACKETS[1].playerData.angle;
+	float playerX = SHARED_DATA_PACKETS[1].playerData.positionX;
+	float playerY = SHARED_DATA_PACKETS[1].playerData.positionY;
+
+	enemyData_t* enemies = SHARED_DATA_PACKETS[1].enemyDataArray;
+	enemyData_t enemy;
+	for(int i = 0; i < 3; i++) { //CHANGE TO MAX ENEMIES AND ADD A CHECK TO SEE IF ENEMY HEALTH > 0
+		enemy = enemies[i];
+
+		if(enemy.health <= 0) {
+			continue;
+		}
+
+		float vecX = enemy.positionX - playerX;
+		float vecY = enemy.positionY - playerY;
+		float enemyDistanceFromPlayer = sqrtf(vecX*vecX + vecY*vecY);
+
+		float playerViewX = cosf(playerAngle);
+		float playerViewY = sinf(playerAngle);
+		float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(vecY, vecX);
+
+		if(objectAngle < -M_PI) {
+			objectAngle += 2.0 * M_PI;
+		}
+		else if(objectAngle > M_PI) {
+			objectAngle -= 2.0 * M_PI;
+		}
+
+		bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
+
+		float scaleFactor = enemyDistanceFromPlayer;
+		if(scaleFactor < 1.1) {
+			scaleFactor = 1;
+		}
+
+		float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
+		int startXEnemy = middleOfEnemy - (ENEMY_SPRITE_WIDTH/(2*scaleFactor));
+		int startYEnemy = (SCREEN_HEIGHT / 2) - (ENEMY_SRPITE_HEIGHT/(2*scaleFactor));
+
+		if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 5 && distanceArray1[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
+			for(int i = 0; i < (int)(ENEMY_SRPITE_HEIGHT/scaleFactor); i++) {
+				int s = (int)(i * scaleFactor);
+				int firstNonTransparentPixel = ((int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+3))/scaleFactor) - 1;
+				int numOfNonTransparentPixel = (int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+7))/scaleFactor;
+
+				//Checks if sprite is past right bound of screen and updates accordingly
+				if(startXEnemy + (firstNonTransparentPixel + numOfNonTransparentPixel) > SCREEN_WIDTH) {
+					numOfNonTransparentPixel = SCREEN_WIDTH - (startXEnemy + firstNonTransparentPixel);
+				}
+
+				//Checks if sprite is past left bound of screen and updates accordingly
+				if(startXEnemy + firstNonTransparentPixel < 0) {
+					numOfNonTransparentPixel -= fabs(startXEnemy + firstNonTransparentPixel);
+					firstNonTransparentPixel += fabs(startXEnemy + firstNonTransparentPixel);
+				}
+
+				//Check if left part of sprite is behind wall
+				while(distanceArray1[((startXEnemy + firstNonTransparentPixel))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
+					numOfNonTransparentPixel--;
+					firstNonTransparentPixel++;
+				}
+
+				//Check if right part of sprite is behind wall
+				while(distanceArray1[(startXEnemy + ((firstNonTransparentPixel + numOfNonTransparentPixel)))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
+					numOfNonTransparentPixel--;
+				}
+
+				//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
+				if(scaleFactor == 1) {
+					memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + firstNonTransparentPixel + startXEnemy, enemySprite+(i*(ENEMY_SPRITE_WIDTH)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
+				}
+				else {
+					for(int j = 0; j < numOfNonTransparentPixel; j++) {
+						memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + startXEnemy + j + (firstNonTransparentPixel), enemySprite+(s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+((int)((firstNonTransparentPixel+j)*scaleFactor))*sizeof(int)), sizeof(int));
+					}
+				}
+
+				//Update distance array with new distances for drawn enemies
+				for(int i = 0; i < numOfNonTransparentPixel; i++) {
+					distanceArray1[(firstNonTransparentPixel + startXEnemy + i)/RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
+				}
+			}
+		}
+	}
 }
 
 int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
@@ -163,6 +265,7 @@ int WolfensteinCore1App::getColourFromGradient(const int* gradient, const int gr
 }
 
 void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int startRay, int endRay, int rowAlreadyDrawn) {
+	// TODO incorporate vertical resolution downscaling
 	for(int i = rowAlreadyDrawn; i < SCREEN_HEIGHT / 2; i++) {
 		int startRay = 0;
 		bool startRayIsSet = false;
@@ -205,6 +308,7 @@ void WolfensteinCore1App::drawHUD() {
 
 	int healthBarEmptyColour = colourRGB(8, 0, 0);
 	int healthBarFullColour = colourRGB(0, 15, 0);
+	int playerHealth = SHARED_DATA_PACKETS[1].playerData.health;
 
 	for(int i = 0; i < healthBarHeight; i++) {
 		for(int j = 0; j < playerHealth; j++) {

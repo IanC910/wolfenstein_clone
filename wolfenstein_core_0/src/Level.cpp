@@ -1,13 +1,18 @@
 
 #include <math.h>
 
-#include "Constants.h"
 #include "Level.h"
 
-Level::Level(int width, int height, char* layout) {
+Level::Level(int width, int height, int numEnemies, float enemyPositions[MAX_NUM_ENEMIES][2], char* layout) {
 	this->width = width;
 	this->height = height;
+	this->numEnemies = numEnemies;
 	this->layout = layout;
+
+	for(int i = 0; i < MAX_NUM_ENEMIES; i++) {
+		this->enemyPositions[i][0] = enemyPositions[i][0];
+		this->enemyPositions[i][1] = enemyPositions[i][1];
+	}
 }
 
 int Level::getWidth() {
@@ -16,6 +21,18 @@ int Level::getWidth() {
 
 int Level::getHeight() {
 	return height;
+}
+
+int Level::getNumEnemies() {
+	return numEnemies;
+}
+
+float Level::getEnemyX(int num) {
+	return enemyPositions[num][0];
+}
+
+float Level::getEnemyY(int num) {
+	return enemyPositions[num][1];
 }
 
 char Level::getBlockAtArrayCoord(int row, int col) {
@@ -29,34 +46,4 @@ char Level::getBlockAtWorldCoord(float x, float y) {
 	int col = (int)floor(x);
 	int row = (int)(height - 1 - floor(y));
 	return getBlockAtArrayCoord(row, col);
-}
-
-// Levels
-const int LEVEL_0_WIDTH = 10;
-const int LEVEL_0_HEIGHT = 10;
-char LEVEL_0_LAYOUT[LEVEL_0_WIDTH * LEVEL_0_HEIGHT + 1] =
-	"##        "
-	"##    ##  "
-	"      ##  "
-	"          "
-	"          "
-	"          "
-	"          "
-	"          "
-	"##        "
-	"##        "
-;
-
-Level level0(LEVEL_0_WIDTH, LEVEL_0_HEIGHT, LEVEL_0_LAYOUT);
-
-Level* levels[NUM_LEVELS] = {
-	&level0
-};
-
-
-Level* getLevel(int levelIndex) {
-	if(levelIndex >= 0 && levelIndex < NUM_LEVELS) {
-		return levels[levelIndex];
-	}
-	return nullptr;
 }

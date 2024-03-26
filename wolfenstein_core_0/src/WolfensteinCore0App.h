@@ -2,8 +2,10 @@
 #ifndef WOLFENSTEIN_CORE_0_H
 #define WOLFENSTEIN_CORE_0_H
 
+#include "Constants.h"
 #include "Player.h"
 #include "Level.h"
+#include "Enemy.h"
 
 class WolfensteinCore0App {
 
@@ -16,10 +18,14 @@ private:
 	void clearMem();
 	void startCore1();
 	void drawMenu();
+	void initializeEnemies();
 	void drawCharacter(int characterIndex, int startRow, int startCol, int scale, int colour);
-	void gameLogicPerFrame();
+	void handlePlayerMovement();
+	void handlePlayerAction();
+	void checkWinCondition();
+	void updateEnemies();
 	void castRays();
-	void transferDistanceArray();
+	void transferSharedDataPacket();
 
 	enum gameState_t {
 		MAIN_MENU,
@@ -27,6 +33,7 @@ private:
 	};
 
 	Player player;
+	Enemy enemies[MAX_NUM_ENEMIES];
 	int levelSelectIndex = 0;
 	Level* currentLevel = nullptr;
 	gameState_t gameState = MAIN_MENU;

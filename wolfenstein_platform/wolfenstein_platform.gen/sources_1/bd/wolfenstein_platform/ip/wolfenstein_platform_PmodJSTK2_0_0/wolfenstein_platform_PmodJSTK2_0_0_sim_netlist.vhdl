@@ -1,11 +1,11 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
--- Date        : Sun Mar 17 22:49:26 2024
--- Host        : IC-VivoBook running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_PmodJSTK2_0_0/wolfenstein_platform_PmodJSTK2_0_0_sim_netlist.vhdl
--- Design      : wolfenstein_platform_PmodJSTK2_0_0
+-- Date        : Sat Mar 23 17:09:09 2024
+-- Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
+-- Command     : write_vhdl -force -mode funcsim -rename_top wolfenstein_platform_PmodJSTK2_0_0 -prefix
+--               wolfenstein_platform_PmodJSTK2_0_0_ wolfenstein_platform_PmodJSTK2_1_0_sim_netlist.vhdl
+-- Design      : wolfenstein_platform_PmodJSTK2_1_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
 -- Device      : xc7z020clg484-1
@@ -43,8 +43,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_address_decoder is
     AXI_LITE_GPIO_wready : in STD_LOGIC;
     reg1 : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_address_decoder : entity is "address_decoder";
 end wolfenstein_platform_PmodJSTK2_0_0_address_decoder;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_address_decoder is
@@ -905,8 +903,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_cdc_sync is
     gpio_io_i : in STD_LOGIC_VECTOR ( 0 to 0 );
     s_axi_aclk : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_cdc_sync : entity is "cdc_sync";
 end wolfenstein_platform_PmodJSTK2_0_0_cdc_sync;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_cdc_sync is
@@ -2360,8 +2356,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_counter_f is
     s_axi_aclk : in STD_LOGIC;
     \icount_out_reg[0]_0\ : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_counter_f : entity is "counter_f";
 end wolfenstein_platform_PmodJSTK2_0_0_counter_f;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_counter_f is
@@ -2525,8 +2519,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_interrupt_control is
     E : in STD_LOGIC_VECTOR ( 0 to 0 );
     D : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_interrupt_control : entity is "interrupt_control";
 end wolfenstein_platform_PmodJSTK2_0_0_interrupt_control;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_interrupt_control is
@@ -2904,8 +2896,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_pmod_concat is
   );
   attribute Bottom_Row_Interface : string;
   attribute Bottom_Row_Interface of wolfenstein_platform_PmodJSTK2_0_0_pmod_concat : entity is "Disabled";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_pmod_concat : entity is "pmod_concat";
   attribute Top_Row_Interface : string;
   attribute Top_Row_Interface of wolfenstein_platform_PmodJSTK2_0_0_pmod_concat : entity is "None";
 end wolfenstein_platform_PmodJSTK2_0_0_pmod_concat;
@@ -3016,8 +3006,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_qspi_cntrl_reg is
     p_7_in : in STD_LOGIC;
     Bus_RNW_reg : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_qspi_cntrl_reg : entity is "qspi_cntrl_reg";
 end wolfenstein_platform_PmodJSTK2_0_0_qspi_cntrl_reg;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_qspi_cntrl_reg is
@@ -3234,8 +3222,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_qspi_fifo_ifmodule is
     p_4_in : in STD_LOGIC;
     Bus_RNW_reg : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_qspi_fifo_ifmodule : entity is "qspi_fifo_ifmodule";
 end wolfenstein_platform_PmodJSTK2_0_0_qspi_fifo_ifmodule;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_qspi_fifo_ifmodule is
@@ -3327,8 +3313,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_qspi_mode_0_module is
     D : in STD_LOGIC_VECTOR ( 0 to 0 );
     \OTHER_RATIO_GENERATE.rx_shft_reg_mode_0110_reg[7]_0\ : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_qspi_mode_0_module : entity is "qspi_mode_0_module";
 end wolfenstein_platform_PmodJSTK2_0_0_qspi_mode_0_module;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_qspi_mode_0_module is
@@ -4705,8 +4689,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_qspi_status_slave_sel_reg is
     \SPISSR_WR_GEN[0].SPISSR_Data_reg_reg[0]_1\ : in STD_LOGIC;
     s_axi_aclk : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_qspi_status_slave_sel_reg : entity is "qspi_status_slave_sel_reg";
 end wolfenstein_platform_PmodJSTK2_0_0_qspi_status_slave_sel_reg;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_qspi_status_slave_sel_reg is
@@ -4732,8 +4714,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_reset_sync_module is
     reset2ip_reset_int : in STD_LOGIC;
     ext_spi_clk : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_reset_sync_module : entity is "reset_sync_module";
 end wolfenstein_platform_PmodJSTK2_0_0_reset_sync_module;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_reset_sync_module is
@@ -4800,8 +4780,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_soft_reset is
     \icount_out_reg[0]\ : in STD_LOGIC;
     D : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_soft_reset : entity is "soft_reset";
 end wolfenstein_platform_PmodJSTK2_0_0_soft_reset;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_soft_reset is
@@ -5347,8 +5325,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_xpm_cdc_gray is
   attribute DEST_SYNC_FF of wolfenstein_platform_PmodJSTK2_0_0_xpm_cdc_gray : entity is 2;
   attribute INIT_SYNC_FF : integer;
   attribute INIT_SYNC_FF of wolfenstein_platform_PmodJSTK2_0_0_xpm_cdc_gray : entity is 1;
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_xpm_cdc_gray : entity is "xpm_cdc_gray";
   attribute REG_OUTPUT : integer;
   attribute REG_OUTPUT of wolfenstein_platform_PmodJSTK2_0_0_xpm_cdc_gray : entity is 0;
   attribute SIM_ASSERT_CHK : integer;
@@ -7678,8 +7654,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_xpm_cdc_sync_rst is
   attribute INIT of wolfenstein_platform_PmodJSTK2_0_0_xpm_cdc_sync_rst : entity is "0";
   attribute INIT_SYNC_FF : integer;
   attribute INIT_SYNC_FF of wolfenstein_platform_PmodJSTK2_0_0_xpm_cdc_sync_rst : entity is 1;
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_xpm_cdc_sync_rst : entity is "xpm_cdc_sync_rst";
   attribute SIM_ASSERT_CHK : integer;
   attribute SIM_ASSERT_CHK of wolfenstein_platform_PmodJSTK2_0_0_xpm_cdc_sync_rst : entity is 0;
   attribute VERSION : integer;
@@ -7959,8 +7933,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_xpm_counter_updn is
     wr_pntr_plus1_pf_carry : in STD_LOGIC;
     wr_clk : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_xpm_counter_updn : entity is "xpm_counter_updn";
 end wolfenstein_platform_PmodJSTK2_0_0_xpm_counter_updn;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_xpm_counter_updn is
@@ -10100,8 +10072,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_reg_bit is
     prog_full : in STD_LOGIC;
     wr_en : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_reg_bit : entity is "xpm_fifo_reg_bit";
 end wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_reg_bit;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_reg_bit is
@@ -10239,8 +10209,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_reg_vec is
     D : in STD_LOGIC_VECTOR ( 3 downto 0 );
     wr_clk : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_reg_vec : entity is "xpm_fifo_reg_vec";
 end wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_reg_vec;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_reg_vec is
@@ -11392,8 +11360,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_xpm_memory_base is
   attribute MESSAGE_CONTROL of wolfenstein_platform_PmodJSTK2_0_0_xpm_memory_base : entity is 0;
   attribute NUM_CHAR_LOC : integer;
   attribute NUM_CHAR_LOC of wolfenstein_platform_PmodJSTK2_0_0_xpm_memory_base : entity is 0;
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_xpm_memory_base : entity is "xpm_memory_base";
   attribute P_ECC_MODE : string;
   attribute P_ECC_MODE of wolfenstein_platform_PmodJSTK2_0_0_xpm_memory_base : entity is "no_ecc";
   attribute P_ENABLE_BYTE_WRITE_A : integer;
@@ -12297,8 +12263,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_GPIO_Core is
     bus2ip_cs : in STD_LOGIC;
     gpio_io_i : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_GPIO_Core : entity is "GPIO_Core";
 end wolfenstein_platform_PmodJSTK2_0_0_GPIO_Core;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_GPIO_Core is
@@ -12456,8 +12420,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_pmod_bridge_0_0 is
   attribute CHECK_LICENSE_TYPE of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_pmod_bridge_0_0 : entity is "PmodJSTK2_pmod_bridge_0_0,pmod_concat,{}";
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_pmod_bridge_0_0 : entity is "yes";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_pmod_bridge_0_0 : entity is "PmodJSTK2_pmod_bridge_0_0";
   attribute X_CORE_INFO : string;
   attribute X_CORE_INFO of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_pmod_bridge_0_0 : entity is "pmod_concat,Vivado 2020.2";
 end wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_pmod_bridge_0_0;
@@ -14127,8 +14089,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_cross_clk_sync_fifo_1 is
     \GENERATE_LEVEL_P_S_CDC.SINGLE_BIT.CROSS_PLEVEL_IN2SCNDRY_IN_cdc_to_5\ : in STD_LOGIC;
     spicr_bits_7_8_frm_axi_clk : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_cross_clk_sync_fifo_1 : entity is "cross_clk_sync_fifo_1";
 end wolfenstein_platform_PmodJSTK2_0_0_cross_clk_sync_fifo_1;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_cross_clk_sync_fifo_1 is
@@ -14494,8 +14454,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_slave_attachment is
     s_axi_araddr : in STD_LOGIC_VECTOR ( 2 downto 0 );
     s_axi_awaddr : in STD_LOGIC_VECTOR ( 2 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_slave_attachment : entity is "slave_attachment";
 end wolfenstein_platform_PmodJSTK2_0_0_slave_attachment;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_slave_attachment is
@@ -15101,8 +15059,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_rst is
     \guf.underflow_i_reg\ : in STD_LOGIC;
     rd_en : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_rst : entity is "xpm_fifo_rst";
 end wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_rst;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_rst is
@@ -16170,8 +16126,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_axi_lite_ipif is
     s_axi_araddr : in STD_LOGIC_VECTOR ( 2 downto 0 );
     s_axi_awaddr : in STD_LOGIC_VECTOR ( 2 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_axi_lite_ipif : entity is "axi_lite_ipif";
 end wolfenstein_platform_PmodJSTK2_0_0_axi_lite_ipif;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_axi_lite_ipif is
@@ -17278,8 +17232,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_base is
   attribute FULL_RESET_VALUE of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_base : entity is 0;
   attribute FULL_RST_VAL : string;
   attribute FULL_RST_VAL of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_base : entity is "1'b0";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_base : entity is "xpm_fifo_base";
   attribute PE_THRESH_ADJ : integer;
   attribute PE_THRESH_ADJ of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_base : entity is 8;
   attribute PE_THRESH_MAX : integer;
@@ -19366,8 +19318,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_axi_gpio is
   attribute C_TRI_DEFAULT_2 of wolfenstein_platform_PmodJSTK2_0_0_axi_gpio : entity is -1;
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of wolfenstein_platform_PmodJSTK2_0_0_axi_gpio : entity is "yes";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_axi_gpio : entity is "axi_gpio";
   attribute ip_group : string;
   attribute ip_group of wolfenstein_platform_PmodJSTK2_0_0_axi_gpio : entity is "LOGICORE";
 end wolfenstein_platform_PmodJSTK2_0_0_axi_gpio;
@@ -19874,8 +19824,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_async is
   attribute FIFO_WRITE_DEPTH of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_async : entity is 16;
   attribute FULL_RESET_VALUE : integer;
   attribute FULL_RESET_VALUE of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_async : entity is 0;
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_async : entity is "xpm_fifo_async";
   attribute PROG_EMPTY_THRESH : integer;
   attribute PROG_EMPTY_THRESH of wolfenstein_platform_PmodJSTK2_0_0_xpm_fifo_async : entity is 10;
   attribute PROG_FULL_THRESH : integer;
@@ -20340,8 +20288,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_axi_gpio_0_0 is
   attribute CHECK_LICENSE_TYPE of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_axi_gpio_0_0 : entity is "PmodJSTK2_axi_gpio_0_0,axi_gpio,{}";
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_axi_gpio_0_0 : entity is "yes";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_axi_gpio_0_0 : entity is "PmodJSTK2_axi_gpio_0_0";
   attribute X_CORE_INFO : string;
   attribute X_CORE_INFO of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_axi_gpio_0_0 : entity is "axi_gpio,Vivado 2020.2";
 end wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_axi_gpio_0_0;
@@ -20496,8 +20442,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_async_fifo_fg is
     \LEGACY_MD_IP2BUS_DATA_GEN.IP2Bus_Data_reg[30]_2\ : in STD_LOGIC;
     \OTHER_RATIO_GENERATE.Serial_Dout_reg\ : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_async_fifo_fg : entity is "async_fifo_fg";
 end wolfenstein_platform_PmodJSTK2_0_0_async_fifo_fg;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_async_fifo_fg is
@@ -20819,8 +20763,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_qspi_core_interface is
     io1_i_sync : in STD_LOGIC;
     io0_i_sync : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_qspi_core_interface : entity is "qspi_core_interface";
 end wolfenstein_platform_PmodJSTK2_0_0_qspi_core_interface;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_qspi_core_interface is
@@ -21863,8 +21805,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_axi_quad_spi_top is
     s_axi_araddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
     s_axi_awaddr : in STD_LOGIC_VECTOR ( 4 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_axi_quad_spi_top : entity is "axi_quad_spi_top";
 end wolfenstein_platform_PmodJSTK2_0_0_axi_quad_spi_top;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_axi_quad_spi_top is
@@ -22420,8 +22360,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_axi_quad_spi is
   attribute C_XIP_PERF_MODE of wolfenstein_platform_PmodJSTK2_0_0_axi_quad_spi : entity is 1;
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of wolfenstein_platform_PmodJSTK2_0_0_axi_quad_spi : entity is "yes";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_axi_quad_spi : entity is "axi_quad_spi";
 end wolfenstein_platform_PmodJSTK2_0_0_axi_quad_spi;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_axi_quad_spi is
@@ -22611,8 +22549,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_axi_quad_spi_0_0 is
   attribute CHECK_LICENSE_TYPE of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_axi_quad_spi_0_0 : entity is "PmodJSTK2_axi_quad_spi_0_0,axi_quad_spi,{}";
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_axi_quad_spi_0_0 : entity is "yes";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_axi_quad_spi_0_0 : entity is "PmodJSTK2_axi_quad_spi_0_0";
   attribute X_CORE_INFO : string;
   attribute X_CORE_INFO of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_axi_quad_spi_0_0 : entity is "axi_quad_spi,Vivado 2020.2";
 end wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2_axi_quad_spi_0_0;
@@ -22980,8 +22916,6 @@ entity wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2 is
   );
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2 : entity is "PmodJSTK2.hwdef";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2 : entity is "PmodJSTK2";
 end wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2;
 
 architecture STRUCTURE of wolfenstein_platform_PmodJSTK2_0_0_PmodJSTK2 is
@@ -23263,7 +23197,7 @@ entity wolfenstein_platform_PmodJSTK2_0_0 is
   attribute NotValidForBitStream : boolean;
   attribute NotValidForBitStream of wolfenstein_platform_PmodJSTK2_0_0 : entity is true;
   attribute CHECK_LICENSE_TYPE : string;
-  attribute CHECK_LICENSE_TYPE of wolfenstein_platform_PmodJSTK2_0_0 : entity is "wolfenstein_platform_PmodJSTK2_0_0,PmodJSTK2,{}";
+  attribute CHECK_LICENSE_TYPE of wolfenstein_platform_PmodJSTK2_0_0 : entity is "wolfenstein_platform_PmodJSTK2_1_0,PmodJSTK2,{}";
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of wolfenstein_platform_PmodJSTK2_0_0 : entity is "yes";
   attribute X_CORE_INFO : string;

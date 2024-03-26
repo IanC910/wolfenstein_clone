@@ -9,6 +9,7 @@
 #include "xil_cache.h"
 
 #include "../Constants.h"
+#include "../Addresses.h"
 #include "audioTest.h"
 #include "../Audio.h"
 

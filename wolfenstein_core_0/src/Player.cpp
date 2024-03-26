@@ -9,6 +9,10 @@ int Player::getHealth() {
 	return health;
 }
 
+bool Player::getIsShooting() {
+	return isShooting;
+}
+
 void Player::setAngle(float angle) {
 	if(angle < 0) {
 		angle += 2 * M_PI;
@@ -21,4 +25,20 @@ void Player::setAngle(float angle) {
 
 void Player::setHealth(int health) {
 	this->health = health;
+}
+
+void Player::setIsShooting(bool isShooting) {
+	this->isShooting = isShooting;
+}
+
+playerData_t Player::getPlayerData() {
+	playerData_t playerData;
+
+	playerData.health = health;
+	playerData.positionX = positionX;
+	playerData.positionY = positionY;
+	playerData.angle = angle;
+	playerData.isShooting = isShooting;
+
+	return playerData;
 }
