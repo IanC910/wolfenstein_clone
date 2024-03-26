@@ -166,8 +166,8 @@ void WolfensteinCore1App::drawEnemy() {
 
 	enemyData_t* enemies = SHARED_DATA_PACKETS[1].enemyDataArray;
 	enemyData_t enemy;
-	for(int i = 0; i < 3; i++) { //CHANGE TO MAX ENEMIES AND ADD A CHECK TO SEE IF ENEMY HEALTH > 0
-		enemy = enemies[i];
+	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
+		enemy = enemies[e];
 
 		if(enemy.health <= 0) {
 			continue;
@@ -238,8 +238,8 @@ void WolfensteinCore1App::drawEnemy() {
 				}
 
 				//Update distance array with new distances for drawn enemies
-				for(int i = 0; i < numOfNonTransparentPixel; i++) {
-					distanceArray1[(firstNonTransparentPixel + startXEnemy + i)/RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
+				for(int j = 0; j < numOfNonTransparentPixel; j++) {
+					distanceArray1[(firstNonTransparentPixel + startXEnemy + j)/RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
 				}
 			}
 		}

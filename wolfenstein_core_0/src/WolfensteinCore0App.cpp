@@ -62,7 +62,6 @@ void WolfensteinCore0App::runCore0App() {
 					}
 					if(Buttons_isButtonPressed(BTN_CENTRE)) {
 						this->currentLevel = getLevel(0);
-						initializeEnemies();
 
 						player.setHealth(MAX_PLAYER_HEALTH);
 
@@ -129,6 +128,7 @@ void WolfensteinCore0App::clearMem() {
 	memset(INTERMEDIATE_IMAGE_BUFFER, 0, SCREEN_SIZE_BYTES);
 	memset((void*)INTERFACE_PTR, 0, sizeof(validAckInterface_t));
 	memset(SHARED_DATA_PACKETS, 0, 2 * sizeof(sharedDataPacket_t));
+
 }
 
 void WolfensteinCore0App::startCore1() {
@@ -313,9 +313,10 @@ void WolfensteinCore0App::castRays() {
 
 void WolfensteinCore0App::transferSharedDataPacket() {
 	SHARED_DATA_PACKETS[0].playerData = player.getPlayerData();
-	SHARED_DATA_PACKETS[0].enemyDataArray[0] = enemies[0].getEnemyData();
-	SHARED_DATA_PACKETS[0].enemyDataArray[1] = enemies[1].getEnemyData();
-	SHARED_DATA_PACKETS[0].enemyDataArray[2] = enemies[2].getEnemyData();
+
+	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
+		SHARED_DATA_PACKETS[0].enemyDataArray[e] = enemies[e].getEnemyData();
+	}
 
 	INTERFACE_PTR->valid = 1;
 	while(!INTERFACE_PTR->acknowledge);
@@ -326,16 +327,24 @@ void WolfensteinCore0App::transferSharedDataPacket() {
 
 void WolfensteinCore0App::initializeEnemies() {
 	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {
-		enemies[i].resetEnemy();
+		enemies[i].initialize();
 		enemies[i].setPositionX(currentLevel->getEnemyX(i));
 		enemies[i].setPositionY(currentLevel->getEnemyY(i));
+	}
+
+	for(int i = currentLevel->getNumEnemies(); i < MAX_NUM_ENEMIES; i++) {
+		enemies[i].reset();
 	}
 }
 
 void WolfensteinCore0App::updateEnemies() {
 	float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
 
-	for(int i = 0; i < currentLevel->getNumEnemies(); i++) { //CHECK IF ENEMY HEALTH > 0
+	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {
+		if(enemies[i].getHealth() <= 0) {
+			continue;
+		}
+
 		float vecX = (player.getPositionX() + i*0.5 - enemies[i].getPositionX());
 		float vecY = (player.getPositionY() + i*0.5 + 0.5 - enemies[i].getPositionY());
 		float playerDistanceFromEnemy = sqrtf(vecX*vecX + vecY*vecY);

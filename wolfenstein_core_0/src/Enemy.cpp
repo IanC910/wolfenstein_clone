@@ -27,6 +27,18 @@ void Enemy::setSeenPlayer() {
 	seenPlayer = true;
 }
 
+void Enemy::reset() {
+	health = 0;
+	timeSinceLastShot = 0;
+	seenPlayer = false;
+}
+
+void Enemy::initialize() {
+	health = MAX_ENEMY_HEALTH;
+	timeSinceLastShot = 1.0;
+	seenPlayer = false;
+}
+
 enemyData_t Enemy::getEnemyData() {
 	enemyData_t enemyData;
 
@@ -36,9 +48,3 @@ enemyData_t Enemy::getEnemyData() {
 
 	return enemyData;
 }
-void Enemy::resetEnemy() {
-	health = MAX_ENEMY_HEALTH;
-	timeSinceLastShot = 1.0;
-	seenPlayer = false;
-}
-
