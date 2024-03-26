@@ -62,6 +62,7 @@ void WolfensteinCore0App::runCore0App() {
 					}
 					if(Buttons_isButtonPressed(BTN_CENTRE)) {
 						this->currentLevel = getLevel(0);
+						initializeEnemies();
 
 						player.setHealth(MAX_PLAYER_HEALTH);
 
@@ -324,24 +325,22 @@ void WolfensteinCore0App::transferSharedDataPacket() {
 }
 
 void WolfensteinCore0App::initializeEnemies() {
-	enemies[0].setPositionX(4.5);
-	enemies[0].setPositionY(4.5);
-	enemies[0].setHealth(MAX_ENEMY_HEALTH);
-	enemies[1].setPositionX(8.5);
-	enemies[1].setPositionY(8.5);
-	enemies[1].setHealth(MAX_ENEMY_HEALTH);
-	enemies[2].setPositionX(3.5);
-	enemies[2].setPositionY(8.5);
-	enemies[2].setHealth(MAX_ENEMY_HEALTH);
+	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {
+		enemies[i].resetEnemy();
+		enemies[i].setPositionX(currentLevel->getEnemyX(i));
+		enemies[i].setPositionY(currentLevel->getEnemyY(i));
+	}
 }
 
 void WolfensteinCore0App::updateEnemies() {
-	for(int i = 0; i < 3; i++) {
-		float vecX = (player.getPositionX() - enemies[i].getPositionX());
-		float vecY = (player.getPositionY() - enemies[i].getPositionY()) + 1;
+	float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
+
+	for(int i = 0; i < currentLevel->getNumEnemies(); i++) { //CHECK IF ENEMY HEALTH > 0
+		float vecX = (player.getPositionX() + i*0.5 - enemies[i].getPositionX());
+		float vecY = (player.getPositionY() + i*0.5 + 0.5 - enemies[i].getPositionY());
 		float playerDistanceFromEnemy = sqrtf(vecX*vecX + vecY*vecY);
 		if(enemies[i].hasSeenPlayer()) {
-			if(playerDistanceFromEnemy > 1.0) {
+			if(playerDistanceFromEnemy > 1.5) {
 				float objectAngle = atan2f(vecY, vecX);
 				if(objectAngle < M_PI) {
 					objectAngle += 2.0 * M_PI;
@@ -351,23 +350,42 @@ void WolfensteinCore0App::updateEnemies() {
 				}
 				float deltaX = (cos(objectAngle) + sin(objectAngle)) * MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
 				float deltaY = (sin(objectAngle) - cos(objectAngle)) * MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
-				//add check how close to enemy, if < 1.0 then do something
-				enemies[i].setPositionX(enemies[i].getPositionX() + deltaX);
-				enemies[i].setPositionY(enemies[i].getPositionY() + deltaY);
+
+				if(currentLevel->getBlockAtWorldCoord(enemies[i].getPositionX() + deltaX*(12.5), enemies[i].getPositionY()) == ' ') {
+					enemies[i].setPositionX(enemies[i].getPositionX() + deltaX);
+				}
+				if(currentLevel->getBlockAtWorldCoord(enemies[i].getPositionX(), enemies[i].getPositionY() + deltaY*(12.5)) == ' ') {
+					enemies[i].setPositionY(enemies[i].getPositionY() + deltaY);
+				}
 
 			}
 			enemies[i].setTimeSinceLastShot(enemies[i].getTimeSinceLastShot() + frameTimeInSec);
-			if(playerDistanceFromEnemy < 1.5 && enemies[i].getTimeSinceLastShot() >= 1.0) {
-				if(player.getHealth() > 0) {
-					player.setHealth(player.getHealth() - 5);
-				} else {
+			if(playerDistanceFromEnemy < 1.5 && enemies[i].getTimeSinceLastShot() >= ENEMY_SHOT_DELAY) {
+				player.setHealth(player.getHealth() - ENEMY_DAMAGE_PER_SHOT);
+				if(player.getHealth() <= 0) {
 					gameState = MAIN_MENU;
 				}
 				enemies[i].setTimeSinceLastShot(0.0);
 			}
 		}
 		else if(playerDistanceFromEnemy < 3.0) {
-			enemies[i].setSeenPlayer();
+			float playerViewX = cosf(player.getAngle());
+			float playerViewY = sinf(player.getAngle());
+			float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(-vecY, -vecX);
+
+			if(objectAngle < M_PI) {
+				objectAngle += 2.0 * M_PI;
+			}
+			if(objectAngle > M_PI) {
+				objectAngle -= 2.0 * M_PI;
+			}
+
+			bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
+			float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
+
+			if(inPlayerFOV && distanceArray0[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= playerDistanceFromEnemy) {
+				enemies[i].setSeenPlayer();
+			}
 		}
 	}
 }

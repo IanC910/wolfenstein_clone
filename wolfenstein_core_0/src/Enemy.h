@@ -21,6 +21,14 @@ public:
 	bool hasSeenPlayer();
 	void setSeenPlayer();
 
+    float getTimeSinceLastShot();
+    void setTimeSinceLastShot(float time);
+
+    bool hasSeenPlayer();
+    void setSeenPlayer();
+
+    void resetEnemy();
+
 	enemyData_t getEnemyData();
 
 private:

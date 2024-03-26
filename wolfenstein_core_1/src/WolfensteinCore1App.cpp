@@ -16,11 +16,6 @@
 #include "../../wolfenstein_core_0/src/Player.h"
 #include "../../wolfenstein_core_0/src/Enemy.h"
 
-int spriteW = ENEMY_SPRITE_WIDTH;
-int spriteH = ENEMY_SPRITE_HEIGHT;
-
-#define numEnemies 3
-
 WolfensteinCore1App::WolfensteinCore1App() {
 	xil_printf("Wolfenstein Core 1 App Init\n");
 
@@ -84,7 +79,7 @@ void WolfensteinCore1App::runCore1App() {
 			maxDrawTime = funcTime;
 			xil_printf("Core 1 max draw time: %8d\n", maxDrawTime);
 		}*/
-		
+
 		drawHUD();
 
 		// Update Screen
@@ -171,7 +166,7 @@ void WolfensteinCore1App::drawEnemy() {
 
 	enemyData_t* enemies = SHARED_DATA_PACKETS[1].enemyDataArray;
 	enemyData_t enemy;
-	for(int i = 0; i < numEnemies; i++) {
+	for(int i = 0; i < 3; i++) { //CHANGE TO MAX ENEMIES AND ADD A CHECK TO SEE IF ENEMY HEALTH > 0
 		enemy = enemies[i];
 
 		if(enemy.health <= 0) {
@@ -201,14 +196,14 @@ void WolfensteinCore1App::drawEnemy() {
 		}
 
 		float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
-		int startXEnemy = middleOfEnemy - (spriteW/(2*scaleFactor));
-		int startYEnemy = (SCREEN_HEIGHT / 2) - (spriteH/(2*scaleFactor));
+		int startXEnemy = middleOfEnemy - (ENEMY_SPRITE_WIDTH/(2*scaleFactor));
+		int startYEnemy = (SCREEN_HEIGHT / 2) - (ENEMY_SRPITE_HEIGHT/(2*scaleFactor));
 
 		if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 5 && distanceArray1[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
-			for(int i = 0; i < (int)(spriteH/scaleFactor); i++) {
+			for(int i = 0; i < (int)(ENEMY_SRPITE_HEIGHT/scaleFactor); i++) {
 				int s = (int)(i * scaleFactor);
-				int firstNonTransparentPixel = ((int)(*(enemySprite+s*(spriteW)*sizeof(int)+3))/scaleFactor) - 1;
-				int numOfNonTransparentPixel = (int)(*(enemySprite+s*(spriteW)*sizeof(int)+7))/scaleFactor;
+				int firstNonTransparentPixel = ((int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+3))/scaleFactor) - 1;
+				int numOfNonTransparentPixel = (int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+7))/scaleFactor;
 
 				//Checks if sprite is past right bound of screen and updates accordingly
 				if(startXEnemy + (firstNonTransparentPixel + numOfNonTransparentPixel) > SCREEN_WIDTH) {
@@ -234,11 +229,11 @@ void WolfensteinCore1App::drawEnemy() {
 
 				//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
 				if(scaleFactor == 1) {
-					memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + firstNonTransparentPixel + startXEnemy, enemySprite+(i*(spriteW)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
+					memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + firstNonTransparentPixel + startXEnemy, enemySprite+(i*(ENEMY_SPRITE_WIDTH)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
 				}
 				else {
 					for(int j = 0; j < numOfNonTransparentPixel; j++) {
-						memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + startXEnemy + j + (firstNonTransparentPixel), enemySprite+(s*(spriteW)*sizeof(int)+((int)((firstNonTransparentPixel+j)*scaleFactor))*sizeof(int)), sizeof(int));
+						memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + startXEnemy + j + (firstNonTransparentPixel), enemySprite+(s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+((int)((firstNonTransparentPixel+j)*scaleFactor))*sizeof(int)), sizeof(int));
 					}
 				}
 

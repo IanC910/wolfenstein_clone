@@ -1,3 +1,6 @@
+
+#include "Constants.h"
+
 #include "Enemy.h"
 
 int Enemy::getHealth() {
@@ -33,3 +36,9 @@ enemyData_t Enemy::getEnemyData() {
 
 	return enemyData;
 }
+void Enemy::resetEnemy() {
+	health = MAX_ENEMY_HEALTH;
+	timeSinceLastShot = 1.0;
+	seenPlayer = false;
+}
+
