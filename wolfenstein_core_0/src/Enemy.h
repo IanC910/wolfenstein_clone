@@ -18,12 +18,6 @@ public:
 	float getTimeSinceLastShot();
 	void setTimeSinceLastShot(float time);
 
-	bool hasSeenPlayer();
-	void setSeenPlayer();
-
-    float getTimeSinceLastShot();
-    void setTimeSinceLastShot(float time);
-
     bool hasSeenPlayer();
     void setSeenPlayer();
 
