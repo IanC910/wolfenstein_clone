@@ -62,7 +62,6 @@ void WolfensteinCore0App::runCore0App() {
 					}
 					if(Buttons_isButtonPressed(BTN_CENTRE)) {
 						this->currentLevel = getLevel(0);
-						initializeEnemies();
 
 						player.setHealth(MAX_PLAYER_HEALTH);
 
