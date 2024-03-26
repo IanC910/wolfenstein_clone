@@ -21,13 +21,14 @@ public:
     bool hasSeenPlayer();
     void setSeenPlayer();
 
-    void resetEnemy();
+    void reset();
+    void initialize();
 
 	enemyData_t getEnemyData();
 
 private:
 	int health = 0;
-	float timeSinceLastShot = 1.0;
+	float timeSinceLastShot = 0;
 	bool seenPlayer = false;
 };
 
