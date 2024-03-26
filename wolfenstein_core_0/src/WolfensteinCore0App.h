@@ -20,7 +20,6 @@ private:
 	void drawMenu();
 	void initializeEnemies();
 	void drawCharacter(int characterIndex, int startRow, int startCol, int scale, int colour);
-	void gameLogicPerFrame();
 	void handlePlayerMovement();
 	void handlePlayerAction();
 	void checkWinCondition();

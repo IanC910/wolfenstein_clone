@@ -78,12 +78,6 @@ void WolfensteinCore0App::runCore0App() {
 			}
 
 			case PLAYING_LEVEL: {
-				// XTimes are in double-clock-cycles (DC)
-				u32 maxGameLogicTimeDC = 0;
-				u32 maxRayCastTimeDC = 0;
-				u32 maxTransferTimeDC = 0;
-				u32 maxFrameTimeDC = 0;
-
 				while(gameState == PLAYING_LEVEL) {
 					XTime frameStartTimeDC;
 					XTime_GetTime(&frameStartTimeDC);
@@ -95,44 +89,23 @@ void WolfensteinCore0App::runCore0App() {
 						}
 					}
 
-					XTime funcStartTimeDC;
-					XTime funcEndTimeDC;
-					u32 funcTimeDC;
-
-					// Game Logic Per Frame
-					XTime_GetTime(&funcStartTimeDC);
-					this->gameLogicPerFrame();
-					XTime_GetTime(&funcEndTimeDC);
-					funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
-					if(funcTimeDC > maxGameLogicTimeDC) {
-						maxGameLogicTimeDC = funcTimeDC;
+					if(DO_USE_CONTROLLER) {
+						Controller_update();
 					}
 
-					// Cast Rays
-					XTime_GetTime(&funcStartTimeDC);
-					this->castRays();
-					XTime_GetTime(&funcEndTimeDC);
-					funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
-					if(funcTimeDC > maxRayCastTimeDC) {
-						maxRayCastTimeDC = funcTimeDC;
-					}
+					handlePlayerMovement();
 
-					// Transfer Distance Array
-					XTime_GetTime(&funcStartTimeDC);
-					this->transferSharedDataPacket();
-					XTime_GetTime(&funcEndTimeDC);
-					funcTimeDC = (u32)((u64)funcEndTimeDC - (u64)funcStartTimeDC);
-					if(funcTimeDC > maxTransferTimeDC) {
-						maxTransferTimeDC = funcTimeDC;
-					}
+					castRays();
+
+					handlePlayerAction();
+					checkWinCondition();
+					// updateEnemies();
+
+					transferSharedDataPacket();
 
 					XTime frameEndTimeDC;
 					XTime_GetTime(&frameEndTimeDC);
 					u32 frameTimeDC = (u32)((u64)frameEndTimeDC - (u64)frameStartTimeDC);
-					if(frameTimeDC > maxFrameTimeDC) {
-						maxFrameTimeDC = frameTimeDC;
-					}
-
 					frameTimeInSec = (double)frameTimeDC / (double)COUNTS_PER_SECOND;
 
 					if(DO_PRINT_FRAME_TIME) {
@@ -206,17 +179,6 @@ void WolfensteinCore0App::drawCharacter(int characterIndex, int startRow, int st
 	}
 }
 
-void WolfensteinCore0App::gameLogicPerFrame() {
-	if(DO_USE_CONTROLLER) {
-		Controller_update();
-	}
-
-	handlePlayerMovement();
-	handlePlayerAction();
-	checkWinCondition();
-	// updateEnemies();
-}
-
 void WolfensteinCore0App::handlePlayerMovement() {
 	float moveCtrlX = 0;
 	float moveCtrlY = 0;
@@ -247,16 +209,19 @@ void WolfensteinCore0App::handlePlayerMovement() {
 }
 
 void WolfensteinCore0App::handlePlayerAction() {
-	bool triggerStatus = 0;
+	bool trigger = 0;
+	static bool prevTrigger = 0;
 
 	if(DO_USE_CONTROLLER) {
-		triggerStatus = Controller_isTriggerPressed(1);
+		trigger = Controller_isTriggerPressed(1);
 	}
 	else {
-		triggerStatus = Buttons_isButtonPressed(BTN_CENTRE);
+		trigger = Buttons_isButtonPressed(BTN_CENTRE);
 	}
 
-	player.updateIsShooting(triggerStatus);
+	player.setIsShooting(trigger && !prevTrigger);
+
+	prevTrigger = trigger;
 
 	if(player.getIsShooting()) {
 		for(int e = 0; e < MAX_NUM_ENEMIES; e++) {

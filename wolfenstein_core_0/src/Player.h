@@ -18,12 +18,13 @@ class Player : public ObjectWithPosition {
 
 public:
 	float getAngle();
-	int getHealth();
-	bool getIsShooting();
-
 	void setAngle(float angle);
+
+	int getHealth();
 	void setHealth(int health);
-	void updateIsShooting(bool trigger);
+
+	bool getIsShooting();
+	void setIsShooting(bool isShooting);
 
 	playerData_t getPlayerData();
 

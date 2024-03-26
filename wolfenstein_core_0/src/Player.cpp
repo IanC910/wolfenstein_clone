@@ -27,8 +27,8 @@ void Player::setHealth(int health) {
 	this->health = health;
 }
 
-void Player::updateIsShooting(bool trigger) {
-	this->isShooting = trigger && !this->isShooting;
+void Player::setIsShooting(bool isShooting) {
+	this->isShooting = isShooting;
 }
 
 playerData_t Player::getPlayerData() {
