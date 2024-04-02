@@ -210,6 +210,7 @@ void WolfensteinCore0App::handlePlayerMovement() {
 }
 
 void WolfensteinCore0App::handlePlayerAction() {
+	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
 	bool trigger = 0;
 	static bool prevTrigger = 0;
 
@@ -226,7 +227,7 @@ void WolfensteinCore0App::handlePlayerAction() {
 
 	if(player.getIsShooting()) {
 		for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
-			Enemy* enemy = &enemies[e];
+			Enemy* enemy = &enemyArray[e];
 
 			if(enemy->getHealth() <= 0) {
 				continue;
@@ -267,25 +268,26 @@ void WolfensteinCore0App::handlePlayerAction() {
 }
 
 void WolfensteinCore0App::checkWinCondition() {
-	bool atLeast1EnemyRemains = false;
+	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
+	bool enemiesRemain = false;
 
 	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
-		if(enemies[e].getHealth() > 0) {
-			atLeast1EnemyRemains = true;
+		if(enemyArray[e].getHealth() > 0) {
+			enemiesRemain = true;
 			break;
 		}
 	}
 
-	if(!atLeast1EnemyRemains) {
+	if(!enemiesRemain) {
 		gameState = MAIN_MENU;
 	}
 }
 
 void WolfensteinCore0App::castRays() {
 	float angleIncrement = HORIZONTAL_FOV / (float)NUM_RAYS;
-	float startAngle = player.getAngle() - HORIZONTAL_FOV / 2.0 + angleIncrement / 2.0;
+	float startAngle = player.getAngle() - HORIZONTAL_FOV / 2.0 + angleIncrement / 2.0; // Add a half increment to centre the rays on the player's angle of sight
 	float rayAngle = startAngle; // Rays start on right, move towards left
-	float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
+	float* distanceArray = SHARED_DATA_PACKETS[0].distanceArray;
 
 	// For each ray
 	for(int r = 0; r < NUM_RAYS; r++) {
@@ -307,17 +309,13 @@ void WolfensteinCore0App::castRays() {
 			distance += RAY_DISTANCE_INCREMENT;
 		}
 
-		distanceArray0[NUM_RAYS - 1 - r] = distance; // Reverse index because rays are cast from right to left
+		distanceArray[NUM_RAYS - 1 - r] = distance; // Reverse index because rays are cast from right to left
 		rayAngle += angleIncrement;
 	}
 }
 
 void WolfensteinCore0App::transferSharedDataPacket() {
-	SHARED_DATA_PACKETS[0].playerData = player.getPlayerData();
-
-	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
-		SHARED_DATA_PACKETS[0].enemyDataArray[e] = enemies[e].getEnemyData();
-	}
+	SHARED_DATA_PACKETS[0].player = player;
 
 	INTERFACE_PTR->valid = 1;
 	while(!INTERFACE_PTR->acknowledge);
@@ -327,6 +325,8 @@ void WolfensteinCore0App::transferSharedDataPacket() {
 }
 
 void WolfensteinCore0App::initializeEnemies() {
+	Enemy* enemies = SHARED_DATA_PACKETS[0].enemyArray;
+
 	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {
 		enemies[i].initialize();
 		enemies[i].setPositionX(currentLevel->getEnemyX(i));
@@ -339,6 +339,7 @@ void WolfensteinCore0App::initializeEnemies() {
 }
 
 void WolfensteinCore0App::updateEnemies() {
+	Enemy* enemies = SHARED_DATA_PACKETS[0].enemyArray;
 	float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
 
 	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {

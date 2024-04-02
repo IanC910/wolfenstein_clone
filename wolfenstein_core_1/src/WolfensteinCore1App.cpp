@@ -159,26 +159,23 @@ void WolfensteinCore1App::drawEnvironment() {
 }
 
 void WolfensteinCore1App::drawEnemy() {
-	float* distanceArray1 = SHARED_DATA_PACKETS[1].distanceArray;
-	float playerAngle = SHARED_DATA_PACKETS[1].playerData.angle;
-	float playerX = SHARED_DATA_PACKETS[1].playerData.positionX;
-	float playerY = SHARED_DATA_PACKETS[1].playerData.positionY;
+	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
+	Player player = SHARED_DATA_PACKETS[1].player;
+	Enemy* enemies = SHARED_DATA_PACKETS[1].enemyArray;
 
-	enemyData_t* enemies = SHARED_DATA_PACKETS[1].enemyDataArray;
-	enemyData_t enemy;
 	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
-		enemy = enemies[e];
+		Enemy enemy = enemies[e];
 
-		if(enemy.health <= 0) {
+		if(enemy.getHealth() <= 0) {
 			continue;
 		}
 
-		float vecX = enemy.positionX - playerX;
-		float vecY = enemy.positionY - playerY;
+		float vecX = enemy.getPositionX() - player.getPositionX();
+		float vecY = enemy.getPositionY() - player.getPositionY();
 		float enemyDistanceFromPlayer = sqrtf(vecX*vecX + vecY*vecY);
 
-		float playerViewX = cosf(playerAngle);
-		float playerViewY = sinf(playerAngle);
+		float playerViewX = cosf(player.getAngle());
+		float playerViewY = sinf(player.getAngle());
 		float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(vecY, vecX);
 
 		if(objectAngle < -M_PI) {
@@ -199,7 +196,7 @@ void WolfensteinCore1App::drawEnemy() {
 		int startXEnemy = middleOfEnemy - (ENEMY_SPRITE_WIDTH/(2*scaleFactor));
 		int startYEnemy = (SCREEN_HEIGHT / 2) - (ENEMY_SRPITE_HEIGHT/(2*scaleFactor));
 
-		if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 5 && distanceArray1[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
+		if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 5 && distanceArray[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
 			for(int i = 0; i < (int)(ENEMY_SRPITE_HEIGHT/scaleFactor); i++) {
 				int s = (int)(i * scaleFactor);
 				int firstNonTransparentPixel = ((int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+3))/scaleFactor) - 1;
@@ -217,13 +214,13 @@ void WolfensteinCore1App::drawEnemy() {
 				}
 
 				//Check if left part of sprite is behind wall
-				while(distanceArray1[((startXEnemy + firstNonTransparentPixel))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
+				while(distanceArray[((startXEnemy + firstNonTransparentPixel))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
 					numOfNonTransparentPixel--;
 					firstNonTransparentPixel++;
 				}
 
 				//Check if right part of sprite is behind wall
-				while(distanceArray1[(startXEnemy + ((firstNonTransparentPixel + numOfNonTransparentPixel)))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
+				while(distanceArray[(startXEnemy + ((firstNonTransparentPixel + numOfNonTransparentPixel)))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
 					numOfNonTransparentPixel--;
 				}
 
@@ -239,7 +236,7 @@ void WolfensteinCore1App::drawEnemy() {
 
 				//Update distance array with new distances for drawn enemies
 				for(int j = 0; j < numOfNonTransparentPixel; j++) {
-					distanceArray1[(firstNonTransparentPixel + startXEnemy + j)/RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
+					distanceArray[(firstNonTransparentPixel + startXEnemy + j)/RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
 				}
 			}
 		}
@@ -308,7 +305,7 @@ void WolfensteinCore1App::drawHUD() {
 
 	int healthBarEmptyColour = colourRGB(8, 0, 0);
 	int healthBarFullColour = colourRGB(0, 15, 0);
-	int playerHealth = SHARED_DATA_PACKETS[1].playerData.health;
+	int playerHealth = SHARED_DATA_PACKETS[1].player.getHealth();
 
 	for(int i = 0; i < healthBarHeight; i++) {
 		for(int j = 0; j < playerHealth; j++) {

@@ -33,7 +33,6 @@ private:
 	};
 
 	Player player;
-	Enemy enemies[MAX_NUM_ENEMIES];
 	int levelSelectIndex = 0;
 	Level* currentLevel = nullptr;
 	gameState_t gameState = MAIN_MENU;
