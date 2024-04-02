@@ -72,7 +72,7 @@ void WolfensteinCore1App::runCore1App() {
 
 		// Draw enemy
 		XTime_GetTime(&funcStartTime);
-		drawEnemy();
+		drawEnemies();
 		XTime_GetTime(&funcEndTime);
 		/*funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
 		if(funcTime > maxDrawTime) {
@@ -155,28 +155,26 @@ void WolfensteinCore1App::drawEnvironment() {
 	}
 
 	// Fill in the rest of the floor and ceiling (non rectangular parts) in columns
-	fillNonRectangularCeilingAndFloor(0, NUM_RAYS, maxCeilingRow);
+	fillNonRectangularCeilingAndFloor(maxCeilingRow);
 }
 
-void WolfensteinCore1App::drawEnemy() {
+void WolfensteinCore1App::drawEnemies() {
 	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
 	Player player = SHARED_DATA_PACKETS[1].player;
-	Enemy* enemies = SHARED_DATA_PACKETS[1].enemyArray;
+	Enemy* enemyArray = SHARED_DATA_PACKETS[1].enemyArray;
 
 	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
-		Enemy enemy = enemies[e];
+		Enemy* enemy = &enemyArray[e];
 
-		if(enemy.getHealth() <= 0) {
+		if(enemy->getHealth() <= 0) {
 			continue;
 		}
 
-		float vecX = enemy.getPositionX() - player.getPositionX();
-		float vecY = enemy.getPositionY() - player.getPositionY();
+		float vecX = enemy->getPositionX() - player.getPositionX();
+		float vecY = enemy->getPositionY() - player.getPositionY();
 		float enemyDistanceFromPlayer = sqrtf(vecX*vecX + vecY*vecY);
 
-		float playerViewX = cosf(player.getAngle());
-		float playerViewY = sinf(player.getAngle());
-		float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(vecY, vecX);
+		float objectAngle = player.getAngle() - atan2f(vecY, vecX);
 
 		if(objectAngle < -M_PI) {
 			objectAngle += 2.0 * M_PI;
@@ -261,7 +259,7 @@ int WolfensteinCore1App::getColourFromGradient(const int* gradient, const int gr
 	return gradient[index];
 }
 
-void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int startRay, int endRay, int rowAlreadyDrawn) {
+void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int rowAlreadyDrawn) {
 	// TODO incorporate vertical resolution downscaling
 	for(int i = rowAlreadyDrawn; i < SCREEN_HEIGHT / 2; i++) {
 		int startRay = 0;

@@ -11,10 +11,10 @@ public:
 private:
 	void receiveSharedDataPacket();
 	void drawEnvironment();
-	void drawEnemy();
+	void drawEnemies();
 	int getScreenRowOfCeilingAtDistance(float distance);
 	int getColourFromGradient(const int* gradient, const int gradientLength, float distance);
-	void fillNonRectangularCeilingAndFloor(int startRay, int endRay, int rowAlreadyDrawn);
+	void fillNonRectangularCeilingAndFloor(int rowAlreadyDrawn);
 	void drawHUD();
 	void updateScreen();
 };
