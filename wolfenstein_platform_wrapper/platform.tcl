@@ -40,3 +40,4 @@ platform clean
 platform generate
 platform clean
 platform generate
+platform generate -domains standalone_ps7_cortexa9_0,standalone_domain,zynq_fsbl 

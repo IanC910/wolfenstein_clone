@@ -127,7 +127,7 @@ void WolfensteinCore0App::clearMem() {
 	memset(VGA_IMAGE_BUFFER_0, 0x80, SCREEN_SIZE_BYTES);
 	memset(INTERMEDIATE_IMAGE_BUFFER, 0, SCREEN_SIZE_BYTES);
 	memset((void*)INTERFACE_PTR, 0, sizeof(validAckInterface_t));
-	memset(SHARED_DATA_PACKETS, 0, 2 * sizeof(sharedDataPacket_t));
+	memset((void*)SHARED_DATA_PACKETS, 0, 2 * sizeof(sharedDataPacket_t));
 
 }
 
@@ -140,10 +140,11 @@ void WolfensteinCore0App::drawMenu() {
 	// Dummy Menu. It's bad. TODO: make better
 	int backgroundColour = colourRGB(10, 0, 0);
 
-	for(int i = 0; i < SCREEN_HEIGHT; i++) {
-		for(int j = 0; j < SCREEN_WIDTH; j++) {
-			INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + j] = backgroundColour;
-		}
+	for(int j = 0; j < SCREEN_WIDTH; j++) {
+		INTERMEDIATE_IMAGE_BUFFER[j] = backgroundColour;
+	}
+	for(int i = 1; i < SCREEN_HEIGHT; i++) {
+		memcpy(&INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_IMAGE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
 	}
 
 	int leftMargin = 50;
@@ -236,7 +237,6 @@ void WolfensteinCore0App::handlePlayerAction() {
 			float playerToEnemyX = enemy->getPositionX() - player.getPositionX();
 			float playerToEnemyY = enemy->getPositionY() - player.getPositionY();
 
-
 			float distanceToEnemy = sqrtf(playerToEnemyX * playerToEnemyX + playerToEnemyY * playerToEnemyY);
 			float angleToEnemy = atan2f(playerToEnemyY, playerToEnemyX);
 			float deltaAngle = angleToEnemy - player.getAngle();
@@ -260,7 +260,6 @@ void WolfensteinCore0App::handlePlayerAction() {
 				if(distanceToEnemy < distanceArray0[NUM_RAYS / 2] || distanceToEnemy < distanceArray0[NUM_RAYS / 2 + 1]) {
 					// Enemy is hit
 					enemy->setHealth(enemy->getHealth() - PLAYER_DAMAGE);
-					break; // break to stop collaterals
 				}
 			}
 		}
