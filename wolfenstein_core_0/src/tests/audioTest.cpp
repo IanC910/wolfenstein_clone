@@ -11,7 +11,8 @@
 #include "../Constants.h"
 #include "../Addresses.h"
 #include "audioTest.h"
-#include "../Audio.h"
+
+#include "../AudioConfig.h"
 
 const int CPU_CLK_FREQ_Hz = XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ;
 const int CPU_CLK_FREQ_MHz = CPU_CLK_FREQ_Hz / 1000000;

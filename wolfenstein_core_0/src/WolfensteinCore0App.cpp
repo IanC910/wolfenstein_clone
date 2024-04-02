@@ -259,6 +259,7 @@ void WolfensteinCore0App::handlePlayerAction() {
 				if(distanceToEnemy < distanceArray0[NUM_RAYS / 2] || distanceToEnemy < distanceArray0[NUM_RAYS / 2 + 1]) {
 					// Enemy is hit
 					enemy->setHealth(enemy->getHealth() - PLAYER_DAMAGE);
+					break; // break to stop collaterals
 				}
 			}
 		}
