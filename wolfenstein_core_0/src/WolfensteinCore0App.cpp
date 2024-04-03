@@ -4,6 +4,7 @@
 #include <string.h>
 #include <math.h>
 
+#include "sleep.h"
 #include "xpseudo_asm.h"
 #include "xil_io.h"
 #include "xil_cache.h"
@@ -15,13 +16,13 @@
 #include "Addresses.h"
 #include "AudioConfig.h"
 #include "Buttons.h"
-#include "CharMatrix.h"
 #include "Colour.h"
 #include "Controller.h"
 #include "Constants.h"
 #include "InterruptSetup.h"
 #include "LevelBank.h"
 #include "Player.h"
+#include "Sprite.h"
 
 WolfensteinCore0App::WolfensteinCore0App() :
 	soundPlayer(XPAR_AUDIO_FETCHER_0_BASEADDR)
@@ -61,7 +62,7 @@ void WolfensteinCore0App::runCore0App() {
 				while(gameState == MAIN_MENU) {
 
 					drawMenu();
-					Xil_DCacheFlush();
+//					Xil_DCacheFlush();
 
 					// Wait for button press
 					while(!Buttons_isNewStatus());
@@ -112,10 +113,11 @@ void WolfensteinCore0App::runCore0App() {
 					castRays();
 
 					handlePlayerAction();
-					checkWinCondition();
 					updateEnemies();
 
 					transferSharedDataPacket();
+
+					checkStopCondition();
 
 					XTime frameEndTimeDC;
 					XTime_GetTime(&frameEndTimeDC);
@@ -152,49 +154,43 @@ void WolfensteinCore0App::startCore1() {
 }
 
 void WolfensteinCore0App::drawMenu() {
-	// Dummy Menu. It's bad. TODO: make better
-	int backgroundColour = colourRGB(10, 0, 0);
+	// Draw background sprite
+	Sprite menuSprite(MAIN_MENU_BACKGROUND_SPRITE);
+	int* pixelData = menuSprite.getPixelData();
 
-	for(int j = 0; j < SCREEN_WIDTH; j++) {
-		INTERMEDIATE_IMAGE_BUFFER[j] = backgroundColour;
+	for(int spriteRow = 0; spriteRow < menuSprite.getNumRows(); spriteRow++) {
+		int startScreenRow = SCREEN_HEIGHT + (spriteRow - menuSprite.getNumRows()) * menuSprite.getGranularity();
+
+		for(int screenRow = startScreenRow; screenRow < startScreenRow + menuSprite.getGranularity(); screenRow++) {
+			memcpy(
+				&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH],
+				&pixelData[spriteRow * menuSprite.getNumCols()],
+				menuSprite.getNumCols() * sizeof(int)
+			);
+		}
 	}
-	for(int i = 1; i < SCREEN_HEIGHT; i++) {
-		memcpy(&INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_IMAGE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
-	}
-
-	int leftMargin = 50;
-	int scale = 2;
-	int lineSpace = 10;
-	int charColour = 0;
-
-	int line1Row = 320;
-	int line2Row = line1Row + CHARACTER_HEIGHT * scale + lineSpace;
-
-	drawCharacter(0, line1Row, leftMargin, scale, charColour);
-	drawCharacter(1, line2Row, leftMargin, scale, charColour);
 
 	// Draw cursor
-	int cursorCol = 40;
-	int cursorRow = line1Row + CHARACTER_HEIGHT * scale / 2 + levelSelectIndex * (line2Row - line1Row);
+	// Magic numbers here are measured from the sprite
+	int numberHeight = 15 * menuSprite.getGranularity();
+	int numberWidth = 12 * menuSprite.getGranularity();
+	int lineSpace = 3 * menuSprite.getGranularity();
+
+	int line0Row = 145 * menuSprite.getGranularity();
+	int line0Col = 23 * menuSprite.getGranularity();
+
+	int cursorCol = line0Col + numberWidth + 8;
+	int cursorRow = line0Row - numberHeight / 2 + levelSelectIndex * (numberHeight + lineSpace);
+	int cursorRadius = 3;
 	int cursorColour = colourRGB(15, 15, 0);
 
-	for(int i = cursorRow - 2; i < cursorRow + 3; i++) {
-		for(int j = cursorCol - 2; j < cursorCol + 3; j++) {
+	for(int i = cursorRow - cursorRadius; i < cursorRow + cursorRadius; i++) {
+		for(int j = cursorCol - cursorRadius; j < cursorCol + cursorRadius; j++) {
 			INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + j] = cursorColour;
 		}
 	}
 
 	memcpy(VGA_IMAGE_BUFFER_0, INTERMEDIATE_IMAGE_BUFFER, SCREEN_SIZE_BYTES);
-}
-
-void WolfensteinCore0App::drawCharacter(int characterIndex, int startRow, int startCol, int scale, int colour) {
-	for(int i = 0; i < CHARACTER_HEIGHT * scale; i++) {
-		for(int j = 0; j < CHARACTER_WIDTH * scale; j++) {
-			if(CHARACTERS_MATRIX[characterIndex][i / scale] & (1 << (CHARACTER_WIDTH - 1 - j / scale))) {
-				INTERMEDIATE_IMAGE_BUFFER[(i + startRow) * SCREEN_WIDTH + j + startCol] = colour;
-			}
-		}
-	}
 }
 
 void WolfensteinCore0App::handlePlayerMovement() {
@@ -284,7 +280,7 @@ void WolfensteinCore0App::handlePlayerAction() {
 	}
 }
 
-void WolfensteinCore0App::checkWinCondition() {
+void WolfensteinCore0App::checkStopCondition() {
 	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
 	bool enemiesRemain = false;
 
@@ -295,8 +291,16 @@ void WolfensteinCore0App::checkWinCondition() {
 		}
 	}
 
+	// Win Condition
 	if(!enemiesRemain) {
 		gameState = MAIN_MENU;
+		sleep(1);
+	}
+
+	// Lose Condition
+	if(player.getHealth() <= 0) {
+		gameState = MAIN_MENU;
+		sleep(1);
 	}
 }
 
@@ -356,21 +360,24 @@ void WolfensteinCore0App::initializeEnemies() {
 }
 
 void WolfensteinCore0App::updateEnemies() {
-	Enemy* enemies = SHARED_DATA_PACKETS[0].enemyArray;
-	float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
+	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
+	float* distanceArray = SHARED_DATA_PACKETS[0].distanceArray;
 
-	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {
-		if(enemies[i].getHealth() <= 0) {
+	for(int e = 0; e < currentLevel->getNumEnemies(); e++) {
+		Enemy* enemy = &enemyArray[e];
+
+		if(enemy->getHealth() <= 0) {
 			continue;
 		}
 
-		float vecX = (player.getPositionX() - enemies[i].getPositionX());
-		float vecY = (player.getPositionY() + 0.5 - enemies[i].getPositionY());
-		float playerDistanceFromEnemy = sqrtf(vecX*vecX + vecY*vecY);
+		float enemyToPlayerX = player.getPositionX() - enemy->getPositionX();
+		float enemyToPlayerY = player.getPositionY() - enemy->getPositionY();
+		float playerDistanceFromEnemy = sqrtf(enemyToPlayerX * enemyToPlayerX + enemyToPlayerY * enemyToPlayerY);
 
-		if(enemies[i].hasSeenPlayer()) {
+		// Handle Enemy Movement
+		if(enemy->hasSeenPlayer()) {
 			if(playerDistanceFromEnemy > 1.5) {
-				float objectAngle = atan2f(vecY, vecX);
+				float objectAngle = atan2f(enemyToPlayerY, enemyToPlayerX);
 				if(objectAngle < M_PI) {
 					objectAngle += 2.0 * M_PI;
 				}
@@ -380,29 +387,28 @@ void WolfensteinCore0App::updateEnemies() {
 				float deltaX = (cos(objectAngle) + sin(objectAngle)) * MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
 				float deltaY = (sin(objectAngle) - cos(objectAngle)) * MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
 
-				if(currentLevel->getBlockAtWorldCoord(enemies[i].getPositionX() + deltaX*(12.5), enemies[i].getPositionY()) == ' ') {
-					enemies[i].setPositionX(enemies[i].getPositionX() + deltaX);
+				if(currentLevel->getBlockAtWorldCoord(enemy->getPositionX() + deltaX * 12.5, enemy->getPositionY()) == ' ') {
+					enemy->setPositionX(enemy->getPositionX() + deltaX);
 				}
-				if(currentLevel->getBlockAtWorldCoord(enemies[i].getPositionX(), enemies[i].getPositionY() + deltaY*(12.5)) == ' ') {
-					enemies[i].setPositionY(enemies[i].getPositionY() + deltaY);
+				if(currentLevel->getBlockAtWorldCoord(enemy->getPositionX(), enemy->getPositionY() + deltaY * 12.5) == ' ') {
+					enemy->setPositionY(enemy->getPositionY() + deltaY);
 				}
 
 			}
-			enemies[i].setTimeSinceLastShot(enemies[i].getTimeSinceLastShot() + frameTimeInSec);
-			if(playerDistanceFromEnemy < 1.5 && enemies[i].getTimeSinceLastShot() >= ENEMY_SHOT_DELAY) {
+
+			enemy->setTimeSinceLastShot(enemy->getTimeSinceLastShot() + frameTimeInSec);
+
+			// Handle Enemy Attack
+			if(playerDistanceFromEnemy < 1.5 && enemy->getTimeSinceLastShot() >= ENEMY_SHOT_DELAY) {
+				soundPlayer.playSound(GUNSHOT_SOUND);
 				player.setHealth(player.getHealth() - ENEMY_DAMAGE_PER_SHOT);
-				if(player.getHealth() <= 0) {
-					gameState = MAIN_MENU;
-				}
-				enemies[i].setTimeSinceLastShot(0.0);
+				enemy->setTimeSinceLastShot(0.0);
 			}
 		}
 		else if(playerDistanceFromEnemy < 3.0) {
-			float playerViewX = cosf(player.getAngle());
-			float playerViewY = sinf(player.getAngle());
-			float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(-vecY, -vecX);
+			float objectAngle = player.getAngle() - atan2f(-enemyToPlayerY, -enemyToPlayerX);
 
-			if(objectAngle < M_PI) {
+			if(objectAngle < -M_PI) {
 				objectAngle += 2.0 * M_PI;
 			}
 			if(objectAngle > M_PI) {
@@ -410,10 +416,10 @@ void WolfensteinCore0App::updateEnemies() {
 			}
 
 			bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
-			float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
+			float middleOfEnemy = (objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH);
 
-			if(inPlayerFOV && distanceArray0[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= playerDistanceFromEnemy) {
-				enemies[i].setSeenPlayer();
+			if(inPlayerFOV && distanceArray[(int)middleOfEnemy / RESOLUTION_DOWN_SCALE_H] >= playerDistanceFromEnemy) {
+				enemy->setSeenPlayer();
 			}
 		}
 	}

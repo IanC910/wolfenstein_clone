@@ -17,7 +17,7 @@ int* const FLOOR_BUFFER								= (int*)					0x00BEEA04; // size: SCREEN_SIZE_BYT
 sharedDataPacket_t* const SHARED_DATA_PACKETS		= (sharedDataPacket_t*)		0x00C84A04; // size: 2 * sizeof(sharedDataPacket_t)
 
 // Game Asset Addresses
-int* const MAIN_MENU_BACKGROUND_IMAGE				= (int*)					0x00D00000; // size: SCREEN_SIZE_BYTES
+int* const MAIN_MENU_BACKGROUND_SPRITE				= (int*)					0x00D00000; // size: SCREEN_SIZE_BYTES
 int* const GUNSHOT_SOUND							= (int*)					0x00E2C000; // size: 12288 = 0x3000
 int* const FIRST_PERSON_GUN_SPRITE					= (int*)					0x00E2F000; // size: 16384 = 0x4000
 int* const NEXT										= (int*)					0x00E33000;
