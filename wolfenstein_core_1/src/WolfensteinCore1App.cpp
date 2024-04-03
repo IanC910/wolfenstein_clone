@@ -195,12 +195,12 @@ void WolfensteinCore1App::drawEnemies() {
 
 		float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
 		int startXEnemy = middleOfEnemy - (ENEMY_SPRITE_WIDTH/(2*scaleFactor));
-		int startYEnemy = (SCREEN_HEIGHT / 2) - (ENEMY_SRPITE_HEIGHT/(2*scaleFactor));
+		int startYEnemy = (SCREEN_HEIGHT / 2) - ((ENEMY_SRPITE_HEIGHT - 40)/(2*scaleFactor));
 
 		if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 5 && distanceArray[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
 			for(int i = 0; i < (int)(ENEMY_SRPITE_HEIGHT/scaleFactor); i++) {
 				int s = (int)(i * scaleFactor);
-				int firstNonTransparentPixel = ((int)(*(ENEMY_SPRITE+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+3))/scaleFactor) - 1;
+				int firstNonTransparentPixel = ((int)(*(ENEMY_SPRITE+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+3)+1)/scaleFactor);
 				int numOfNonTransparentPixel = (int)(*(ENEMY_SPRITE+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+7))/scaleFactor;
 
 				//Checks if sprite is past right bound of screen and updates accordingly
@@ -227,25 +227,26 @@ void WolfensteinCore1App::drawEnemies() {
 
 				//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
 				if(scaleFactor == 1) {
+					firstNonTransparentPixel--;
 					memcpy(
-						(int*)INTERMEDIATE_IMAGE_BUFFER + (i + startYEnemy) * SCREEN_WIDTH + firstNonTransparentPixel + startXEnemy,
-						ENEMY_SPRITE + (i * ENEMY_SPRITE_WIDTH + firstNonTransparentPixel) * sizeof(int),
-						numOfNonTransparentPixel * sizeof(int)
-					);
+                        INTERMEDIATE_IMAGE_BUFFER + (i + startYEnemy) * SCREEN_WIDTH + firstNonTransparentPixel + startXEnemy,
+                        ENEMY_SPRITE + (i * ENEMY_SPRITE_WIDTH + firstNonTransparentPixel) * sizeof(int),
+                        numOfNonTransparentPixel*sizeof(int)
+                    );
 				}
 				else {
 					for(int j = 0; j < numOfNonTransparentPixel; j++) {
 						memcpy(
-							(int*)INTERMEDIATE_IMAGE_BUFFER + (i + startYEnemy) * SCREEN_WIDTH + startXEnemy + j + firstNonTransparentPixel,
-							ENEMY_SPRITE + (s * ENEMY_SPRITE_WIDTH + (int)((firstNonTransparentPixel + j) * scaleFactor)) * sizeof(int),
-							sizeof(int)
-						);
+                            INTERMEDIATE_IMAGE_BUFFER + (i + startYEnemy) * SCREEN_WIDTH + startXEnemy + j + firstNonTransparentPixel,
+                            ENEMY_SPRITE + (s * ENEMY_SPRITE_WIDTH + (int)((firstNonTransparentPixel + j) * scaleFactor)) * sizeof(int),
+                            sizeof(int)
+                        );
 					}
 				}
 
-				//Update distance array with new distances for drawn enemies
+				// Update distance array with new distances for drawn enemies
 				for(int j = 0; j < numOfNonTransparentPixel; j++) {
-					distanceArray[(firstNonTransparentPixel + startXEnemy + j)/RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
+					distanceArray[(firstNonTransparentPixel + startXEnemy + j) / RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
 				}
 			}
 		}

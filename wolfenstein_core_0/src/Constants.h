@@ -55,7 +55,7 @@ const int ENEMY_DAMAGE_PER_SHOT = 2;
 const float ENEMY_SHOT_DELAY = 1.0;
 
 // Enemy Sprite Params
-const int ENEMY_SPRITE_WIDTH = 245;
-const int ENEMY_SRPITE_HEIGHT = 240;
+const int ENEMY_SPRITE_WIDTH = 112;
+const int ENEMY_SRPITE_HEIGHT = 248;
 
 #endif
