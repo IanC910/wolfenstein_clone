@@ -292,20 +292,31 @@ void WolfensteinCore1App::drawEnemies() {
 }
 
 void WolfensteinCore1App::drawDrop() {
-	float* distanceArray1 = SHARED_DATA_PACKETS[1].distanceArray;
-	float playerAngle = SHARED_DATA_PACKETS[1].playerData.angle;
-	float playerX = SHARED_DATA_PACKETS[1].playerData.positionX;
-	float playerY = SHARED_DATA_PACKETS[1].playerData.positionY;
+	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
+	Player* player = &SHARED_DATA_PACKETS[1].player;
 
 	//enemyData_t* enemies = SHARED_DATA_PACKETS[1].enemyDataArray;
 	dropData_t* drops = SHARED_DATA_PACKETS[1].healthDrops;
 	dropData_t drop;
 	for(int i = 0; i < MAX_NUM_HEALTH_DROPS; i++) {
 		drop = drops[i];
+
 		if(drop.isPickedUp) {
 			continue;
 		}
-		drawObject(drop.positionX, drop.positionY, playerX, playerY, playerAngle, distanceArray1, HEALTH_SPRITE_WIDTH, HEALTH_SPRITE_HEIGHT, 300, healthSprite);
+
+		drawObject(
+			drop.positionX,
+			drop.positionY,
+			player->getPositionX(),
+			player->getPositionY(),
+			player->getAngle(),
+			distanceArray,
+			HEALTH_SPRITE_WIDTH,
+			HEALTH_SPRITE_HEIGHT,
+			300,
+			healthSprite
+		);
 	}
 }
 
