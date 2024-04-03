@@ -4,7 +4,7 @@
 
 #define colourRGB(r, g, b) ((b) << 20 | (g) << 12 | (r) << 4)
 
-const int CEILING_COLOUR = colourRGB(8, 6, 4);
+const int CEILING_COLOUR = colourRGB(13, 14, 14);
 
 const int FLOOR_COLOUR = colourRGB(7, 7, 7);
 
