@@ -5,7 +5,8 @@
 #include "Constants.h"
 #include "Player.h"
 #include "Level.h"
-#include "Enemy.h"
+#include "Controller.h"
+#include "SoundPlayer.h"
 
 class WolfensteinCore0App {
 
@@ -33,7 +34,9 @@ private:
 	};
 
 	Player player;
-	Enemy enemies[MAX_NUM_ENEMIES];
+	Controller controller;
+	SoundPlayer soundPlayer;
+
 	int levelSelectIndex = 0;
 	Level* currentLevel = nullptr;
 	gameState_t gameState = MAIN_MENU;

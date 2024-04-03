@@ -1,24 +1,24 @@
 
-#include <xparameters.h>
+#include "Controller.h"
 
-extern "C" {
-	#include "PmodJSTK2.h"
-}
+Controller::Controller() {}
 
-static PmodJSTK2 jstk[2];
-static JSTK2_DataPacket jstkData[2];
-
-void Controller_initialize() {
+Controller::Controller(
+	unsigned int pmod0SpiBaseAddr,
+	unsigned int pmod0GpioBaseAddr,
+	unsigned int pmod1SpiBaseAddr,
+	unsigned int pmod1GpioBaseAddr
+) {
 	JSTK2_begin(
 		&jstk[0],
-		XPAR_PMODJSTK2_0_AXI_LITE_SPI_BASEADDR,
-		XPAR_PMODJSTK2_0_AXI_LITE_GPIO_BASEADDR
+		pmod0SpiBaseAddr,
+		pmod0GpioBaseAddr
 	);
 
 	JSTK2_begin(
 		&jstk[1],
-		XPAR_PMODJSTK2_1_AXI_LITE_SPI_BASEADDR,
-		XPAR_PMODJSTK2_1_AXI_LITE_GPIO_BASEADDR
+		pmod1SpiBaseAddr,
+		pmod1GpioBaseAddr
 	);
 
    // Set inversion register to invert only the Y axis
@@ -26,29 +26,28 @@ void Controller_initialize() {
    JSTK2_setInversion(&jstk[1], 0, 1);
 }
 
-// Transforms range (0, 256) to (-1, 1)
-float mapJSTK(u8 value) {
+float Controller::mapJSTK(u8 value) {
 	return ((float)value / 128.0) - 1.0;
 }
 
-void Controller_update() {
+void Controller::update() {
 	jstkData[0] = JSTK2_getDataPacket(&jstk[0]);
 	jstkData[1] = JSTK2_getDataPacket(&jstk[1]);
 }
 
-float Controller_getNormedJoystickX(int joystickIndex) {
+float Controller::getNormedJoystickX(int joystickIndex) {
 	return mapJSTK(jstkData[joystickIndex].XData);
 }
 
-float Controller_getNormedJoystickY(int joystickIndex) {
+float Controller::getNormedJoystickY(int joystickIndex) {
 	return mapJSTK(jstkData[joystickIndex].YData);
 }
 
-bool Controller_getJoystickButtonStatus(int joystickIndex) {
+bool Controller::getJoystickButtonStatus(int joystickIndex) {
 	return jstkData[joystickIndex].Jstk;
 }
 
-bool Controller_isTriggerPressed(int joystickIndex) {
+bool Controller::isTriggerPressed(int joystickIndex) {
 	return jstkData[joystickIndex].Trigger;
 }
 

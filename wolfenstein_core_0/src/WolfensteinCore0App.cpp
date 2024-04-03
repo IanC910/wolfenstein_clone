@@ -10,23 +10,29 @@
 #include "xtime_l.h"
 #include "xil_exception.h"
 #include "xil_types.h"
+#include "xparameters.h"
 
-#include "Constants.h"
 #include "Addresses.h"
-#include "Player.h"
-#include "LevelBank.h"
-#include "InterruptSetup.h"
+#include "AudioConfig.h"
 #include "Buttons.h"
-#include "Controller.h"
-#include "Colour.h"
 #include "CharMatrix.h"
+#include "Colour.h"
+#include "Controller.h"
+#include "Constants.h"
+#include "InterruptSetup.h"
+#include "LevelBank.h"
+#include "Player.h"
 
-WolfensteinCore0App::WolfensteinCore0App() {
+WolfensteinCore0App::WolfensteinCore0App() :
+	soundPlayer(XPAR_AUDIO_FETCHER_0_BASEADDR)
+{
 	xil_printf("Wolfenstein Core 0 App Init\n");
 
 	Xil_DCacheDisable();
 
 	clearMem();
+
+	configAudio();
 
 	InterruptSetup_setInterruptHandler(
 		INTERRUPT_0_ID,
@@ -34,7 +40,12 @@ WolfensteinCore0App::WolfensteinCore0App() {
 	);
 
 	if(DO_USE_CONTROLLER) {
-		Controller_initialize();
+		controller = Controller(
+			XPAR_PMODJSTK2_0_AXI_LITE_SPI_BASEADDR,
+			XPAR_PMODJSTK2_0_AXI_LITE_GPIO_BASEADDR,
+			XPAR_PMODJSTK2_1_AXI_LITE_SPI_BASEADDR,
+			XPAR_PMODJSTK2_1_AXI_LITE_GPIO_BASEADDR
+		);
 	}
 }
 
@@ -50,6 +61,7 @@ void WolfensteinCore0App::runCore0App() {
 				while(gameState == MAIN_MENU) {
 
 					drawMenu();
+					Xil_DCacheFlush();
 
 					// Wait for button press
 					while(!Buttons_isNewStatus());
@@ -78,6 +90,8 @@ void WolfensteinCore0App::runCore0App() {
 			}
 
 			case PLAYING_LEVEL: {
+				int frameIndex = 0;
+
 				while(gameState == PLAYING_LEVEL) {
 					XTime frameStartTimeDC;
 					XTime_GetTime(&frameStartTimeDC);
@@ -90,7 +104,7 @@ void WolfensteinCore0App::runCore0App() {
 					}
 
 					if(DO_USE_CONTROLLER) {
-						Controller_update();
+						controller.update();
 					}
 
 					handlePlayerMovement();
@@ -108,10 +122,11 @@ void WolfensteinCore0App::runCore0App() {
 					u32 frameTimeDC = (u32)((u64)frameEndTimeDC - (u64)frameStartTimeDC);
 					frameTimeInSec = (double)frameTimeDC / (double)COUNTS_PER_SECOND;
 
-					if(DO_PRINT_FRAME_TIME) {
+					if(DO_PRINT_FRAME_TIME and frameIndex == 0) {
 						xil_printf("Core 0 frame time ms: %8d\n", (int)(frameTimeInSec * 1000));
 					}
 
+					frameIndex = (frameIndex + 1) % 20;
 				}
 				break;
 			}
@@ -127,7 +142,7 @@ void WolfensteinCore0App::clearMem() {
 	memset(VGA_IMAGE_BUFFER_0, 0x80, SCREEN_SIZE_BYTES);
 	memset(INTERMEDIATE_IMAGE_BUFFER, 0, SCREEN_SIZE_BYTES);
 	memset((void*)INTERFACE_PTR, 0, sizeof(validAckInterface_t));
-	memset(SHARED_DATA_PACKETS, 0, 2 * sizeof(sharedDataPacket_t));
+	memset((void*)SHARED_DATA_PACKETS, 0, 2 * sizeof(sharedDataPacket_t));
 
 }
 
@@ -140,21 +155,23 @@ void WolfensteinCore0App::drawMenu() {
 	// Dummy Menu. It's bad. TODO: make better
 	int backgroundColour = colourRGB(10, 0, 0);
 
-	for(int i = 0; i < SCREEN_HEIGHT; i++) {
-		for(int j = 0; j < SCREEN_WIDTH; j++) {
-			INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + j] = backgroundColour;
-		}
+	for(int j = 0; j < SCREEN_WIDTH; j++) {
+		INTERMEDIATE_IMAGE_BUFFER[j] = backgroundColour;
+	}
+	for(int i = 1; i < SCREEN_HEIGHT; i++) {
+		memcpy(&INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH], &INTERMEDIATE_IMAGE_BUFFER[0], SCREEN_WIDTH * sizeof(int));
 	}
 
 	int leftMargin = 50;
 	int scale = 2;
 	int lineSpace = 10;
+	int charColour = 0;
 
 	int line1Row = 320;
 	int line2Row = line1Row + CHARACTER_HEIGHT * scale + lineSpace;
 
-	drawCharacter(0, line1Row, leftMargin, 2, 0);
-	drawCharacter(1, line2Row, leftMargin, 2, 0);
+	drawCharacter(0, line1Row, leftMargin, scale, charColour);
+	drawCharacter(1, line2Row, leftMargin, scale, charColour);
 
 	// Draw cursor
 	int cursorCol = 40;
@@ -186,9 +203,9 @@ void WolfensteinCore0App::handlePlayerMovement() {
 	float turnCtrl = 0;
 
 	if(DO_USE_CONTROLLER) {
-		moveCtrlX = Controller_getNormedJoystickX(0);
-		moveCtrlY = Controller_getNormedJoystickY(0);
-		turnCtrl = Controller_getNormedJoystickX(1);
+		moveCtrlX = controller.getNormedJoystickX(0);
+		moveCtrlY = controller.getNormedJoystickY(0);
+		turnCtrl = controller.getNormedJoystickX(1);
 	}
 	else {
 		moveCtrlY = (float)Buttons_isButtonPressed(BTN_UP);
@@ -210,11 +227,12 @@ void WolfensteinCore0App::handlePlayerMovement() {
 }
 
 void WolfensteinCore0App::handlePlayerAction() {
-	bool trigger = 0;
-	static bool prevTrigger = 0;
+	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
+	bool trigger = true;
+	static bool prevTrigger = true;
 
 	if(DO_USE_CONTROLLER) {
-		trigger = Controller_isTriggerPressed(1);
+		trigger = controller.isTriggerPressed(1);
 	}
 	else {
 		trigger = Buttons_isButtonPressed(BTN_CENTRE);
@@ -225,8 +243,10 @@ void WolfensteinCore0App::handlePlayerAction() {
 	prevTrigger = trigger;
 
 	if(player.getIsShooting()) {
+		soundPlayer.playSound(GUNSHOT_SOUND);
+
 		for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
-			Enemy* enemy = &enemies[e];
+			Enemy* enemy = &enemyArray[e];
 
 			if(enemy->getHealth() <= 0) {
 				continue;
@@ -234,7 +254,6 @@ void WolfensteinCore0App::handlePlayerAction() {
 
 			float playerToEnemyX = enemy->getPositionX() - player.getPositionX();
 			float playerToEnemyY = enemy->getPositionY() - player.getPositionY();
-
 
 			float distanceToEnemy = sqrtf(playerToEnemyX * playerToEnemyX + playerToEnemyY * playerToEnemyY);
 			float angleToEnemy = atan2f(playerToEnemyY, playerToEnemyX);
@@ -266,25 +285,26 @@ void WolfensteinCore0App::handlePlayerAction() {
 }
 
 void WolfensteinCore0App::checkWinCondition() {
-	bool atLeast1EnemyRemains = false;
+	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
+	bool enemiesRemain = false;
 
 	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
-		if(enemies[e].getHealth() > 0) {
-			atLeast1EnemyRemains = true;
+		if(enemyArray[e].getHealth() > 0) {
+			enemiesRemain = true;
 			break;
 		}
 	}
 
-	if(!atLeast1EnemyRemains) {
+	if(!enemiesRemain) {
 		gameState = MAIN_MENU;
 	}
 }
 
 void WolfensteinCore0App::castRays() {
 	float angleIncrement = HORIZONTAL_FOV / (float)NUM_RAYS;
-	float startAngle = player.getAngle() - HORIZONTAL_FOV / 2.0 + angleIncrement / 2.0;
+	float startAngle = player.getAngle() - HORIZONTAL_FOV / 2.0 + angleIncrement / 2.0; // Add a half increment to centre the rays on the player's angle of sight
 	float rayAngle = startAngle; // Rays start on right, move towards left
-	float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
+	float* distanceArray = SHARED_DATA_PACKETS[0].distanceArray;
 
 	// For each ray
 	for(int r = 0; r < NUM_RAYS; r++) {
@@ -306,17 +326,13 @@ void WolfensteinCore0App::castRays() {
 			distance += RAY_DISTANCE_INCREMENT;
 		}
 
-		distanceArray0[NUM_RAYS - 1 - r] = distance; // Reverse index because rays are cast from right to left
+		distanceArray[NUM_RAYS - 1 - r] = distance; // Reverse index because rays are cast from right to left
 		rayAngle += angleIncrement;
 	}
 }
 
 void WolfensteinCore0App::transferSharedDataPacket() {
-	SHARED_DATA_PACKETS[0].playerData = player.getPlayerData();
-
-	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
-		SHARED_DATA_PACKETS[0].enemyDataArray[e] = enemies[e].getEnemyData();
-	}
+	SHARED_DATA_PACKETS[0].player = player;
 
 	INTERFACE_PTR->valid = 1;
 	while(!INTERFACE_PTR->acknowledge);
@@ -326,18 +342,21 @@ void WolfensteinCore0App::transferSharedDataPacket() {
 }
 
 void WolfensteinCore0App::initializeEnemies() {
+	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
+
 	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {
-		enemies[i].initialize();
-		enemies[i].setPositionX(currentLevel->getEnemyX(i));
-		enemies[i].setPositionY(currentLevel->getEnemyY(i));
+		enemyArray[i].initialize();
+		enemyArray[i].setPositionX(currentLevel->getEnemyX(i));
+		enemyArray[i].setPositionY(currentLevel->getEnemyY(i));
 	}
 
 	for(int i = currentLevel->getNumEnemies(); i < MAX_NUM_ENEMIES; i++) {
-		enemies[i].reset();
+		enemyArray[i].reset();
 	}
 }
 
 void WolfensteinCore0App::updateEnemies() {
+	Enemy* enemies = SHARED_DATA_PACKETS[0].enemyArray;
 	float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
 
 	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {

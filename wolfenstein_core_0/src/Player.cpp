@@ -30,15 +30,3 @@ void Player::setHealth(int health) {
 void Player::setIsShooting(bool isShooting) {
 	this->isShooting = isShooting;
 }
-
-playerData_t Player::getPlayerData() {
-	playerData_t playerData;
-
-	playerData.health = health;
-	playerData.positionX = positionX;
-	playerData.positionY = positionY;
-	playerData.angle = angle;
-	playerData.isShooting = isShooting;
-
-	return playerData;
-}

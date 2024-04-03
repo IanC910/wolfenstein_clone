@@ -8,8 +8,8 @@
 
 typedef struct {
 	float distanceArray[NUM_RAYS];
-	playerData_t playerData;
-	enemyData_t enemyDataArray[MAX_NUM_ENEMIES];
+	Player player;
+	Enemy enemyArray[MAX_NUM_ENEMIES];
 } sharedDataPacket_t;
 
 #endif

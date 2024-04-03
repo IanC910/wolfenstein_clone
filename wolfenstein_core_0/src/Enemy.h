@@ -4,12 +4,6 @@
 
 #include "ObjectWithPosition.h"
 
-typedef struct {
-	int health;
-	float positionX;
-	float positionY;
-} enemyData_t;
-
 class Enemy : public ObjectWithPosition {
 public:
 	int getHealth();
@@ -23,8 +17,6 @@ public:
 
     void reset();
     void initialize();
-
-	enemyData_t getEnemyData();
 
 private:
 	int health = 0;

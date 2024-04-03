@@ -15,18 +15,18 @@
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
 #include "../../wolfenstein_core_0/src/Player.h"
 #include "../../wolfenstein_core_0/src/Enemy.h"
+#include "../../wolfenstein_core_0/src/SpriteReader.h"
 
 WolfensteinCore1App::WolfensteinCore1App() {
 	xil_printf("Wolfenstein Core 1 App Init\n");
 
 	Xil_DCacheDisable();
+
 	// initialize floor and ceiling buffers
 	// Draw 1 row and copy
-	int ceilingColourInt = CEILING_GRADIENT[0];
-	int floorColourInt = FLOOR_GRADIENT[0];
 	for(int j = 0; j < SCREEN_WIDTH; j++) {
-		CEILING_BUFFER[j] = ceilingColourInt;
-		FLOOR_BUFFER[j] = floorColourInt;
+		CEILING_BUFFER[j] = CEILING_COLOUR;
+		FLOOR_BUFFER[j] = FLOOR_COLOUR;
 	}
 	for(int i = 0; i < SCREEN_HEIGHT / 2; i++) {
 		memcpy(&CEILING_BUFFER[i * SCREEN_WIDTH], &CEILING_BUFFER[0], SCREEN_WIDTH * sizeof(int));
@@ -52,7 +52,7 @@ void WolfensteinCore1App::runCore1App() {
 
 		XTime_GetTime(&frameStartTime);
 
-		// Get New Distance Array
+		// Receive data packet from core 0
 		XTime_GetTime(&funcStartTime);
 		receiveSharedDataPacket();
 		XTime_GetTime(&funcEndTime);
@@ -70,17 +70,18 @@ void WolfensteinCore1App::runCore1App() {
 			maxDrawTime = funcTime;
 		}
 
-		// Draw enemy
+		// Draw enemies
 		XTime_GetTime(&funcStartTime);
-		drawEnemy();
+		drawEnemies();
 		XTime_GetTime(&funcEndTime);
-		/*funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
+		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
 		if(funcTime > maxDrawTime) {
 			maxDrawTime = funcTime;
-			xil_printf("Core 1 max draw time: %8d\n", maxDrawTime);
-		}*/
+		}
 
 		drawHUD();
+
+		Xil_DCacheFlush();
 
 		// Update Screen
 		XTime_GetTime(&funcStartTime);
@@ -90,6 +91,8 @@ void WolfensteinCore1App::runCore1App() {
 		if(funcTime > maxUpdateTime) {
 			maxUpdateTime = funcTime;
 		}
+
+		Xil_DCacheFlush();
 
 		XTime_GetTime(&frameEndTime);
 		u32 frameTime = (u32)((u64)frameEndTime - (u64)frameStartTime);
@@ -155,31 +158,26 @@ void WolfensteinCore1App::drawEnvironment() {
 	}
 
 	// Fill in the rest of the floor and ceiling (non rectangular parts) in columns
-	fillNonRectangularCeilingAndFloor(0, NUM_RAYS, maxCeilingRow);
+	fillNonRectangularCeilingAndFloor(maxCeilingRow);
 }
 
-void WolfensteinCore1App::drawEnemy() {
-	float* distanceArray1 = SHARED_DATA_PACKETS[1].distanceArray;
-	float playerAngle = SHARED_DATA_PACKETS[1].playerData.angle;
-	float playerX = SHARED_DATA_PACKETS[1].playerData.positionX;
-	float playerY = SHARED_DATA_PACKETS[1].playerData.positionY;
+void WolfensteinCore1App::drawEnemies() {
+	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
+	Player* player = &SHARED_DATA_PACKETS[1].player;
+	Enemy* enemyArray = SHARED_DATA_PACKETS[1].enemyArray;
 
-	enemyData_t* enemies = SHARED_DATA_PACKETS[1].enemyDataArray;
-	enemyData_t enemy;
 	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
-		enemy = enemies[e];
+		Enemy* enemy = &enemyArray[e];
 
-		if(enemy.health <= 0) {
+		if(enemy->getHealth() <= 0) {
 			continue;
 		}
 
-		float vecX = enemy.positionX - playerX;
-		float vecY = enemy.positionY - playerY;
+		float vecX = enemy->getPositionX() - player->getPositionX();
+		float vecY = enemy->getPositionY() - player->getPositionY();
 		float enemyDistanceFromPlayer = sqrtf(vecX*vecX + vecY*vecY);
 
-		float playerViewX = cosf(playerAngle);
-		float playerViewY = sinf(playerAngle);
-		float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(vecY, vecX);
+		float objectAngle = player->getAngle() - atan2f(vecY, vecX);
 
 		if(objectAngle < -M_PI) {
 			objectAngle += 2.0 * M_PI;
@@ -199,11 +197,11 @@ void WolfensteinCore1App::drawEnemy() {
 		int startXEnemy = middleOfEnemy - (ENEMY_SPRITE_WIDTH/(2*scaleFactor));
 		int startYEnemy = (SCREEN_HEIGHT / 2) - ((ENEMY_SRPITE_HEIGHT - 40)/(2*scaleFactor));
 
-		if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 5 && distanceArray1[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
+		if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 5 && distanceArray[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
 			for(int i = 0; i < (int)(ENEMY_SRPITE_HEIGHT/scaleFactor); i++) {
 				int s = (int)(i * scaleFactor);
-				int firstNonTransparentPixel = ((int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+3)+1)/scaleFactor);
-				int numOfNonTransparentPixel = (int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+7))/scaleFactor;
+				int firstNonTransparentPixel = ((int)(*(ENEMY_SPRITE+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+3)+1)/scaleFactor);
+				int numOfNonTransparentPixel = (int)(*(ENEMY_SPRITE+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+7))/scaleFactor;
 
 				//Checks if sprite is past right bound of screen and updates accordingly
 				if(startXEnemy + (firstNonTransparentPixel + numOfNonTransparentPixel) > SCREEN_WIDTH) {
@@ -217,30 +215,38 @@ void WolfensteinCore1App::drawEnemy() {
 				}
 
 				//Check if left part of sprite is behind wall
-				while(distanceArray1[((startXEnemy + firstNonTransparentPixel))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
+				while(distanceArray[((startXEnemy + firstNonTransparentPixel))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
 					numOfNonTransparentPixel--;
 					firstNonTransparentPixel++;
 				}
 
 				//Check if right part of sprite is behind wall
-				while(distanceArray1[(startXEnemy + ((firstNonTransparentPixel + numOfNonTransparentPixel)))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
+				while(distanceArray[(startXEnemy + ((firstNonTransparentPixel + numOfNonTransparentPixel)))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
 					numOfNonTransparentPixel--;
 				}
 
 				//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
 				if(scaleFactor == 1) {
 					firstNonTransparentPixel--;
-					memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + firstNonTransparentPixel + startXEnemy, enemySprite+(i*(ENEMY_SPRITE_WIDTH)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
+					memcpy(
+                        INTERMEDIATE_IMAGE_BUFFER + (i + startYEnemy) * SCREEN_WIDTH + firstNonTransparentPixel + startXEnemy,
+                        ENEMY_SPRITE + (i * ENEMY_SPRITE_WIDTH + firstNonTransparentPixel) * sizeof(int),
+                        numOfNonTransparentPixel*sizeof(int)
+                    );
 				}
 				else {
 					for(int j = 0; j < numOfNonTransparentPixel; j++) {
-						memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + startXEnemy + j + firstNonTransparentPixel, enemySprite+(s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+((int)((firstNonTransparentPixel+j)*scaleFactor))*sizeof(int)), sizeof(int));
+						memcpy(
+                            INTERMEDIATE_IMAGE_BUFFER + (i + startYEnemy) * SCREEN_WIDTH + startXEnemy + j + firstNonTransparentPixel,
+                            ENEMY_SPRITE + (s * ENEMY_SPRITE_WIDTH + (int)((firstNonTransparentPixel + j) * scaleFactor)) * sizeof(int),
+                            sizeof(int)
+                        );
 					}
 				}
 
-				//Update distance array with new distances for drawn enemies
+				// Update distance array with new distances for drawn enemies
 				for(int j = 0; j < numOfNonTransparentPixel; j++) {
-					distanceArray1[(firstNonTransparentPixel + startXEnemy + j)/RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
+					distanceArray[(firstNonTransparentPixel + startXEnemy + j) / RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
 				}
 			}
 		}
@@ -265,7 +271,7 @@ int WolfensteinCore1App::getColourFromGradient(const int* gradient, const int gr
 	return gradient[index];
 }
 
-void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int startRay, int endRay, int rowAlreadyDrawn) {
+void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int rowAlreadyDrawn) {
 	// TODO incorporate vertical resolution downscaling
 	for(int i = rowAlreadyDrawn; i < SCREEN_HEIGHT / 2; i++) {
 		int startRay = 0;
@@ -309,7 +315,7 @@ void WolfensteinCore1App::drawHUD() {
 
 	int healthBarEmptyColour = colourRGB(8, 0, 0);
 	int healthBarFullColour = colourRGB(0, 15, 0);
-	int playerHealth = SHARED_DATA_PACKETS[1].playerData.health;
+	int playerHealth = SHARED_DATA_PACKETS[1].player.getHealth();
 
 	for(int i = 0; i < healthBarHeight; i++) {
 		for(int j = 0; j < playerHealth; j++) {
@@ -319,6 +325,29 @@ void WolfensteinCore1App::drawHUD() {
 			INTERMEDIATE_IMAGE_BUFFER[(healthBarTopRow + i) * SCREEN_WIDTH + healthBarLeftCol + j] = healthBarEmptyColour;
 		}
 	}
+
+	// Draw first person weapon sprite
+	int gunSpriteNumRows 				= SpriteReader::getNumRows(FIRST_PERSON_GUN_SPRITE);
+	int gunSpriteNumCols 				= SpriteReader::getNumCols(FIRST_PERSON_GUN_SPRITE);
+	int spriteGranularity 				= SpriteReader::getGranularity(FIRST_PERSON_GUN_SPRITE);
+	short* firstNonXparentPixelArray 	= SpriteReader::getFirstNonTransparentPixelArray(FIRST_PERSON_GUN_SPRITE);
+	short* numNonXparentPixelArray 		= SpriteReader::getNumNonTransparentPixelArray(FIRST_PERSON_GUN_SPRITE);
+	int* pixelData 						= SpriteReader::getPixelData(FIRST_PERSON_GUN_SPRITE);
+
+	int gunSpriteColumnOffset = SCREEN_WIDTH / 2 - firstNonXparentPixelArray[0];
+
+	for(int spriteRow = 0; spriteRow < gunSpriteNumRows; spriteRow++) {
+		int startScreenRow = SCREEN_HEIGHT + (spriteRow - gunSpriteNumRows) * spriteGranularity;
+
+		for(int screenRow = startScreenRow; screenRow < startScreenRow + spriteGranularity; screenRow++) {
+			memcpy(
+				&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + gunSpriteColumnOffset + firstNonXparentPixelArray[spriteRow]],
+				&pixelData[spriteRow * gunSpriteNumCols + firstNonXparentPixelArray[spriteRow]],
+				numNonXparentPixelArray[spriteRow] * sizeof(int)
+			);
+		}
+	}
+
 }
 
 void WolfensteinCore1App::updateScreen() {

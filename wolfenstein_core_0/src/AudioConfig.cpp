@@ -14,7 +14,7 @@
 #include "xuartps.h"
 #include "stdlib.h"
 
-#include "Audio.h"
+#include "AudioConfig.h"
 
 static XIicPs Iic;
 

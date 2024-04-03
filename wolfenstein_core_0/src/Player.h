@@ -6,14 +6,6 @@
 
 #include "ObjectWithPosition.h"
 
-typedef struct {
-	int health;
-	float positionX;
-	float positionY;
-	float angle;
-	bool isShooting;
-} playerData_t;
-
 class Player : public ObjectWithPosition {
 
 public:
@@ -25,8 +17,6 @@ public:
 
 	bool getIsShooting();
 	void setIsShooting(bool isShooting);
-
-	playerData_t getPlayerData();
 
 private:
 	float angle = 0;

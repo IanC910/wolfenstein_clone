@@ -1,4 +1,4 @@
-Specification for .audioData file types
+Specification for .sound File Type
 
 -- File Start -- 
 [Number of Samples] 			- 4 bytes

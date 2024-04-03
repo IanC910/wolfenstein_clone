@@ -11,7 +11,8 @@
 #include "../Constants.h"
 #include "../Addresses.h"
 #include "audioTest.h"
-#include "../Audio.h"
+
+#include "../AudioConfig.h"
 
 const int CPU_CLK_FREQ_Hz = XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ;
 const int CPU_CLK_FREQ_MHz = CPU_CLK_FREQ_Hz / 1000000;
@@ -63,13 +64,13 @@ void sineTest() {
 void soundFileTest() {
 	configAudio();
 
-	const char* SOUND_FILE_POINTER = (char*)GUNSHOT_SOUND;
-	int numSamples 			= *(int*)(SOUND_FILE_POINTER + 0);
-	int samplePeriodUs 		= *(int*)(SOUND_FILE_POINTER + 4);
+	const char* SOUND_FILE_PTR = (char*)GUNSHOT_SOUND;
+	int numSamples 			= *(int*)(SOUND_FILE_PTR + 0);
+	int samplePeriodUs 		= *(int*)(SOUND_FILE_PTR + 4);
 
 	u32 samplePeriodDoubleCycles = (int)(samplePeriodUs * CPU_CLK_FREQ_MHz / 2);
 
-	int16_t* dataPointer = (int16_t*)(SOUND_FILE_POINTER + 8);
+	int16_t* dataPointer = (int16_t*)(SOUND_FILE_PTR + 8);
 
 	xil_printf("numSamples = %d\n", numSamples);
 	xil_printf("samplePeriodUs = %d\n", samplePeriodUs);
