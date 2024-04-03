@@ -10,10 +10,10 @@ class Controller {
 public:
 	Controller();
 	Controller(
-		int pmod0SpiBaseAddr,
-		int pmod0GpioBaseAddr,
-		int pmod1SpiBaseAddr,
-		int pmod1GpioBaseAddr
+		unsigned int pmod0SpiBaseAddr,
+		unsigned int pmod0GpioBaseAddr,
+		unsigned int pmod1SpiBaseAddr,
+		unsigned int pmod1GpioBaseAddr
 	);
 
 	void update();
