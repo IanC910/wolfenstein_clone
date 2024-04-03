@@ -187,12 +187,12 @@ void drawObject(float positionX, float positionY, float playerX, float playerY, 
 
 	float middleOfObject = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
 	int startX = middleOfObject - (spriteWidth/(2*scaleFactor));
-	int startY = (SCREEN_HEIGHT / 2) - (spriteHeight/(2*scaleFactor));
+	int startY = (SCREEN_HEIGHT / 2) - ((spriteHeight - yOffset)/(2*scaleFactor));
 
 	if(inPlayerFOV && distanceFromPlayer >= 0.5 && distanceFromPlayer <= 5 && distanceArray1[(int)middleOfObject/RESOLUTION_DOWN_SCALE_H] >= distanceFromPlayer) {
 		for(int i = 0; i < (int)(spriteHeight/scaleFactor); i++) {
 			int s = (int)(i * scaleFactor);
-			int firstNonTransparentPixel = ((int)(*(sprite+s*(spriteWidth)*sizeof(int)+3))/scaleFactor) - 1;
+			int firstNonTransparentPixel = ((int)(*(sprite+s*(spriteWidth)*sizeof(int)+3)+1)/scaleFactor) - 1;
 			int numOfNonTransparentPixel = (int)(*(sprite+s*(spriteWidth)*sizeof(int)+7))/scaleFactor;
 
 			//Checks if sprite is past right bound of screen and updates accordingly
@@ -250,7 +250,6 @@ void WolfensteinCore1App::drawEnemy() {
 		if(enemy.health <= 0) {
 			continue;
 		}
-
 		drawObject(enemy.positionX, enemy.positionY, playerX, playerY, playerAngle, distanceArray1, ENEMY_SPRITE_WIDTH, ENEMY_SPRITE_HEIGHT, enemySprite);
 	}
 }

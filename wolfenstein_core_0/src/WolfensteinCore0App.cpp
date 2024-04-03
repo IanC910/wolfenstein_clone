@@ -57,16 +57,16 @@ void WolfensteinCore0App::runCore0App() {
 					if(Buttons_isButtonPressed(BTN_UP) && levelSelectIndex > 0) {
 						levelSelectIndex--;
 					}
-					if(Buttons_isButtonPressed(BTN_DOWN) && levelSelectIndex < NUM_LEVELS) {
+					if(Buttons_isButtonPressed(BTN_DOWN) && levelSelectIndex < NUM_LEVELS - 1) {
 						levelSelectIndex++;
 					}
 					if(Buttons_isButtonPressed(BTN_CENTRE)) {
-						this->currentLevel = getLevel(0);
+						this->currentLevel = getLevel(levelSelectIndex);
 
 						player.setHealth(MAX_PLAYER_HEALTH);
 
-						player.setPositionX(5);
-						player.setPositionY(2);
+						player.setPositionX(currentLevel->getStartingX());
+						player.setPositionY(currentLevel->getStartingY());
 						player.setAngle(M_PI / 2);
 
 						initializeEnemies();
@@ -99,7 +99,7 @@ void WolfensteinCore0App::runCore0App() {
 
 					handlePlayerAction();
 					checkWinCondition();
-					// updateEnemies();
+					updateEnemies();
 
 					transferSharedDataPacket();
 
@@ -349,9 +349,10 @@ void WolfensteinCore0App::updateEnemies() {
 			continue;
 		}
 
-		float vecX = (player.getPositionX() + i*0.5 - enemies[i].getPositionX());
-		float vecY = (player.getPositionY() + i*0.5 + 0.5 - enemies[i].getPositionY());
+		float vecX = (player.getPositionX() - enemies[i].getPositionX());
+		float vecY = (player.getPositionY() + 0.5 - enemies[i].getPositionY());
 		float playerDistanceFromEnemy = sqrtf(vecX*vecX + vecY*vecY);
+
 		if(enemies[i].hasSeenPlayer()) {
 			if(playerDistanceFromEnemy > 1.5) {
 				float objectAngle = atan2f(vecY, vecX);
