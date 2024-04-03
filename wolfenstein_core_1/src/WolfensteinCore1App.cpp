@@ -80,6 +80,8 @@ void WolfensteinCore1App::runCore1App() {
 			xil_printf("Core 1 max draw time: %8d\n", maxDrawTime);
 		}*/
 
+		drawDrop();
+
 		drawHUD();
 
 		// Update Screen
@@ -158,6 +160,82 @@ void WolfensteinCore1App::drawEnvironment() {
 	fillNonRectangularCeilingAndFloor(0, NUM_RAYS, maxCeilingRow);
 }
 
+void drawObject(float positionX, float positionY, float playerX, float playerY, float playerAngle, float* distanceArray1, int spriteWidth, int spriteHeight, unsigned char* sprite) {
+
+	float vecX = positionX - playerX;
+	float vecY = positionY - playerY;
+	float distanceFromPlayer = sqrtf(vecX*vecX + vecY*vecY);
+
+	float playerViewX = cosf(playerAngle);
+	float playerViewY = sinf(playerAngle);
+	float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(vecY, vecX);
+
+	if(objectAngle < -M_PI) {
+		objectAngle += 2.0 * M_PI;
+	}
+	else if(objectAngle > M_PI) {
+		objectAngle -= 2.0 * M_PI;
+	}
+
+	bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
+
+	float scaleFactor = distanceFromPlayer;
+
+	if(scaleFactor < 1.1) {
+		scaleFactor = 1;
+	}
+
+	float middleOfObject = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
+	int startX = middleOfObject - (spriteWidth/(2*scaleFactor));
+	int startY = (SCREEN_HEIGHT / 2) - (spriteHeight/(2*scaleFactor));
+
+	if(inPlayerFOV && distanceFromPlayer >= 0.5 && distanceFromPlayer <= 5 && distanceArray1[(int)middleOfObject/RESOLUTION_DOWN_SCALE_H] >= distanceFromPlayer) {
+		for(int i = 0; i < (int)(spriteHeight/scaleFactor); i++) {
+			int s = (int)(i * scaleFactor);
+			int firstNonTransparentPixel = ((int)(*(sprite+s*(spriteWidth)*sizeof(int)+3))/scaleFactor) - 1;
+			int numOfNonTransparentPixel = (int)(*(sprite+s*(spriteWidth)*sizeof(int)+7))/scaleFactor;
+
+			//Checks if sprite is past right bound of screen and updates accordingly
+			if(startX + (firstNonTransparentPixel + numOfNonTransparentPixel) > SCREEN_WIDTH) {
+				numOfNonTransparentPixel = SCREEN_WIDTH - (startX + firstNonTransparentPixel);
+			}
+
+			//Checks if sprite is past left bound of screen and updates accordingly
+			if(startX + firstNonTransparentPixel < 0) {
+				numOfNonTransparentPixel -= fabs(startX + firstNonTransparentPixel);
+				firstNonTransparentPixel += fabs(startX + firstNonTransparentPixel);
+			}
+
+			//Check if left part of sprite is behind wall
+			while(distanceArray1[((startX + firstNonTransparentPixel))/RESOLUTION_DOWN_SCALE_H] < distanceFromPlayer) {
+				numOfNonTransparentPixel--;
+				firstNonTransparentPixel++;
+			}
+
+			//Check if right part of sprite is behind wall
+			while(distanceArray1[(startX + ((firstNonTransparentPixel + numOfNonTransparentPixel)))/RESOLUTION_DOWN_SCALE_H] < distanceFromPlayer) {
+				numOfNonTransparentPixel--;
+			}
+
+			//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
+			if(scaleFactor == 1) {
+				memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startY) *SCREEN_WIDTH) + firstNonTransparentPixel + startX, sprite+(i*(spriteWidth)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
+			}
+			else {
+				for(int j = 0; j < numOfNonTransparentPixel; j++) {
+					memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startY) *SCREEN_WIDTH) + startX + j + (firstNonTransparentPixel), sprite+(s*(spriteWidth)*sizeof(int)+((int)((firstNonTransparentPixel+j)*scaleFactor))*sizeof(int)), sizeof(int));
+				}
+			}
+
+			//Update distance array with new distances for drawn enemies
+			for(int j = 0; j < numOfNonTransparentPixel; j++) {
+				distanceArray1[(firstNonTransparentPixel + startX + j)/RESOLUTION_DOWN_SCALE_H] = distanceFromPlayer;
+			}
+		}
+	}
+
+}
+
 void WolfensteinCore1App::drawEnemy() {
 	float* distanceArray1 = SHARED_DATA_PACKETS[1].distanceArray;
 	float playerAngle = SHARED_DATA_PACKETS[1].playerData.angle;
@@ -173,78 +251,24 @@ void WolfensteinCore1App::drawEnemy() {
 			continue;
 		}
 
-		float vecX = enemy.positionX - playerX;
-		float vecY = enemy.positionY - playerY;
-		float enemyDistanceFromPlayer = sqrtf(vecX*vecX + vecY*vecY);
-
-		float playerViewX = cosf(playerAngle);
-		float playerViewY = sinf(playerAngle);
-		float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(vecY, vecX);
-
-		if(objectAngle < -M_PI) {
-			objectAngle += 2.0 * M_PI;
-		}
-		else if(objectAngle > M_PI) {
-			objectAngle -= 2.0 * M_PI;
-		}
-
-		bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
-
-		float scaleFactor = enemyDistanceFromPlayer;
-		if(scaleFactor < 1.1) {
-			scaleFactor = 1;
-		}
-
-		float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
-		int startXEnemy = middleOfEnemy - (ENEMY_SPRITE_WIDTH/(2*scaleFactor));
-		int startYEnemy = (SCREEN_HEIGHT / 2) - (ENEMY_SRPITE_HEIGHT/(2*scaleFactor));
-
-		if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 5 && distanceArray1[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
-			for(int i = 0; i < (int)(ENEMY_SRPITE_HEIGHT/scaleFactor); i++) {
-				int s = (int)(i * scaleFactor);
-				int firstNonTransparentPixel = ((int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+3))/scaleFactor) - 1;
-				int numOfNonTransparentPixel = (int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+7))/scaleFactor;
-
-				//Checks if sprite is past right bound of screen and updates accordingly
-				if(startXEnemy + (firstNonTransparentPixel + numOfNonTransparentPixel) > SCREEN_WIDTH) {
-					numOfNonTransparentPixel = SCREEN_WIDTH - (startXEnemy + firstNonTransparentPixel);
-				}
-
-				//Checks if sprite is past left bound of screen and updates accordingly
-				if(startXEnemy + firstNonTransparentPixel < 0) {
-					numOfNonTransparentPixel -= fabs(startXEnemy + firstNonTransparentPixel);
-					firstNonTransparentPixel += fabs(startXEnemy + firstNonTransparentPixel);
-				}
-
-				//Check if left part of sprite is behind wall
-				while(distanceArray1[((startXEnemy + firstNonTransparentPixel))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
-					numOfNonTransparentPixel--;
-					firstNonTransparentPixel++;
-				}
-
-				//Check if right part of sprite is behind wall
-				while(distanceArray1[(startXEnemy + ((firstNonTransparentPixel + numOfNonTransparentPixel)))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
-					numOfNonTransparentPixel--;
-				}
-
-				//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
-				if(scaleFactor == 1) {
-					memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + firstNonTransparentPixel + startXEnemy, enemySprite+(i*(ENEMY_SPRITE_WIDTH)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
-				}
-				else {
-					for(int j = 0; j < numOfNonTransparentPixel; j++) {
-						memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + startXEnemy + j + (firstNonTransparentPixel), enemySprite+(s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+((int)((firstNonTransparentPixel+j)*scaleFactor))*sizeof(int)), sizeof(int));
-					}
-				}
-
-				//Update distance array with new distances for drawn enemies
-				for(int j = 0; j < numOfNonTransparentPixel; j++) {
-					distanceArray1[(firstNonTransparentPixel + startXEnemy + j)/RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
-				}
-			}
-		}
+		drawObject(enemy.positionX, enemy.positionY, playerX, playerY, playerAngle, distanceArray1, ENEMY_SPRITE_WIDTH, ENEMY_SPRITE_HEIGHT, enemySprite);
 	}
 }
+
+void WolfensteinCore1App::drawDrop() {
+	/*float* distanceArray1 = SHARED_DATA_PACKETS[1].distanceArray;
+	float playerAngle = SHARED_DATA_PACKETS[1].playerData.angle;
+	float playerX = SHARED_DATA_PACKETS[1].playerData.positionX;
+	float playerY = SHARED_DATA_PACKETS[1].playerData.positionY;
+
+	//enemyData_t* enemies = SHARED_DATA_PACKETS[1].enemyDataArray;
+	dropData_t drop = SHARED_DATA_PACKETS[1].ammo;
+	for(int e = 0; e < 1; e++) {
+		draw(5, 5, playerX, playerY, playerAngle, distanceArray1, ENEMY_SPRITE_WIDTH, ENEMY_SPRITE_HEIGHT, enemySprite);
+	}*/
+}
+
+
 
 int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
 	static float halfWallHeight = 0.5;

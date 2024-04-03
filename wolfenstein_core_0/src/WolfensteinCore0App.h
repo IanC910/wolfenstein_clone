@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Level.h"
 #include "Enemy.h"
+#include "Drop.h"
 
 class WolfensteinCore0App {
 

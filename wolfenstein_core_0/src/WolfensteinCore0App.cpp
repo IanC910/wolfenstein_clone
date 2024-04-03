@@ -317,6 +317,10 @@ void WolfensteinCore0App::transferSharedDataPacket() {
 	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
 		SHARED_DATA_PACKETS[0].enemyDataArray[e] = enemies[e].getEnemyData();
 	}
+	Drop ammo;
+	ammo.setPositionX(0.5);
+	ammo.setPositionY(0.5);
+	SHARED_DATA_PACKETS[0].ammo = ammo.getDropData();
 
 	INTERFACE_PTR->valid = 1;
 	while(!INTERFACE_PTR->acknowledge);
