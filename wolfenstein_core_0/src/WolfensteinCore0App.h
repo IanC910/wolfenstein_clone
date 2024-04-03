@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Level.h"
 #include "Enemy.h"
+#include "Controller.h"
 
 class WolfensteinCore0App {
 
@@ -32,6 +33,7 @@ private:
 		PLAYING_LEVEL
 	};
 
+	Controller controller;
 	Player player;
 	int levelSelectIndex = 0;
 	Level* currentLevel = nullptr;

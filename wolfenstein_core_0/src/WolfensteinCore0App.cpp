@@ -10,6 +10,7 @@
 #include "xtime_l.h"
 #include "xil_exception.h"
 #include "xil_types.h"
+#include "xparameters.h"
 
 #include "Constants.h"
 #include "Addresses.h"
@@ -34,7 +35,12 @@ WolfensteinCore0App::WolfensteinCore0App() {
 	);
 
 	if(DO_USE_CONTROLLER) {
-		Controller_initialize();
+		controller = Controller(
+			XPAR_PMODJSTK2_0_AXI_LITE_SPI_BASEADDR,
+			XPAR_PMODJSTK2_0_AXI_LITE_GPIO_BASEADDR,
+			XPAR_PMODJSTK2_1_AXI_LITE_SPI_BASEADDR,
+			XPAR_PMODJSTK2_1_AXI_LITE_GPIO_BASEADDR
+		);
 	}
 }
 
@@ -90,7 +96,7 @@ void WolfensteinCore0App::runCore0App() {
 					}
 
 					if(DO_USE_CONTROLLER) {
-						Controller_update();
+						controller.update();
 					}
 
 					handlePlayerMovement();
@@ -187,9 +193,9 @@ void WolfensteinCore0App::handlePlayerMovement() {
 	float turnCtrl = 0;
 
 	if(DO_USE_CONTROLLER) {
-		moveCtrlX = Controller_getNormedJoystickX(0);
-		moveCtrlY = Controller_getNormedJoystickY(0);
-		turnCtrl = Controller_getNormedJoystickX(1);
+		moveCtrlX = controller.getNormedJoystickX(0);
+		moveCtrlY = controller.getNormedJoystickY(0);
+		turnCtrl = controller.getNormedJoystickX(1);
 	}
 	else {
 		moveCtrlY = (float)Buttons_isButtonPressed(BTN_UP);
@@ -216,7 +222,7 @@ void WolfensteinCore0App::handlePlayerAction() {
 	static bool prevTrigger = 0;
 
 	if(DO_USE_CONTROLLER) {
-		trigger = Controller_isTriggerPressed(1);
+		trigger = controller.isTriggerPressed(1);
 	}
 	else {
 		trigger = Buttons_isButtonPressed(BTN_CENTRE);
