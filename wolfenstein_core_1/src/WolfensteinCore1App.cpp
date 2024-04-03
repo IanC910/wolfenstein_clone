@@ -168,8 +168,11 @@ void WolfensteinCore1App::drawSprite(Sprite* sprite, int rowOffset, int colOffse
 
 	for(int spriteRow = 0; spriteRow < sprite->getNumRows(); spriteRow++) {
 		int startScreenRow = rowOffset + spriteRow * sprite->getGranularity();
+		if(startScreenRow < 0) {
+			startScreenRow = 0;
+		}
 
-		for(int screenRow = startScreenRow; screenRow < startScreenRow + sprite->getGranularity(); screenRow++) {
+		for(int screenRow = startScreenRow; screenRow < startScreenRow + sprite->getGranularity() && screenRow < SCREEN_HEIGHT; screenRow++) {
 			memcpy(
 				&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + colOffset + firstPixelArray[spriteRow]],
 				&pixelData[spriteRow * sprite->getNumCols() + firstPixelArray[spriteRow]],
@@ -352,6 +355,8 @@ void WolfensteinCore1App::drawHUD() {
 	// If player is shooting, draw the muzzle flash sprite behind the weapon sprite
 	if(SHARED_DATA_PACKETS[1].player.getIsShooting()) {
 		Sprite flashSprite(MUZZLE_FLASH_SPRITE);
+		int recoilRowOffset = 8;
+		gunSpriteRowOffset += recoilRowOffset;
 		int flashSpriteRowOffset = gunSpriteRowOffset + 12 - flashSprite.getNumRows() / 2 * flashSprite.getGranularity();
 		int flashSpriteColOffset = SCREEN_WIDTH / 2 - flashSprite.getFirstPixelArray()[0] - flashSprite.getGranularity() / 2;
 		drawSprite(&flashSprite, flashSpriteRowOffset, flashSpriteColOffset);
