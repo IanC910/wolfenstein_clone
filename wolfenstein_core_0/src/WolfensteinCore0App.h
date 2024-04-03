@@ -35,6 +35,7 @@ private:
 
 	Player player;
 	Enemy enemies[MAX_NUM_ENEMIES];
+	Drop healthDrops[MAX_NUM_HEALTH_DROPS];
 	int levelSelectIndex = 0;
 	Level* currentLevel = nullptr;
 	gameState_t gameState = MAIN_MENU;

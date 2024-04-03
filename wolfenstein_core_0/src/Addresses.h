@@ -22,6 +22,7 @@ int* const GUNSHOT_SOUND							= (int*)					0x00E2C000; // size: 12288
 int* const NEXT										= (int*)					0x00E2F000;
 
 unsigned char* const enemySprite 					= (unsigned char *)			0x018D2008;
+unsigned char* const healthSprite 					= (unsigned char *)			0x018ED208;
 
 
 #endif

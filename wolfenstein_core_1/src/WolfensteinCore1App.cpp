@@ -15,6 +15,7 @@
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
 #include "../../wolfenstein_core_0/src/Player.h"
 #include "../../wolfenstein_core_0/src/Enemy.h"
+#include "../../wolfenstein_core_0/src/Drop.h"
 
 WolfensteinCore1App::WolfensteinCore1App() {
 	xil_printf("Wolfenstein Core 1 App Init\n");
@@ -160,7 +161,7 @@ void WolfensteinCore1App::drawEnvironment() {
 	fillNonRectangularCeilingAndFloor(0, NUM_RAYS, maxCeilingRow);
 }
 
-void drawObject(float positionX, float positionY, float playerX, float playerY, float playerAngle, float* distanceArray1, int spriteWidth, int spriteHeight, unsigned char* sprite) {
+void drawObject(float positionX, float positionY, float playerX, float playerY, float playerAngle, float* distanceArray1, int spriteWidth, int spriteHeight, int yDrawOffset, unsigned char* sprite) {
 
 	float vecX = positionX - playerX;
 	float vecY = positionY - playerY;
@@ -187,7 +188,7 @@ void drawObject(float positionX, float positionY, float playerX, float playerY, 
 
 	float middleOfObject = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
 	int startX = middleOfObject - (spriteWidth/(2*scaleFactor));
-	int startY = (SCREEN_HEIGHT / 2) - ((spriteHeight - yOffset)/(2*scaleFactor));
+	int startY = (SCREEN_HEIGHT / 2) - ((spriteHeight - yDrawOffset)/(2*scaleFactor));
 
 	if(inPlayerFOV && distanceFromPlayer >= 0.5 && distanceFromPlayer <= 5 && distanceArray1[(int)middleOfObject/RESOLUTION_DOWN_SCALE_H] >= distanceFromPlayer) {
 		for(int i = 0; i < (int)(spriteHeight/scaleFactor); i++) {
@@ -250,21 +251,21 @@ void WolfensteinCore1App::drawEnemy() {
 		if(enemy.health <= 0) {
 			continue;
 		}
-		drawObject(enemy.positionX, enemy.positionY, playerX, playerY, playerAngle, distanceArray1, ENEMY_SPRITE_WIDTH, ENEMY_SPRITE_HEIGHT, enemySprite);
+		drawObject(enemy.positionX, enemy.positionY, playerX, playerY, playerAngle, distanceArray1, ENEMY_SPRITE_WIDTH, ENEMY_SPRITE_HEIGHT, 40, enemySprite);
 	}
 }
 
 void WolfensteinCore1App::drawDrop() {
-	/*float* distanceArray1 = SHARED_DATA_PACKETS[1].distanceArray;
+	float* distanceArray1 = SHARED_DATA_PACKETS[1].distanceArray;
 	float playerAngle = SHARED_DATA_PACKETS[1].playerData.angle;
 	float playerX = SHARED_DATA_PACKETS[1].playerData.positionX;
 	float playerY = SHARED_DATA_PACKETS[1].playerData.positionY;
 
 	//enemyData_t* enemies = SHARED_DATA_PACKETS[1].enemyDataArray;
-	dropData_t drop = SHARED_DATA_PACKETS[1].ammo;
+	dropData_t drop = SHARED_DATA_PACKETS[1].healthDrops[0];
 	for(int e = 0; e < 1; e++) {
-		draw(5, 5, playerX, playerY, playerAngle, distanceArray1, ENEMY_SPRITE_WIDTH, ENEMY_SPRITE_HEIGHT, enemySprite);
-	}*/
+		drawObject(drop.positionX, drop.positionY, playerX, playerY, playerAngle, distanceArray1, HEALTH_SPRITE_WIDTH, HEALTH_SPRITE_HEIGHT, 300, healthSprite);
+	}
 }
 
 
