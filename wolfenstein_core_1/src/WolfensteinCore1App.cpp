@@ -20,6 +20,7 @@ WolfensteinCore1App::WolfensteinCore1App() {
 	xil_printf("Wolfenstein Core 1 App Init\n");
 
 	Xil_DCacheDisable();
+
 	// initialize floor and ceiling buffers
 	// Draw 1 row and copy
 	int ceilingColourInt = CEILING_GRADIENT[0];
@@ -52,7 +53,7 @@ void WolfensteinCore1App::runCore1App() {
 
 		XTime_GetTime(&frameStartTime);
 
-		// Get New Distance Array
+		// Receive data packet from core 0
 		XTime_GetTime(&funcStartTime);
 		receiveSharedDataPacket();
 		XTime_GetTime(&funcEndTime);
@@ -70,17 +71,18 @@ void WolfensteinCore1App::runCore1App() {
 			maxDrawTime = funcTime;
 		}
 
-		// Draw enemy
+		// Draw enemies
 		XTime_GetTime(&funcStartTime);
 		drawEnemies();
 		XTime_GetTime(&funcEndTime);
-		/*funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
+		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
 		if(funcTime > maxDrawTime) {
 			maxDrawTime = funcTime;
-			xil_printf("Core 1 max draw time: %8d\n", maxDrawTime);
-		}*/
+		}
 
 		drawHUD();
+
+		Xil_DCacheFlush();
 
 		// Update Screen
 		XTime_GetTime(&funcStartTime);
@@ -90,6 +92,8 @@ void WolfensteinCore1App::runCore1App() {
 		if(funcTime > maxUpdateTime) {
 			maxUpdateTime = funcTime;
 		}
+
+		Xil_DCacheFlush();
 
 		XTime_GetTime(&frameEndTime);
 		u32 frameTime = (u32)((u64)frameEndTime - (u64)frameStartTime);
@@ -160,7 +164,7 @@ void WolfensteinCore1App::drawEnvironment() {
 
 void WolfensteinCore1App::drawEnemies() {
 	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
-	Player player = SHARED_DATA_PACKETS[1].player;
+	Player* player = &SHARED_DATA_PACKETS[1].player;
 	Enemy* enemyArray = SHARED_DATA_PACKETS[1].enemyArray;
 
 	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
@@ -170,11 +174,11 @@ void WolfensteinCore1App::drawEnemies() {
 			continue;
 		}
 
-		float vecX = enemy->getPositionX() - player.getPositionX();
-		float vecY = enemy->getPositionY() - player.getPositionY();
+		float vecX = enemy->getPositionX() - player->getPositionX();
+		float vecY = enemy->getPositionY() - player->getPositionY();
 		float enemyDistanceFromPlayer = sqrtf(vecX*vecX + vecY*vecY);
 
-		float objectAngle = player.getAngle() - atan2f(vecY, vecX);
+		float objectAngle = player->getAngle() - atan2f(vecY, vecX);
 
 		if(objectAngle < -M_PI) {
 			objectAngle += 2.0 * M_PI;
@@ -197,8 +201,8 @@ void WolfensteinCore1App::drawEnemies() {
 		if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 5 && distanceArray[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
 			for(int i = 0; i < (int)(ENEMY_SRPITE_HEIGHT/scaleFactor); i++) {
 				int s = (int)(i * scaleFactor);
-				int firstNonTransparentPixel = ((int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+3))/scaleFactor) - 1;
-				int numOfNonTransparentPixel = (int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+7))/scaleFactor;
+				int firstNonTransparentPixel = ((int)(*(ENEMY_SPRITE+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+3))/scaleFactor) - 1;
+				int numOfNonTransparentPixel = (int)(*(ENEMY_SPRITE+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+7))/scaleFactor;
 
 				//Checks if sprite is past right bound of screen and updates accordingly
 				if(startXEnemy + (firstNonTransparentPixel + numOfNonTransparentPixel) > SCREEN_WIDTH) {
@@ -224,11 +228,19 @@ void WolfensteinCore1App::drawEnemies() {
 
 				//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
 				if(scaleFactor == 1) {
-					memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + firstNonTransparentPixel + startXEnemy, enemySprite+(i*(ENEMY_SPRITE_WIDTH)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
+					memcpy(
+						(int*)INTERMEDIATE_IMAGE_BUFFER + (i + startYEnemy) * SCREEN_WIDTH + firstNonTransparentPixel + startXEnemy,
+						ENEMY_SPRITE + (i * ENEMY_SPRITE_WIDTH + firstNonTransparentPixel) * sizeof(int),
+						numOfNonTransparentPixel * sizeof(int)
+					);
 				}
 				else {
 					for(int j = 0; j < numOfNonTransparentPixel; j++) {
-						memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + startXEnemy + j + (firstNonTransparentPixel), enemySprite+(s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+((int)((firstNonTransparentPixel+j)*scaleFactor))*sizeof(int)), sizeof(int));
+						memcpy(
+							(int*)INTERMEDIATE_IMAGE_BUFFER + (i + startYEnemy) * SCREEN_WIDTH + startXEnemy + j + firstNonTransparentPixel,
+							ENEMY_SPRITE + (s * ENEMY_SPRITE_WIDTH + (int)((firstNonTransparentPixel + j) * scaleFactor)) * sizeof(int),
+							sizeof(int)
+						);
 					}
 				}
 

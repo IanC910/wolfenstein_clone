@@ -12,22 +12,27 @@
 #include "xil_types.h"
 #include "xparameters.h"
 
-#include "Constants.h"
 #include "Addresses.h"
-#include "Player.h"
-#include "LevelBank.h"
-#include "InterruptSetup.h"
+#include "AudioConfig.h"
 #include "Buttons.h"
-#include "Controller.h"
-#include "Colour.h"
 #include "CharMatrix.h"
+#include "Colour.h"
+#include "Controller.h"
+#include "Constants.h"
+#include "InterruptSetup.h"
+#include "LevelBank.h"
+#include "Player.h"
 
-WolfensteinCore0App::WolfensteinCore0App() {
+WolfensteinCore0App::WolfensteinCore0App() :
+	soundPlayer(XPAR_AUDIO_FETCHER_0_BASEADDR)
+{
 	xil_printf("Wolfenstein Core 0 App Init\n");
 
 	Xil_DCacheDisable();
 
 	clearMem();
+
+	configAudio();
 
 	InterruptSetup_setInterruptHandler(
 		INTERRUPT_0_ID,
@@ -56,6 +61,7 @@ void WolfensteinCore0App::runCore0App() {
 				while(gameState == MAIN_MENU) {
 
 					drawMenu();
+					Xil_DCacheFlush();
 
 					// Wait for button press
 					while(!Buttons_isNewStatus());
@@ -84,6 +90,8 @@ void WolfensteinCore0App::runCore0App() {
 			}
 
 			case PLAYING_LEVEL: {
+				int frameIndex = 0;
+
 				while(gameState == PLAYING_LEVEL) {
 					XTime frameStartTimeDC;
 					XTime_GetTime(&frameStartTimeDC);
@@ -114,10 +122,11 @@ void WolfensteinCore0App::runCore0App() {
 					u32 frameTimeDC = (u32)((u64)frameEndTimeDC - (u64)frameStartTimeDC);
 					frameTimeInSec = (double)frameTimeDC / (double)COUNTS_PER_SECOND;
 
-					if(DO_PRINT_FRAME_TIME) {
+					if(DO_PRINT_FRAME_TIME and frameIndex == 0) {
 						xil_printf("Core 0 frame time ms: %8d\n", (int)(frameTimeInSec * 1000));
 					}
 
+					frameIndex = (frameIndex + 1) % 20;
 				}
 				break;
 			}
@@ -233,6 +242,8 @@ void WolfensteinCore0App::handlePlayerAction() {
 	prevTrigger = trigger;
 
 	if(player.getIsShooting()) {
+		soundPlayer.playSound(GUNSHOT_SOUND_FILE_PTR);
+
 		for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
 			Enemy* enemy = &enemyArray[e];
 
@@ -330,16 +341,16 @@ void WolfensteinCore0App::transferSharedDataPacket() {
 }
 
 void WolfensteinCore0App::initializeEnemies() {
-	Enemy* enemies = SHARED_DATA_PACKETS[0].enemyArray;
+	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
 
 	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {
-		enemies[i].initialize();
-		enemies[i].setPositionX(currentLevel->getEnemyX(i));
-		enemies[i].setPositionY(currentLevel->getEnemyY(i));
+		enemyArray[i].initialize();
+		enemyArray[i].setPositionX(currentLevel->getEnemyX(i));
+		enemyArray[i].setPositionY(currentLevel->getEnemyY(i));
 	}
 
 	for(int i = currentLevel->getNumEnemies(); i < MAX_NUM_ENEMIES; i++) {
-		enemies[i].reset();
+		enemyArray[i].reset();
 	}
 }
 
