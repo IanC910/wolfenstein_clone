@@ -17,6 +17,9 @@ smoothingTimeConstant = 10000;
 
 volumeCoef = 10000;
 
+% End of Configurables
+
+
 
 BYTES_PER_SAMPLE = 2;
 [audioData, sampleRateHz] = audioread(inputFileName);

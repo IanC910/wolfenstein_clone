@@ -15,6 +15,7 @@
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
 #include "../../wolfenstein_core_0/src/Player.h"
 #include "../../wolfenstein_core_0/src/Enemy.h"
+#include "../../wolfenstein_core_0/src/SpriteReader.h"
 
 WolfensteinCore1App::WolfensteinCore1App() {
 	xil_printf("Wolfenstein Core 1 App Init\n");
@@ -23,11 +24,9 @@ WolfensteinCore1App::WolfensteinCore1App() {
 
 	// initialize floor and ceiling buffers
 	// Draw 1 row and copy
-	int ceilingColourInt = CEILING_GRADIENT[0];
-	int floorColourInt = FLOOR_GRADIENT[0];
 	for(int j = 0; j < SCREEN_WIDTH; j++) {
-		CEILING_BUFFER[j] = ceilingColourInt;
-		FLOOR_BUFFER[j] = floorColourInt;
+		CEILING_BUFFER[j] = CEILING_COLOUR;
+		FLOOR_BUFFER[j] = FLOOR_COLOUR;
 	}
 	for(int i = 0; i < SCREEN_HEIGHT / 2; i++) {
 		memcpy(&CEILING_BUFFER[i * SCREEN_WIDTH], &CEILING_BUFFER[0], SCREEN_WIDTH * sizeof(int));
@@ -325,6 +324,29 @@ void WolfensteinCore1App::drawHUD() {
 			INTERMEDIATE_IMAGE_BUFFER[(healthBarTopRow + i) * SCREEN_WIDTH + healthBarLeftCol + j] = healthBarEmptyColour;
 		}
 	}
+
+	// Draw first person weapon sprite
+	int gunSpriteNumRows 				= SpriteReader::getNumRows(FIRST_PERSON_GUN_SPRITE);
+	int gunSpriteNumCols 				= SpriteReader::getNumCols(FIRST_PERSON_GUN_SPRITE);
+	int spriteGranularity 				= SpriteReader::getGranularity(FIRST_PERSON_GUN_SPRITE);
+	short* firstNonXparentPixelArray 	= SpriteReader::getFirstNonTransparentPixelArray(FIRST_PERSON_GUN_SPRITE);
+	short* numNonXparentPixelArray 		= SpriteReader::getNumNonTransparentPixelArray(FIRST_PERSON_GUN_SPRITE);
+	int* pixelData 						= SpriteReader::getPixelData(FIRST_PERSON_GUN_SPRITE);
+
+	int gunSpriteColumnOffset = SCREEN_WIDTH / 2 - firstNonXparentPixelArray[0];
+
+	for(int spriteRow = 0; spriteRow < gunSpriteNumRows; spriteRow++) {
+		int startScreenRow = SCREEN_HEIGHT + (spriteRow - gunSpriteNumRows) * spriteGranularity;
+
+		for(int screenRow = startScreenRow; screenRow < startScreenRow + spriteGranularity; screenRow++) {
+			memcpy(
+				&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + gunSpriteColumnOffset + firstNonXparentPixelArray[spriteRow]],
+				&pixelData[spriteRow * gunSpriteNumCols + firstNonXparentPixelArray[spriteRow]],
+				numNonXparentPixelArray[spriteRow] * sizeof(int)
+			);
+		}
+	}
+
 }
 
 void WolfensteinCore1App::updateScreen() {

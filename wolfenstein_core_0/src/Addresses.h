@@ -18,8 +18,9 @@ sharedDataPacket_t* const SHARED_DATA_PACKETS		= (sharedDataPacket_t*)		0x00C84A
 
 // Game Asset Addresses
 int* const MAIN_MENU_BACKGROUND_IMAGE				= (int*)					0x00D00000; // size: SCREEN_SIZE_BYTES
-int* const GUNSHOT_SOUND_FILE_PTR					= (int*)					0x00E2C000; // size: 12288
-int* const NEXT										= (int*)					0x00E2F000;
+int* const GUNSHOT_SOUND							= (int*)					0x00E2C000; // size: 12288 = 0x3000
+int* const FIRST_PERSON_GUN_SPRITE					= (int*)					0x00E2F000; // size: 16384 = 0x4000
+int* const NEXT										= (int*)					0x00E33000;
 
 unsigned char* const ENEMY_SPRITE 					= (unsigned char *)			0x018D2008;
 

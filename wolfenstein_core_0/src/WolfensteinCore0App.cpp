@@ -165,12 +165,13 @@ void WolfensteinCore0App::drawMenu() {
 	int leftMargin = 50;
 	int scale = 2;
 	int lineSpace = 10;
+	int charColour = 0;
 
 	int line1Row = 320;
 	int line2Row = line1Row + CHARACTER_HEIGHT * scale + lineSpace;
 
-	drawCharacter(0, line1Row, leftMargin, 2, 0);
-	drawCharacter(1, line2Row, leftMargin, 2, 0);
+	drawCharacter(0, line1Row, leftMargin, scale, charColour);
+	drawCharacter(1, line2Row, leftMargin, scale, charColour);
 
 	// Draw cursor
 	int cursorCol = 40;
@@ -242,7 +243,7 @@ void WolfensteinCore0App::handlePlayerAction() {
 	prevTrigger = trigger;
 
 	if(player.getIsShooting()) {
-		soundPlayer.playSound(GUNSHOT_SOUND_FILE_PTR);
+		soundPlayer.playSound(GUNSHOT_SOUND);
 
 		for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
 			Enemy* enemy = &enemyArray[e];

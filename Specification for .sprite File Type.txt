@@ -1,0 +1,9 @@
+Specification for .sprite File Type
+
+-- File Start -- 
+[Number of Rows] 				- 4 bytes
+[Number of Columns]				- 4 bytes
+[Horizontal Granularity]			- 4 bytes
+[First non transparent pixel for each row] 	- (Number of Rows) * 2 bytes
+[Number of non transparent pixels for each row 	- (Number of Rows) * 2 bytes
+[Pixel Data]					- (Number of Rows) * (Number of Columns) * 4 bytes

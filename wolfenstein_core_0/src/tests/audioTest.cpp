@@ -64,7 +64,7 @@ void sineTest() {
 void soundFileTest() {
 	configAudio();
 
-	const char* SOUND_FILE_PTR = (char*)GUNSHOT_SOUND_FILE_PTR;
+	const char* SOUND_FILE_PTR = (char*)GUNSHOT_SOUND;
 	int numSamples 			= *(int*)(SOUND_FILE_PTR + 0);
 	int samplePeriodUs 		= *(int*)(SOUND_FILE_PTR + 4);
 
@@ -102,7 +102,7 @@ void dmaTest() {
 	Xil_DCacheDisable();
 
 	const int AUDIO_FETCHER_BASE_ADDR = XPAR_AUDIO_FETCHER_0_BASEADDR;
-	const char* SOUND_FILE_POINTER = (char*)GUNSHOT_SOUND_FILE_PTR;
+	const char* SOUND_FILE_POINTER = (char*)GUNSHOT_SOUND;
 
 	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 0, (int)(SOUND_FILE_POINTER));
 	Xil_Out32(AUDIO_FETCHER_BASE_ADDR + 4, 100);
