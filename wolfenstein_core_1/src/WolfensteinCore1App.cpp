@@ -197,12 +197,12 @@ void WolfensteinCore1App::drawEnemy() {
 
 		float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
 		int startXEnemy = middleOfEnemy - (ENEMY_SPRITE_WIDTH/(2*scaleFactor));
-		int startYEnemy = (SCREEN_HEIGHT / 2) - (ENEMY_SRPITE_HEIGHT/(2*scaleFactor));
+		int startYEnemy = (SCREEN_HEIGHT / 2) - ((ENEMY_SRPITE_HEIGHT - 40)/(2*scaleFactor));
 
 		if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 5 && distanceArray1[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
 			for(int i = 0; i < (int)(ENEMY_SRPITE_HEIGHT/scaleFactor); i++) {
 				int s = (int)(i * scaleFactor);
-				int firstNonTransparentPixel = ((int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+3))/scaleFactor) - 1;
+				int firstNonTransparentPixel = ((int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+3)+1)/scaleFactor);
 				int numOfNonTransparentPixel = (int)(*(enemySprite+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+7))/scaleFactor;
 
 				//Checks if sprite is past right bound of screen and updates accordingly
@@ -229,11 +229,12 @@ void WolfensteinCore1App::drawEnemy() {
 
 				//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
 				if(scaleFactor == 1) {
+					firstNonTransparentPixel--;
 					memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + firstNonTransparentPixel + startXEnemy, enemySprite+(i*(ENEMY_SPRITE_WIDTH)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
 				}
 				else {
 					for(int j = 0; j < numOfNonTransparentPixel; j++) {
-						memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + startXEnemy + j + (firstNonTransparentPixel), enemySprite+(s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+((int)((firstNonTransparentPixel+j)*scaleFactor))*sizeof(int)), sizeof(int));
+						memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startYEnemy) *SCREEN_WIDTH) + startXEnemy + j + firstNonTransparentPixel, enemySprite+(s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+((int)((firstNonTransparentPixel+j)*scaleFactor))*sizeof(int)), sizeof(int));
 					}
 				}
 

@@ -32,7 +32,7 @@ const int LEVEL_1_WIDTH = 15;
 const int LEVEL_1_HEIGHT = 15;
 const int LEVEL_1_NUM_ENEMIES = 9;
 const float LEVEL_1_STARTING_X = 7.5;
-const float LEVEL_1_STARTING_Y = 1.0;
+const float LEVEL_1_STARTING_Y = 0.5;
 float LEVEL_1_ENEMY_POSITIONS[MAX_NUM_ENEMIES][2] = {
 	{0.5, 3.5},
 	{14.5, 5.5},

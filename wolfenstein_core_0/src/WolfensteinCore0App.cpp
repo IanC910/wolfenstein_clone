@@ -57,7 +57,7 @@ void WolfensteinCore0App::runCore0App() {
 					if(Buttons_isButtonPressed(BTN_UP) && levelSelectIndex > 0) {
 						levelSelectIndex--;
 					}
-					if(Buttons_isButtonPressed(BTN_DOWN) && levelSelectIndex < NUM_LEVELS) {
+					if(Buttons_isButtonPressed(BTN_DOWN) && levelSelectIndex < NUM_LEVELS - 1) {
 						levelSelectIndex++;
 					}
 					if(Buttons_isButtonPressed(BTN_CENTRE)) {
