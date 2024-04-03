@@ -15,7 +15,7 @@
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
 #include "../../wolfenstein_core_0/src/Player.h"
 #include "../../wolfenstein_core_0/src/Enemy.h"
-#include "../../wolfenstein_core_0/src/SpriteReader.h"
+#include "SpriteReader.h"
 
 WolfensteinCore1App::WolfensteinCore1App() {
 	xil_printf("Wolfenstein Core 1 App Init\n");
@@ -114,17 +114,17 @@ void WolfensteinCore1App::receiveSharedDataPacket() {
 }
 
 void WolfensteinCore1App::drawEnvironment() {
-	float* distanceArray1 = SHARED_DATA_PACKETS[1].distanceArray;
+	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
 
 	// Calculate the wall height (start row) for each ray column
 	for(int r = 0; r < NUM_RAYS; r++) {
-		WALL_START_ROW_ARRAY[r] = getScreenRowOfCeilingAtDistance(distanceArray1[r]); // Inclusive for walls, exclusive for ceiling
+		WALL_START_ROW_ARRAY[r] = getScreenRowOfCeilingAtDistance(distanceArray[r]); // Inclusive for walls, exclusive for ceiling
 	}
 
 	// Find ray column closest to player
 	int indexOfClosest = 0;
 	for(int r = 1; r < NUM_RAYS; r++) {
-		if(distanceArray1[r] < distanceArray1[indexOfClosest]) {
+		if(distanceArray[r] < distanceArray[indexOfClosest]) {
 			indexOfClosest = r;
 		}
 	}
@@ -142,7 +142,7 @@ void WolfensteinCore1App::drawEnvironment() {
 
 	// Draw 1 row of wall and copy to parts of screen that have visible wall
 	for(int r = 0; r < NUM_RAYS; r++) {
-		int wallColourInt = getColourFromGradient(WALL_GRADIENT, WALL_GRADIENT_LENGTH, distanceArray1[r]);
+		int wallColourInt = getColourFromGradient(WALL_GRADIENT, WALL_GRADIENT_LENGTH, distanceArray[r]);
 		for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
 			INTERMEDIATE_IMAGE_BUFFER[r * PIXEL_WIDTHS_PER_RAY + j] = wallColourInt;
 		}

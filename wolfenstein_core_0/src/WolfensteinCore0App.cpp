@@ -112,7 +112,7 @@ void WolfensteinCore0App::runCore0App() {
 					castRays();
 
 					handlePlayerAction();
-					checkWinCondition();
+					checkStopCondition();
 					updateEnemies();
 
 					transferSharedDataPacket();
@@ -284,7 +284,7 @@ void WolfensteinCore0App::handlePlayerAction() {
 	}
 }
 
-void WolfensteinCore0App::checkWinCondition() {
+void WolfensteinCore0App::checkStopCondition() {
 	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
 	bool enemiesRemain = false;
 
@@ -295,7 +295,13 @@ void WolfensteinCore0App::checkWinCondition() {
 		}
 	}
 
+	// Win Condition
 	if(!enemiesRemain) {
+		gameState = MAIN_MENU;
+	}
+
+	// Lose Condition
+	if(player.getHealth() <= 0) {
 		gameState = MAIN_MENU;
 	}
 }
@@ -356,19 +362,19 @@ void WolfensteinCore0App::initializeEnemies() {
 }
 
 void WolfensteinCore0App::updateEnemies() {
-	Enemy* enemies = SHARED_DATA_PACKETS[0].enemyArray;
-	float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
+	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
+	float* distanceArray = SHARED_DATA_PACKETS[0].distanceArray;
 
 	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {
-		if(enemies[i].getHealth() <= 0) {
+		if(enemyArray[i].getHealth() <= 0) {
 			continue;
 		}
 
-		float vecX = (player.getPositionX() - enemies[i].getPositionX());
-		float vecY = (player.getPositionY() + 0.5 - enemies[i].getPositionY());
+		float vecX = (player.getPositionX() - enemyArray[i].getPositionX());
+		float vecY = (player.getPositionY() + 0.5 - enemyArray[i].getPositionY());
 		float playerDistanceFromEnemy = sqrtf(vecX*vecX + vecY*vecY);
 
-		if(enemies[i].hasSeenPlayer()) {
+		if(enemyArray[i].hasSeenPlayer()) {
 			if(playerDistanceFromEnemy > 1.5) {
 				float objectAngle = atan2f(vecY, vecX);
 				if(objectAngle < M_PI) {
@@ -380,21 +386,18 @@ void WolfensteinCore0App::updateEnemies() {
 				float deltaX = (cos(objectAngle) + sin(objectAngle)) * MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
 				float deltaY = (sin(objectAngle) - cos(objectAngle)) * MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
 
-				if(currentLevel->getBlockAtWorldCoord(enemies[i].getPositionX() + deltaX*(12.5), enemies[i].getPositionY()) == ' ') {
-					enemies[i].setPositionX(enemies[i].getPositionX() + deltaX);
+				if(currentLevel->getBlockAtWorldCoord(enemyArray[i].getPositionX() + deltaX*(12.5), enemyArray[i].getPositionY()) == ' ') {
+					enemyArray[i].setPositionX(enemyArray[i].getPositionX() + deltaX);
 				}
-				if(currentLevel->getBlockAtWorldCoord(enemies[i].getPositionX(), enemies[i].getPositionY() + deltaY*(12.5)) == ' ') {
-					enemies[i].setPositionY(enemies[i].getPositionY() + deltaY);
+				if(currentLevel->getBlockAtWorldCoord(enemyArray[i].getPositionX(), enemyArray[i].getPositionY() + deltaY*(12.5)) == ' ') {
+					enemyArray[i].setPositionY(enemyArray[i].getPositionY() + deltaY);
 				}
 
 			}
-			enemies[i].setTimeSinceLastShot(enemies[i].getTimeSinceLastShot() + frameTimeInSec);
-			if(playerDistanceFromEnemy < 1.5 && enemies[i].getTimeSinceLastShot() >= ENEMY_SHOT_DELAY) {
+			enemyArray[i].setTimeSinceLastShot(enemyArray[i].getTimeSinceLastShot() + frameTimeInSec);
+			if(playerDistanceFromEnemy < 1.5 && enemyArray[i].getTimeSinceLastShot() >= ENEMY_SHOT_DELAY) {
 				player.setHealth(player.getHealth() - ENEMY_DAMAGE_PER_SHOT);
-				if(player.getHealth() <= 0) {
-					gameState = MAIN_MENU;
-				}
-				enemies[i].setTimeSinceLastShot(0.0);
+				enemyArray[i].setTimeSinceLastShot(0.0);
 			}
 		}
 		else if(playerDistanceFromEnemy < 3.0) {
@@ -412,8 +415,8 @@ void WolfensteinCore0App::updateEnemies() {
 			bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
 			float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
 
-			if(inPlayerFOV && distanceArray0[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= playerDistanceFromEnemy) {
-				enemies[i].setSeenPlayer();
+			if(inPlayerFOV && distanceArray[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= playerDistanceFromEnemy) {
+				enemyArray[i].setSeenPlayer();
 			}
 		}
 	}

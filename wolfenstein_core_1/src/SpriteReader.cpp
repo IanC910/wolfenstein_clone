@@ -1,5 +1,5 @@
 
-#include "SpriteReader.h"
+#include "../../wolfenstein_core_1/src/SpriteReader.h"
 
 int SpriteReader::getNumRows(void* spriteFile) {
 	return *(int*)spriteFile;

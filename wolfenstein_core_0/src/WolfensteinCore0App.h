@@ -23,7 +23,7 @@ private:
 	void drawCharacter(int characterIndex, int startRow, int startCol, int scale, int colour);
 	void handlePlayerMovement();
 	void handlePlayerAction();
-	void checkWinCondition();
+	void checkStopCondition();
 	void updateEnemies();
 	void castRays();
 	void transferSharedDataPacket();
