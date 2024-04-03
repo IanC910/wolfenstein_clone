@@ -65,8 +65,8 @@ void WolfensteinCore0App::runCore0App() {
 
 						player.setHealth(MAX_PLAYER_HEALTH);
 
-						player.setPositionX(7.5);
-						player.setPositionY(1);
+						player.setPositionX(currentLevel->getStartingX());
+						player.setPositionY(currentLevel->getStartingY());
 						player.setAngle(M_PI / 2);
 
 						initializeEnemies();
