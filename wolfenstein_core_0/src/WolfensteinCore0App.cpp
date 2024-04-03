@@ -227,8 +227,8 @@ void WolfensteinCore0App::handlePlayerMovement() {
 
 void WolfensteinCore0App::handlePlayerAction() {
 	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
-	bool trigger = 0;
-	static bool prevTrigger = 0;
+	bool trigger = true;
+	static bool prevTrigger = true;
 
 	if(DO_USE_CONTROLLER) {
 		trigger = controller.isTriggerPressed(1);
