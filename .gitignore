@@ -19,3 +19,6 @@ IDE.log
 
 # Vitis Platform Projects
 */export
+
+# Vitis Application Projects
+*/_ide
