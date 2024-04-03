@@ -3,9 +3,11 @@
 
 #include "Level.h"
 
-Level::Level(int width, int height, int numEnemies, float enemyPositions[MAX_NUM_ENEMIES][2], char* layout) {
+Level::Level(int width, int height, int numEnemies, float startingX, float startingY, float enemyPositions[MAX_NUM_ENEMIES][2], char* layout) {
 	this->width = width;
 	this->height = height;
+	this->startingX = startingX;
+	this->startingY = startingY;
 	this->numEnemies = numEnemies;
 	this->layout = layout;
 
@@ -33,6 +35,14 @@ float Level::getEnemyX(int num) {
 
 float Level::getEnemyY(int num) {
 	return enemyPositions[num][1];
+}
+
+float Level::getStartingX() {
+	return startingX;
+}
+
+float Level::getStartingY() {
+	return startingY;
 }
 
 char Level::getBlockAtArrayCoord(int row, int col) {
