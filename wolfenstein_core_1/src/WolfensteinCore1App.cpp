@@ -15,7 +15,7 @@
 #include "../../wolfenstein_core_0/src/ValidAckInterface.h"
 #include "../../wolfenstein_core_0/src/Player.h"
 #include "../../wolfenstein_core_0/src/Enemy.h"
-#include "SpriteReader.h"
+#include "../../wolfenstein_core_0/src/Sprite.h"
 
 WolfensteinCore1App::WolfensteinCore1App() {
 	xil_printf("Wolfenstein Core 1 App Init\n");
@@ -327,22 +327,20 @@ void WolfensteinCore1App::drawHUD() {
 	}
 
 	// Draw first person weapon sprite
-	int gunSpriteNumRows 				= SpriteReader::getNumRows(FIRST_PERSON_GUN_SPRITE);
-	int gunSpriteNumCols 				= SpriteReader::getNumCols(FIRST_PERSON_GUN_SPRITE);
-	int spriteGranularity 				= SpriteReader::getGranularity(FIRST_PERSON_GUN_SPRITE);
-	short* firstNonXparentPixelArray 	= SpriteReader::getFirstNonTransparentPixelArray(FIRST_PERSON_GUN_SPRITE);
-	short* numNonXparentPixelArray 		= SpriteReader::getNumNonTransparentPixelArray(FIRST_PERSON_GUN_SPRITE);
-	int* pixelData 						= SpriteReader::getPixelData(FIRST_PERSON_GUN_SPRITE);
+	Sprite gunSprite(FIRST_PERSON_GUN_SPRITE);
+	short* firstNonXparentPixelArray 	= gunSprite.getFirstNonTransparentPixelArray();
+	short* numNonXparentPixelArray 		= gunSprite.getNumNonTransparentPixelArray();
+	int* pixelData 						= gunSprite.getPixelData();
 
 	int gunSpriteColumnOffset = SCREEN_WIDTH / 2 - firstNonXparentPixelArray[0];
 
-	for(int spriteRow = 0; spriteRow < gunSpriteNumRows; spriteRow++) {
-		int startScreenRow = SCREEN_HEIGHT + (spriteRow - gunSpriteNumRows) * spriteGranularity;
+	for(int spriteRow = 0; spriteRow < gunSprite.getNumRows(); spriteRow++) {
+		int startScreenRow = SCREEN_HEIGHT + (spriteRow - gunSprite.getNumRows()) * gunSprite.getGranularity();
 
-		for(int screenRow = startScreenRow; screenRow < startScreenRow + spriteGranularity; screenRow++) {
+		for(int screenRow = startScreenRow; screenRow < startScreenRow + gunSprite.getGranularity(); screenRow++) {
 			memcpy(
 				&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + gunSpriteColumnOffset + firstNonXparentPixelArray[spriteRow]],
-				&pixelData[spriteRow * gunSpriteNumCols + firstNonXparentPixelArray[spriteRow]],
+				&pixelData[spriteRow * gunSprite.getNumCols() + firstNonXparentPixelArray[spriteRow]],
 				numNonXparentPixelArray[spriteRow] * sizeof(int)
 			);
 		}

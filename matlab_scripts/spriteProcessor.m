@@ -6,10 +6,10 @@ close all
 
 % Configurables
 
-inputFileName = '../assets/images/first_person_gun.png';
-outputFileName = '../assets/images/first_person_gun.sprite';
+inputFileName = '../assets/images/main_menu_background.png';
+outputFileName = '../assets/images/main_menu_background.sprite';
 
-upScaleFactor = 4;
+upScaleFactor = 2;
 
 % End of Configurables
 
