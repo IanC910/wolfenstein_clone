@@ -182,7 +182,7 @@ void drawObject(float positionX, float positionY, float playerX, float playerY, 
 
 	float scaleFactor = distanceFromPlayer;
 
-	if(scaleFactor < 1.1) {
+	if(scaleFactor < 1) {
 		scaleFactor = 1;
 	}
 
@@ -193,8 +193,8 @@ void drawObject(float positionX, float positionY, float playerX, float playerY, 
 	if(inPlayerFOV && distanceFromPlayer >= 0.5 && distanceFromPlayer <= 5 && distanceArray1[(int)middleOfObject/RESOLUTION_DOWN_SCALE_H] >= distanceFromPlayer) {
 		for(int i = 0; i < (int)(spriteHeight/scaleFactor); i++) {
 			int s = (int)(i * scaleFactor);
-			int firstNonTransparentPixel = ((int)(*(sprite+s*(spriteWidth)*sizeof(int)+3)+1)/scaleFactor) - 1;
-			int numOfNonTransparentPixel = (int)(*(sprite+s*(spriteWidth)*sizeof(int)+7))/scaleFactor;
+			int firstNonTransparentPixel = ((int)(*(sprite+s*(spriteWidth)*sizeof(int)+3))/scaleFactor)+1;
+			int numOfNonTransparentPixel = (int)(*(sprite+s*(spriteWidth)*sizeof(int)+7))/scaleFactor+1;
 
 			//Checks if sprite is past right bound of screen and updates accordingly
 			if(startX + (firstNonTransparentPixel + numOfNonTransparentPixel) > SCREEN_WIDTH) {
@@ -220,6 +220,8 @@ void drawObject(float positionX, float positionY, float playerX, float playerY, 
 
 			//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
 			if(scaleFactor == 1) {
+				firstNonTransparentPixel--;
+				numOfNonTransparentPixel--;
 				memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startY) *SCREEN_WIDTH) + firstNonTransparentPixel + startX, sprite+(i*(spriteWidth)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
 			}
 			else {
@@ -262,8 +264,13 @@ void WolfensteinCore1App::drawDrop() {
 	float playerY = SHARED_DATA_PACKETS[1].playerData.positionY;
 
 	//enemyData_t* enemies = SHARED_DATA_PACKETS[1].enemyDataArray;
-	dropData_t drop = SHARED_DATA_PACKETS[1].healthDrops[0];
-	for(int e = 0; e < 1; e++) {
+	dropData_t* drops = SHARED_DATA_PACKETS[1].healthDrops;
+	dropData_t drop;
+	for(int i = 0; i < MAX_NUM_HEALTH_DROPS; i++) {
+		drop = drops[i];
+		if(drop.isPickedUp) {
+			continue;
+		}
 		drawObject(drop.positionX, drop.positionY, playerX, playerY, playerAngle, distanceArray1, HEALTH_SPRITE_WIDTH, HEALTH_SPRITE_HEIGHT, 300, healthSprite);
 	}
 }

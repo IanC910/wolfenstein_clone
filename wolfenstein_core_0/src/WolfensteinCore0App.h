@@ -20,11 +20,13 @@ private:
 	void startCore1();
 	void drawMenu();
 	void initializeEnemies();
+	void initializeDrops();
 	void drawCharacter(int characterIndex, int startRow, int startCol, int scale, int colour);
 	void handlePlayerMovement();
 	void handlePlayerAction();
 	void checkWinCondition();
 	void updateEnemies();
+	void updateDrops();
 	void castRays();
 	void transferSharedDataPacket();
 
