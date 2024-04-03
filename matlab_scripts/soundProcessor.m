@@ -1,11 +1,12 @@
-% Audio Processor
+% Sound Processor
 
 clc
 clear
 close all
 
 % Configurables
-audioFileName = 'assets/symphony.wav';
+inputFileName = 'assets/symphony.wav';
+outputFileName = 'assets/symphony.sound';
 
 startTimeS = 0;
 endTimeS = 10.66;
@@ -18,7 +19,7 @@ volumeCoef = 10000;
 
 
 BYTES_PER_SAMPLE = 2;
-[audioData, sampleRateHz] = audioread(audioFileName);
+[audioData, sampleRateHz] = audioread(inputFileName);
 % audioData = m x n matrix, m = number of samples, n = number of audio channels
 
 startSample = startTimeS * sampleRateHz + 1;
@@ -54,10 +55,10 @@ end
 
 intAudio = cast(round(downsampledAudio * volumeCoef), "int" + 8 * BYTES_PER_SAMPLE);
 
-outFileId = fopen('processed_audio.audioData', 'w');
+outFileId = fopen(outputFileName, 'w');
 fclose(outFileId);
 
-outFileId = fopen('processed_audio.audioData', 'a');
+outFileId = fopen(outputFileName, 'a');
 
 fwrite(outFileId, length(intAudio),                     "integer*4");
 fwrite(outFileId, cast(newSamplePeriodUs, "int16"),     "integer*2");
