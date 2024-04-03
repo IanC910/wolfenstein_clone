@@ -61,12 +61,12 @@ void WolfensteinCore0App::runCore0App() {
 						levelSelectIndex++;
 					}
 					if(Buttons_isButtonPressed(BTN_CENTRE)) {
-						this->currentLevel = getLevel(0);
+						this->currentLevel = getLevel(levelSelectIndex);
 
 						player.setHealth(MAX_PLAYER_HEALTH);
 
-						player.setPositionX(5);
-						player.setPositionY(2);
+						player.setPositionX(7.5);
+						player.setPositionY(1);
 						player.setAngle(M_PI / 2);
 
 						initializeEnemies();
