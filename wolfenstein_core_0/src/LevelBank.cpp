@@ -35,11 +35,11 @@ const float LEVEL_1_STARTING_X = 7.5;
 const float LEVEL_1_STARTING_Y = 0.5;
 float LEVEL_1_ENEMY_POSITIONS[MAX_NUM_ENEMIES][2] = {
 	{0.5, 3.5},
-	{14.5, 5.5},
+	{13.5, 6.0},
 	{6.5, 7.5},
 	{4.5, 7.5},
 	{6.5, 9.5},
-	{13.5, 11.5},
+	{14.0, 12.0},
 	{11.5, 13.5},
 	{0.5, 11.5},
 	{8.5, 13.5}
