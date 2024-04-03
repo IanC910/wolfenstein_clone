@@ -4,6 +4,7 @@
 #include <string.h>
 #include <math.h>
 
+#include "sleep.h"
 #include "xpseudo_asm.h"
 #include "xil_io.h"
 #include "xil_cache.h"
@@ -61,7 +62,7 @@ void WolfensteinCore0App::runCore0App() {
 				while(gameState == MAIN_MENU) {
 
 					drawMenu();
-					Xil_DCacheFlush();
+//					Xil_DCacheFlush();
 
 					// Wait for button press
 					while(!Buttons_isNewStatus());
@@ -112,10 +113,11 @@ void WolfensteinCore0App::runCore0App() {
 					castRays();
 
 					handlePlayerAction();
-					checkStopCondition();
 					updateEnemies();
 
 					transferSharedDataPacket();
+
+					checkStopCondition();
 
 					XTime frameEndTimeDC;
 					XTime_GetTime(&frameEndTimeDC);
@@ -298,11 +300,13 @@ void WolfensteinCore0App::checkStopCondition() {
 	// Win Condition
 	if(!enemiesRemain) {
 		gameState = MAIN_MENU;
+		sleep(1);
 	}
 
 	// Lose Condition
 	if(player.getHealth() <= 0) {
 		gameState = MAIN_MENU;
+		sleep(1);
 	}
 }
 
@@ -365,18 +369,21 @@ void WolfensteinCore0App::updateEnemies() {
 	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
 	float* distanceArray = SHARED_DATA_PACKETS[0].distanceArray;
 
-	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {
-		if(enemyArray[i].getHealth() <= 0) {
+	for(int e = 0; e < currentLevel->getNumEnemies(); e++) {
+		Enemy* enemy = &enemyArray[e];
+
+		if(enemy->getHealth() <= 0) {
 			continue;
 		}
 
-		float vecX = (player.getPositionX() - enemyArray[i].getPositionX());
-		float vecY = (player.getPositionY() + 0.5 - enemyArray[i].getPositionY());
-		float playerDistanceFromEnemy = sqrtf(vecX*vecX + vecY*vecY);
+		float enemyToPlayerX = player.getPositionX() - enemy->getPositionX();
+		float enemyToPlayerY = player.getPositionY() - enemy->getPositionY();
+		float playerDistanceFromEnemy = sqrtf(enemyToPlayerX * enemyToPlayerX + enemyToPlayerY * enemyToPlayerY);
 
-		if(enemyArray[i].hasSeenPlayer()) {
+		// Handle Enemy Movement
+		if(enemy->hasSeenPlayer()) {
 			if(playerDistanceFromEnemy > 1.5) {
-				float objectAngle = atan2f(vecY, vecX);
+				float objectAngle = atan2f(enemyToPlayerY, enemyToPlayerX);
 				if(objectAngle < M_PI) {
 					objectAngle += 2.0 * M_PI;
 				}
@@ -386,26 +393,28 @@ void WolfensteinCore0App::updateEnemies() {
 				float deltaX = (cos(objectAngle) + sin(objectAngle)) * MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
 				float deltaY = (sin(objectAngle) - cos(objectAngle)) * MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC * frameTimeInSec;
 
-				if(currentLevel->getBlockAtWorldCoord(enemyArray[i].getPositionX() + deltaX*(12.5), enemyArray[i].getPositionY()) == ' ') {
-					enemyArray[i].setPositionX(enemyArray[i].getPositionX() + deltaX);
+				if(currentLevel->getBlockAtWorldCoord(enemy->getPositionX() + deltaX * 12.5, enemy->getPositionY()) == ' ') {
+					enemy->setPositionX(enemy->getPositionX() + deltaX);
 				}
-				if(currentLevel->getBlockAtWorldCoord(enemyArray[i].getPositionX(), enemyArray[i].getPositionY() + deltaY*(12.5)) == ' ') {
-					enemyArray[i].setPositionY(enemyArray[i].getPositionY() + deltaY);
+				if(currentLevel->getBlockAtWorldCoord(enemy->getPositionX(), enemy->getPositionY() + deltaY * 12.5) == ' ') {
+					enemy->setPositionY(enemy->getPositionY() + deltaY);
 				}
 
 			}
-			enemyArray[i].setTimeSinceLastShot(enemyArray[i].getTimeSinceLastShot() + frameTimeInSec);
-			if(playerDistanceFromEnemy < 1.5 && enemyArray[i].getTimeSinceLastShot() >= ENEMY_SHOT_DELAY) {
+
+			enemy->setTimeSinceLastShot(enemy->getTimeSinceLastShot() + frameTimeInSec);
+
+			// Handle Enemy Attack
+			if(playerDistanceFromEnemy < 1.5 && enemy->getTimeSinceLastShot() >= ENEMY_SHOT_DELAY) {
+				soundPlayer.playSound(GUNSHOT_SOUND);
 				player.setHealth(player.getHealth() - ENEMY_DAMAGE_PER_SHOT);
-				enemyArray[i].setTimeSinceLastShot(0.0);
+				enemy->setTimeSinceLastShot(0.0);
 			}
 		}
 		else if(playerDistanceFromEnemy < 3.0) {
-			float playerViewX = cosf(player.getAngle());
-			float playerViewY = sinf(player.getAngle());
-			float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(-vecY, -vecX);
+			float objectAngle = player.getAngle() - atan2f(-enemyToPlayerY, -enemyToPlayerX);
 
-			if(objectAngle < M_PI) {
+			if(objectAngle < -M_PI) {
 				objectAngle += 2.0 * M_PI;
 			}
 			if(objectAngle > M_PI) {
@@ -413,10 +422,10 @@ void WolfensteinCore0App::updateEnemies() {
 			}
 
 			bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
-			float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
+			float middleOfEnemy = (objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH);
 
-			if(inPlayerFOV && distanceArray[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= playerDistanceFromEnemy) {
-				enemyArray[i].setSeenPlayer();
+			if(inPlayerFOV && distanceArray[(int)middleOfEnemy / RESOLUTION_DOWN_SCALE_H] >= playerDistanceFromEnemy) {
+				enemy->setSeenPlayer();
 			}
 		}
 	}

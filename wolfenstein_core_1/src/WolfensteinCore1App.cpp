@@ -81,7 +81,7 @@ void WolfensteinCore1App::runCore1App() {
 
 		drawHUD();
 
-		Xil_DCacheFlush();
+//		Xil_DCacheFlush();
 
 		// Update Screen
 		XTime_GetTime(&funcStartTime);
@@ -92,7 +92,7 @@ void WolfensteinCore1App::runCore1App() {
 			maxUpdateTime = funcTime;
 		}
 
-		Xil_DCacheFlush();
+//		Xil_DCacheFlush();
 
 		XTime_GetTime(&frameEndTime);
 		u32 frameTime = (u32)((u64)frameEndTime - (u64)frameStartTime);
