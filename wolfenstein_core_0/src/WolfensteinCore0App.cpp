@@ -83,6 +83,7 @@ void WolfensteinCore0App::runCore0App() {
 						player.setAngle(M_PI / 2);
 
 						initializeEnemies();
+						initializeDrops();
 
 						gameState = PLAYING_LEVEL;
 					}
@@ -114,6 +115,7 @@ void WolfensteinCore0App::runCore0App() {
 
 					handlePlayerAction();
 					updateEnemies();
+					updateDrops();
 
 					transferSharedDataPacket();
 
@@ -338,6 +340,11 @@ void WolfensteinCore0App::castRays() {
 void WolfensteinCore0App::transferSharedDataPacket() {
 	SHARED_DATA_PACKETS[0].player = player;
 
+	for(int h = 0; h < MAX_NUM_HEALTH_DROPS; h++) {
+		SHARED_DATA_PACKETS[0].healthDrops[h] = healthDrops[h].getDropData();
+	}
+
+
 	INTERFACE_PTR->valid = 1;
 	while(!INTERFACE_PTR->acknowledge);
 
@@ -356,6 +363,14 @@ void WolfensteinCore0App::initializeEnemies() {
 
 	for(int i = currentLevel->getNumEnemies(); i < MAX_NUM_ENEMIES; i++) {
 		enemyArray[i].reset();
+	}
+}
+
+void WolfensteinCore0App::initializeDrops() {
+	for(int i = 0; i < currentLevel->getNumHealthDrops(); i++) {
+		healthDrops[i].initialize();
+		healthDrops[i].setPositionX(currentLevel->getHealthDropX(i));
+		healthDrops[i].setPositionY(currentLevel->getHealthDropY(i));
 	}
 }
 
@@ -423,4 +438,37 @@ void WolfensteinCore0App::updateEnemies() {
 			}
 		}
 	}
+}
+
+void WolfensteinCore0App::updateDrops() {
+	float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
+	if(player.getHealth() < MAX_PLAYER_HEALTH) {
+		for(int i = 0; i < currentLevel->getNumHealthDrops(); i++) {
+			if(healthDrops[i].isPickedUp()) {
+				continue;
+			}
+			float vecX = (player.getPositionX() - healthDrops[i].getPositionX());
+			float vecY = (player.getPositionY() - healthDrops[i].getPositionY());
+			float distanceFromObject = sqrtf(vecX*vecX + vecY*vecY);
+			float playerViewX = cosf(player.getAngle());
+			float playerViewY = sinf(player.getAngle());
+			float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(-vecY, -vecX);
+
+			if(objectAngle < M_PI) {
+				objectAngle += 2.0 * M_PI;
+			}
+			if(objectAngle > M_PI) {
+				objectAngle -= 2.0 * M_PI;
+			}
+
+			bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
+			float middleOfObject = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
+
+			if(inPlayerFOV && distanceArray0[(int)middleOfObject/RESOLUTION_DOWN_SCALE_H] >= distanceFromObject && healthDrops[i].canPickUp(distanceFromObject)) {
+				player.setHealth(player.getHealth()+10);
+			}
+
+		}
+	}
+
 }

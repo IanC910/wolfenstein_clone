@@ -8,14 +8,15 @@
 #include "xil_cache.h"
 #include "xtime_l.h"
 
+#include "../../wolfenstein_core_0/src/Addresses.h"
 #include "../../wolfenstein_core_0/src/Colour.h"
 #include "../../wolfenstein_core_0/src/Constants.h"
-#include "../../wolfenstein_core_0/src/Addresses.h"
-#include "../../wolfenstein_core_0/src/SharedDataPacket.h"
-#include "../../wolfenstein_core_0/src/ValidAckInterface.h"
-#include "../../wolfenstein_core_0/src/Player.h"
+#include "../../wolfenstein_core_0/src/Drop.h"
 #include "../../wolfenstein_core_0/src/Enemy.h"
+#include "../../wolfenstein_core_0/src/Player.h"
+#include "../../wolfenstein_core_0/src/SharedDataPacket.h"
 #include "../../wolfenstein_core_0/src/Sprite.h"
+#include "../../wolfenstein_core_0/src/ValidAckInterface.h"
 
 WolfensteinCore1App::WolfensteinCore1App() {
 	xil_printf("Wolfenstein Core 1 App Init\n");
@@ -78,6 +79,8 @@ void WolfensteinCore1App::runCore1App() {
 		if(funcTime > maxDrawTime) {
 			maxDrawTime = funcTime;
 		}
+
+		drawDrop();
 
 		drawHUD();
 
@@ -182,10 +185,89 @@ void WolfensteinCore1App::drawSprite(Sprite* sprite, int rowOffset, int colOffse
 	}
 }
 
+void drawObject(float positionX, float positionY, float playerX, float playerY, float playerAngle, float* distanceArray1, int spriteWidth, int spriteHeight, int yDrawOffset, unsigned char* sprite) {
+
+	float vecX = positionX - playerX;
+	float vecY = positionY - playerY;
+	float distanceFromPlayer = sqrtf(vecX*vecX + vecY*vecY);
+
+	float playerViewX = cosf(playerAngle);
+	float playerViewY = sinf(playerAngle);
+	float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(vecY, vecX);
+
+	if(objectAngle < -M_PI) {
+		objectAngle += 2.0 * M_PI;
+	}
+	else if(objectAngle > M_PI) {
+		objectAngle -= 2.0 * M_PI;
+	}
+
+	bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
+
+	float scaleFactor = distanceFromPlayer;
+
+	if(scaleFactor < 1) {
+		scaleFactor = 1;
+	}
+
+	float middleOfObject = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
+	int startX = middleOfObject - (spriteWidth/(2*scaleFactor));
+	int startY = (SCREEN_HEIGHT / 2) - ((spriteHeight - yDrawOffset)/(2*scaleFactor));
+
+	if(inPlayerFOV && distanceFromPlayer >= 0.5 && distanceFromPlayer <= 5 && distanceArray1[(int)middleOfObject/RESOLUTION_DOWN_SCALE_H] >= distanceFromPlayer) {
+		for(int i = 0; i < (int)(spriteHeight/scaleFactor); i++) {
+			int s = (int)(i * scaleFactor);
+			int firstNonTransparentPixel = ((int)(*(sprite+s*(spriteWidth)*sizeof(int)+3))/scaleFactor)+1;
+			int numOfNonTransparentPixel = (int)(*(sprite+s*(spriteWidth)*sizeof(int)+7))/scaleFactor+1;
+
+			//Checks if sprite is past right bound of screen and updates accordingly
+			if(startX + (firstNonTransparentPixel + numOfNonTransparentPixel) > SCREEN_WIDTH) {
+				numOfNonTransparentPixel = SCREEN_WIDTH - (startX + firstNonTransparentPixel);
+			}
+
+			//Checks if sprite is past left bound of screen and updates accordingly
+			if(startX + firstNonTransparentPixel < 0) {
+				numOfNonTransparentPixel -= fabs(startX + firstNonTransparentPixel);
+				firstNonTransparentPixel += fabs(startX + firstNonTransparentPixel);
+			}
+
+			//Check if left part of sprite is behind wall
+			while(distanceArray1[((startX + firstNonTransparentPixel))/RESOLUTION_DOWN_SCALE_H] < distanceFromPlayer) {
+				numOfNonTransparentPixel--;
+				firstNonTransparentPixel++;
+			}
+
+			//Check if right part of sprite is behind wall
+			while(distanceArray1[(startX + ((firstNonTransparentPixel + numOfNonTransparentPixel)))/RESOLUTION_DOWN_SCALE_H] < distanceFromPlayer) {
+				numOfNonTransparentPixel--;
+			}
+
+			//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
+			if(scaleFactor == 1) {
+				firstNonTransparentPixel--;
+				numOfNonTransparentPixel--;
+				memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startY) *SCREEN_WIDTH) + firstNonTransparentPixel + startX, sprite+(i*(spriteWidth)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
+			}
+			else {
+				for(int j = 0; j < numOfNonTransparentPixel; j++) {
+					memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startY) *SCREEN_WIDTH) + startX + j + (firstNonTransparentPixel), sprite+(s*(spriteWidth)*sizeof(int)+((int)((firstNonTransparentPixel+j)*scaleFactor))*sizeof(int)), sizeof(int));
+				}
+			}
+
+			//Update distance array with new distances for drawn enemies
+			for(int j = 0; j < numOfNonTransparentPixel; j++) {
+				distanceArray1[(firstNonTransparentPixel + startX + j)/RESOLUTION_DOWN_SCALE_H] = distanceFromPlayer;
+			}
+		}
+	}
+
+}
+
 void WolfensteinCore1App::drawEnemies() {
 	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
 	Player* player = &SHARED_DATA_PACKETS[1].player;
 	Enemy* enemyArray = SHARED_DATA_PACKETS[1].enemyArray;
+
 
 	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
 		Enemy* enemy = &enemyArray[e];
@@ -194,85 +276,40 @@ void WolfensteinCore1App::drawEnemies() {
 			continue;
 		}
 
-		float vecX = enemy->getPositionX() - player->getPositionX();
-		float vecY = enemy->getPositionY() - player->getPositionY();
-		float enemyDistanceFromPlayer = sqrtf(vecX*vecX + vecY*vecY);
-
-		float objectAngle = player->getAngle() - atan2f(vecY, vecX);
-
-		if(objectAngle < -M_PI) {
-			objectAngle += 2.0 * M_PI;
-		}
-		else if(objectAngle > M_PI) {
-			objectAngle -= 2.0 * M_PI;
-		}
-
-		bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
-
-		float scaleFactor = enemyDistanceFromPlayer;
-		if(scaleFactor < 1.1) {
-			scaleFactor = 1;
-		}
-
-		float middleOfEnemy = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
-		int startXEnemy = middleOfEnemy - (ENEMY_SPRITE_WIDTH/(2*scaleFactor));
-		int startYEnemy = (SCREEN_HEIGHT / 2) - ((ENEMY_SRPITE_HEIGHT - 40)/(2*scaleFactor));
-
-		if(inPlayerFOV && enemyDistanceFromPlayer >= 0.5 && enemyDistanceFromPlayer <= 5 && distanceArray[(int)middleOfEnemy/RESOLUTION_DOWN_SCALE_H] >= enemyDistanceFromPlayer) {
-			for(int i = 0; i < (int)(ENEMY_SRPITE_HEIGHT/scaleFactor); i++) {
-				int s = (int)(i * scaleFactor);
-				int firstNonTransparentPixel = ((int)(*(ENEMY_SPRITE+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+3)+1)/scaleFactor);
-				int numOfNonTransparentPixel = (int)(*(ENEMY_SPRITE+s*(ENEMY_SPRITE_WIDTH)*sizeof(int)+7))/scaleFactor;
-
-				//Checks if sprite is past right bound of screen and updates accordingly
-				if(startXEnemy + (firstNonTransparentPixel + numOfNonTransparentPixel) > SCREEN_WIDTH) {
-					numOfNonTransparentPixel = SCREEN_WIDTH - (startXEnemy + firstNonTransparentPixel);
-				}
-
-				//Checks if sprite is past left bound of screen and updates accordingly
-				if(startXEnemy + firstNonTransparentPixel < 0) {
-					numOfNonTransparentPixel -= fabs(startXEnemy + firstNonTransparentPixel);
-					firstNonTransparentPixel += fabs(startXEnemy + firstNonTransparentPixel);
-				}
-
-				//Check if left part of sprite is behind wall
-				while(distanceArray[((startXEnemy + firstNonTransparentPixel))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
-					numOfNonTransparentPixel--;
-					firstNonTransparentPixel++;
-				}
-
-				//Check if right part of sprite is behind wall
-				while(distanceArray[(startXEnemy + ((firstNonTransparentPixel + numOfNonTransparentPixel)))/RESOLUTION_DOWN_SCALE_H] < enemyDistanceFromPlayer) {
-					numOfNonTransparentPixel--;
-				}
-
-				//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
-				if(scaleFactor == 1) {
-					firstNonTransparentPixel--;
-					memcpy(
-                        INTERMEDIATE_IMAGE_BUFFER + (i + startYEnemy) * SCREEN_WIDTH + firstNonTransparentPixel + startXEnemy,
-                        ENEMY_SPRITE + (i * ENEMY_SPRITE_WIDTH + firstNonTransparentPixel) * sizeof(int),
-                        numOfNonTransparentPixel*sizeof(int)
-                    );
-				}
-				else {
-					for(int j = 0; j < numOfNonTransparentPixel; j++) {
-						memcpy(
-                            INTERMEDIATE_IMAGE_BUFFER + (i + startYEnemy) * SCREEN_WIDTH + startXEnemy + j + firstNonTransparentPixel,
-                            ENEMY_SPRITE + (s * ENEMY_SPRITE_WIDTH + (int)((firstNonTransparentPixel + j) * scaleFactor)) * sizeof(int),
-                            sizeof(int)
-                        );
-					}
-				}
-
-				// Update distance array with new distances for drawn enemies
-				for(int j = 0; j < numOfNonTransparentPixel; j++) {
-					distanceArray[(firstNonTransparentPixel + startXEnemy + j) / RESOLUTION_DOWN_SCALE_H] = enemyDistanceFromPlayer;
-				}
-			}
-		}
+		drawObject(
+            enemy->getPositionX(),
+            enemy->getPositionY(),
+            player->getPositionX(),
+            player->getPositionY(),
+            player->getAngle(),
+            distanceArray,
+            ENEMY_SPRITE_WIDTH,
+            ENEMY_SPRITE_HEIGHT,
+            40,
+            ENEMY_SPRITE
+        );
 	}
 }
+
+void WolfensteinCore1App::drawDrop() {
+	float* distanceArray1 = SHARED_DATA_PACKETS[1].distanceArray;
+	float playerAngle = SHARED_DATA_PACKETS[1].playerData.angle;
+	float playerX = SHARED_DATA_PACKETS[1].playerData.positionX;
+	float playerY = SHARED_DATA_PACKETS[1].playerData.positionY;
+
+	//enemyData_t* enemies = SHARED_DATA_PACKETS[1].enemyDataArray;
+	dropData_t* drops = SHARED_DATA_PACKETS[1].healthDrops;
+	dropData_t drop;
+	for(int i = 0; i < MAX_NUM_HEALTH_DROPS; i++) {
+		drop = drops[i];
+		if(drop.isPickedUp) {
+			continue;
+		}
+		drawObject(drop.positionX, drop.positionY, playerX, playerY, playerAngle, distanceArray1, HEALTH_SPRITE_WIDTH, HEALTH_SPRITE_HEIGHT, 300, healthSprite);
+	}
+}
+
+
 
 int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
 	static float halfWallHeight = 0.5;
