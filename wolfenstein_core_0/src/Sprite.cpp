@@ -17,14 +17,14 @@ int Sprite::getGranularity() {
 	return *(int*)(spriteFile + 8);
 }
 
-short* Sprite::getFirstNonTransparentPixelArray() {
+short* Sprite::getFirstPixelArray() {
 	return (short*)(spriteFile + 12);
 }
 
-short* Sprite::getNumNonTransparentPixelArray() {
-	return (short*)((void*)getFirstNonTransparentPixelArray() + getNumRows() * 2);
+short* Sprite::getNumPixelsArray() {
+	return (short*)((void*)getFirstPixelArray() + getNumRows() * 2);
 }
 
 int* Sprite::getPixelData() {
-	return (int*)((void*)getNumNonTransparentPixelArray() + getNumRows() * 2);
+	return (int*)((void*)getNumPixelsArray() + getNumRows() * 2);
 }

@@ -141,7 +141,7 @@ void WolfensteinCore0App::runCore0App() {
 }
 
 void WolfensteinCore0App::clearMem() {
-	memset(VGA_IMAGE_BUFFER_0, 0x80, SCREEN_SIZE_BYTES);
+	memset(VGA_IMAGE_BUFFER_0, 0, SCREEN_SIZE_BYTES);
 	memset(INTERMEDIATE_IMAGE_BUFFER, 0, SCREEN_SIZE_BYTES);
 	memset((void*)INTERFACE_PTR, 0, sizeof(validAckInterface_t));
 	memset((void*)SHARED_DATA_PACKETS, 0, 2 * sizeof(sharedDataPacket_t));
@@ -396,13 +396,13 @@ void WolfensteinCore0App::updateEnemies() {
 
 			}
 
-			enemy->setTimeSinceLastShot(enemy->getTimeSinceLastShot() + frameTimeInSec);
+			enemy->setTimeSinceLastShotS(enemy->getTimeSinceLastShotS() + frameTimeInSec);
 
 			// Handle Enemy Attack
-			if(playerDistanceFromEnemy < 1.5 && enemy->getTimeSinceLastShot() >= ENEMY_SHOT_DELAY) {
+			if(playerDistanceFromEnemy < 1.5 && enemy->getTimeSinceLastShotS() >= ENEMY_SHOT_DELAY_S) {
 				soundPlayer.playSound(GUNSHOT_SOUND);
-				player.setHealth(player.getHealth() - ENEMY_DAMAGE_PER_SHOT);
-				enemy->setTimeSinceLastShot(0.0);
+				player.setHealth(player.getHealth() - ENEMY_DAMAGE);
+				enemy->setTimeSinceLastShotS(0.0);
 			}
 		}
 		else if(playerDistanceFromEnemy < 3.0) {

@@ -9,8 +9,8 @@ public:
 	int getNumRows();
 	int getNumCols();
 	int getGranularity();
-	short* getFirstNonTransparentPixelArray();
-	short* getNumNonTransparentPixelArray();
+	short* getFirstPixelArray();
+	short* getNumPixelsArray();
 	int* getPixelData();
 
 private:

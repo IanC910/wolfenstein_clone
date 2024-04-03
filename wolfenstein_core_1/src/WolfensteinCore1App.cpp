@@ -161,6 +161,24 @@ void WolfensteinCore1App::drawEnvironment() {
 	fillNonRectangularCeilingAndFloor(maxCeilingRow);
 }
 
+void WolfensteinCore1App::drawSprite(Sprite* sprite, int rowOffset, int colOffset) {
+	short* firstPixelArray = sprite->getFirstPixelArray();
+	short* numPixelsArray = sprite->getNumPixelsArray();
+	int* pixelData = sprite->getPixelData();
+
+	for(int spriteRow = 0; spriteRow < sprite->getNumRows(); spriteRow++) {
+		int startScreenRow = rowOffset + spriteRow * sprite->getGranularity();
+
+		for(int screenRow = startScreenRow; screenRow < startScreenRow + sprite->getGranularity(); screenRow++) {
+			memcpy(
+				&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + colOffset + firstPixelArray[spriteRow]],
+				&pixelData[spriteRow * sprite->getNumCols() + firstPixelArray[spriteRow]],
+				numPixelsArray[spriteRow] * sizeof(int)
+			);
+		}
+	}
+}
+
 void WolfensteinCore1App::drawEnemies() {
 	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
 	Player* player = &SHARED_DATA_PACKETS[1].player;
@@ -328,24 +346,27 @@ void WolfensteinCore1App::drawHUD() {
 
 	// Draw first person weapon sprite
 	Sprite gunSprite(FIRST_PERSON_GUN_SPRITE);
-	short* firstNonXparentPixelArray 	= gunSprite.getFirstNonTransparentPixelArray();
-	short* numNonXparentPixelArray 		= gunSprite.getNumNonTransparentPixelArray();
-	int* pixelData 						= gunSprite.getPixelData();
+	int gunSpriteRowOffset = SCREEN_HEIGHT - gunSprite.getNumRows() * gunSprite.getGranularity();
+	int gunSpriteColOffset = SCREEN_WIDTH / 2 - gunSprite.getFirstPixelArray()[0] - gunSprite.getGranularity() / 2;
 
-	int gunSpriteColumnOffset = SCREEN_WIDTH / 2 - firstNonXparentPixelArray[0];
-
-	for(int spriteRow = 0; spriteRow < gunSprite.getNumRows(); spriteRow++) {
-		int startScreenRow = SCREEN_HEIGHT + (spriteRow - gunSprite.getNumRows()) * gunSprite.getGranularity();
-
-		for(int screenRow = startScreenRow; screenRow < startScreenRow + gunSprite.getGranularity(); screenRow++) {
-			memcpy(
-				&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + gunSpriteColumnOffset + firstNonXparentPixelArray[spriteRow]],
-				&pixelData[spriteRow * gunSprite.getNumCols() + firstNonXparentPixelArray[spriteRow]],
-				numNonXparentPixelArray[spriteRow] * sizeof(int)
-			);
-		}
+	// If player is shooting, draw the muzzle flash sprite behind the weapon sprite
+	if(SHARED_DATA_PACKETS[1].player.getIsShooting()) {
+		Sprite flashSprite(MUZZLE_FLASH_SPRITE);
+		int flashSpriteRowOffset = gunSpriteRowOffset + 12 - flashSprite.getNumRows() / 2 * flashSprite.getGranularity();
+		int flashSpriteColOffset = SCREEN_WIDTH / 2 - flashSprite.getFirstPixelArray()[0] - flashSprite.getGranularity() / 2;
+		drawSprite(&flashSprite, flashSpriteRowOffset, flashSpriteColOffset);
 	}
 
+	drawSprite(&gunSprite, gunSpriteRowOffset, gunSpriteColOffset);
+
+	// Draw centring grid
+	for(int i = 0; i < SCREEN_HEIGHT; i++) {
+		INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + SCREEN_WIDTH / 2] = colourRGB(15, 15, 15);
+	}
+
+	for(int j = 0; j < SCREEN_WIDTH; j++) {
+		INTERMEDIATE_IMAGE_BUFFER[SCREEN_HEIGHT / 2 * SCREEN_WIDTH + j] = colourRGB(15, 15, 15);
+	}
 }
 
 void WolfensteinCore1App::updateScreen() {
