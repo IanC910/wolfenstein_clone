@@ -232,14 +232,14 @@ void drawObject(float positionX, float positionY, float playerX, float playerY, 
 			}
 
 			//Check if left part of sprite is behind wall
-			while(distanceArray1[((startX + firstNonTransparentPixel))/RESOLUTION_DOWN_SCALE_H] < distanceFromPlayer) {
-				numOfNonTransparentPixel--;
-				firstNonTransparentPixel++;
+			while(distanceArray1[(startX + firstNonTransparentPixel)/RESOLUTION_DOWN_SCALE_H] < distanceFromPlayer) {
+					numOfNonTransparentPixel -= RESOLUTION_DOWN_SCALE_H - ((startX + firstNonTransparentPixel) % RESOLUTION_DOWN_SCALE_H);
+					firstNonTransparentPixel += RESOLUTION_DOWN_SCALE_H - ((startX + firstNonTransparentPixel) % RESOLUTION_DOWN_SCALE_H);
 			}
 
 			//Check if right part of sprite is behind wall
-			while(distanceArray1[(startX + ((firstNonTransparentPixel + numOfNonTransparentPixel)))/RESOLUTION_DOWN_SCALE_H] < distanceFromPlayer) {
-				numOfNonTransparentPixel--;
+			while(distanceArray1[(startX + firstNonTransparentPixel + numOfNonTransparentPixel)/RESOLUTION_DOWN_SCALE_H] < distanceFromPlayer) {
+					numOfNonTransparentPixel -= (((startX + firstNonTransparentPixel + numOfNonTransparentPixel) % RESOLUTION_DOWN_SCALE_H)) + 1;
 			}
 
 			//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
