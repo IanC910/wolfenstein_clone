@@ -80,7 +80,7 @@ void WolfensteinCore1App::runCore1App() {
 			maxDrawTime = funcTime;
 		}
 
-		drawDrop();
+		drawDrops();
 
 		drawHUD();
 
@@ -291,23 +291,21 @@ void WolfensteinCore1App::drawEnemies() {
 	}
 }
 
-void WolfensteinCore1App::drawDrop() {
+void WolfensteinCore1App::drawDrops() {
 	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
 	Player* player = &SHARED_DATA_PACKETS[1].player;
 
-	//enemyData_t* enemies = SHARED_DATA_PACKETS[1].enemyDataArray;
-	dropData_t* drops = SHARED_DATA_PACKETS[1].healthDrops;
-	dropData_t drop;
+	Drop* healthDropArray = SHARED_DATA_PACKETS[1].healthDropArray;
 	for(int i = 0; i < MAX_NUM_HEALTH_DROPS; i++) {
-		drop = drops[i];
+		Drop* drop = &healthDropArray[i];
 
-		if(drop.isPickedUp) {
+		if(drop->isPickedUp()) {
 			continue;
 		}
 
 		drawObject(
-			drop.positionX,
-			drop.positionY,
+			drop->getPositionX(),
+			drop->getPositionY(),
 			player->getPositionX(),
 			player->getPositionY(),
 			player->getAngle(),
@@ -315,7 +313,7 @@ void WolfensteinCore1App::drawDrop() {
 			HEALTH_SPRITE_WIDTH,
 			HEALTH_SPRITE_HEIGHT,
 			300,
-			healthSprite
+			HEALTH_SPRITE
 		);
 	}
 }
@@ -403,23 +401,16 @@ void WolfensteinCore1App::drawHUD() {
 	// If player is shooting, draw the muzzle flash sprite behind the weapon sprite
 	if(SHARED_DATA_PACKETS[1].player.getIsShooting()) {
 		Sprite flashSprite(MUZZLE_FLASH_SPRITE);
+
 		int recoilRowOffset = 8;
 		gunSpriteRowOffset += recoilRowOffset;
+
 		int flashSpriteRowOffset = gunSpriteRowOffset + 12 - flashSprite.getNumRows() / 2 * flashSprite.getGranularity();
 		int flashSpriteColOffset = SCREEN_WIDTH / 2 - flashSprite.getFirstPixelArray()[0] - flashSprite.getGranularity() / 2;
 		drawSprite(&flashSprite, flashSpriteRowOffset, flashSpriteColOffset);
 	}
 
 	drawSprite(&gunSprite, gunSpriteRowOffset, gunSpriteColOffset);
-
-	// Draw centring grid
-	for(int i = 0; i < SCREEN_HEIGHT; i++) {
-		INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + SCREEN_WIDTH / 2] = colourRGB(15, 15, 15);
-	}
-
-	for(int j = 0; j < SCREEN_WIDTH; j++) {
-		INTERMEDIATE_IMAGE_BUFFER[SCREEN_HEIGHT / 2 * SCREEN_WIDTH + j] = colourRGB(15, 15, 15);
-	}
 }
 
 void WolfensteinCore1App::updateScreen() {

@@ -340,11 +340,6 @@ void WolfensteinCore0App::castRays() {
 void WolfensteinCore0App::transferSharedDataPacket() {
 	SHARED_DATA_PACKETS[0].player = player;
 
-	for(int h = 0; h < MAX_NUM_HEALTH_DROPS; h++) {
-		SHARED_DATA_PACKETS[0].healthDrops[h] = healthDrops[h].getDropData();
-	}
-
-
 	INTERFACE_PTR->valid = 1;
 	while(!INTERFACE_PTR->acknowledge);
 
@@ -367,10 +362,16 @@ void WolfensteinCore0App::initializeEnemies() {
 }
 
 void WolfensteinCore0App::initializeDrops() {
+	Drop* healthDropArray = SHARED_DATA_PACKETS[0].healthDropArray;
+
 	for(int i = 0; i < currentLevel->getNumHealthDrops(); i++) {
-		healthDrops[i].initialize();
-		healthDrops[i].setPositionX(currentLevel->getHealthDropX(i));
-		healthDrops[i].setPositionY(currentLevel->getHealthDropY(i));
+		healthDropArray[i].initialize();
+		healthDropArray[i].setPositionX(currentLevel->getHealthDropX(i));
+		healthDropArray[i].setPositionY(currentLevel->getHealthDropY(i));
+	}
+
+	for(int i = currentLevel->getNumHealthDrops(); i < MAX_NUM_HEALTH_DROPS; i++) {
+		healthDropArray[i].reset();
 	}
 }
 
@@ -441,14 +442,17 @@ void WolfensteinCore0App::updateEnemies() {
 }
 
 void WolfensteinCore0App::updateDrops() {
-	float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
+	float* distanceArray = SHARED_DATA_PACKETS[0].distanceArray;
+	Drop* healthDropArray = SHARED_DATA_PACKETS[0].healthDropArray;
+
 	if(player.getHealth() < MAX_PLAYER_HEALTH) {
 		for(int i = 0; i < currentLevel->getNumHealthDrops(); i++) {
-			if(healthDrops[i].isPickedUp()) {
+			if(healthDropArray[i].isPickedUp()) {
 				continue;
 			}
-			float vecX = (player.getPositionX() - healthDrops[i].getPositionX());
-			float vecY = (player.getPositionY() - healthDrops[i].getPositionY());
+
+			float vecX = (player.getPositionX() - healthDropArray[i].getPositionX());
+			float vecY = (player.getPositionY() - healthDropArray[i].getPositionY());
 			float distanceFromObject = sqrtf(vecX*vecX + vecY*vecY);
 			float playerViewX = cosf(player.getAngle());
 			float playerViewY = sinf(player.getAngle());
@@ -464,11 +468,9 @@ void WolfensteinCore0App::updateDrops() {
 			bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
 			float middleOfObject = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
 
-			if(inPlayerFOV && distanceArray0[(int)middleOfObject/RESOLUTION_DOWN_SCALE_H] >= distanceFromObject && healthDrops[i].canPickUp(distanceFromObject)) {
-				player.setHealth(player.getHealth()+10);
+			if(inPlayerFOV && distanceArray[(int)middleOfObject/RESOLUTION_DOWN_SCALE_H] >= distanceFromObject && healthDropArray[i].canPickUp(distanceFromObject)) {
+				player.setHealth(player.getHealth() + 10);
 			}
-
 		}
 	}
-
 }

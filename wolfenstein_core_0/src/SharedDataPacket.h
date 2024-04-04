@@ -11,7 +11,7 @@ typedef struct {
 	float distanceArray[NUM_RAYS];
 	Player player;
 	Enemy enemyArray[MAX_NUM_ENEMIES];
-	dropData_t healthDrops[MAX_NUM_HEALTH_DROPS];
+	Drop healthDropArray[MAX_NUM_HEALTH_DROPS];
 } sharedDataPacket_t;
 
 #endif

@@ -24,7 +24,7 @@ int* const MUZZLE_FLASH_SPRITE						= (int*)					0x00E33000; // size: 12288 = 0x
 int* const NEXT										= (int*)					0x00E36000;
 
 unsigned char* const ENEMY_SPRITE 					= (unsigned char *)			0x018D2008;
-unsigned char* const healthSprite 					= (unsigned char *)			0x018ED208;
+unsigned char* const HEALTH_SPRITE 					= (unsigned char *)			0x018ED208;
 
 
 #endif

@@ -11,16 +11,10 @@ bool Drop::isPickedUp() {
 	return pickedUp;
 }
 
-void Drop::initialize() {
-	pickedUp = false;
+void Drop::reset() {
+	pickedUp = true;
 }
 
-dropData_t Drop::getDropData() {
-	dropData_t dropData;
-
-	dropData.positionX = positionX;
-	dropData.positionY = positionY;
-	dropData.isPickedUp = pickedUp;
-
-	return dropData;
+void Drop::initialize() {
+	pickedUp = false;
 }

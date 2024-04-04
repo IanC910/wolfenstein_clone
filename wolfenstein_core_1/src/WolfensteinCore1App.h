@@ -15,8 +15,7 @@ private:
 	void drawEnvironment();
 	void drawSprite(Sprite* sprite, int rowOffset, int colOffset);
 	void drawEnemies();
-	void drawEnemy();
-	void drawDrop();
+	void drawDrops();
 	int getScreenRowOfCeilingAtDistance(float distance);
 	int getColourFromGradient(const int* gradient, const int gradientLength, float distance);
 	void fillNonRectangularCeilingAndFloor(int rowAlreadyDrawn);

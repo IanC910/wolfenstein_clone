@@ -39,7 +39,6 @@ private:
 	Player player;
 	Controller controller;
 	SoundPlayer soundPlayer;
-	Drop healthDrops[MAX_NUM_HEALTH_DROPS];
 
 	int levelSelectIndex = 0;
 	Level* currentLevel = nullptr;
