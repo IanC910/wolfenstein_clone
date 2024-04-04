@@ -250,8 +250,8 @@ void WolfensteinCore1App::drawObjectWithPosition(
 
 		for(int screenRow = startScreenRow; screenRow < endScreenRow; screenRow += screenGranularity) {
 			int spriteRow = (int)ceil((screenRow - objectTopRow) * scaleFactor / sprite->getGranularity());
-			int firstPixel = (int)(sprite->getFirstPixelArray()[spriteRow] / scaleFactor) + 1;
-			int numPixels = (int)(sprite->getNumPixelsArray()[spriteRow] / scaleFactor) - 1;
+			int firstPixel = (int)(sprite->getFirstPixelArray()[spriteRow] / scaleFactor);
+			int numPixels = (int)(sprite->getNumPixelsArray()[spriteRow] / scaleFactor);
 
 			int startScreenCol 	= objectLeftCol + firstPixel; // Inclusive
 			int endScreenCol 	= objectLeftCol + firstPixel + numPixels; // Exclusive
