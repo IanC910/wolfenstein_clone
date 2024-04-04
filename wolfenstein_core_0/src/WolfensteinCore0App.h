@@ -2,10 +2,12 @@
 #ifndef WOLFENSTEIN_CORE_0_H
 #define WOLFENSTEIN_CORE_0_H
 
-#include "Constants.h"
-#include "Player.h"
-#include "Level.h"
 #include "Controller.h"
+#include "Constants.h"
+#include "Drop.h"
+#include "Enemy.h"
+#include "Level.h"
+#include "Player.h"
 #include "SoundPlayer.h"
 
 class WolfensteinCore0App {
@@ -20,10 +22,12 @@ private:
 	void startCore1();
 	void drawMenu();
 	void initializeEnemies();
+	void initializeDrops();
 	void handlePlayerMovement();
 	void handlePlayerAction();
 	void checkStopCondition();
 	void updateEnemies();
+	void updateDrops();
 	void castRays();
 	void transferSharedDataPacket();
 

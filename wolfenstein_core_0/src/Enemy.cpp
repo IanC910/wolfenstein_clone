@@ -11,12 +11,12 @@ void Enemy::setHealth(int health) {
 	this->health = health;
 }
 
-float Enemy::getTimeSinceLastShot() {
-	return timeSinceLastShot;
+float Enemy::getTimeSinceLastShotS() {
+	return timeSinceLastShotS;
 }
 
-void Enemy::setTimeSinceLastShot(float time) {
-	timeSinceLastShot = time;
+void Enemy::setTimeSinceLastShotS(float timeS) {
+	timeSinceLastShotS = timeS;
 }
 
 bool Enemy::hasSeenPlayer() {
@@ -29,12 +29,12 @@ void Enemy::setSeenPlayer() {
 
 void Enemy::reset() {
 	health = 0;
-	timeSinceLastShot = 0;
+	timeSinceLastShotS = 0;
 	seenPlayer = false;
 }
 
 void Enemy::initialize() {
 	health = MAX_ENEMY_HEALTH;
-	timeSinceLastShot = 1.0;
+	timeSinceLastShotS = 1.0;
 	seenPlayer = false;
 }

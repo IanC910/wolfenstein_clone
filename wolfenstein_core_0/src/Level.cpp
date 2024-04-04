@@ -3,17 +3,22 @@
 
 #include "Level.h"
 
-Level::Level(int width, int height, int numEnemies, float startingX, float startingY, float enemyPositions[MAX_NUM_ENEMIES][2], char* layout) {
+Level::Level(int width, int height, int numEnemies, int numHealthDrops, float startingX, float startingY, float enemyPositions[MAX_NUM_ENEMIES][2], float healthDropPositions[MAX_NUM_HEALTH_DROPS][2], char* layout) {
 	this->width = width;
 	this->height = height;
 	this->startingX = startingX;
 	this->startingY = startingY;
 	this->numEnemies = numEnemies;
+	this->numHealthDrops = numHealthDrops;
 	this->layout = layout;
 
 	for(int i = 0; i < MAX_NUM_ENEMIES; i++) {
 		this->enemyPositions[i][0] = enemyPositions[i][0];
 		this->enemyPositions[i][1] = enemyPositions[i][1];
+	}
+	for(int i = 0; i < MAX_NUM_HEALTH_DROPS; i++) {
+		this->healthDropPositions[i][0] = healthDropPositions[i][0];
+		this->healthDropPositions[i][1] = healthDropPositions[i][1];
 	}
 }
 
@@ -29,12 +34,24 @@ int Level::getNumEnemies() {
 	return numEnemies;
 }
 
+int Level::getNumHealthDrops() {
+	return numHealthDrops;
+}
+
 float Level::getEnemyX(int num) {
 	return enemyPositions[num][0];
 }
 
 float Level::getEnemyY(int num) {
 	return enemyPositions[num][1];
+}
+
+float Level::getHealthDropX(int num) {
+	return healthDropPositions[num][0];
+}
+
+float Level::getHealthDropY(int num) {
+	return healthDropPositions[num][1];
 }
 
 float Level::getStartingX() {

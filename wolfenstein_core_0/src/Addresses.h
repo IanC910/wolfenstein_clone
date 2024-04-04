@@ -20,9 +20,11 @@ sharedDataPacket_t* const SHARED_DATA_PACKETS		= (sharedDataPacket_t*)		0x00C84A
 int* const MAIN_MENU_BACKGROUND_SPRITE				= (int*)					0x00D00000; // size: SCREEN_SIZE_BYTES
 int* const GUNSHOT_SOUND							= (int*)					0x00E2C000; // size: 12288 = 0x3000
 int* const FIRST_PERSON_GUN_SPRITE					= (int*)					0x00E2F000; // size: 16384 = 0x4000
-int* const NEXT										= (int*)					0x00E33000;
+int* const MUZZLE_FLASH_SPRITE						= (int*)					0x00E33000; // size: 12288 = 0x3000
+int* const NEXT										= (int*)					0x00E36000;
 
 unsigned char* const ENEMY_SPRITE 					= (unsigned char *)			0x018D2008;
+unsigned char* const HEALTH_SPRITE 					= (unsigned char *)			0x018ED208;
 
 
 #endif

@@ -1,5 +1,6 @@
 
 #include "Player.h"
+#include "Constants.h"
 
 float Player::getAngle() {
 	return angle;
@@ -24,7 +25,12 @@ void Player::setAngle(float angle) {
 }
 
 void Player::setHealth(int health) {
-	this->health = health;
+	if(health > MAX_PLAYER_HEALTH) {
+		this->health = MAX_PLAYER_HEALTH;
+	}
+	else {
+		this->health = health;
+	}
 }
 
 void Player::setIsShooting(bool isShooting) {

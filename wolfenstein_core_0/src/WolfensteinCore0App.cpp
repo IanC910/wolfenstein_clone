@@ -83,6 +83,7 @@ void WolfensteinCore0App::runCore0App() {
 						player.setAngle(M_PI / 2);
 
 						initializeEnemies();
+						initializeDrops();
 
 						gameState = PLAYING_LEVEL;
 					}
@@ -114,6 +115,7 @@ void WolfensteinCore0App::runCore0App() {
 
 					handlePlayerAction();
 					updateEnemies();
+					updateDrops();
 
 					transferSharedDataPacket();
 
@@ -141,7 +143,7 @@ void WolfensteinCore0App::runCore0App() {
 }
 
 void WolfensteinCore0App::clearMem() {
-	memset(VGA_IMAGE_BUFFER_0, 0x80, SCREEN_SIZE_BYTES);
+	memset(VGA_IMAGE_BUFFER_0, 0, SCREEN_SIZE_BYTES);
 	memset(INTERMEDIATE_IMAGE_BUFFER, 0, SCREEN_SIZE_BYTES);
 	memset((void*)INTERFACE_PTR, 0, sizeof(validAckInterface_t));
 	memset((void*)SHARED_DATA_PACKETS, 0, 2 * sizeof(sharedDataPacket_t));
@@ -359,6 +361,20 @@ void WolfensteinCore0App::initializeEnemies() {
 	}
 }
 
+void WolfensteinCore0App::initializeDrops() {
+	Drop* healthDropArray = SHARED_DATA_PACKETS[0].healthDropArray;
+
+	for(int i = 0; i < currentLevel->getNumHealthDrops(); i++) {
+		healthDropArray[i].initialize();
+		healthDropArray[i].setPositionX(currentLevel->getHealthDropX(i));
+		healthDropArray[i].setPositionY(currentLevel->getHealthDropY(i));
+	}
+
+	for(int i = currentLevel->getNumHealthDrops(); i < MAX_NUM_HEALTH_DROPS; i++) {
+		healthDropArray[i].reset();
+	}
+}
+
 void WolfensteinCore0App::updateEnemies() {
 	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
 	float* distanceArray = SHARED_DATA_PACKETS[0].distanceArray;
@@ -396,13 +412,13 @@ void WolfensteinCore0App::updateEnemies() {
 
 			}
 
-			enemy->setTimeSinceLastShot(enemy->getTimeSinceLastShot() + frameTimeInSec);
+			enemy->setTimeSinceLastShotS(enemy->getTimeSinceLastShotS() + frameTimeInSec);
 
 			// Handle Enemy Attack
-			if(playerDistanceFromEnemy < 1.5 && enemy->getTimeSinceLastShot() >= ENEMY_SHOT_DELAY) {
+			if(playerDistanceFromEnemy < 1.5 && enemy->getTimeSinceLastShotS() >= ENEMY_SHOT_DELAY_S) {
 				soundPlayer.playSound(GUNSHOT_SOUND);
-				player.setHealth(player.getHealth() - ENEMY_DAMAGE_PER_SHOT);
-				enemy->setTimeSinceLastShot(0.0);
+				player.setHealth(player.getHealth() - ENEMY_DAMAGE);
+				enemy->setTimeSinceLastShotS(0.0);
 			}
 		}
 		else if(playerDistanceFromEnemy < 3.0) {
@@ -420,6 +436,40 @@ void WolfensteinCore0App::updateEnemies() {
 
 			if(inPlayerFOV && distanceArray[(int)middleOfEnemy / RESOLUTION_DOWN_SCALE_H] >= playerDistanceFromEnemy) {
 				enemy->setSeenPlayer();
+			}
+		}
+	}
+}
+
+void WolfensteinCore0App::updateDrops() {
+	float* distanceArray = SHARED_DATA_PACKETS[0].distanceArray;
+	Drop* healthDropArray = SHARED_DATA_PACKETS[0].healthDropArray;
+
+	if(player.getHealth() < MAX_PLAYER_HEALTH) {
+		for(int i = 0; i < currentLevel->getNumHealthDrops(); i++) {
+			if(healthDropArray[i].isPickedUp()) {
+				continue;
+			}
+
+			float vecX = (player.getPositionX() - healthDropArray[i].getPositionX());
+			float vecY = (player.getPositionY() - healthDropArray[i].getPositionY());
+			float distanceFromObject = sqrtf(vecX*vecX + vecY*vecY);
+			float playerViewX = cosf(player.getAngle());
+			float playerViewY = sinf(player.getAngle());
+			float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(-vecY, -vecX);
+
+			if(objectAngle < M_PI) {
+				objectAngle += 2.0 * M_PI;
+			}
+			if(objectAngle > M_PI) {
+				objectAngle -= 2.0 * M_PI;
+			}
+
+			bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
+			float middleOfObject = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
+
+			if(inPlayerFOV && distanceArray[(int)middleOfObject/RESOLUTION_DOWN_SCALE_H] >= distanceFromObject && healthDropArray[i].canPickUp(distanceFromObject)) {
+				player.setHealth(player.getHealth() + 10);
 			}
 		}
 	}
