@@ -217,7 +217,8 @@ void WolfensteinCore1App::drawObjectWithPosition(
 	int objectMiddleCol = (objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH);
 
 	if(inPlayerFOV && distanceArray[objectMiddleCol / GRANULARITY_H] >= distanceFromPlayer) {
-		const float SCALE_FACTOR_LOWER_BOUND = 0.5;
+
+		const float SCALE_FACTOR_LOWER_BOUND = 1;
 		float scaleFactor = distanceFromPlayer;
 		if(scaleFactor < SCALE_FACTOR_LOWER_BOUND) {
 			scaleFactor = SCALE_FACTOR_LOWER_BOUND;
@@ -235,9 +236,6 @@ void WolfensteinCore1App::drawObjectWithPosition(
 		if(screenGranularity < 1) {
 			screenGranularity = 1;
 		}
-		if(screenGranularity > sprite->getGranularity()) {
-			screenGranularity = sprite->getGranularity();
-		}
 
 		int* pixelData = sprite->getPixelData();
 
@@ -251,12 +249,12 @@ void WolfensteinCore1App::drawObjectWithPosition(
 		}
 
 		for(int screenRow = startScreenRow; screenRow < endScreenRow; screenRow += screenGranularity) {
-			int spriteRow = (int)((screenRow - objectTopRow) * scaleFactor / sprite->getGranularity());
+			int spriteRow = (int)ceil((screenRow - objectTopRow) * scaleFactor / sprite->getGranularity());
 			int firstPixel = (int)(sprite->getFirstPixelArray()[spriteRow] / scaleFactor) + 1;
-			int numPixels = (int)(sprite->getNumPixelsArray()[spriteRow] / scaleFactor);
+			int numPixels = (int)(sprite->getNumPixelsArray()[spriteRow] / scaleFactor) - 1;
 
-			int startScreenCol 	= objectLeftCol + firstPixel;
-			int endScreenCol 	= objectLeftCol + firstPixel + numPixels;
+			int startScreenCol 	= objectLeftCol + firstPixel; // Inclusive
+			int endScreenCol 	= objectLeftCol + firstPixel + numPixels; // Exclusive
 			if(startScreenCol < 0) {
 				startScreenCol = 0;
 			}
@@ -274,21 +272,33 @@ void WolfensteinCore1App::drawObjectWithPosition(
 				endScreenCol -= 1 + endScreenCol % GRANULARITY_H;
 			}
 
-			// Draw 1 row of enemy, then copy
-			for(int screenCol = startScreenCol; screenCol < endScreenCol; screenCol++) {
-				// Draw 1 granule
-				int spriteCol = (int)((screenCol - objectLeftCol) * scaleFactor);
+			// Draw 1 row of sprite, then copy
+			for(int screenCol = startScreenCol; screenCol < endScreenCol; screenCol += screenGranularity) {
+				// Draw 1 screen granule
+				int spriteCol = (int)ceil((screenCol - objectLeftCol) * scaleFactor);
 
-				memcpy(
-					&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + screenCol],
-					&pixelData[spriteRow * sprite->getNumCols() + spriteCol],
-					sizeof(int)
-				);
+				for(int j = 0; j < screenGranularity && screenCol + j < endScreenCol; j += sprite->getGranularity()) {
+
+					int numPixelsToCopy = screenGranularity - j;
+					if(numPixelsToCopy > sprite->getGranularity()) {
+						numPixelsToCopy = sprite->getGranularity();
+					}
+					if(screenCol + j + numPixelsToCopy > endScreenCol) {
+						numPixelsToCopy -= screenCol + j + numPixelsToCopy - endScreenCol;
+					}
+
+					memcpy(
+						&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + screenCol + j],
+						&pixelData[spriteRow * sprite->getNumCols() + spriteCol],
+						numPixelsToCopy * sizeof(int)
+					);
+				}
 			}
 
-			for(int g = 1; g < screenGranularity && screenRow + g < SCREEN_HEIGHT; g++) {
+			// Copy row of sprite to adjacent rows below it
+			for(int ii = 1; ii < screenGranularity && screenRow + ii < SCREEN_HEIGHT; ii++) {
 				memcpy(
-					&INTERMEDIATE_IMAGE_BUFFER[(screenRow + g) * SCREEN_WIDTH + startScreenCol],
+					&INTERMEDIATE_IMAGE_BUFFER[(screenRow + ii) * SCREEN_WIDTH + startScreenCol],
 					&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + startScreenCol],
 					(endScreenCol - startScreenCol) * sizeof(int)
 				);
