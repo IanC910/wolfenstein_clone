@@ -344,30 +344,38 @@ int WolfensteinCore1App::getColourFromGradient(const int* gradient, const int gr
 }
 
 void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int rowAlreadyDrawn) {
-	for(int i = rowAlreadyDrawn; i < SCREEN_HEIGHT / 2; i++) {
+	for(int i = rowAlreadyDrawn; i < SCREEN_HEIGHT / 2; i += GRANULARITY_V) {
 		int startRay = 0;
 		bool startRayIsSet = false;
 		bool drawingThisRow = false;
 
 		for(int r = 0; r < NUM_RAYS; r++) {
+			// Iterate through rays until find ceiling
 			if(!startRayIsSet && WALL_START_ROW_ARRAY[r] > i) {
 				startRay = r;
 				startRayIsSet = true;
 				drawingThisRow = true;
 				continue;
 			}
+			// Keep going through rays until find floor again
 			if(startRayIsSet && (WALL_START_ROW_ARRAY[r] <= i)) {
+				// Draw that bit of floor and ceiling
 				int numBytes = (r - startRay) * PIXEL_WIDTHS_PER_RAY * sizeof(int);
-				memcpy(&INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], CEILING_BUFFER, numBytes);
-				memcpy(&INTERMEDIATE_IMAGE_BUFFER[(SCREEN_HEIGHT - 1 - i) * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], FLOOR_BUFFER, numBytes);
+				for(int ii = i; ii < i + GRANULARITY_V; ii++) {
+					memcpy(&INTERMEDIATE_IMAGE_BUFFER[ii * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], CEILING_BUFFER, numBytes);
+					memcpy(&INTERMEDIATE_IMAGE_BUFFER[(SCREEN_HEIGHT - 1 - ii) * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], FLOOR_BUFFER, numBytes);
+				}
 				startRayIsSet = false;
 			}
 		}
 
+		// Draw case for if end of rays reached and floor not found
 		if(startRayIsSet) {
 			int numBytes = (NUM_RAYS - startRay) * PIXEL_WIDTHS_PER_RAY * sizeof(int);
-			memcpy(&INTERMEDIATE_IMAGE_BUFFER[i * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], CEILING_BUFFER, numBytes);
-			memcpy(&INTERMEDIATE_IMAGE_BUFFER[(SCREEN_HEIGHT - 1 - i) * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], FLOOR_BUFFER, numBytes);
+			for(int ii = i; ii < i + GRANULARITY_V; ii++) {
+				memcpy(&INTERMEDIATE_IMAGE_BUFFER[ii * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], CEILING_BUFFER, numBytes);
+				memcpy(&INTERMEDIATE_IMAGE_BUFFER[(SCREEN_HEIGHT - 1 - ii) * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], FLOOR_BUFFER, numBytes);
+			}
 		}
 
 		if(!drawingThisRow) {
