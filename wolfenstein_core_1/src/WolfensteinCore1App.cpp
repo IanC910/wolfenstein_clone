@@ -267,7 +267,7 @@ void WolfensteinCore1App::drawObjectWithPosition(
 			}
 
 			// Check if right part of sprite is behind wall
-			while(distanceArray[endScreenCol / GRANULARITY_H] < distanceFromPlayer) {
+			while(endScreenCol >= 0 && distanceArray[endScreenCol / GRANULARITY_H] < distanceFromPlayer) {
 				endScreenCol -= 1 + endScreenCol % GRANULARITY_H;
 			}
 
@@ -310,7 +310,7 @@ void WolfensteinCore1App::drawObjectWithPosition(
 				distanceArray[ray] = distanceFromPlayer;
 			}
 		}
-	}
+	} // if inPlayerFOV
 }
 
 void WolfensteinCore1App::drawEnemies() {
