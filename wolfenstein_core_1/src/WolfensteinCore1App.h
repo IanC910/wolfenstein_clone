@@ -15,16 +15,13 @@ public:
 private:
 	void receiveSharedDataPacket();
 	void drawEnvironment();
-	void drawSprite(Sprite* sprite, int rowOffset, int colOffset);
+	void drawSpriteSimple(Sprite* sprite, int rowOffset, int colOffset);
 	void drawObjectWithPosition(
 		ObjectWithPosition* object,
 		Player* player,
 		float* distanceArray,
 		Sprite* sprite,
-		int spriteWidth,
-		int spriteHeight,
-		int yDrawOffset,
-		unsigned char* spriteFile
+		int rowOffset
 	);
 	void drawEnemies();
 	void drawDrops();

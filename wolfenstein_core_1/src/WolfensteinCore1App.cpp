@@ -164,7 +164,7 @@ void WolfensteinCore1App::drawEnvironment() {
 	fillNonRectangularCeilingAndFloor(maxCeilingRow);
 }
 
-void WolfensteinCore1App::drawSprite(Sprite* sprite, int rowOffset, int colOffset) {
+void WolfensteinCore1App::drawSpriteSimple(Sprite* sprite, int rowOffset, int colOffset) {
 	short* firstPixelArray = sprite->getFirstPixelArray();
 	short* numPixelsArray = sprite->getNumPixelsArray();
 	int* pixelData = sprite->getPixelData();
@@ -193,12 +193,11 @@ void WolfensteinCore1App::drawObjectWithPosition(
 	Player* player,
 	float* distanceArray,
 	Sprite* sprite,
-	int spriteWidth,
-	int spriteHeight,
-	int yDrawOffset,
-	unsigned char* spriteFile
+	int rowOffset
 ) {
-	if(sprite == nullptr) return;
+	if(sprite == nullptr) {
+		return;
+	}
 
 	float playerToObjectX = object->getPositionX() - player->getPositionX();
 	float playerToObjectY = object->getPositionY() - player->getPositionY();
@@ -229,7 +228,7 @@ void WolfensteinCore1App::drawObjectWithPosition(
 
 		int spriteHeightInScreenSpace = (int)(sprite->getNumRows() * sprite->getGranularity() / scaleFactor);
 
-		int objectTopRow = SCREEN_HEIGHT / 2 - (sprite->getNumRows() * sprite->getGranularity() - yDrawOffset) / (2 * scaleFactor);
+		int objectTopRow = SCREEN_HEIGHT / 2 - (sprite->getNumRows() * sprite->getGranularity() - rowOffset) / (2 * scaleFactor);
 		int objectBottomRow = objectTopRow + spriteHeightInScreenSpace;
 
 		int screenGranularity = (int)(sprite->getGranularity() / scaleFactor);
@@ -327,17 +326,14 @@ void WolfensteinCore1App::drawEnemies() {
 			continue;
 		}
 
-		Sprite enemySprite(ENEMY_SPRITE_NEW);
+		Sprite enemySprite(ENEMY_SPRITE);
 
 		drawObjectWithPosition(
             enemy,
             player,
             distanceArray,
 			&enemySprite,
-            ENEMY_SPRITE_WIDTH,
-            ENEMY_SPRITE_HEIGHT,
-            40,
-            ENEMY_SPRITE_OLD
+            40
         );
 	}
 }
@@ -354,15 +350,13 @@ void WolfensteinCore1App::drawDrops() {
 			continue;
 		}
 
+		// TODO: make health drop sprite
 		drawObjectWithPosition(
 			drop,
 			player,
 			distanceArray,
 			nullptr,
-			HEALTH_SPRITE_WIDTH,
-			HEALTH_SPRITE_HEIGHT,
-			300,
-			HEALTH_SPRITE
+			300
 		);
 	}
 }
@@ -468,10 +462,10 @@ void WolfensteinCore1App::drawHUD() {
 
 		int flashSpriteRowOffset = gunSpriteRowOffset + 12 - flashSprite.getNumRows() / 2 * flashSprite.getGranularity();
 		int flashSpriteColOffset = SCREEN_WIDTH / 2 - flashSprite.getFirstPixelArray()[0] - flashSprite.getGranularity() / 2;
-		drawSprite(&flashSprite, flashSpriteRowOffset, flashSpriteColOffset);
+		drawSpriteSimple(&flashSprite, flashSpriteRowOffset, flashSpriteColOffset);
 	}
 
-	drawSprite(&gunSprite, gunSpriteRowOffset, gunSpriteColOffset);
+	drawSpriteSimple(&gunSprite, gunSpriteRowOffset, gunSpriteColOffset);
 }
 
 void WolfensteinCore1App::updateScreen() {
