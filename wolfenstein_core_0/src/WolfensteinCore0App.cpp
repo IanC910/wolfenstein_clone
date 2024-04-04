@@ -434,7 +434,7 @@ void WolfensteinCore0App::updateEnemies() {
 			bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
 			float middleOfEnemy = (objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH);
 
-			if(inPlayerFOV && distanceArray[(int)middleOfEnemy / RESOLUTION_DOWN_SCALE_H] >= playerDistanceFromEnemy) {
+			if(inPlayerFOV && distanceArray[(int)middleOfEnemy / GRANULARITY_H] >= playerDistanceFromEnemy) {
 				enemy->setSeenPlayer();
 			}
 		}
@@ -468,7 +468,7 @@ void WolfensteinCore0App::updateDrops() {
 			bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
 			float middleOfObject = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
 
-			if(inPlayerFOV && distanceArray[(int)middleOfObject/RESOLUTION_DOWN_SCALE_H] >= distanceFromObject && healthDropArray[i].canPickUp(distanceFromObject)) {
+			if(inPlayerFOV && distanceArray[(int)middleOfObject/GRANULARITY_H] >= distanceFromObject && healthDropArray[i].canPickUp(distanceFromObject)) {
 				player.setHealth(player.getHealth() + 10);
 			}
 		}

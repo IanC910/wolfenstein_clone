@@ -26,9 +26,9 @@ const int SCREEN_SIZE_BYTES 	= SCREEN_SIZE * sizeof(int); // 1 228 800 = 0x12 C0
 
 
 // Rendering params
-const int RESOLUTION_DOWN_SCALE_H 	= 8;
-const int RESOLUTION_DOWN_SCALE_V	= 1; // Does nothing so far
-const int PIXEL_WIDTHS_PER_RAY 		= RESOLUTION_DOWN_SCALE_H;
+const int GRANULARITY_H 			= 8;
+const int GRANULARITY_V				= 1; // Does nothing so far
+const int PIXEL_WIDTHS_PER_RAY 		= GRANULARITY_H;
 const int MAX_NUM_RAYS				= SCREEN_WIDTH;
 const int NUM_RAYS 					= MAX_NUM_RAYS / PIXEL_WIDTHS_PER_RAY;
 const float RAY_DISTANCE_INCREMENT 	= 0.1;

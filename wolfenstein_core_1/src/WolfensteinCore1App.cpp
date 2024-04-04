@@ -185,15 +185,12 @@ void WolfensteinCore1App::drawSprite(Sprite* sprite, int rowOffset, int colOffse
 	}
 }
 
-void drawObject(float positionX, float positionY, float playerX, float playerY, float playerAngle, float* distanceArray1, int spriteWidth, int spriteHeight, int yDrawOffset, unsigned char* sprite) {
+void drawObject(float positionX, float positionY, float playerX, float playerY, float playerAngle, float* distanceArray, int spriteWidth, int spriteHeight, int yDrawOffset, unsigned char* sprite) {
+	float playerToObjectX = positionX - playerX;
+	float playerToObjectY = positionY - playerY;
+	float distanceFromPlayer = sqrtf(playerToObjectX * playerToObjectX + playerToObjectY * playerToObjectY);
 
-	float vecX = positionX - playerX;
-	float vecY = positionY - playerY;
-	float distanceFromPlayer = sqrtf(vecX*vecX + vecY*vecY);
-
-	float playerViewX = cosf(playerAngle);
-	float playerViewY = sinf(playerAngle);
-	float objectAngle = atan2f(playerViewY, playerViewX) - atan2f(vecY, vecX);
+	float objectAngle = playerAngle - atan2f(playerToObjectY, playerToObjectX);
 
 	if(objectAngle < -M_PI) {
 		objectAngle += 2.0 * M_PI;
@@ -210,15 +207,15 @@ void drawObject(float positionX, float positionY, float playerX, float playerY, 
 		scaleFactor = 1;
 	}
 
-	float middleOfObject = (0.5 * (objectAngle / (HORIZONTAL_FOV / 2.0)) + 0.5) * float(SCREEN_WIDTH);
-	int startX = middleOfObject - (spriteWidth/(2*scaleFactor));
-	int startY = (SCREEN_HEIGHT / 2) - ((spriteHeight - yDrawOffset)/(2*scaleFactor));
+	float middleOfObject = (objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH);
+	int startX = middleOfObject - spriteWidth / (2 * scaleFactor);
+	int startY = SCREEN_HEIGHT / 2 - (spriteHeight - yDrawOffset) / (2 * scaleFactor);
 
-	if(inPlayerFOV && distanceFromPlayer >= 0.5 && distanceFromPlayer <= 5 && distanceArray1[(int)middleOfObject/RESOLUTION_DOWN_SCALE_H] >= distanceFromPlayer) {
-		for(int i = 0; i < (int)(spriteHeight/scaleFactor); i++) {
+	if(inPlayerFOV && distanceFromPlayer >= 0.5 && distanceFromPlayer <= 5 && distanceArray[(int)middleOfObject / GRANULARITY_H] >= distanceFromPlayer) {
+		for(int i = 0; i < (int)(spriteHeight / scaleFactor); i++) {
 			int s = (int)(i * scaleFactor);
-			int firstNonTransparentPixel = ((int)(*(sprite+s*(spriteWidth)*sizeof(int)+3))/scaleFactor)+1;
-			int numOfNonTransparentPixel = (int)(*(sprite+s*(spriteWidth)*sizeof(int)+7))/scaleFactor+1;
+			int firstNonTransparentPixel = (int)(*(sprite + s * spriteWidth * sizeof(int) + 3)) / scaleFactor + 1;
+			int numOfNonTransparentPixel = (int)(*(sprite + s * spriteWidth * sizeof(int) + 7)) / scaleFactor + 1;
 
 			//Checks if sprite is past right bound of screen and updates accordingly
 			if(startX + (firstNonTransparentPixel + numOfNonTransparentPixel) > SCREEN_WIDTH) {
@@ -232,31 +229,39 @@ void drawObject(float positionX, float positionY, float playerX, float playerY, 
 			}
 
 			//Check if left part of sprite is behind wall
-			while(distanceArray1[(startX + firstNonTransparentPixel)/RESOLUTION_DOWN_SCALE_H] < distanceFromPlayer) {
-					numOfNonTransparentPixel -= RESOLUTION_DOWN_SCALE_H - ((startX + firstNonTransparentPixel) % RESOLUTION_DOWN_SCALE_H);
-					firstNonTransparentPixel += RESOLUTION_DOWN_SCALE_H - ((startX + firstNonTransparentPixel) % RESOLUTION_DOWN_SCALE_H);
+			while(distanceArray[(startX + firstNonTransparentPixel) / GRANULARITY_H] < distanceFromPlayer) {
+				numOfNonTransparentPixel -= GRANULARITY_H - ((startX + firstNonTransparentPixel) % GRANULARITY_H);
+				firstNonTransparentPixel += GRANULARITY_H - ((startX + firstNonTransparentPixel) % GRANULARITY_H);
 			}
 
 			//Check if right part of sprite is behind wall
-			while(distanceArray1[(startX + firstNonTransparentPixel + numOfNonTransparentPixel)/RESOLUTION_DOWN_SCALE_H] < distanceFromPlayer) {
-					numOfNonTransparentPixel -= (((startX + firstNonTransparentPixel + numOfNonTransparentPixel) % RESOLUTION_DOWN_SCALE_H)) + 1;
+			while(distanceArray[(startX + firstNonTransparentPixel + numOfNonTransparentPixel) / GRANULARITY_H] < distanceFromPlayer) {
+				numOfNonTransparentPixel -= ((startX + firstNonTransparentPixel + numOfNonTransparentPixel) % GRANULARITY_H) + 1;
 			}
 
 			//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
 			if(scaleFactor == 1) {
 				firstNonTransparentPixel--;
 				numOfNonTransparentPixel--;
-				memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startY) *SCREEN_WIDTH) + firstNonTransparentPixel + startX, sprite+(i*(spriteWidth)*sizeof(int)+(firstNonTransparentPixel*sizeof(int))), (numOfNonTransparentPixel)*sizeof(int));
+				memcpy(
+					INTERMEDIATE_IMAGE_BUFFER + (i + startY) * SCREEN_WIDTH + firstNonTransparentPixel + startX,
+					sprite + (i * spriteWidth + firstNonTransparentPixel) * sizeof(int),
+					numOfNonTransparentPixel * sizeof(int)
+				);
 			}
 			else {
 				for(int j = 0; j < numOfNonTransparentPixel; j++) {
-					memcpy(INTERMEDIATE_IMAGE_BUFFER + ((i + startY) *SCREEN_WIDTH) + startX + j + (firstNonTransparentPixel), sprite+(s*(spriteWidth)*sizeof(int)+((int)((firstNonTransparentPixel+j)*scaleFactor))*sizeof(int)), sizeof(int));
+					memcpy(
+						INTERMEDIATE_IMAGE_BUFFER + (i + startY) * SCREEN_WIDTH + startX + j + firstNonTransparentPixel,
+						sprite + (s * spriteWidth + (int)((firstNonTransparentPixel + j) * scaleFactor)) * sizeof(int),
+						sizeof(int)
+					);
 				}
 			}
 
-			//Update distance array with new distances for drawn enemies
+			// Update distance array with new distances for drawn enemies
 			for(int j = 0; j < numOfNonTransparentPixel; j++) {
-				distanceArray1[(firstNonTransparentPixel + startX + j)/RESOLUTION_DOWN_SCALE_H] = distanceFromPlayer;
+				distanceArray[(firstNonTransparentPixel + startX + j) / GRANULARITY_H] = distanceFromPlayer;
 			}
 		}
 	}
@@ -339,7 +344,6 @@ int WolfensteinCore1App::getColourFromGradient(const int* gradient, const int gr
 }
 
 void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int rowAlreadyDrawn) {
-	// TODO incorporate vertical resolution downscaling
 	for(int i = rowAlreadyDrawn; i < SCREEN_HEIGHT / 2; i++) {
 		int startRay = 0;
 		bool startRayIsSet = false;
@@ -384,13 +388,18 @@ void WolfensteinCore1App::drawHUD() {
 	int healthBarFullColour = colourRGB(0, 15, 0);
 	int playerHealth = SHARED_DATA_PACKETS[1].player.getHealth();
 
-	for(int i = 0; i < healthBarHeight; i++) {
-		for(int j = 0; j < playerHealth; j++) {
-			INTERMEDIATE_IMAGE_BUFFER[(healthBarTopRow + i) * SCREEN_WIDTH + healthBarLeftCol + j] = healthBarFullColour;
-		}
-		for(int j = playerHealth; j < healthBarLength; j++) {
-			INTERMEDIATE_IMAGE_BUFFER[(healthBarTopRow + i) * SCREEN_WIDTH + healthBarLeftCol + j] = healthBarEmptyColour;
-		}
+	for(int j = 0; j < playerHealth; j++) {
+		INTERMEDIATE_IMAGE_BUFFER[healthBarTopRow * SCREEN_WIDTH + healthBarLeftCol + j] = healthBarFullColour;
+	}
+	for(int j = playerHealth; j < healthBarLength; j++) {
+		INTERMEDIATE_IMAGE_BUFFER[healthBarTopRow * SCREEN_WIDTH + healthBarLeftCol + j] = healthBarEmptyColour;
+	}
+	for(int i = 1; i < healthBarHeight; i++) {
+		memcpy(
+			&INTERMEDIATE_IMAGE_BUFFER[(healthBarTopRow + i) * SCREEN_WIDTH + healthBarLeftCol],
+			&INTERMEDIATE_IMAGE_BUFFER[healthBarTopRow * SCREEN_WIDTH + healthBarLeftCol],
+			healthBarLength * sizeof(int)
+		);
 	}
 
 	// Draw first person weapon sprite
