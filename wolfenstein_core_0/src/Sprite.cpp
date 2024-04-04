@@ -2,7 +2,7 @@
 #include "Sprite.h"
 
 Sprite::Sprite(void* spriteFile) {
-	this->spriteFile = spriteFile;
+	this->spriteFile = (char*)spriteFile;
 }
 
 int Sprite::getNumRows() {
@@ -22,9 +22,9 @@ short* Sprite::getFirstPixelArray() {
 }
 
 short* Sprite::getNumPixelsArray() {
-	return (short*)((void*)getFirstPixelArray() + getNumRows() * 2);
+	return (short*)((char*)getFirstPixelArray() + getNumRows() * 2);
 }
 
 int* Sprite::getPixelData() {
-	return (int*)((void*)getNumPixelsArray() + getNumRows() * 2);
+	return (int*)((char*)getNumPixelsArray() + getNumRows() * 2);
 }

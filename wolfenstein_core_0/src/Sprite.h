@@ -14,7 +14,7 @@ public:
 	int* getPixelData();
 
 private:
-	void* spriteFile;
+	char* spriteFile;
 };
 
 #endif
