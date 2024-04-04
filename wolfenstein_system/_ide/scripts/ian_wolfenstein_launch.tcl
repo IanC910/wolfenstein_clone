@@ -26,7 +26,7 @@ targets -set -nocase -filter {name =~ "*A9*#1"}
 dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/gunshot.sound 0xe2c000
 dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/enemy_sprite_new.data 0x18d2008
 dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/first_person_gun.sprite 0xe2f000
-dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/main_menu_background.sprite 0xd00000
+dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/main_menu.sprite 0xd00000
 dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/muzzle_flash.sprite 0xe33000
 dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/health_sprite.data 0x18ed208
 dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/enemy.sprite 0xe36000

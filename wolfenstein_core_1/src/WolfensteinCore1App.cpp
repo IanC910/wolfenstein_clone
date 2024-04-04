@@ -226,13 +226,10 @@ void WolfensteinCore1App::drawObjectWithPosition(
 		int objectLeftCol 	= objectMiddleCol - sprite->getNumCols() / (2 * scaleFactor);
 		int objectRightCol 	= objectMiddleCol + sprite->getNumCols() / (2 * scaleFactor);
 
-		int spriteHeightInScreenSpacePixels = (int)(sprite->getNumRows() * sprite->getGranularity() / scaleFactor);
-
-//		int objectBottomRow = SCREEN_HEIGHT - getScreenRowOfCeilingAtDistance(distanceFromPlayer); // Exclusive
-//		int objectTopRow = objectBottomRow - spriteHeightInScreenSpacePixels; // Inclusive
+		int spriteHeightInScreenSpace = (int)(sprite->getNumRows() * sprite->getGranularity() / scaleFactor);
 
 		int objectTopRow = SCREEN_HEIGHT / 2 - (sprite->getNumRows() * sprite->getGranularity() - yDrawOffset) / (2 * scaleFactor);
-		int objectBottomRow = objectTopRow + spriteHeightInScreenSpacePixels;
+		int objectBottomRow = objectTopRow + spriteHeightInScreenSpace;
 
 		int screenGranularity = (int)(sprite->getGranularity() / scaleFactor);
 		if(screenGranularity < 1) {
@@ -249,8 +246,8 @@ void WolfensteinCore1App::drawObjectWithPosition(
 		if(startScreenRow < 0) {
 			startScreenRow = 0;
 		}
-		if(endScreenRow > SCREEN_HEIGHT - 1) {
-			endScreenRow = SCREEN_HEIGHT - 1;
+		if(endScreenRow > SCREEN_HEIGHT) {
+			endScreenRow = SCREEN_HEIGHT;
 		}
 
 		for(int screenRow = startScreenRow; screenRow < endScreenRow; screenRow += screenGranularity) {
@@ -258,36 +255,43 @@ void WolfensteinCore1App::drawObjectWithPosition(
 			int firstPixel = (int)(sprite->getFirstPixelArray()[spriteRow] / scaleFactor) + 1;
 			int numPixels = (int)(sprite->getNumPixelsArray()[spriteRow] / scaleFactor);
 
-			// Check if sprite is past left bound of screen and update accordingly
-			if(objectLeftCol + firstPixel < 0) {
-				numPixels -= fabs(objectLeftCol + firstPixel);
-				firstPixel += fabs(objectLeftCol + firstPixel);
+			int startScreenCol 	= objectLeftCol + firstPixel;
+			int endScreenCol 	= objectLeftCol + firstPixel + numPixels;
+			if(startScreenCol < 0) {
+				startScreenCol = 0;
 			}
-
-			// Check if sprite is past right bound of screen and update accordingly
-			if(objectLeftCol + (firstPixel + numPixels) > SCREEN_WIDTH) {
-				numPixels = SCREEN_WIDTH - (objectLeftCol + firstPixel);
+			if(endScreenCol > SCREEN_WIDTH) {
+				endScreenCol = SCREEN_WIDTH;
 			}
 
 			// Check if left part of sprite is behind wall
-			while(distanceArray[(objectLeftCol + firstPixel) / GRANULARITY_H] < distanceFromPlayer && numPixels > 0) {
-				numPixels -= GRANULARITY_H - ((objectLeftCol + firstPixel) % GRANULARITY_H);
-				firstPixel += GRANULARITY_H - ((objectLeftCol + firstPixel) % GRANULARITY_H);
+			while(distanceArray[startScreenCol / GRANULARITY_H] < distanceFromPlayer) {
+				startScreenCol += GRANULARITY_H - startScreenCol % GRANULARITY_H;
 			}
 
 			// Check if right part of sprite is behind wall
-			while(distanceArray[(objectLeftCol + firstPixel + numPixels) / GRANULARITY_H] < distanceFromPlayer && numPixels > 0) {
-				numPixels -= GRANULARITY_H + ((objectLeftCol + firstPixel + numPixels) % GRANULARITY_H);
+			while(distanceArray[endScreenCol / GRANULARITY_H] < distanceFromPlayer) {
+				endScreenCol -= 1 + endScreenCol % GRANULARITY_H;
 			}
 
-			for(int j = 0; j < numPixels; j += screenGranularity) {
-				for(int g = 0; g < screenGranularity; g++) {
-					memcpy(
-						&INTERMEDIATE_IMAGE_BUFFER[(screenRow + g) * SCREEN_WIDTH + objectLeftCol + firstPixel + j],
-						&pixelData[spriteRow * sprite->getNumCols() + (int)((firstPixel + j) * scaleFactor)],
-						screenGranularity * sizeof(int)
-					);
-				}
+			// Draw 1 row of enemy, then copy
+			for(int screenCol = startScreenCol; screenCol < endScreenCol; screenCol++) {
+				// Draw 1 granule
+				int spriteCol = (int)((screenCol - objectLeftCol) * scaleFactor);
+
+				memcpy(
+					&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + screenCol],
+					&pixelData[spriteRow * sprite->getNumCols() + spriteCol],
+					sizeof(int)
+				);
+			}
+
+			for(int g = 1; g < screenGranularity && screenRow + g < SCREEN_HEIGHT; g++) {
+				memcpy(
+					&INTERMEDIATE_IMAGE_BUFFER[(screenRow + g) * SCREEN_WIDTH + startScreenCol],
+					&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + startScreenCol],
+					(endScreenCol - startScreenCol) * sizeof(int)
+				);
 			}
 		}
 
