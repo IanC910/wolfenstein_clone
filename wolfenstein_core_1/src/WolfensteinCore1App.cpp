@@ -217,23 +217,30 @@ void WolfensteinCore1App::drawObjectWithPosition(
 	int objectMiddleCol = (objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH);
 
 	if(inPlayerFOV && distanceArray[objectMiddleCol / GRANULARITY_H] >= distanceFromPlayer) {
-
+		const float SCALE_FACTOR_LOWER_BOUND = 0.5;
 		float scaleFactor = distanceFromPlayer;
-		if(scaleFactor < 1) {
-			scaleFactor = 1;
+		if(scaleFactor < SCALE_FACTOR_LOWER_BOUND) {
+			scaleFactor = SCALE_FACTOR_LOWER_BOUND;
 		}
 
 		int objectLeftCol 	= objectMiddleCol - sprite->getNumCols() / (2 * scaleFactor);
 		int objectRightCol 	= objectMiddleCol + sprite->getNumCols() / (2 * scaleFactor);
 
-//		int spriteHeightInScreenSpacePixels = (int)(sprite->getNumRows() * sprite->getGranularity() / scaleFactor);
+		int spriteHeightInScreenSpacePixels = (int)(sprite->getNumRows() * sprite->getGranularity() / scaleFactor);
+
 //		int objectBottomRow = SCREEN_HEIGHT - getScreenRowOfCeilingAtDistance(distanceFromPlayer); // Exclusive
 //		int objectTopRow = objectBottomRow - spriteHeightInScreenSpacePixels; // Inclusive
 
 		int objectTopRow = SCREEN_HEIGHT / 2 - (sprite->getNumRows() * sprite->getGranularity() - yDrawOffset) / (2 * scaleFactor);
-		int objectBottomRow = objectTopRow + (int)(sprite->getNumRows() * sprite->getGranularity() / scaleFactor);
+		int objectBottomRow = objectTopRow + spriteHeightInScreenSpacePixels;
 
 		int screenGranularity = (int)(sprite->getGranularity() / scaleFactor);
+		if(screenGranularity < 1) {
+			screenGranularity = 1;
+		}
+		if(screenGranularity > sprite->getGranularity()) {
+			screenGranularity = sprite->getGranularity();
+		}
 
 		int* pixelData = sprite->getPixelData();
 
@@ -246,7 +253,7 @@ void WolfensteinCore1App::drawObjectWithPosition(
 			endScreenRow = SCREEN_HEIGHT - 1;
 		}
 
-		for(int screenRow = startScreenRow; screenRow < endScreenRow; screenRow++) {
+		for(int screenRow = startScreenRow; screenRow < endScreenRow; screenRow += screenGranularity) {
 			int spriteRow = (int)((screenRow - objectTopRow) * scaleFactor / sprite->getGranularity());
 			int firstPixel = (int)(sprite->getFirstPixelArray()[spriteRow] / scaleFactor) + 1;
 			int numPixels = (int)(sprite->getNumPixelsArray()[spriteRow] / scaleFactor);
@@ -273,22 +280,15 @@ void WolfensteinCore1App::drawObjectWithPosition(
 				numPixels -= GRANULARITY_H + ((objectLeftCol + firstPixel + numPixels) % GRANULARITY_H);
 			}
 
-			// Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
-			for(int j = 0; j < numPixels; j++) {
-				memcpy(
-					&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + objectLeftCol + firstPixel + j],
-					&pixelData[spriteRow * sprite->getNumCols() + (int)((firstPixel + j) * scaleFactor)],
-					sizeof(int)
-				);
+			for(int j = 0; j < numPixels; j += screenGranularity) {
+				for(int g = 0; g < screenGranularity; g++) {
+					memcpy(
+						&INTERMEDIATE_IMAGE_BUFFER[(screenRow + g) * SCREEN_WIDTH + objectLeftCol + firstPixel + j],
+						&pixelData[spriteRow * sprite->getNumCols() + (int)((firstPixel + j) * scaleFactor)],
+						screenGranularity * sizeof(int)
+					);
+				}
 			}
-
-//			for(int j = 0; j < numPixels; j += screenGranularity) {
-//				memcpy(
-//					&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + objectLeftCol + firstPixel + j],
-//					&pixelData[spriteRow * sprite->getNumCols() + (int)((firstPixel + j) * scaleFactor)],
-//					screenGranularity * sizeof(int)
-//				);
-//			}
 		}
 
 		// Update distance array with new distances for drawn enemies
