@@ -6,10 +6,10 @@ close all
 
 % Configurables
 
-inputFileName = '../assets/sources/muzzle_flash.png';
-outputFileName = '../assets/processed/muzzle_flash.sprite';
+inputFileName = '../assets/sources/enemy.png';
+outputFileName = ['../assets/processed/enemy.sprite'];
 
-upScaleFactor = 2;
+upScaleFactor = 4;
 
 % End of Configurables
 

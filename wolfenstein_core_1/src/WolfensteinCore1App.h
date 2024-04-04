@@ -1,6 +1,8 @@
 #ifndef WOLFENSTEIN_CORE_1_H
 #define WOLFENSTEIN_CORE_1_H
 
+#include "../../wolfenstein_core_0/src/ObjectWithPosition.h"
+#include "../../wolfenstein_core_0/src/Player.h"
 #include "../../wolfenstein_core_0/src/Sprite.h"
 
 class WolfensteinCore1App {
@@ -14,6 +16,16 @@ private:
 	void receiveSharedDataPacket();
 	void drawEnvironment();
 	void drawSprite(Sprite* sprite, int rowOffset, int colOffset);
+	void drawObjectWithPosition(
+		ObjectWithPosition* object,
+		Player* player,
+		float* distanceArray,
+		Sprite* sprite,
+		int spriteWidth,
+		int spriteHeight,
+		int yDrawOffset,
+		unsigned char* spriteFile
+	);
 	void drawEnemies();
 	void drawDrops();
 	int getScreenRowOfCeilingAtDistance(float distance);

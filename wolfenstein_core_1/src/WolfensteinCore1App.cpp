@@ -169,28 +169,42 @@ void WolfensteinCore1App::drawSprite(Sprite* sprite, int rowOffset, int colOffse
 	short* numPixelsArray = sprite->getNumPixelsArray();
 	int* pixelData = sprite->getPixelData();
 
-	for(int spriteRow = 0; spriteRow < sprite->getNumRows(); spriteRow++) {
-		int startScreenRow = rowOffset + spriteRow * sprite->getGranularity();
-		if(startScreenRow < 0) {
-			startScreenRow = 0;
-		}
+	int startScreenRow = rowOffset;
+	int endScreenRow = rowOffset + sprite->getNumRows() * sprite->getGranularity();
+	if(startScreenRow < 0) {
+		startScreenRow = 0;
+	}
+	if(endScreenRow > SCREEN_HEIGHT - 1) {
+		endScreenRow = SCREEN_HEIGHT - 1;
+	}
 
-		for(int screenRow = startScreenRow; screenRow < startScreenRow + sprite->getGranularity() && screenRow < SCREEN_HEIGHT; screenRow++) {
-			memcpy(
-				&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + colOffset + firstPixelArray[spriteRow]],
-				&pixelData[spriteRow * sprite->getNumCols() + firstPixelArray[spriteRow]],
-				numPixelsArray[spriteRow] * sizeof(int)
-			);
-		}
+	for(int screenRow = startScreenRow; screenRow < endScreenRow; screenRow++) {
+		int spriteRow = (int)((screenRow - rowOffset) / sprite->getGranularity());
+		memcpy(
+			&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + colOffset + firstPixelArray[spriteRow]],
+			&pixelData[spriteRow * sprite->getNumCols() + firstPixelArray[spriteRow]],
+			numPixelsArray[spriteRow] * sizeof(int)
+		);
 	}
 }
 
-void drawObject(float positionX, float positionY, float playerX, float playerY, float playerAngle, float* distanceArray, int spriteWidth, int spriteHeight, int yDrawOffset, unsigned char* sprite) {
-	float playerToObjectX = positionX - playerX;
-	float playerToObjectY = positionY - playerY;
+void WolfensteinCore1App::drawObjectWithPosition(
+	ObjectWithPosition* object,
+	Player* player,
+	float* distanceArray,
+	Sprite* sprite,
+	int spriteWidth,
+	int spriteHeight,
+	int yDrawOffset,
+	unsigned char* spriteFile
+) {
+	if(sprite == nullptr) return;
+
+	float playerToObjectX = object->getPositionX() - player->getPositionX();
+	float playerToObjectY = object->getPositionY() - player->getPositionY();
 	float distanceFromPlayer = sqrtf(playerToObjectX * playerToObjectX + playerToObjectY * playerToObjectY);
 
-	float objectAngle = playerAngle - atan2f(playerToObjectY, playerToObjectX);
+	float objectAngle = player->getAngle() - atan2f(playerToObjectY, playerToObjectX);
 
 	if(objectAngle < -M_PI) {
 		objectAngle += 2.0 * M_PI;
@@ -200,72 +214,90 @@ void drawObject(float positionX, float positionY, float playerX, float playerY, 
 	}
 
 	bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
+	int objectMiddleCol = (objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH);
 
-	float scaleFactor = distanceFromPlayer;
+	if(inPlayerFOV && distanceArray[objectMiddleCol / GRANULARITY_H] >= distanceFromPlayer) {
 
-	if(scaleFactor < 1) {
-		scaleFactor = 1;
-	}
+		float scaleFactor = distanceFromPlayer;
+		if(scaleFactor < 1) {
+			scaleFactor = 1;
+		}
 
-	float middleOfObject = (objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH);
-	int startX = middleOfObject - spriteWidth / (2 * scaleFactor);
-	int startY = SCREEN_HEIGHT / 2 - (spriteHeight - yDrawOffset) / (2 * scaleFactor);
+		int objectLeftCol 	= objectMiddleCol - sprite->getNumCols() / (2 * scaleFactor);
+		int objectRightCol 	= objectMiddleCol + sprite->getNumCols() / (2 * scaleFactor);
 
-	if(inPlayerFOV && distanceFromPlayer >= 0.5 && distanceFromPlayer <= 5 && distanceArray[(int)middleOfObject / GRANULARITY_H] >= distanceFromPlayer) {
-		for(int i = 0; i < (int)(spriteHeight / scaleFactor); i++) {
-			int s = (int)(i * scaleFactor);
-			int firstNonTransparentPixel = (int)(*(sprite + s * spriteWidth * sizeof(int) + 3)) / scaleFactor + 1;
-			int numOfNonTransparentPixel = (int)(*(sprite + s * spriteWidth * sizeof(int) + 7)) / scaleFactor + 1;
+//		int spriteHeightInScreenSpacePixels = (int)(sprite->getNumRows() * sprite->getGranularity() / scaleFactor);
+//		int objectBottomRow = SCREEN_HEIGHT - getScreenRowOfCeilingAtDistance(distanceFromPlayer); // Exclusive
+//		int objectTopRow = objectBottomRow - spriteHeightInScreenSpacePixels; // Inclusive
 
-			//Checks if sprite is past right bound of screen and updates accordingly
-			if(startX + (firstNonTransparentPixel + numOfNonTransparentPixel) > SCREEN_WIDTH) {
-				numOfNonTransparentPixel = SCREEN_WIDTH - (startX + firstNonTransparentPixel);
+		int objectTopRow = SCREEN_HEIGHT / 2 - (sprite->getNumRows() * sprite->getGranularity() - yDrawOffset) / (2 * scaleFactor);
+		int objectBottomRow = objectTopRow + (int)(sprite->getNumRows() * sprite->getGranularity() / scaleFactor);
+
+		int screenGranularity = (int)(sprite->getGranularity() / scaleFactor);
+
+		int* pixelData = sprite->getPixelData();
+
+		int startScreenRow = objectTopRow;
+		int endScreenRow = objectBottomRow;
+		if(startScreenRow < 0) {
+			startScreenRow = 0;
+		}
+		if(endScreenRow > SCREEN_HEIGHT - 1) {
+			endScreenRow = SCREEN_HEIGHT - 1;
+		}
+
+		for(int screenRow = startScreenRow; screenRow < endScreenRow; screenRow++) {
+			int spriteRow = (int)((screenRow - objectTopRow) * scaleFactor / sprite->getGranularity());
+			int firstPixel = (int)(sprite->getFirstPixelArray()[spriteRow] / scaleFactor) + 1;
+			int numPixels = (int)(sprite->getNumPixelsArray()[spriteRow] / scaleFactor);
+
+			// Check if sprite is past left bound of screen and update accordingly
+			if(objectLeftCol + firstPixel < 0) {
+				numPixels -= fabs(objectLeftCol + firstPixel);
+				firstPixel += fabs(objectLeftCol + firstPixel);
 			}
 
-			//Checks if sprite is past left bound of screen and updates accordingly
-			if(startX + firstNonTransparentPixel < 0) {
-				numOfNonTransparentPixel -= fabs(startX + firstNonTransparentPixel);
-				firstNonTransparentPixel += fabs(startX + firstNonTransparentPixel);
+			// Check if sprite is past right bound of screen and update accordingly
+			if(objectLeftCol + (firstPixel + numPixels) > SCREEN_WIDTH) {
+				numPixels = SCREEN_WIDTH - (objectLeftCol + firstPixel);
 			}
 
-			//Check if left part of sprite is behind wall
-			while(distanceArray[(startX + firstNonTransparentPixel) / GRANULARITY_H] < distanceFromPlayer) {
-				numOfNonTransparentPixel -= GRANULARITY_H - ((startX + firstNonTransparentPixel) % GRANULARITY_H);
-				firstNonTransparentPixel += GRANULARITY_H - ((startX + firstNonTransparentPixel) % GRANULARITY_H);
+			// Check if left part of sprite is behind wall
+			while(distanceArray[(objectLeftCol + firstPixel) / GRANULARITY_H] < distanceFromPlayer && numPixels > 0) {
+				numPixels -= GRANULARITY_H - ((objectLeftCol + firstPixel) % GRANULARITY_H);
+				firstPixel += GRANULARITY_H - ((objectLeftCol + firstPixel) % GRANULARITY_H);
 			}
 
-			//Check if right part of sprite is behind wall
-			while(distanceArray[(startX + firstNonTransparentPixel + numOfNonTransparentPixel) / GRANULARITY_H] < distanceFromPlayer) {
-				numOfNonTransparentPixel -= ((startX + firstNonTransparentPixel + numOfNonTransparentPixel) % GRANULARITY_H) + 1;
+			// Check if right part of sprite is behind wall
+			while(distanceArray[(objectLeftCol + firstPixel + numPixels) / GRANULARITY_H] < distanceFromPlayer && numPixels > 0) {
+				numPixels -= GRANULARITY_H + ((objectLeftCol + firstPixel + numPixels) % GRANULARITY_H);
 			}
 
-			//Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
-			if(scaleFactor == 1) {
-				firstNonTransparentPixel--;
-				numOfNonTransparentPixel--;
+			// Draw sprite, if scaleFactor is 1 then don't need a loop, otherwise use loop to scale sprite in horizontal direction
+			for(int j = 0; j < numPixels; j++) {
 				memcpy(
-					INTERMEDIATE_IMAGE_BUFFER + (i + startY) * SCREEN_WIDTH + firstNonTransparentPixel + startX,
-					sprite + (i * spriteWidth + firstNonTransparentPixel) * sizeof(int),
-					numOfNonTransparentPixel * sizeof(int)
+					&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + objectLeftCol + firstPixel + j],
+					&pixelData[spriteRow * sprite->getNumCols() + (int)((firstPixel + j) * scaleFactor)],
+					sizeof(int)
 				);
 			}
-			else {
-				for(int j = 0; j < numOfNonTransparentPixel; j++) {
-					memcpy(
-						INTERMEDIATE_IMAGE_BUFFER + (i + startY) * SCREEN_WIDTH + startX + j + firstNonTransparentPixel,
-						sprite + (s * spriteWidth + (int)((firstNonTransparentPixel + j) * scaleFactor)) * sizeof(int),
-						sizeof(int)
-					);
-				}
-			}
 
-			// Update distance array with new distances for drawn enemies
-			for(int j = 0; j < numOfNonTransparentPixel; j++) {
-				distanceArray[(firstNonTransparentPixel + startX + j) / GRANULARITY_H] = distanceFromPlayer;
+//			for(int j = 0; j < numPixels; j += screenGranularity) {
+//				memcpy(
+//					&INTERMEDIATE_IMAGE_BUFFER[screenRow * SCREEN_WIDTH + objectLeftCol + firstPixel + j],
+//					&pixelData[spriteRow * sprite->getNumCols() + (int)((firstPixel + j) * scaleFactor)],
+//					screenGranularity * sizeof(int)
+//				);
+//			}
+		}
+
+		// Update distance array with new distances for drawn enemies
+		for(int ray = objectLeftCol / GRANULARITY_H; ray < objectRightCol / GRANULARITY_H; ray++) {
+			if(distanceFromPlayer < distanceArray[ray]) {
+				distanceArray[ray] = distanceFromPlayer;
 			}
 		}
 	}
-
 }
 
 void WolfensteinCore1App::drawEnemies() {
@@ -281,17 +313,17 @@ void WolfensteinCore1App::drawEnemies() {
 			continue;
 		}
 
-		drawObject(
-            enemy->getPositionX(),
-            enemy->getPositionY(),
-            player->getPositionX(),
-            player->getPositionY(),
-            player->getAngle(),
+		Sprite enemySprite(ENEMY_SPRITE_NEW);
+
+		drawObjectWithPosition(
+            enemy,
+            player,
             distanceArray,
+			&enemySprite,
             ENEMY_SPRITE_WIDTH,
             ENEMY_SPRITE_HEIGHT,
             40,
-            ENEMY_SPRITE
+            ENEMY_SPRITE_OLD
         );
 	}
 }
@@ -308,13 +340,11 @@ void WolfensteinCore1App::drawDrops() {
 			continue;
 		}
 
-		drawObject(
-			drop->getPositionX(),
-			drop->getPositionY(),
-			player->getPositionX(),
-			player->getPositionY(),
-			player->getAngle(),
+		drawObjectWithPosition(
+			drop,
+			player,
 			distanceArray,
+			nullptr,
 			HEALTH_SPRITE_WIDTH,
 			HEALTH_SPRITE_HEIGHT,
 			300,
