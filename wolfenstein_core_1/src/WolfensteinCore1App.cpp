@@ -490,6 +490,29 @@ void WolfensteinCore1App::drawHUD() {
 		);
 	}
 
+	int ammoBarHeight = healthBarHeight;
+	int ammoBarLength = MAX_PLAYER_AMMO;
+	int ammoBarTopRow = healthBarTopRow - 5 - ammoBarHeight;
+	int	ammoBarLeftCol = healthBarLeftCol + (healthBarLength - ammoBarLength);
+
+	int ammoBarEmptyColour = colourRGB(8, 0, 0);
+	int ammoBarFullColour = colourRGB(0, 15, 0);
+	int playerAmmo = SHARED_DATA_PACKETS[1].player.getAmmo();
+
+	for(int j = 0; j < playerAmmo; j++) {
+		INTERMEDIATE_IMAGE_BUFFER[ammoBarTopRow * SCREEN_WIDTH + ammoBarLeftCol + j] = ammoBarFullColour;
+	}
+	for(int j = playerAmmo; j < ammoBarLength; j++) {
+		INTERMEDIATE_IMAGE_BUFFER[ammoBarTopRow * SCREEN_WIDTH + ammoBarLeftCol + j] = ammoBarEmptyColour;
+	}
+	for(int i = 1; i < ammoBarHeight; i++) {
+		memcpy(
+			&INTERMEDIATE_IMAGE_BUFFER[(ammoBarTopRow + i) * SCREEN_WIDTH + ammoBarLeftCol],
+			&INTERMEDIATE_IMAGE_BUFFER[ammoBarTopRow * SCREEN_WIDTH + ammoBarLeftCol],
+			ammoBarLength * sizeof(int)
+		);
+	}
+
 	// Draw first person weapon sprite
 	Sprite gunSprite(FIRST_PERSON_GUN_SPRITE);
 	int gunSpriteRowOffset = SCREEN_HEIGHT - gunSprite.getNumRows() * gunSprite.getGranularity();

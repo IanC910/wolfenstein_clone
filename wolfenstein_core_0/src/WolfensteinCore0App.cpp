@@ -77,6 +77,7 @@ void WolfensteinCore0App::runCore0App() {
 						this->currentLevel = getLevel(levelSelectIndex);
 
 						player.setHealth(MAX_PLAYER_HEALTH);
+						player.setAmmo(MAX_PLAYER_AMMO - 50);
 
 						player.setPositionX(currentLevel->getStartingX());
 						player.setPositionY(currentLevel->getStartingY());
@@ -227,59 +228,64 @@ void WolfensteinCore0App::handlePlayerAction() {
 	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
 	bool trigger = true;
 	static bool prevTrigger = true;
+	if(player.getAmmo() > 0) {
+		if(DO_USE_CONTROLLER) {
+			trigger = controller.isTriggerPressed(0);
+		}
+		else {
+			trigger = Buttons_isButtonPressed(BTN_CENTRE);
+		}
 
-	if(DO_USE_CONTROLLER) {
-		trigger = controller.isTriggerPressed(0);
-	}
-	else {
-		trigger = Buttons_isButtonPressed(BTN_CENTRE);
-	}
+		player.setIsShooting(trigger && !prevTrigger);
 
-	player.setIsShooting(trigger && !prevTrigger);
+		prevTrigger = trigger;
 
-	prevTrigger = trigger;
+		if(player.getIsShooting()) {
+			soundPlayer.playSound(GUNSHOT_SOUND);
+			player.setAmmo(player.getAmmo() - 2);
 
-	if(player.getIsShooting()) {
-		soundPlayer.playSound(GUNSHOT_SOUND);
+			for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
+				Enemy* enemy = &enemyArray[e];
 
-		for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
-			Enemy* enemy = &enemyArray[e];
+				if(enemy->getHealth() <= 0) {
+					continue;
+				}
 
-			if(enemy->getHealth() <= 0) {
-				continue;
-			}
+				float playerToEnemyX = enemy->getPositionX() - player.getPositionX();
+				float playerToEnemyY = enemy->getPositionY() - player.getPositionY();
 
-			float playerToEnemyX = enemy->getPositionX() - player.getPositionX();
-			float playerToEnemyY = enemy->getPositionY() - player.getPositionY();
+				float distanceToEnemy = sqrtf(playerToEnemyX * playerToEnemyX + playerToEnemyY * playerToEnemyY);
+				float angleToEnemy = atan2f(playerToEnemyY, playerToEnemyX);
+				float deltaAngle = angleToEnemy - player.getAngle();
+				if(deltaAngle < -M_PI) {
+					deltaAngle += 2.0 * M_PI;
+				}
+				else if(deltaAngle > M_PI) {
+					deltaAngle -= 2.0 * M_PI;
+				}
 
-			float distanceToEnemy = sqrtf(playerToEnemyX * playerToEnemyX + playerToEnemyY * playerToEnemyY);
-			float angleToEnemy = atan2f(playerToEnemyY, playerToEnemyX);
-			float deltaAngle = angleToEnemy - player.getAngle();
-			if(deltaAngle < -M_PI) {
-				deltaAngle += 2.0 * M_PI;
-			}
-			else if(deltaAngle > M_PI) {
-				deltaAngle -= 2.0 * M_PI;
-			}
+				Sprite enemySprite(ENEMY_SPRITE);
 
-			Sprite enemySprite(ENEMY_SPRITE);
+				int enemyMiddleCol = (int)((deltaAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH));
+				int enemyLeftCol = enemyMiddleCol - enemySprite.getNumCols() / (2 * distanceToEnemy);
+				int enemyRightCol = enemyMiddleCol + enemySprite.getNumCols() / (2 * distanceToEnemy);
 
-			int enemyMiddleCol = (int)((deltaAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH));
-			int enemyLeftCol = enemyMiddleCol - enemySprite.getNumCols() / (2 * distanceToEnemy);
-			int enemyRightCol = enemyMiddleCol + enemySprite.getNumCols() / (2 * distanceToEnemy);
+				bool enemyInLineOfFire = SCREEN_WIDTH / 2 > enemyLeftCol && SCREEN_WIDTH / 2 + 1 < enemyRightCol;
 
-			bool enemyInLineOfFire = SCREEN_WIDTH / 2 > enemyLeftCol && SCREEN_WIDTH / 2 + 1 < enemyRightCol;
+				if(enemyInLineOfFire) {
+					float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
 
-			if(enemyInLineOfFire) {
-				float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
-
-				// If enemy is not behind a wall
-				if(distanceToEnemy < distanceArray0[NUM_RAYS / 2] || distanceToEnemy < distanceArray0[NUM_RAYS / 2 + 1]) {
-					// Enemy is hit
-					enemy->setHealth(enemy->getHealth() - PLAYER_DAMAGE);
+					// If enemy is not behind a wall
+					if(distanceToEnemy < distanceArray0[NUM_RAYS / 2] || distanceToEnemy < distanceArray0[NUM_RAYS / 2 + 1]) {
+						// Enemy is hit
+						enemy->setHealth(enemy->getHealth() - PLAYER_DAMAGE);
+					}
 				}
 			}
 		}
+	}
+	else {
+		player.setIsShooting(false);
 	}
 }
 
@@ -456,7 +462,6 @@ void WolfensteinCore0App::updateEnemies() {
 
 void WolfensteinCore0App::updateDrops() {
 	Drop* healthDropArray = SHARED_DATA_PACKETS[0].healthDropArray;
-	Drop* ammoDropArray = SHARED_DATA_PACKETS[0].ammoDropArray;
 
 	if(player.getHealth() < MAX_PLAYER_HEALTH) {
 		for(int i = 0; i < currentLevel->getNumHealthDrops(); i++) {
@@ -470,6 +475,24 @@ void WolfensteinCore0App::updateDrops() {
 
 			if(healthDropArray[i].pickUp(distanceFromObject)) {
 				player.setHealth(player.getHealth() + HEALTH_DROP_AMOUNT_HEALED);
+			}
+		}
+	}
+
+	Drop* ammoDropArray = SHARED_DATA_PACKETS[0].ammoDropArray;
+
+	if(player.getAmmo() < MAX_PLAYER_AMMO) {
+		for(int i = 0; i < currentLevel->getNumAmmoDrops(); i++) {
+			if(ammoDropArray[i].isPickedUp()) {
+				continue;
+			}
+
+			float dropToPlayerX = player.getPositionX() - ammoDropArray[i].getPositionX();
+			float dropToPlayerY = player.getPositionY() - ammoDropArray[i].getPositionY();
+			float distanceFromObject = sqrtf(dropToPlayerX * dropToPlayerX + dropToPlayerY * dropToPlayerY);
+
+			if(ammoDropArray[i].pickUp(distanceFromObject)) {
+				player.setAmmo(player.getAmmo() + AMMO_DROP_AMOUNT_GAINED);
 			}
 		}
 	}
