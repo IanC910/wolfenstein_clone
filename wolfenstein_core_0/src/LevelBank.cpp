@@ -18,7 +18,7 @@ float LEVEL_0_HEALTH_DROP_POSITIONS[MAX_NUM_HEALTH_DROPS][2] = {
 	{3.5, 9.0}
 };
 float LEVEL_0_AMMO_DROP_POSITIONS[MAX_NUM_AMMO_DROPS][2] = {
-	{3.5, 8.0}
+	{8.5, 7.5}
 };
 char LEVEL_0_LAYOUT[LEVEL_0_WIDTH * LEVEL_0_HEIGHT + 1] =
 	"##        "
@@ -60,7 +60,9 @@ float LEVEL_1_HEALTH_DROP_POSITIONS[MAX_NUM_ENEMIES][2] = {
 	{14.5, 11.5}
 };
 float LEVEL_1_AMMO_DROP_POSITIONS[MAX_NUM_AMMO_DROPS][2] = {
-	{5.5, 9.0}
+	{14.5, 0.5},
+	{6.5, 5.5},
+	{14.5, 14.5},
 };
 char LEVEL_1_LAYOUT[LEVEL_1_WIDTH * LEVEL_1_HEIGHT + 1] =
 	"######   ##    "
