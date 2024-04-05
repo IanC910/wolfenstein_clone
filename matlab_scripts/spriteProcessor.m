@@ -6,8 +6,8 @@ close all
 
 % Configurables
 
-inputFileName   = '../assets/sources/ammo_drop.png';
-outputFileName  = '../assets/processed/ammo_drop.sprite';
+inputFileName   = '../assets/sources/ammo.png';
+outputFileName  = '../assets/processed/ammo.sprite';
 
 upScaleFactor = 2;
 

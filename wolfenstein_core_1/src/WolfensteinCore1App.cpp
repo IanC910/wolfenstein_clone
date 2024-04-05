@@ -470,7 +470,7 @@ void WolfensteinCore1App::drawHUD() {
 	int healthBarHeight = 20;
 	int healthBarLength = MAX_PLAYER_HEALTH;
 	int healthBarTopRow = SCREEN_HEIGHT - 1 - 20 - healthBarHeight;
-	int	healthBarLeftCol = SCREEN_WIDTH - 1 - 20 - healthBarLength;
+	int	healthBarLeftCol = SCREEN_WIDTH - 1 - 28 - healthBarLength;
 
 	int healthBarEmptyColour = colourRGB(8, 0, 0);
 	int healthBarFullColour = colourRGB(0, 15, 0);
@@ -489,6 +489,9 @@ void WolfensteinCore1App::drawHUD() {
 			healthBarLength * sizeof(int)
 		);
 	}
+
+	Sprite heartSprite(HEALTH_BAR_HEART_SPRITE);
+	drawSpriteSimple(&heartSprite, healthBarTopRow, healthBarLeftCol + healthBarLength + 5);
 
 	int ammoBarHeight = healthBarHeight;
 	int ammoBarLength = MAX_PLAYER_AMMO;
@@ -512,6 +515,9 @@ void WolfensteinCore1App::drawHUD() {
 			ammoBarLength * sizeof(int)
 		);
 	}
+
+	Sprite ammoSprite(AMMO_BAR_AMMO_SPRITE);
+	drawSpriteSimple(&ammoSprite, ammoBarTopRow, ammoBarLeftCol + ammoBarLength + ((heartSprite.getNumCols() - ammoSprite.getNumCols()) / 2)  + 5);
 
 	// Draw first person weapon sprite
 	Sprite gunSprite(FIRST_PERSON_GUN_SPRITE);

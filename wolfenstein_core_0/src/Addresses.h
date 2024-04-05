@@ -24,6 +24,8 @@ int* const MUZZLE_FLASH_SPRITE						= (int*)					0x00E33000; // size: 16384 = 0x
 int* const ENEMY_SPRITE								= (int*)					0x00E37000; // size: 32768 = 0x8000
 int* const HEALTH_DROP_SPRITE						= (int*)					0x00E3F000; // size: 16384 = 0x4000
 int* const AMMO_DROP_SPRITE							= (int*)					0x00E43000; // size: 16384 = 0x4000
+int* const HEALTH_BAR_HEART_SPRITE					= (int*)					0x00E47000; // size:
+int* const AMMO_BAR_AMMO_SPRITE					    = (int*)					0x00E48000; // size:
 
 
 #endif
