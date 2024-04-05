@@ -218,10 +218,9 @@ void WolfensteinCore1App::drawObjectWithPosition(
 
 	if(inPlayerFOV && distanceArray[objectMiddleCol / GRANULARITY_H] >= distanceFromPlayer) {
 
-		const float SCALE_FACTOR_LOWER_BOUND = 1;
 		float scaleFactor = distanceFromPlayer;
-		if(scaleFactor < SCALE_FACTOR_LOWER_BOUND) {
-			scaleFactor = SCALE_FACTOR_LOWER_BOUND;
+		if(scaleFactor < MIN_SPRITE_SCALE_FACTOR) {
+			scaleFactor = MIN_SPRITE_SCALE_FACTOR;
 		}
 
 		int objectLeftCol 	= objectMiddleCol - sprite->getNumCols() / (2 * scaleFactor);

@@ -1,7 +1,10 @@
+
+#include "Constants.h"
+
 #include "Drop.h"
 
-bool Drop::canPickUp(float distance) {
-	if(distance < 1.0) {
+bool Drop::pickUp(float distance) {
+	if(distance < DROP_PICKUP_RADIUS) {
 		pickedUp = true;
 	}
 	return pickedUp;
