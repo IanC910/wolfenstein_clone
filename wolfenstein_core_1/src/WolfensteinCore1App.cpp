@@ -193,7 +193,8 @@ void WolfensteinCore1App::drawObjectWithPosition(
 	Player* player,
 	float* distanceArray,
 	Sprite* sprite,
-	int rowOffset
+	int drawHeightOffset,
+	int drawColOffset
 ) {
 	if(sprite == nullptr) {
 		return;
@@ -212,8 +213,8 @@ void WolfensteinCore1App::drawObjectWithPosition(
 		objectAngle -= 2.0 * M_PI;
 	}
 
-	bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
-	int objectMiddleCol = (objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH);
+	int objectMiddleCol = (int)((objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH)) + drawColOffset;
+	bool inPlayerFOV = objectMiddleCol >= 0 && objectMiddleCol < SCREEN_WIDTH;
 
 	if(inPlayerFOV && distanceArray[objectMiddleCol / GRANULARITY_H] >= distanceFromPlayer) {
 
@@ -228,7 +229,7 @@ void WolfensteinCore1App::drawObjectWithPosition(
 
 		int spriteHeightInScreenSpace = (int)(sprite->getNumRows() * sprite->getGranularity() / scaleFactor);
 
-		int objectTopRow = SCREEN_HEIGHT / 2 - (sprite->getNumRows() * sprite->getGranularity() - rowOffset) / (2 * scaleFactor);
+		int objectTopRow = SCREEN_HEIGHT / 2 - (sprite->getNumRows() * sprite->getGranularity() - drawHeightOffset) / (2 * scaleFactor);
 		int objectBottomRow = objectTopRow + spriteHeightInScreenSpace;
 
 		int screenGranularity = (int)(sprite->getGranularity() / scaleFactor);
@@ -302,7 +303,7 @@ void WolfensteinCore1App::drawObjectWithPosition(
 					(endScreenCol - startScreenCol) * sizeof(int)
 				);
 			}
-		}
+		} // for screenRow
 
 		// Update distance array with new distances for drawn enemies
 		for(int ray = objectLeftCol / GRANULARITY_H; ray < objectRightCol / GRANULARITY_H; ray++) {
@@ -328,13 +329,29 @@ void WolfensteinCore1App::drawEnemies() {
 
 		Sprite enemySprite(ENEMY_SPRITE);
 
+		int enemyRowOffset = 40;
+
 		drawObjectWithPosition(
             enemy,
             player,
             distanceArray,
 			&enemySprite,
-            40 // row offset adjustment
+			enemyRowOffset,
+			0
         );
+
+		if(enemy->getTimeSinceLastShotS() == 0) {
+			Sprite flashSprite(MUZZLE_FLASH_SPRITE);
+
+			drawObjectWithPosition(
+				enemy,
+				player,
+				distanceArray,
+				&flashSprite,
+				-28,
+				4
+			);
+		}
 	}
 }
 
@@ -352,12 +369,15 @@ void WolfensteinCore1App::drawDrops() {
 
 		Sprite healthDropSprite(HEALTH_DROP_SPRITE);
 
+		int spriteRowOffset = 300;
+
 		drawObjectWithPosition(
 			healthDrop,
 			player,
 			distanceArray,
 			&healthDropSprite,
-			300
+			spriteRowOffset,
+			0
 		);
 	}
 }

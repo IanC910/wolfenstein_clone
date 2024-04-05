@@ -21,7 +21,8 @@ private:
 		Player* player,
 		float* distanceArray,
 		Sprite* sprite,
-		int rowOffset
+		int drawHeightOffset,
+		int drawColOffset
 	);
 	void drawEnemies();
 	void drawDrops();
