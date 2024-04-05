@@ -374,6 +374,18 @@ void WolfensteinCore0App::initializeDrops() {
 	for(int i = currentLevel->getNumHealthDrops(); i < MAX_NUM_HEALTH_DROPS; i++) {
 		healthDropArray[i].reset();
 	}
+
+	Drop* ammoDropArray = SHARED_DATA_PACKETS[0].ammoDropArray;
+
+	for(int i = 0; i < currentLevel->getNumAmmoDrops(); i++) {
+		ammoDropArray[i].initialize();
+		ammoDropArray[i].setPositionX(currentLevel->getAmmoDropX(i));
+		ammoDropArray[i].setPositionY(currentLevel->getAmmoDropY(i));
+	}
+
+	for(int i = currentLevel->getNumAmmoDrops(); i < MAX_NUM_AMMO_DROPS; i++) {
+		ammoDropArray[i].reset();
+	}
 }
 
 void WolfensteinCore0App::updateEnemies() {
@@ -444,6 +456,7 @@ void WolfensteinCore0App::updateEnemies() {
 
 void WolfensteinCore0App::updateDrops() {
 	Drop* healthDropArray = SHARED_DATA_PACKETS[0].healthDropArray;
+	Drop* ammoDropArray = SHARED_DATA_PACKETS[0].ammoDropArray;
 
 	if(player.getHealth() < MAX_PLAYER_HEALTH) {
 		for(int i = 0; i < currentLevel->getNumHealthDrops(); i++) {

@@ -379,6 +379,28 @@ void WolfensteinCore1App::drawDrops() {
 			0
 		);
 	}
+
+	Drop* ammoDropArray = SHARED_DATA_PACKETS[1].ammoDropArray;
+		for(int i = 0; i < MAX_NUM_AMMO_DROPS; i++) {
+			Drop* ammoDrop = &ammoDropArray[i];
+
+			if(ammoDrop->isPickedUp()) {
+				continue;
+			}
+
+			Sprite ammoDropSprite(AMMO_DROP_SPRITE);
+
+			int spriteRowOffset = 300;
+
+			drawObjectWithPosition(
+				ammoDrop,
+				player,
+				distanceArray,
+				&ammoDropSprite,
+				spriteRowOffset,
+				0
+			);
+		}
 }
 
 
