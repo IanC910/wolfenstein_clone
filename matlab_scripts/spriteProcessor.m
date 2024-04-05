@@ -6,8 +6,8 @@ close all
 
 % Configurables
 
-inputFileName = '../assets/sources/muzzle_flash.png';
-outputFileName = '../assets/processed/muzzle_flash.sprite';
+inputFileName   = '../assets/sources/health_drop.png';
+outputFileName  = '../assets/processed/health_drop.sprite';
 
 upScaleFactor = 2;
 
