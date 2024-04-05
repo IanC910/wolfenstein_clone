@@ -199,11 +199,10 @@ void WolfensteinCore0App::handlePlayerMovement() {
 	float moveCtrlX = 0;
 	float moveCtrlY = 0;
 	float turnCtrl = 0;
-
 	if(DO_USE_CONTROLLER) {
-		moveCtrlX = controller.getNormedJoystickX(0);
-		moveCtrlY = controller.getNormedJoystickY(0);
-		turnCtrl = controller.getNormedJoystickX(1);
+		moveCtrlX = controller.getNormedJoystickX(1);
+		moveCtrlY = controller.getNormedJoystickY(1);
+		turnCtrl = controller.getNormedJoystickX(0);
 	}
 	else {
 		moveCtrlY = (float)Buttons_isButtonPressed(BTN_UP);
@@ -230,7 +229,7 @@ void WolfensteinCore0App::handlePlayerAction() {
 	static bool prevTrigger = true;
 
 	if(DO_USE_CONTROLLER) {
-		trigger = controller.isTriggerPressed(1);
+		trigger = controller.isTriggerPressed(0);
 	}
 	else {
 		trigger = Buttons_isButtonPressed(BTN_CENTRE);

@@ -1,10 +1,10 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
--- Date        : Sat Mar 23 17:14:35 2024
+-- Date        : Sat Mar 23 17:14:34 2024
 -- Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_proc_sys_reset_0_2/wolfenstein_platform_proc_sys_reset_0_2_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top wolfenstein_platform_proc_sys_reset_0_2 -prefix
+--               wolfenstein_platform_proc_sys_reset_0_2_ wolfenstein_platform_proc_sys_reset_0_2_sim_netlist.vhdl
 -- Design      : wolfenstein_platform_proc_sys_reset_0_2
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -25,8 +25,6 @@ entity wolfenstein_platform_proc_sys_reset_0_2_cdc_sync is
     aux_reset_in : in STD_LOGIC;
     slowest_sync_clk : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_proc_sys_reset_0_2_cdc_sync : entity is "cdc_sync";
 end wolfenstein_platform_proc_sys_reset_0_2_cdc_sync;
 
 architecture STRUCTURE of wolfenstein_platform_proc_sys_reset_0_2_cdc_sync is
@@ -237,8 +235,6 @@ entity wolfenstein_platform_proc_sys_reset_0_2_upcnt_n is
     seq_cnt_en : in STD_LOGIC;
     slowest_sync_clk : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_proc_sys_reset_0_2_upcnt_n : entity is "upcnt_n";
 end wolfenstein_platform_proc_sys_reset_0_2_upcnt_n;
 
 architecture STRUCTURE of wolfenstein_platform_proc_sys_reset_0_2_upcnt_n is
@@ -403,8 +399,6 @@ entity wolfenstein_platform_proc_sys_reset_0_2_lpf is
     ext_reset_in : in STD_LOGIC;
     aux_reset_in : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_proc_sys_reset_0_2_lpf : entity is "lpf";
 end wolfenstein_platform_proc_sys_reset_0_2_lpf;
 
 architecture STRUCTURE of wolfenstein_platform_proc_sys_reset_0_2_lpf is
@@ -591,8 +585,6 @@ entity wolfenstein_platform_proc_sys_reset_0_2_sequence_psr is
     lpf_int : in STD_LOGIC;
     slowest_sync_clk : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_proc_sys_reset_0_2_sequence_psr : entity is "sequence_psr";
 end wolfenstein_platform_proc_sys_reset_0_2_sequence_psr;
 
 architecture STRUCTURE of wolfenstein_platform_proc_sys_reset_0_2_sequence_psr is
@@ -931,8 +923,6 @@ entity wolfenstein_platform_proc_sys_reset_0_2_proc_sys_reset is
   attribute C_NUM_PERP_ARESETN of wolfenstein_platform_proc_sys_reset_0_2_proc_sys_reset : entity is 1;
   attribute C_NUM_PERP_RST : integer;
   attribute C_NUM_PERP_RST of wolfenstein_platform_proc_sys_reset_0_2_proc_sys_reset : entity is 1;
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_proc_sys_reset_0_2_proc_sys_reset : entity is "proc_sys_reset";
 end wolfenstein_platform_proc_sys_reset_0_2_proc_sys_reset;
 
 architecture STRUCTURE of wolfenstein_platform_proc_sys_reset_0_2_proc_sys_reset is

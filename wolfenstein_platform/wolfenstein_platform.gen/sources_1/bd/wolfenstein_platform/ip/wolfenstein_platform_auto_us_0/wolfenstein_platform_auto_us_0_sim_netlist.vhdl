@@ -1,10 +1,10 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
--- Date        : Sat Mar 23 17:16:18 2024
+-- Date        : Sat Mar 23 17:16:17 2024
 -- Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_auto_us_0/wolfenstein_platform_auto_us_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top wolfenstein_platform_auto_us_0 -prefix
+--               wolfenstein_platform_auto_us_0_ wolfenstein_platform_auto_us_0_sim_netlist.vhdl
 -- Design      : wolfenstein_platform_auto_us_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -46,8 +46,6 @@ entity wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_r_upsizer is
     D : in STD_LOGIC_VECTOR ( 2 downto 0 );
     \current_word_1_reg[2]_1\ : in STD_LOGIC_VECTOR ( 2 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_r_upsizer : entity is "axi_dwidth_converter_v2_1_22_r_upsizer";
 end wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_r_upsizer;
 
 architecture STRUCTURE of wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_r_upsizer is
@@ -1523,8 +1521,6 @@ entity wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_w_upsizer is
     D : in STD_LOGIC_VECTOR ( 2 downto 0 );
     \USE_RTL_CURR_WORD.current_word_q_reg[2]_1\ : in STD_LOGIC_VECTOR ( 2 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_w_upsizer : entity is "axi_dwidth_converter_v2_1_22_w_upsizer";
 end wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_w_upsizer;
 
 architecture STRUCTURE of wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_w_upsizer is
@@ -8904,8 +8900,6 @@ entity wolfenstein_platform_auto_us_0_generic_baseblocks_v2_1_0_command_fifo is
     valid_Write_1 : in STD_LOGIC;
     \USE_FF_OUT.USE_RTL_OUTPUT_PIPELINE.M_MESG_Q_reg[1]_0\ : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_auto_us_0_generic_baseblocks_v2_1_0_command_fifo : entity is "generic_baseblocks_v2_1_0_command_fifo";
 end wolfenstein_platform_auto_us_0_generic_baseblocks_v2_1_0_command_fifo;
 
 architecture STRUCTURE of wolfenstein_platform_auto_us_0_generic_baseblocks_v2_1_0_command_fifo is
@@ -12459,8 +12453,6 @@ entity wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_a_upsizer is
     \USE_FF_OUT.USE_RTL_OUTPUT_PIPELINE.M_MESG_Q_reg[1]_0\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
     \in\ : in STD_LOGIC_VECTOR ( 23 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_a_upsizer : entity is "axi_dwidth_converter_v2_1_22_a_upsizer";
 end wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_a_upsizer;
 
 architecture STRUCTURE of wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_a_upsizer is
@@ -12708,8 +12700,6 @@ entity wolfenstein_platform_auto_us_0_axi_register_slice_v2_1_22_axi_register_sl
     \USE_RTL_LENGTH.first_mi_word_q\ : in STD_LOGIC;
     E : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_auto_us_0_axi_register_slice_v2_1_22_axi_register_slice : entity is "axi_register_slice_v2_1_22_axi_register_slice";
 end wolfenstein_platform_auto_us_0_axi_register_slice_v2_1_22_axi_register_slice;
 
 architecture STRUCTURE of wolfenstein_platform_auto_us_0_axi_register_slice_v2_1_22_axi_register_slice is
@@ -12875,8 +12865,6 @@ entity wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_axi_upsizer i
     m_axi_arready : in STD_LOGIC;
     m_axi_rvalid : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_axi_upsizer : entity is "axi_dwidth_converter_v2_1_22_axi_upsizer";
 end wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_axi_upsizer;
 
 architecture STRUCTURE of wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_axi_upsizer is
@@ -13624,8 +13612,6 @@ entity wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_top is
   attribute C_S_AXI_ID_WIDTH of wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_top : entity is 2;
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_top : entity is "yes";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_top : entity is "axi_dwidth_converter_v2_1_22_top";
   attribute P_AXI3 : integer;
   attribute P_AXI3 of wolfenstein_platform_auto_us_0_axi_dwidth_converter_v2_1_22_top : entity is 1;
   attribute P_AXI4 : integer;

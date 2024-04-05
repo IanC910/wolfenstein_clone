@@ -3,8 +3,8 @@
 -- Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
 -- Date        : Sat Mar 23 17:15:07 2024
 -- Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_zed_audio_ctrl_0_0/wolfenstein_platform_zed_audio_ctrl_0_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top wolfenstein_platform_zed_audio_ctrl_0_0 -prefix
+--               wolfenstein_platform_zed_audio_ctrl_0_0_ wolfenstein_platform_zed_audio_ctrl_0_0_sim_netlist.vhdl
 -- Design      : wolfenstein_platform_zed_audio_ctrl_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -53,8 +53,6 @@ entity wolfenstein_platform_zed_audio_ctrl_0_0_address_decoder is
     s_axi_bvalid_i_reg : in STD_LOGIC;
     data_rdy_bit_reg : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_zed_audio_ctrl_0_0_address_decoder : entity is "address_decoder";
 end wolfenstein_platform_zed_audio_ctrl_0_0_address_decoder;
 
 architecture STRUCTURE of wolfenstein_platform_zed_audio_ctrl_0_0_address_decoder is
@@ -1261,8 +1259,6 @@ entity wolfenstein_platform_zed_audio_ctrl_0_0_iis_deser is
     \rdata_reg_reg[23]_1\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
     SDATA_I : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_zed_audio_ctrl_0_0_iis_deser : entity is "iis_deser";
 end wolfenstein_platform_zed_audio_ctrl_0_0_iis_deser;
 
 architecture STRUCTURE of wolfenstein_platform_zed_audio_ctrl_0_0_iis_deser is
@@ -2200,8 +2196,6 @@ entity wolfenstein_platform_zed_audio_ctrl_0_0_iis_ser is
     E : in STD_LOGIC_VECTOR ( 0 to 0 );
     \bit_cntr_reg[4]_0\ : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_zed_audio_ctrl_0_0_iis_ser : entity is "iis_ser";
 end wolfenstein_platform_zed_audio_ctrl_0_0_iis_ser;
 
 architecture STRUCTURE of wolfenstein_platform_zed_audio_ctrl_0_0_iis_ser is
@@ -3712,8 +3706,6 @@ entity wolfenstein_platform_zed_audio_ctrl_0_0_slave_attachment is
     \s_axi_rdata_i_reg[24]_0\ : in STD_LOGIC;
     data_rdy_bit_reg : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_zed_audio_ctrl_0_0_slave_attachment : entity is "slave_attachment";
 end wolfenstein_platform_zed_audio_ctrl_0_0_slave_attachment;
 
 architecture STRUCTURE of wolfenstein_platform_zed_audio_ctrl_0_0_slave_attachment is
@@ -4369,8 +4361,6 @@ entity wolfenstein_platform_zed_audio_ctrl_0_0_user_logic is
     S_AXI_WDATA : in STD_LOGIC_VECTOR ( 31 downto 0 );
     \DataTx_R_reg[0]_0\ : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_zed_audio_ctrl_0_0_user_logic : entity is "user_logic";
 end wolfenstein_platform_zed_audio_ctrl_0_0_user_logic;
 
 architecture STRUCTURE of wolfenstein_platform_zed_audio_ctrl_0_0_user_logic is
@@ -6046,8 +6036,6 @@ entity wolfenstein_platform_zed_audio_ctrl_0_0_axi_lite_ipif is
     \s_axi_rdata_i_reg[24]\ : in STD_LOGIC;
     data_rdy_bit_reg : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_zed_audio_ctrl_0_0_axi_lite_ipif : entity is "axi_lite_ipif";
 end wolfenstein_platform_zed_audio_ctrl_0_0_axi_lite_ipif;
 
 architecture STRUCTURE of wolfenstein_platform_zed_audio_ctrl_0_0_axi_lite_ipif is
@@ -6112,8 +6100,6 @@ entity wolfenstein_platform_zed_audio_ctrl_0_0_i2s_ctrl is
     S_AXI_RREADY : in STD_LOGIC;
     S_AXI_BREADY : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_zed_audio_ctrl_0_0_i2s_ctrl : entity is "i2s_ctrl";
 end wolfenstein_platform_zed_audio_ctrl_0_0_i2s_ctrl;
 
 architecture STRUCTURE of wolfenstein_platform_zed_audio_ctrl_0_0_i2s_ctrl is

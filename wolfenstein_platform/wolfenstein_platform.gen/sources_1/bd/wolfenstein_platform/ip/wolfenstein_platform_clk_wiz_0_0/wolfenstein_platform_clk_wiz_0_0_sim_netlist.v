@@ -3,8 +3,8 @@
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
 // Date        : Sat Mar 23 17:13:16 2024
 // Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim
-//               c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_clk_wiz_0_0/wolfenstein_platform_clk_wiz_0_0_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim -rename_top wolfenstein_platform_clk_wiz_0_0 -prefix
+//               wolfenstein_platform_clk_wiz_0_0_ wolfenstein_platform_clk_wiz_0_0_sim_netlist.v
 // Design      : wolfenstein_platform_clk_wiz_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -31,7 +31,6 @@ module wolfenstein_platform_clk_wiz_0_0
         .resetn(resetn));
 endmodule
 
-(* ORIG_REF_NAME = "wolfenstein_platform_clk_wiz_0_0_clk_wiz" *) 
 module wolfenstein_platform_clk_wiz_0_0_wolfenstein_platform_clk_wiz_0_0_clk_wiz
    (pixel_clk,
     resetn,

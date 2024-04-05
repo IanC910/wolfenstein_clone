@@ -35,8 +35,8 @@ const float RAY_DISTANCE_INCREMENT 	= 0.1;
 
 
 // Debug params
-const bool DO_USE_CONTROLLER = false;
-const bool DO_PRINT_FRAME_TIME = true;
+const bool DO_USE_CONTROLLER = true;
+const bool DO_PRINT_FRAME_TIME = false;
 
 
 // Gameplay params
