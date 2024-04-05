@@ -22,9 +22,10 @@ int* const GUNSHOT_SOUND							= (int*)					0x00E2C000; // size: 12288 = 0x3000
 int* const FIRST_PERSON_GUN_SPRITE					= (int*)					0x00E2F000; // size: 16384 = 0x4000
 int* const MUZZLE_FLASH_SPRITE						= (int*)					0x00E33000; // size: 16384 = 0x4000
 int* const ENEMY_SPRITE								= (int*)					0x00E37000; // size: 32768 = 0x8000
-int* const NEXT										= (int*)					0x00E3E000;
+int* const HEALTH_DROP_SPRITE						= (int*)					0x00E3F000; // size: 16384 = 0x4000
+int* const NEXT_ASSET								= (int*)					0x00E43000;
 
-unsigned char* const HEALTH_SPRITE 					= (unsigned char *)			0x018ED208;
+//unsigned char* const HEALTH_SPRITE 					= (unsigned char *)			0x018ED208;
 
 
 #endif

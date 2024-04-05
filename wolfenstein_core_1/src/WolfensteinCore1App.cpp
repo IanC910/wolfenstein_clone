@@ -333,7 +333,7 @@ void WolfensteinCore1App::drawEnemies() {
             player,
             distanceArray,
 			&enemySprite,
-            40
+            40 // row offset adjustment
         );
 	}
 }
@@ -344,18 +344,19 @@ void WolfensteinCore1App::drawDrops() {
 
 	Drop* healthDropArray = SHARED_DATA_PACKETS[1].healthDropArray;
 	for(int i = 0; i < MAX_NUM_HEALTH_DROPS; i++) {
-		Drop* drop = &healthDropArray[i];
+		Drop* healthDrop = &healthDropArray[i];
 
-		if(drop->isPickedUp()) {
+		if(healthDrop->isPickedUp()) {
 			continue;
 		}
 
-		// TODO: make health drop sprite
+		Sprite healthDropSprite(HEALTH_DROP_SPRITE);
+
 		drawObjectWithPosition(
-			drop,
+			healthDrop,
 			player,
 			distanceArray,
-			nullptr,
+			&healthDropSprite,
 			300
 		);
 	}
