@@ -6,7 +6,7 @@
 
 class Drop : public ObjectWithPosition {
 public:
-	bool canPickUp(float distance);
+	bool pickUp(float distance);
 	bool isPickedUp();
 
 	void reset();

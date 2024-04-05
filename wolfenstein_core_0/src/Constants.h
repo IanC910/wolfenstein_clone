@@ -26,12 +26,13 @@ const int SCREEN_SIZE_BYTES 	= SCREEN_SIZE * sizeof(int); // 1 228 800 = 0x12 C0
 
 
 // Rendering params
-const int RESOLUTION_DOWN_SCALE_H 	= 8;
-const int RESOLUTION_DOWN_SCALE_V	= 1; // Does nothing so far
-const int PIXEL_WIDTHS_PER_RAY 		= RESOLUTION_DOWN_SCALE_H;
+const int GRANULARITY_H 			= 8;
+const int GRANULARITY_V				= 2;
+const int PIXEL_WIDTHS_PER_RAY 		= GRANULARITY_H;
 const int MAX_NUM_RAYS				= SCREEN_WIDTH;
 const int NUM_RAYS 					= MAX_NUM_RAYS / PIXEL_WIDTHS_PER_RAY;
 const float RAY_DISTANCE_INCREMENT 	= 0.1;
+const float MIN_SPRITE_SCALE_FACTOR	= 1.0;
 
 
 // Debug params
@@ -44,22 +45,18 @@ const float VERTICAL_FOV	= M_PI * 0.4;
 const float HORIZONTAL_FOV	= M_PI * 0.5;
 
 const int MAX_PLAYER_HEALTH = 100;
-const int PLAYER_DAMAGE = 50;
+const int PLAYER_DAMAGE = 25;
 const float MAX_PLAYER_TURN_SPEED_RAD_PER_SEC = 1.5;
 const float MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC = 1.5;
 
 const int MAX_NUM_ENEMIES = 10;
 const int MAX_NUM_HEALTH_DROPS = 4 + MAX_NUM_ENEMIES;
 const int MAX_ENEMY_HEALTH = 100;
-const int ENEMY_DAMAGE = 2;
+const int ENEMY_DAMAGE = 10;
 const float MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC = 0.5;
 const float ENEMY_SHOT_DELAY_S = 1.0;
 
-// Enemy Sprite Params
-const int ENEMY_SPRITE_WIDTH = 112;
-const int ENEMY_SPRITE_HEIGHT = 248;
-
-const int HEALTH_SPRITE_WIDTH = 92;
-const int HEALTH_SPRITE_HEIGHT = 68;
+const float DROP_PICKUP_RADIUS = 0.5;
+const int HEALTH_DROP_AMOUNT_HEALED = 25;
 
 #endif
