@@ -23,6 +23,6 @@ int* const FIRST_PERSON_GUN_SPRITE					= (int*)					0x00E30000; // size: 16384 =
 int* const MUZZLE_FLASH_SPRITE						= (int*)					0x00E34000; // size: 16384 = 0x4000
 int* const ENEMY_SPRITE								= (int*)					0x00E38000; // size: 32768 = 0x8000
 int* const HEALTH_DROP_SPRITE						= (int*)					0x00E40000; // size: 16384 = 0x4000
-int* const SONG_SOUND								= (int*)					0x00E44000;
+int* const SONG_SOUND								= (int*)					0x00E44000; // size: 512000 = 0x7D000
 
 #endif

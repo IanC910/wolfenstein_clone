@@ -29,7 +29,7 @@ dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processe
 dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/muzzle_flash.sprite 0xe34000
 dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/enemy.sprite 0xe38000
 dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/health_drop.sprite 0xe40000
-dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/symphony.sound 0xe44000
+dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/song.sound 0xe44000
 targets -set -nocase -filter {name =~ "*A9*#0"}
 dow C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_core_0/Debug/wolfenstein_core_0.elf
 targets -set -nocase -filter {name =~ "*A9*#1"}

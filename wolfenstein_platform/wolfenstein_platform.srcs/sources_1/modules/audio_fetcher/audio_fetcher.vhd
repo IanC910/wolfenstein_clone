@@ -17,7 +17,6 @@ entity audio_fetcher is
         I2S_DATA_TX_L_REG_OFFSET        : integer := 8;
         I2S_DATA_TX_R_REG_OFFSET        : integer := 12;
 
-        NUM_SLOTS                       : integer := 2;
         SAMPLE_PERIOD_US                : integer := 45;
 
         -- Parameters of Axi Master Bus Interface M_AXI_DMA
@@ -286,7 +285,6 @@ architecture arch_imp of audio_fetcher is
             ZED_AUDIO_CTRL_ADDR             : integer := 16#43C0_0000#;
             I2S_DATA_TX_L_REG_OFFSET        : integer := 8;
             I2S_DATA_TX_R_REG_OFFSET        : integer := 12;
-            NUM_SLOTS                       : integer := 2;
             SAMPLE_PERIOD_US                : integer := 45
         );
         port(
@@ -357,7 +355,6 @@ begin
             ZED_AUDIO_CTRL_ADDR             => ZED_AUDIO_CTRL_ADDR,
             I2S_DATA_TX_L_REG_OFFSET        => I2S_DATA_TX_L_REG_OFFSET,
             I2S_DATA_TX_R_REG_OFFSET        => I2S_DATA_TX_R_REG_OFFSET,
-            NUM_SLOTS                       => NUM_SLOTS,
             SAMPLE_PERIOD_US                => SAMPLE_PERIOD_US
         )
         port map (

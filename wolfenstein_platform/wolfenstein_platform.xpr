@@ -130,17 +130,14 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
+        <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_vga_controller_0_0/wolfenstein_platform_vga_controller_0_0.xci">
+          <Proxy FileSetName="wolfenstein_platform_vga_controller_0_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_clk_wiz_0_0/wolfenstein_platform_clk_wiz_0_0.xci">
+          <Proxy FileSetName="wolfenstein_platform_clk_wiz_0_0"/>
+        </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_audio_fetcher_0_1/wolfenstein_platform_audio_fetcher_0_1.xci">
           <Proxy FileSetName="wolfenstein_platform_audio_fetcher_0_1"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_btn_interrupt_gen_0_2/wolfenstein_platform_btn_interrupt_gen_0_2.xci">
-          <Proxy FileSetName="wolfenstein_platform_btn_interrupt_gen_0_2"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_zed_audio_ctrl_0_0/wolfenstein_platform_zed_audio_ctrl_0_0.xci">
-          <Proxy FileSetName="wolfenstein_platform_zed_audio_ctrl_0_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_PmodJSTK2_1_0_1/wolfenstein_platform_PmodJSTK2_1_0.xci">
-          <Proxy FileSetName="wolfenstein_platform_PmodJSTK2_1_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_axi_gpio_1_0/wolfenstein_platform_axi_gpio_1_0.xci">
           <Proxy FileSetName="wolfenstein_platform_axi_gpio_1_0"/>
@@ -148,14 +145,8 @@
         <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_debouncer_0_1/wolfenstein_platform_debouncer_0_1.xci">
           <Proxy FileSetName="wolfenstein_platform_debouncer_0_1"/>
         </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_vga_controller_0_0/wolfenstein_platform_vga_controller_0_0.xci">
-          <Proxy FileSetName="wolfenstein_platform_vga_controller_0_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_clk_wiz_0_0/wolfenstein_platform_clk_wiz_0_0.xci">
-          <Proxy FileSetName="wolfenstein_platform_clk_wiz_0_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_rst_ps7_0_200M_1/wolfenstein_platform_rst_ps7_0_200M_1.xci">
-          <Proxy FileSetName="wolfenstein_platform_rst_ps7_0_200M_1"/>
+        <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_btn_interrupt_gen_0_2/wolfenstein_platform_btn_interrupt_gen_0_2.xci">
+          <Proxy FileSetName="wolfenstein_platform_btn_interrupt_gen_0_2"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_processing_system7_0_2/wolfenstein_platform_processing_system7_0_2.xci">
           <Proxy FileSetName="wolfenstein_platform_processing_system7_0_2"/>
@@ -163,8 +154,17 @@
         <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_proc_sys_reset_0_2/wolfenstein_platform_proc_sys_reset_0_2.xci">
           <Proxy FileSetName="wolfenstein_platform_proc_sys_reset_0_2"/>
         </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_PmodJSTK2_1_0_1/wolfenstein_platform_PmodJSTK2_1_0.xci">
+          <Proxy FileSetName="wolfenstein_platform_PmodJSTK2_1_0"/>
+        </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_xbar_3/wolfenstein_platform_xbar_3.xci">
           <Proxy FileSetName="wolfenstein_platform_xbar_3"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_rst_ps7_0_200M_1/wolfenstein_platform_rst_ps7_0_200M_1.xci">
+          <Proxy FileSetName="wolfenstein_platform_rst_ps7_0_200M_1"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="wolfenstein_platform.bd" FileRelPathName="ip/wolfenstein_platform_zed_audio_ctrl_0_0/wolfenstein_platform_zed_audio_ctrl_0_0.xci">
+          <Proxy FileSetName="wolfenstein_platform_zed_audio_ctrl_0_0"/>
         </CompFileExtendedInfo>
       </File>
       <File Path="$PGENDIR/sources_1/bd/wolfenstein_platform/hdl/wolfenstein_platform_wrapper.vhd">

@@ -135,7 +135,6 @@
         <spirit:configurableElementValue spirit:referenceId="MODELPARAM_VALUE.C_S_AXI_ADDR_WIDTH">4</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="MODELPARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET">8</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="MODELPARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET">12</spirit:configurableElementValue>
-        <spirit:configurableElementValue spirit:referenceId="MODELPARAM_VALUE.NUM_SLOTS">2</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="MODELPARAM_VALUE.SAMPLE_PERIOD_US">45</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="MODELPARAM_VALUE.ZED_AUDIO_CTRL_ADDR">1136721920</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="PARAM_VALUE.AXI_DATA_WIDTH">32</spirit:configurableElementValue>
@@ -153,7 +152,6 @@
         <spirit:configurableElementValue spirit:referenceId="PARAM_VALUE.Component_Name">wolfenstein_platform_audio_fetcher_0_1</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="PARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET">8</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET">12</spirit:configurableElementValue>
-        <spirit:configurableElementValue spirit:referenceId="PARAM_VALUE.NUM_SLOTS">2</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="PARAM_VALUE.SAMPLE_PERIOD_US">45</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="PARAM_VALUE.ZED_AUDIO_CTRL_ADDR">1136721920</spirit:configurableElementValue>
         <spirit:configurableElementValue spirit:referenceId="PROJECT_PARAM.ARCHITECTURE">zynq</spirit:configurableElementValue>

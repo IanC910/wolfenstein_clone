@@ -96,7 +96,9 @@ void WolfensteinCore0App::runCore0App() {
 				int frameIndex = 0;
 
 				float songLengthS = getSoundLengthS(SONG_SOUND);
-				float timeSinceSongPlayedS = songLengthS;
+				float timeSinceSongPlayedS = 0;
+				soundPlayer.playSound(SONG_SOUND, 80, 1);
+				soundPlayer.playSound(SONG_SOUND, 80, 1); // Bug in hw. doesn't play the first time you start the level
 
 				while(gameState == PLAYING_LEVEL) {
 					// All XTimes are in double-cycles
@@ -105,7 +107,8 @@ void WolfensteinCore0App::runCore0App() {
 
 					timeSinceSongPlayedS += frameTimeInSec;
 					if(timeSinceSongPlayedS > songLengthS) {
-						soundPlayer.playSound(SONG_SOUND, 1);
+						xil_printf("Playing song\n");
+						soundPlayer.playSound(SONG_SOUND, 80, 1);
 						timeSinceSongPlayedS = 0;
 					}
 
@@ -252,7 +255,7 @@ void WolfensteinCore0App::handlePlayerAction() {
 	prevTrigger = trigger;
 
 	if(player.getIsShooting()) {
-		soundPlayer.playSound(GUNSHOT_SOUND, 0);
+		soundPlayer.playSound(GUNSHOT_SOUND, 80, 0);
 
 		for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
 			Enemy* enemy = &enemyArray[e];
@@ -429,7 +432,7 @@ void WolfensteinCore0App::updateEnemies() {
 
 			// Handle Enemy Attack
 			if(playerDistanceFromEnemy < 1.5 && enemy->getTimeSinceLastShotS() >= ENEMY_SHOT_DELAY_S) {
-				soundPlayer.playSound(GUNSHOT_SOUND, 0);
+				soundPlayer.playSound(GUNSHOT_SOUND, 80, 0);
 				player.setHealth(player.getHealth() - ENEMY_DAMAGE);
 				enemy->setTimeSinceLastShotS(0.0);
 			}

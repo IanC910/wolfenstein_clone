@@ -17,7 +17,6 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "C_S_AXI_ADDR_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "I2S_DATA_TX_L_REG_OFFSET" -parent ${Page_0}
   ipgui::add_param $IPINST -name "I2S_DATA_TX_R_REG_OFFSET" -parent ${Page_0}
-  ipgui::add_param $IPINST -name "NUM_SLOTS" -parent ${Page_0}
   ipgui::add_param $IPINST -name "SAMPLE_PERIOD_US" -parent ${Page_0}
   ipgui::add_param $IPINST -name "ZED_AUDIO_CTRL_ADDR" -parent ${Page_0}
 
@@ -150,15 +149,6 @@ proc validate_PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET { PARAM_VALUE.I2S_DATA_TX_R_R
 	return true
 }
 
-proc update_PARAM_VALUE.NUM_SLOTS { PARAM_VALUE.NUM_SLOTS } {
-	# Procedure called to update NUM_SLOTS when any of the dependent parameters in the arguments change
-}
-
-proc validate_PARAM_VALUE.NUM_SLOTS { PARAM_VALUE.NUM_SLOTS } {
-	# Procedure called to validate NUM_SLOTS
-	return true
-}
-
 proc update_PARAM_VALUE.SAMPLE_PERIOD_US { PARAM_VALUE.SAMPLE_PERIOD_US } {
 	# Procedure called to update SAMPLE_PERIOD_US when any of the dependent parameters in the arguments change
 }
@@ -211,11 +201,6 @@ proc update_MODELPARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET { MODELPARAM_VALUE.I2S_DAT
 proc update_MODELPARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET { MODELPARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET}] ${MODELPARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET}
-}
-
-proc update_MODELPARAM_VALUE.NUM_SLOTS { MODELPARAM_VALUE.NUM_SLOTS PARAM_VALUE.NUM_SLOTS } {
-	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.NUM_SLOTS}] ${MODELPARAM_VALUE.NUM_SLOTS}
 }
 
 proc update_MODELPARAM_VALUE.SAMPLE_PERIOD_US { MODELPARAM_VALUE.SAMPLE_PERIOD_US PARAM_VALUE.SAMPLE_PERIOD_US } {

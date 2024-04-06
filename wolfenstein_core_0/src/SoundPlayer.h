@@ -8,7 +8,7 @@ class SoundPlayer {
 public:
 	SoundPlayer(unsigned int audioFetcherBaseAddr);
 
-	void playSound(void* soundFile, int soundSlot);
+	void playSound(void* soundFile, int volume, int soundSlot);
 	void stopSound(int soundSlot);
 	void stopAllSounds();
 

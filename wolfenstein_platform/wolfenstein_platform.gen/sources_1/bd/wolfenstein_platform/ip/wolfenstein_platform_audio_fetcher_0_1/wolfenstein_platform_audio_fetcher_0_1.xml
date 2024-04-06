@@ -1859,7 +1859,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:cb2396b4</spirit:value>
+            <spirit:value>9:0e79ac95</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1870,7 +1870,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:cb2396b4</spirit:value>
+            <spirit:value>9:0e79ac95</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1886,11 +1886,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Apr 06 05:01:20 UTC 2024</spirit:value>
+            <spirit:value>Sat Apr 06 12:59:05 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:cb2396b4</spirit:value>
+            <spirit:value>9:0e79ac95</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1902,7 +1902,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:33d89e54</spirit:value>
+            <spirit:value>9:33e3bcae</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1918,11 +1918,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Apr 06 05:01:20 UTC 2024</spirit:value>
+            <spirit:value>Sat Apr 06 12:59:05 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:33d89e54</spirit:value>
+            <spirit:value>9:33e3bcae</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1936,11 +1936,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Apr 06 05:02:33 UTC 2024</spirit:value>
+            <spirit:value>Sat Apr 06 13:00:25 UTC 2024</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:cb2396b4</spirit:value>
+            <spirit:value>9:0e79ac95</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -3399,11 +3399,6 @@
         <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET">12</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
-        <spirit:name>NUM_SLOTS</spirit:name>
-        <spirit:displayName>Num Slots</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.NUM_SLOTS">2</spirit:value>
-      </spirit:modelParameter>
-      <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>SAMPLE_PERIOD_US</spirit:name>
         <spirit:displayName>Sample Period Us</spirit:displayName>
         <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.SAMPLE_PERIOD_US">45</spirit:value>
@@ -3547,11 +3542,6 @@
       <spirit:name>I2S_DATA_TX_R_REG_OFFSET</spirit:name>
       <spirit:displayName>I2s Data Tx R Reg Offset</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET">12</spirit:value>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>NUM_SLOTS</spirit:name>
-      <spirit:displayName>Num Slots</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.NUM_SLOTS">2</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>SAMPLE_PERIOD_US</spirit:name>

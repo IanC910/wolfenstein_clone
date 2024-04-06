@@ -316,10 +316,7 @@ void WolfensteinCore1App::drawObjectWithPosition(
 }
 
 void WolfensteinCore1App::drawEnemies() {
-	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
-	Player* player = &SHARED_DATA_PACKETS[1].player;
 	Enemy* enemyArray = SHARED_DATA_PACKETS[1].enemyArray;
-
 
 	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
 		Enemy* enemy = &enemyArray[e];
@@ -353,10 +350,8 @@ void WolfensteinCore1App::drawEnemies() {
 }
 
 void WolfensteinCore1App::drawDrops() {
-	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
-	Player* player = &SHARED_DATA_PACKETS[1].player;
-
 	Drop* healthDropArray = SHARED_DATA_PACKETS[1].healthDropArray;
+
 	for(int i = 0; i < MAX_NUM_HEALTH_DROPS; i++) {
 		Drop* healthDrop = &healthDropArray[i];
 
@@ -376,8 +371,6 @@ void WolfensteinCore1App::drawDrops() {
 		);
 	}
 }
-
-
 
 int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
 	static float halfWallHeight = 0.5;

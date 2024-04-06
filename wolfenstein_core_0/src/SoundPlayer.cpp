@@ -7,22 +7,18 @@ static long stopSoundFile = 1;
 
 SoundPlayer::SoundPlayer(unsigned int audioFetcherBaseAddr) {
 	this->audioFetcherBaseAddr = audioFetcherBaseAddr;
-
-	// Need to do this or the first sound played on each track will not stop
-	// (bug with initialization in hw)
-	stopAllSounds();
 	stopAllSounds();
 }
 
-void SoundPlayer::playSound(void* soundFile, int soundSlot) {
+void SoundPlayer::playSound(void* soundFile, int volume, int soundSlot) {
 	Xil_Out32(audioFetcherBaseAddr + 0, (unsigned int)soundFile);
-	Xil_Out32(audioFetcherBaseAddr + 4, 100);
+	Xil_Out32(audioFetcherBaseAddr + 4, volume);
 	Xil_Out32(audioFetcherBaseAddr + 8, soundSlot);
 	Xil_Out32(audioFetcherBaseAddr + 12, 1);
 }
 
 void SoundPlayer::stopSound(int soundSlot) {
-	playSound(&stopSoundFile, soundSlot);
+	playSound(&stopSoundFile, 0, soundSlot);
 }
 
 void SoundPlayer::stopAllSounds() {
