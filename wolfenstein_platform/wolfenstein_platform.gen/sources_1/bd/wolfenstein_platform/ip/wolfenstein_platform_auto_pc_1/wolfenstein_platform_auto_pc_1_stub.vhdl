@@ -1,10 +1,10 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
--- Date        : Sat Mar 23 17:15:53 2024
--- Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub
---               c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_auto_pc_1/wolfenstein_platform_auto_pc_1_stub.vhdl
+-- Date        : Sun Mar 17 22:55:05 2024
+-- Host        : IC-VivoBook running 64-bit major release  (build 9200)
+-- Command     : write_vhdl -force -mode synth_stub -rename_top wolfenstein_platform_auto_pc_1 -prefix
+--               wolfenstein_platform_auto_pc_1_ wolfenstein_platform_auto_pc_1_stub.vhdl
 -- Design      : wolfenstein_platform_auto_pc_1
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7z020clg484-1

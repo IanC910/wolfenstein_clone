@@ -10,5 +10,6 @@ SoundPlayer::SoundPlayer(unsigned int audioFetcherBaseAddr) {
 void SoundPlayer::playSound(void* soundFilePtr) {
 	Xil_Out32(audioFetcherBaseAddr + 0, (unsigned int)soundFilePtr);
 	Xil_Out32(audioFetcherBaseAddr + 4, 100);
-	Xil_Out32(audioFetcherBaseAddr + 8, 1);
+	Xil_Out32(audioFetcherBaseAddr + 8, 0);
+	Xil_Out32(audioFetcherBaseAddr + 12, 1);
 }

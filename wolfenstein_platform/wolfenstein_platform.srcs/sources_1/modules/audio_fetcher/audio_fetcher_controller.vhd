@@ -12,7 +12,9 @@ entity audio_fetcher_controller is
         CLOCK_FREQ_MHz                  : integer := 200;
         ZED_AUDIO_CTRL_ADDR             : integer := 16#43C0_0000#;
         I2S_DATA_TX_L_REG_OFFSET        : integer := 8;
-        I2S_DATA_TX_R_REG_OFFSET        : integer := 12
+        I2S_DATA_TX_R_REG_OFFSET        : integer := 12;
+        NUM_SLOTS                       : integer := 2;
+        SAMPLE_PERIOD_US                : integer := 45
     );
     port(
         clk                 : in    std_logic;
@@ -22,6 +24,7 @@ entity audio_fetcher_controller is
         s_rv_valid          : in    std_logic;
         s_rv_sound_addr     : in    std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
         s_rv_vol_coef       : in    std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
+        s_rv_slot           : in    std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
 
         req_rv_ready        : in    std_logic;
         req_rv_valid        : out   std_logic;
@@ -44,149 +47,177 @@ entity audio_fetcher_controller is
 end entity;
 
 architecture behaviour of audio_fetcher_controller is
-    constant BYTES_PER_SAMPLE           : integer := 2;
+    constant BYTES_PER_SAMPLE       : integer := 2;
 
-    constant I2S_DATA_TX_L_REG_ADDR     : integer := ZED_AUDIO_CTRL_ADDR + I2S_DATA_TX_L_REG_OFFSET;
-    constant I2S_DATA_TX_R_REG_ADDR     : integer := ZED_AUDIO_CTRL_ADDR + I2S_DATA_TX_R_REG_OFFSET;
+    constant I2S_DATA_TX_L_REG_ADDR : integer := ZED_AUDIO_CTRL_ADDR + I2S_DATA_TX_L_REG_OFFSET;
+    constant I2S_DATA_TX_R_REG_ADDR : integer := ZED_AUDIO_CTRL_ADDR + I2S_DATA_TX_R_REG_OFFSET;
 
-    constant NUM_SAMPLES_OFFSET         : integer := 0;
-    constant SAMPLE_PERIOD_OFFSET       : integer := 4;
-    constant DATA_OFFSET                : integer := 8;
+    -- Sound file offsets
+    constant NUM_SAMPLES_OFFSET     : integer := 0;
+    constant DATA_OFFSET            : integer := 4;
 
-    constant HEADER_0_OFFSET            : integer := NUM_SAMPLES_OFFSET;
-    constant HEADER_1_OFFSET            : integer := SAMPLE_PERIOD_OFFSET;
+    constant SAMPLE_PERIOD_CYCLES   : integer := SAMPLE_PERIOD_US * CLOCK_FREQ_MHz;
+    constant SLEEP_COUNTER_WIDTH    : integer := integer(ceil(log2(real(SAMPLE_PERIOD_CYCLES)))) + 1;
 
-    constant MAX_SLEEP_TIME_US      : integer := 63; -- Arbitrary but 63 us period is less than 20 kHz, so it's safe
-    constant MAX_SLEEP_CYCLES       : integer := MAX_SLEEP_TIME_US * CLOCK_FREQ_MHz;
-    constant SLEEP_COUNTER_WIDTH    : integer := integer(ceil(log2(real(MAX_SLEEP_CYCLES))));
+    constant SLOT_WIDTH             : integer := integer(ceil(log2(real(NUM_SLOTS))));
 
-    signal sound_addr_ff            : unsigned(C_M_AXI_DMA_ADDR_WIDTH - 1 downto 0);
-    signal vol_coef_ff              : signed(AXI_DATA_WIDTH - 1 downto 0);
-
-    signal num_samples_ff           : unsigned(4 * 8 - 1 downto 0);
-    signal sample_period_us_ff      : unsigned(2 * 8 - 1 downto 0);
-    signal sample_period_cycles_ff  : unsigned(SLEEP_COUNTER_WIDTH - 1 downto 0);
+    signal initter_sound_addr_ff    : unsigned(AXI_DATA_WIDTH - 1 downto 0);
+    signal initter_vol_coef_ff      : unsigned(AXI_DATA_WIDTH - 1 downto 0);
+    signal initter_curr_slot_ff     : unsigned(SLOT_WIDTH - 1 downto 0);
 
     signal sleep_counter_ff         : unsigned(SLEEP_COUNTER_WIDTH - 1 downto 0);
     signal sleep_counter_done       : std_logic;
 
     signal sample_ff                : signed(AXI_DATA_WIDTH - 1 downto 0);
-    signal sample_index_ff          : unsigned(C_M_AXI_DMA_ADDR_WIDTH - 1 downto 0);
-    signal byte_index_ff            : unsigned(C_M_AXI_DMA_ADDR_WIDTH - 1 downto 0);
-    signal req_addr_offset_ff       : unsigned(C_M_AXI_DMA_ADDR_WIDTH - 1 downto 0);
-    signal last_sample              : std_logic;
+    signal scaled_sample_ff         : signed(AXI_DATA_WIDTH - 1 downto 0);
+    signal combined_samples_ff      : signed(AXI_DATA_WIDTH - 1 downto 0);
+    signal req_addr_ff              : unsigned(C_M_AXI_DMA_ADDR_WIDTH - 1 downto 0);
+    signal player_vol_coef_ff       : signed(AXI_DATA_WIDTH - 1 downto 0);
+    signal player_curr_slot_ff      : unsigned(SLOT_WIDTH - 1 downto 0);
+    signal player_last_slot         : std_logic;
 
-    signal scaled_sample_ff            : signed(AXI_DATA_WIDTH - 1 downto 0);
+    type unsigned_array_t is array (0 to NUM_SLOTS - 1) of unsigned(AXI_DATA_WIDTH - 1 downto 0);
 
+    signal sound_addr_array_ff      : unsigned_array_t;
+    signal vol_coef_array_ff        : unsigned_array_t;
+    signal num_samples_array_ff     : unsigned_array_t;
+    signal sample_index_array_ff    : unsigned_array_t;
+    signal byte_index_array_ff      : unsigned_array_t;
+    signal slot_active_array_ff     : std_logic_vector(NUM_SLOTS - 1 downto 0);
+    signal last_sample_array        : std_logic_vector(NUM_SLOTS - 1 downto 0);
 
-    type state_t is (
-        IDLE,
-        REQUESTING_HEADER_0,
-        RETURNING_HEADER_0,
-        REQUESTING_HEADER_1,
-        RETURNING_HEADER_1,
-        REQUESTING_DATA,
-        RETURNING_DATA,
-        SCALING,
-        WRITING_L,
-        WRITING_R,
-        SLEEPING
+    type initter_state_t is (
+        IS_IDLE,
+        IS_REQUESTING_NUM_SAMPLES,
+        IS_RETURNING_NUM_SAMPLES
     );
 
-    signal curr_state_ff    : state_t;
-    signal next_state       : state_t;
-    signal prev_state_ff    : state_t;
+    type player_state_t is (
+        PS_SLEEPING,
+        PS_CALC_REQ_ADDR,
+        PS_REQUESTING_DATA,
+        PS_RETURNING_DATA,
+        PS_SCALING,
+        PS_COMBINING,
+        PS_WRITING_L,
+        PS_WRITING_R
+    );
+
+    signal curr_initter_state_ff    : initter_state_t;
+    signal next_initter_state       : initter_state_t;
+    signal prev_initter_state_ff    : initter_state_t;
+
+    signal curr_player_state_ff : player_state_t;
+    signal next_player_state    : player_state_t;
+    signal prev_player_state_ff : player_state_t;
 
 begin
     -- Main FSM
     process(clk) begin
         if(rising_edge(clk)) then
             if(aresetn = '0') then
-                curr_state_ff <= IDLE;
-                prev_state_ff <= IDLE;
+                curr_initter_state_ff <= IS_IDLE;
+                prev_initter_state_ff <= IS_IDLE;
+
+                curr_player_state_ff <= PS_SLEEPING;
+                prev_player_state_ff <= PS_SLEEPING;
             else
-                curr_state_ff <= next_state;
-                prev_state_ff <= curr_state_ff;
+                curr_player_state_ff <= next_player_state;
+                prev_player_state_ff <= curr_player_state_ff;
+
+                curr_initter_state_ff <= next_initter_state;
+                prev_initter_state_ff <= curr_initter_state_ff;
             end if;
         end if;
     end process;
 
-    -- Next state logic
+    -- Next initializer state logic
     process(
-        curr_state_ff,
+        curr_initter_state_ff,
         s_rv_valid,
+        next_player_state,
         req_rv_ready,
-        return_rv_valid,
-        out_rv_ready,
-        last_sample,
-        sleep_counter_done
+        return_rv_valid
     ) begin
-        next_state <= curr_state_ff;
+        next_initter_state <= curr_initter_state_ff;
 
-        if(s_rv_valid = '1') then
-            next_state <= IDLE;
-        end if;
-
-        case curr_state_ff is
-            when IDLE =>
-                if(s_rv_valid = '1') then
-                    next_state <= REQUESTING_HEADER_0;
+        case curr_initter_state_ff is
+            when IS_IDLE =>
+                if(s_rv_valid = '1' and next_player_state = PS_SLEEPING) then
+                    next_initter_state <= IS_REQUESTING_NUM_SAMPLES;
                 end if;
 
-            when REQUESTING_HEADER_0 =>
+            when IS_REQUESTING_NUM_SAMPLES =>
                 if(req_rv_ready = '1') then
-                    next_state <= RETURNING_HEADER_0;
+                    next_initter_state <= IS_RETURNING_NUM_SAMPLES;
                 end if;
 
-            when RETURNING_HEADER_0 =>
+            when IS_RETURNING_NUM_SAMPLES =>
                 if(return_rv_valid = '1') then
-                    next_state <= REQUESTING_HEADER_1;
-                end if;
-
-            when REQUESTING_HEADER_1 =>
-                if(req_rv_ready = '1') then
-                    next_state <= RETURNING_HEADER_1;
-                end if;
-
-            when RETURNING_HEADER_1 =>
-                if(return_rv_valid = '1') then
-                    next_state <= REQUESTING_DATA;
-                end if;
-
-            when REQUESTING_DATA =>
-                if(req_rv_ready = '1') then
-                    next_state <= RETURNING_DATA;
-                end if;
-
-            when RETURNING_DATA =>
-                if(return_rv_valid = '1') then
-                    next_state <= SCALING;
-                end if;
-
-            when SCALING =>
-                next_state <= WRITING_L;
-
-            when WRITING_L =>
-                if(out_rv_ready = '1') then
-                    next_state <= WRITING_R;
-                end if;
-
-            when WRITING_R =>
-                if(out_rv_ready = '1') then
-                    next_state <= SLEEPING;
-
-                    if(last_sample = '1') then
-                        next_state <= IDLE;
-                    end if;
-                end if;
-
-            when SLEEPING =>
-                if(sleep_counter_done = '1') then
-                    next_state <= REQUESTING_DATA;
+                    next_initter_state <= IS_IDLE;
                 end if;
 
             when others =>
-                next_state <= IDLE;
+                next_initter_state <= IS_IDLE;
+        end case;
+    end process;
+
+    -- Next player state logic
+    process(
+        curr_player_state_ff,
+        sleep_counter_done,
+        req_rv_ready,
+        return_rv_valid,
+        player_last_slot,
+        out_rv_ready
+    ) begin
+        next_player_state <= curr_player_state_ff;
+
+        case curr_player_state_ff is
+            when PS_SLEEPING =>
+                if(sleep_counter_done = '1' and curr_initter_state_ff = IS_IDLE) then
+                    next_player_state <= PS_CALC_REQ_ADDR;
+                end if;
+
+            when PS_CALC_REQ_ADDR =>
+                if(slot_active_array_ff(to_integer(player_curr_slot_ff)) = '1') then
+                    next_player_state <= PS_REQUESTING_DATA;
+                elsif(player_last_slot = '1') then
+                    next_player_state <= PS_WRITING_L;
+                end if;
+
+            when PS_REQUESTING_DATA =>
+                if(req_rv_ready = '1') then
+                    next_player_state <= PS_RETURNING_DATA;
+                end if;
+
+            when PS_RETURNING_DATA =>
+                if(return_rv_valid = '1') then
+                    next_player_state <= PS_SCALING;
+                end if;
+
+            when PS_SCALING =>
+                next_player_state <= PS_COMBINING;
+
+            when PS_COMBINING =>
+                next_player_state <= PS_CALC_REQ_ADDR;
+
+                if(player_last_slot = '1') then
+                    next_player_state <= PS_WRITING_L;
+                end if;
+
+            when PS_WRITING_L =>
+                if(out_rv_ready = '1') then
+                    next_player_state <= PS_WRITING_R;
+                end if;
+
+            when PS_WRITING_R =>
+                if(out_rv_ready = '1') then
+                    next_player_state <= PS_SLEEPING;
+                end if;
+
+            when others =>
+                next_player_state <= PS_SLEEPING;
         end case;
     end process;
 
@@ -194,143 +225,178 @@ begin
     process(clk) begin
         if(rising_edge(clk)) then
             if(aresetn = '0') then
-                sound_addr_ff   <= (others => '0');
-                vol_coef_ff     <= (others => '0');
+                initter_sound_addr_ff   <= (others => '0');
+                initter_vol_coef_ff     <= (others => '0');
+                initter_curr_slot_ff    <= (others => '0');
             else
-                if(curr_state_ff = IDLE and s_rv_valid = '1') then
-                    sound_addr_ff   <= unsigned(s_rv_sound_addr);
-                    vol_coef_ff     <= signed(s_rv_vol_coef);
+                if(curr_initter_state_ff = IS_IDLE and s_rv_valid = '1') then
+                    initter_sound_addr_ff   <= unsigned(s_rv_sound_addr);
+                    initter_vol_coef_ff     <= unsigned(s_rv_vol_coef);
+                    initter_curr_slot_ff    <= unsigned(s_rv_slot(initter_curr_slot_ff'length - 1 downto 0));
+                end if;
+
+                if(curr_initter_state_ff = IS_REQUESTING_NUM_SAMPLES) then
+                    sound_addr_array_ff(to_integer(initter_curr_slot_ff)) <= initter_sound_addr_ff;
+                    vol_coef_array_ff(to_integer(initter_curr_slot_ff)) <= initter_vol_coef_ff;
                 end if;
             end if;
         end if;
     end process;
 
-    s_rv_ready <= '1' when (curr_state_ff = IDLE) else '0';
+    s_rv_ready <= '1' when (curr_initter_state_ff = IS_IDLE and next_initter_state = IS_REQUESTING_NUM_SAMPLES) else '0';
 
     -- Request RV Interface
     process(clk) begin
         if(rising_edge(clk)) then
             if(aresetn = '0') then
-                req_addr_offset_ff <= (others => '0');
+                req_addr_ff         <= (others => '0');
+                player_curr_slot_ff <= (others => '0');
             else
-                if(curr_state_ff = IDLE) then
-                    req_addr_offset_ff <= to_unsigned(HEADER_0_OFFSET, req_addr_offset_ff'length);
+                req_addr_ff <= sound_addr_array_ff(to_integer(initter_curr_slot_ff)) + to_unsigned(NUM_SAMPLES_OFFSET, req_addr_ff'length);
 
-                elsif(curr_state_ff = RETURNING_HEADER_0) then
-                    req_addr_offset_ff <= to_unsigned(HEADER_1_OFFSET, req_addr_offset_ff'length);
+                if(curr_player_state_ff = PS_SLEEPING) then
+                    player_curr_slot_ff <= (others => '0');
+                end if;
 
-                elsif(curr_state_ff = RETURNING_HEADER_1 or curr_state_ff = SLEEPING) then
-                    req_addr_offset_ff <= to_unsigned(DATA_OFFSET, req_addr_offset_ff'length) + byte_index_ff;
+                if(curr_player_state_ff = PS_CALC_REQ_ADDR) then
+                    req_addr_ff <=
+                        sound_addr_array_ff(to_integer(player_curr_slot_ff)) +
+                        to_unsigned(DATA_OFFSET, req_addr_ff'length) +
+                        byte_index_array_ff(to_integer(player_curr_slot_ff));
+                end if;
+
+                if(curr_player_state_ff = PS_COMBINING or (curr_player_state_ff = PS_CALC_REQ_ADDR and slot_active_array_ff(to_integer(player_curr_slot_ff)) = '0')) then
+                    player_curr_slot_ff <= player_curr_slot_ff + to_unsigned(1, player_curr_slot_ff'length);
                 end if;
             end if;
         end if;
     end process;
 
-    req_rv_valid    <=  '1' when (curr_state_ff = REQUESTING_HEADER_0 or curr_state_ff = REQUESTING_HEADER_1 or curr_state_ff = REQUESTING_DATA) else '0';
+    player_last_slot <= '1' when (player_curr_slot_ff = to_unsigned(NUM_SLOTS - 1, player_curr_slot_ff'length)) else '0';
 
-    req_rv_addr     <=  std_logic_vector(sound_addr_ff + req_addr_offset_ff);
+    req_rv_valid <=
+        '1' when (
+            curr_initter_state_ff = IS_REQUESTING_NUM_SAMPLES or
+            curr_player_state_ff = PS_REQUESTING_DATA
+        ) else '0';
+    req_rv_addr <= std_logic_vector(req_addr_ff);
 
     -- Return RV Interface
     process(clk) begin
         if(rising_edge(clk)) then
             if(aresetn = '0') then
-                num_samples_ff          <= (others => '0');
-                sample_period_us_ff     <= (others => '0');
-                sample_period_cycles_ff <= (others => '0');
+                for s in 0 to NUM_SLOTS - 1 loop
+                    num_samples_array_ff(s) <= (others => '0');
+                end loop;
+
+                sample_ff <= (others => '0');
             else
-                if(curr_state_ff = RETURNING_HEADER_0 and return_rv_valid = '1') then
-                    num_samples_ff  <= unsigned(return_rv_data);
+                -- Initializer
+                if(curr_initter_state_ff = IS_RETURNING_NUM_SAMPLES and return_rv_valid = '1') then
+                    num_samples_array_ff(to_integer(initter_curr_slot_ff)) <= unsigned(return_rv_data);
                     debug_data      <= return_rv_data;
                 end if;
 
-                if(curr_state_ff = RETURNING_HEADER_1 and return_rv_valid = '1') then
-                    sample_period_us_ff <= unsigned(return_rv_data(15 downto 0));
-                    debug_data          <= return_rv_data;
-                end if;
-
-                if(prev_state_ff = RETURNING_HEADER_1) then
-                    sample_period_cycles_ff <= resize(
-                        sample_period_us_ff * to_unsigned(CLOCK_FREQ_MHz, 16),
-                        sample_period_cycles_ff'length
-                    );
-                end if;
-
-                if(curr_state_ff = RETURNING_DATA and return_rv_valid = '1') then
-                    if(sample_index_ff(0) = '0') then
+                -- Player
+                if(curr_player_state_ff = PS_RETURNING_DATA and return_rv_valid = '1') then
+                    if(sample_index_array_ff(to_integer(player_curr_slot_ff))(0) = '0') then
                         sample_ff <= resize(signed(return_rv_data(15 downto 0)), sample_ff'length);
                     else
                         sample_ff <= resize(signed(return_rv_data(31 downto 16)), sample_ff'length);
                     end if;
 
-                    debug_data <= return_rv_data;
+                    -- debug_data <= return_rv_data;
                 end if;
             end if;
         end if;
     end process;
 
-    return_rv_ready <=
-        '1' when
-            curr_state_ff = RETURNING_HEADER_0 or
-            curr_state_ff = RETURNING_HEADER_1 or
-            curr_state_ff = RETURNING_DATA else
-        '0';
+    return_rv_ready <= '1' when curr_initter_state_ff = IS_RETURNING_NUM_SAMPLES or curr_player_state_ff = PS_RETURNING_DATA else '0';
 
     -- Sample Index Logic
     process (clk) begin
         if(rising_edge(clk)) then
             if(aresetn = '0') then
-                sample_index_ff <= to_unsigned(0, sample_index_ff'length);
-                byte_index_ff   <= to_unsigned(0, byte_index_ff'length);
+                sample_index_array_ff   <= (others => (others => '0'));
+                byte_index_array_ff     <= (others => (others => '0'));
+                slot_active_array_ff    <= (others => '0');
             else
-                if(curr_state_ff = IDLE) then
-                    sample_index_ff <= to_unsigned(0, sample_index_ff'length);
-                    byte_index_ff   <= to_unsigned(0, byte_index_ff'length);
+                -- Initializer
+                if(curr_initter_state_ff = IS_RETURNING_NUM_SAMPLES) then
+                    sample_index_array_ff(to_integer(initter_curr_slot_ff)) <= to_unsigned(0, sample_index_array_ff(0)'length);
+                    byte_index_array_ff(to_integer(initter_curr_slot_ff))   <= to_unsigned(0, byte_index_array_ff(0)'length);
+                    slot_active_array_ff(to_integer(initter_curr_slot_ff))  <= '1';
                 end if;
 
-                if(curr_state_ff = WRITING_R and out_rv_ready = '1') then
-                    if(last_sample = '0') then
-                        sample_index_ff <= sample_index_ff + to_unsigned(1, sample_index_ff'length);
-                        byte_index_ff   <= byte_index_ff + to_unsigned(BYTES_PER_SAMPLE, byte_index_ff'length);
-                    end if;
+                -- Player
+                if(curr_player_state_ff = PS_WRITING_R and out_rv_ready = '1') then
+                    for s in 0 to NUM_SLOTS - 1 loop
+                        if(slot_active_array_ff(s) = '1') then
+                            sample_index_array_ff(s)    <= sample_index_array_ff(s) + to_unsigned(1, sample_index_array_ff(0)'length);
+                            byte_index_array_ff(s)      <= byte_index_array_ff(s) + to_unsigned(BYTES_PER_SAMPLE, byte_index_array_ff(0)'length);
+                        end if;
+
+                        if(last_sample_array(s) = '1') then
+                            slot_active_array_ff(s) <= '0';
+                        end if;
+                    end loop;
                 end if;
             end if;
         end if;
     end process;
 
-    last_sample <= '1' when (sample_index_ff = num_samples_ff - to_unsigned(1, num_samples_ff'length)) else '0';
+    gen_last_sample_array: for s in 0 to NUM_SLOTS - 1 generate
+        last_sample_array(s) <= '1' when (sample_index_array_ff(s) = num_samples_array_ff(s) - to_unsigned(1, sample_index_array_ff(0)'length)) else '0';
+    end generate;
 
     -- Sleeping logic
     process(clk) begin
         if(rising_edge(clk)) then
-            sleep_counter_ff <= (others => '0');
-
-            if(curr_state_ff = SLEEPING) then
-                sleep_counter_ff <= sleep_counter_ff + to_unsigned(1, sleep_counter_ff'length);
+            if(curr_player_state_ff = PS_SLEEPING) then
+                if(sleep_counter_done = '0') then
+                    sleep_counter_ff <= sleep_counter_ff + to_unsigned(1, sleep_counter_ff'length);
+                end if;
+            else
+                sleep_counter_ff <= (others => '0');
             end if;
         end if;
     end process;
 
-    sleep_counter_done <= '1' when (sleep_counter_ff = sample_period_cycles_ff - 1) else '0';
+    sleep_counter_done <= '1' when (sleep_counter_ff = to_unsigned(SAMPLE_PERIOD_CYCLES - 1, sleep_counter_ff'length)) else '0';
 
     -- Out RV Interface
     process(clk) begin
         if(rising_edge(clk)) then
             if(aresetn = '0') then
-                scaled_sample_ff <= (others => '0');
+                scaled_sample_ff    <= (others => '0');
+                player_vol_coef_ff  <= (others => '0');
+                combined_samples_ff <= (others => '0');
             else
-                if(curr_state_ff = SCALING) then
+                if(curr_player_state_ff = PS_SLEEPING) then
+                    combined_samples_ff <= (others => '0');
+                end if;
+
+                if(curr_player_state_ff = PS_RETURNING_DATA) then
+                    player_vol_coef_ff <= signed(vol_coef_array_ff(to_integer(player_curr_slot_ff)));
+                end if;
+
+                if(curr_player_state_ff = PS_SCALING) then
                     scaled_sample_ff <= resize(
-                        resize(sample_ff, 16) * resize(vol_coef_ff, 16),
+                        resize(sample_ff, 16) * resize(player_vol_coef_ff, 16),
                         scaled_sample_ff'length
                     );
+                end if;
+
+                if(curr_player_state_ff = PS_COMBINING) then
+                    combined_samples_ff <= combined_samples_ff + scaled_sample_ff;
                 end if;
             end if;
         end if;
     end process;
 
-    out_rv_valid    <=  '1' when (curr_state_ff = WRITING_L or curr_state_ff = WRITING_R) else '0';
-    out_rv_addr     <=  std_logic_vector(to_unsigned(I2S_DATA_TX_R_REG_ADDR, out_rv_addr'length)) when (curr_state_ff = WRITING_R) else
+    out_rv_valid    <=  '1' when (curr_player_state_ff = PS_WRITING_L or curr_player_state_ff = PS_WRITING_R) else '0';
+    out_rv_addr     <=  std_logic_vector(to_unsigned(I2S_DATA_TX_R_REG_ADDR, out_rv_addr'length)) when (curr_player_state_ff = PS_WRITING_R) else
                         std_logic_vector(to_unsigned(I2S_DATA_TX_L_REG_ADDR, out_rv_addr'length));
-    out_rv_data     <=  std_logic_vector(scaled_sample_ff);
+    out_rv_data     <=  std_logic_vector(combined_samples_ff);
 
 end architecture;
