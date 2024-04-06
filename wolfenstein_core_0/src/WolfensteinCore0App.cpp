@@ -424,9 +424,9 @@ void WolfensteinCore0App::updateEnemies() {
 		float enemyToPlayerY = player.getPositionY() - enemy->getPositionY();
 		float playerDistanceFromEnemy = sqrtf(enemyToPlayerX * enemyToPlayerX + enemyToPlayerY * enemyToPlayerY);
 
-		// Handle Enemy Movement: enemies only move and shoot if they have seen the player, otherwise check if the enemy has seen player
+		// Handle Enemy Movement: enemies only move and shoot if they have seen the player
 		if(enemy->hasSeenPlayer()) {
-			if(playerDistanceFromEnemy > 1.5) {
+			if(playerDistanceFromEnemy > ENEMY_RANGE) {
 				float objectAngle = atan2f(enemyToPlayerY, enemyToPlayerX);
 				if(objectAngle < M_PI) {
 					objectAngle += 2.0 * M_PI;
@@ -449,7 +449,7 @@ void WolfensteinCore0App::updateEnemies() {
 			enemy->setTimeSinceLastShotS(enemy->getTimeSinceLastShotS() + frameTimeInSec);
 
 			// Handle Enemy Attack: if within range and enough time passed since last shot
-			if(playerDistanceFromEnemy < 1.5 && enemy->getTimeSinceLastShotS() >= ENEMY_SHOT_DELAY_S) {
+			if(playerDistanceFromEnemy < ENEMY_RANGE && enemy->getTimeSinceLastShotS() >= ENEMY_SHOT_DELAY_S) {
 				soundPlayer.playSound(GUNSHOT_SOUND, 80, 0);
 				player.setHealth(player.getHealth() - ENEMY_DAMAGE);
 				enemy->setTimeSinceLastShotS(0.0);

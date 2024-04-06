@@ -51,6 +51,7 @@ const int NUM_SOUND_SLOTS = 2;
 const float VERTICAL_FOV	= M_PI * 0.4;
 const float HORIZONTAL_FOV	= M_PI * 0.5;
 
+// Player params
 const int MAX_PLAYER_HEALTH = 100;
 const int MAX_PLAYER_AMMO = 100;
 const int PLAYER_DAMAGE = 25;
@@ -59,6 +60,7 @@ const int PLAYER_STARTING_AMMO = 50;
 const float MAX_PLAYER_TURN_SPEED_RAD_PER_SEC = 1.5;
 const float MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC = 1.5;
 
+// Enemy params
 const int MAX_NUM_ENEMIES = 10;
 const int MAX_NUM_HEALTH_DROPS = 4 + MAX_NUM_ENEMIES;
 const int MAX_NUM_AMMO_DROPS = 4 + MAX_NUM_ENEMIES;
@@ -66,7 +68,9 @@ const int MAX_ENEMY_HEALTH = 100;
 const int ENEMY_DAMAGE = 10;
 const float MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC = 0.5;
 const float ENEMY_SHOT_DELAY_S = 1.0;
+const float ENEMY_RANGE = 2;
 
+// Drop params
 const float DROP_PICKUP_RADIUS = 0.75;
 const int HEALTH_DROP_AMOUNT_HEALED = 25;
 const int AMMO_DROP_AMOUNT_GAINED = 20;
