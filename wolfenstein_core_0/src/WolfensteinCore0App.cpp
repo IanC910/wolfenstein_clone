@@ -48,6 +48,8 @@ WolfensteinCore0App::WolfensteinCore0App() :
 			XPAR_PMODJSTK2_1_AXI_LITE_GPIO_BASEADDR
 		);
 	}
+
+	soundPlayer.playSound(NEXT_ASSET, 1);
 }
 
 void WolfensteinCore0App::runCore0App() {
@@ -241,7 +243,7 @@ void WolfensteinCore0App::handlePlayerAction() {
 	prevTrigger = trigger;
 
 	if(player.getIsShooting()) {
-		soundPlayer.playSound(GUNSHOT_SOUND);
+		soundPlayer.playSound(GUNSHOT_SOUND, 0);
 
 		for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
 			Enemy* enemy = &enemyArray[e];
@@ -418,7 +420,7 @@ void WolfensteinCore0App::updateEnemies() {
 
 			// Handle Enemy Attack
 			if(playerDistanceFromEnemy < 1.5 && enemy->getTimeSinceLastShotS() >= ENEMY_SHOT_DELAY_S) {
-				soundPlayer.playSound(GUNSHOT_SOUND);
+				soundPlayer.playSound(GUNSHOT_SOUND, 0);
 				player.setHealth(player.getHealth() - ENEMY_DAMAGE);
 				enemy->setTimeSinceLastShotS(0.0);
 			}
