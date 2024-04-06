@@ -190,8 +190,6 @@ void WolfensteinCore1App::drawSpriteSimple(Sprite* sprite, int rowOffset, int co
 
 void WolfensteinCore1App::drawObjectWithPosition(
 	ObjectWithPosition* object,
-	Player* player,
-	float* distanceArray,
 	Sprite* sprite,
 	int drawHeightOffset,
 	int drawColOffset
@@ -199,6 +197,8 @@ void WolfensteinCore1App::drawObjectWithPosition(
 	if(sprite == nullptr) {
 		return;
 	}
+
+	Player* player = &SHARED_DATA_PACKETS[1].player;
 
 	float playerToObjectX = object->getPositionX() - player->getPositionX();
 	float playerToObjectY = object->getPositionY() - player->getPositionY();
@@ -215,6 +215,8 @@ void WolfensteinCore1App::drawObjectWithPosition(
 
 	int objectMiddleCol = (int)((objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH)) + drawColOffset;
 	bool inPlayerFOV = objectMiddleCol >= 0 && objectMiddleCol < SCREEN_WIDTH;
+
+	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
 
 	if(inPlayerFOV && distanceArray[objectMiddleCol / GRANULARITY_H] >= distanceFromPlayer) {
 
@@ -332,8 +334,6 @@ void WolfensteinCore1App::drawEnemies() {
 
 		drawObjectWithPosition(
             enemy,
-            player,
-            distanceArray,
 			&enemySprite,
 			enemyRowOffset,
 			0
@@ -344,8 +344,6 @@ void WolfensteinCore1App::drawEnemies() {
 
 			drawObjectWithPosition(
 				enemy,
-				player,
-				distanceArray,
 				&flashSprite,
 				-28,
 				4
@@ -372,8 +370,6 @@ void WolfensteinCore1App::drawDrops() {
 
 		drawObjectWithPosition(
 			healthDrop,
-			player,
-			distanceArray,
 			&healthDropSprite,
 			spriteRowOffset,
 			0

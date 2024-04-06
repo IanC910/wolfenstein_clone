@@ -18,8 +18,6 @@ private:
 	void drawSpriteSimple(Sprite* sprite, int rowOffset, int colOffset);
 	void drawObjectWithPosition(
 		ObjectWithPosition* object,
-		Player* player,
-		float* distanceArray,
 		Sprite* sprite,
 		int drawHeightOffset,
 		int drawColOffset
