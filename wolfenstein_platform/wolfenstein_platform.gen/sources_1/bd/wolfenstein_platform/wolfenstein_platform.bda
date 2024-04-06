@@ -21,60 +21,6 @@
   <key attr.name="vert_type" attr.type="string" for="node" id="VT"/>
   <graph edgedefault="undirected" id="G" parse.edgeids="canonical" parse.nodeids="canonical" parse.order="nodesfirst">
     <node id="n0">
-      <data key="BA">0x40000000</data>
-      <data key="BP">AXI_LITE_GPIO_BASEADDR</data>
-      <data key="HA">0x40000FFF</data>
-      <data key="HP">AXI_LITE_GPIO_HIGHADDR</data>
-      <data key="MA">Data</data>
-      <data key="MX">/processing_system7_0</data>
-      <data key="MI">M_AXI_GP0</data>
-      <data key="MS">SEG_PmodJSTK2_0_Reg0</data>
-      <data key="MV">xilinx.com:ip:processing_system7:5.5</data>
-      <data key="TM">both</data>
-      <data key="SX">/PmodJSTK2_0</data>
-      <data key="SI">AXI_LITE_GPIO</data>
-      <data key="SS">Reg0</data>
-      <data key="SV">digilentinc.com:IP:PmodJSTK2:1.0</data>
-      <data key="TU">register</data>
-      <data key="VT">AC</data>
-    </node>
-    <node id="n1">
-      <data key="BA">0x40010000</data>
-      <data key="BP">AXI_LITE_SPI_BASEADDR</data>
-      <data key="HA">0x4001FFFF</data>
-      <data key="HP">AXI_LITE_SPI_HIGHADDR</data>
-      <data key="MA">m_axi_audio_out</data>
-      <data key="MX">/audio_fetcher_0</data>
-      <data key="MI">m_axi_audio_out</data>
-      <data key="MS">SEG_PmodJSTK2_0_Reg0_1</data>
-      <data key="MV">xilinx.com:module_ref:audio_fetcher:1.0</data>
-      <data key="TM">both</data>
-      <data key="SX">/PmodJSTK2_0</data>
-      <data key="SI">AXI_LITE_SPI</data>
-      <data key="SS">Reg0</data>
-      <data key="SV">digilentinc.com:IP:PmodJSTK2:1.0</data>
-      <data key="TU">register</data>
-      <data key="VT">AC</data>
-    </node>
-    <node id="n2">
-      <data key="BA">0x43C10000</data>
-      <data key="BP">C_BASEADDR</data>
-      <data key="HA">0x43C1FFFF</data>
-      <data key="HP">C_HIGHADDR</data>
-      <data key="MA">Data</data>
-      <data key="MX">/processing_system7_0</data>
-      <data key="MI">M_AXI_GP0</data>
-      <data key="MS">SEG_zed_audio_ctrl_0_reg0</data>
-      <data key="MV">xilinx.com:ip:processing_system7:5.5</data>
-      <data key="TM">both</data>
-      <data key="SX">/zed_audio_ctrl_0</data>
-      <data key="SI">S_AXI</data>
-      <data key="SS">reg0</data>
-      <data key="SV">xilinx.com:user:zed_audio_ctrl:1.0</data>
-      <data key="TU">register</data>
-      <data key="VT">AC</data>
-    </node>
-    <node id="n3">
       <data key="BA">0x00000000</data>
       <data key="BP">C_BASEADDR</data>
       <data key="HA">0x1FFFFFFF</data>
@@ -92,7 +38,7 @@
       <data key="TU">memory</data>
       <data key="VT">AC</data>
     </node>
-    <node id="n4">
+    <node id="n1">
       <data key="BA">0x43C20000</data>
       <data key="BP">C_BASEADDR</data>
       <data key="HA">0x43C2FFFF</data>
@@ -110,7 +56,7 @@
       <data key="TU">register</data>
       <data key="VT">AC</data>
     </node>
-    <node id="n5">
+    <node id="n2">
       <data key="BA">0x40001000</data>
       <data key="BP">AXI_LITE_GPIO_BASEADDR</data>
       <data key="HA">0x40001FFF</data>
@@ -128,25 +74,25 @@
       <data key="TU">register</data>
       <data key="VT">AC</data>
     </node>
-    <node id="n6">
-      <data key="BA">0x40020000</data>
-      <data key="BP">AXI_LITE_SPI_BASEADDR</data>
-      <data key="HA">0x4002FFFF</data>
-      <data key="HP">AXI_LITE_SPI_HIGHADDR</data>
-      <data key="MA">m_axi_audio_out</data>
-      <data key="MX">/audio_fetcher_0</data>
-      <data key="MI">m_axi_audio_out</data>
-      <data key="MS">SEG_PmodJSTK2_1_Reg0_1</data>
-      <data key="MV">xilinx.com:module_ref:audio_fetcher:1.0</data>
+    <node id="n3">
+      <data key="BA">0x40000000</data>
+      <data key="BP">AXI_LITE_GPIO_BASEADDR</data>
+      <data key="HA">0x40000FFF</data>
+      <data key="HP">AXI_LITE_GPIO_HIGHADDR</data>
+      <data key="MA">Data</data>
+      <data key="MX">/processing_system7_0</data>
+      <data key="MI">M_AXI_GP0</data>
+      <data key="MS">SEG_PmodJSTK2_0_Reg0</data>
+      <data key="MV">xilinx.com:ip:processing_system7:5.5</data>
       <data key="TM">both</data>
-      <data key="SX">/PmodJSTK2_1</data>
-      <data key="SI">AXI_LITE_SPI</data>
+      <data key="SX">/PmodJSTK2_0</data>
+      <data key="SI">AXI_LITE_GPIO</data>
       <data key="SS">Reg0</data>
       <data key="SV">digilentinc.com:IP:PmodJSTK2:1.0</data>
       <data key="TU">register</data>
       <data key="VT">AC</data>
     </node>
-    <node id="n7">
+    <node id="n4">
       <data key="BA">0x00000000</data>
       <data key="BP">C_BASEADDR</data>
       <data key="HA">0x1FFFFFFF</data>
@@ -164,88 +110,7 @@
       <data key="TU">memory</data>
       <data key="VT">AC</data>
     </node>
-    <node id="n8">
-      <data key="BA">0x43C10000</data>
-      <data key="BP">C_BASEADDR</data>
-      <data key="HA">0x43C1FFFF</data>
-      <data key="HP">C_HIGHADDR</data>
-      <data key="MA">m_axi_audio_out</data>
-      <data key="MX">/audio_fetcher_0</data>
-      <data key="MI">m_axi_audio_out</data>
-      <data key="MS">SEG_zed_audio_ctrl_0_reg0</data>
-      <data key="MV">xilinx.com:module_ref:audio_fetcher:1.0</data>
-      <data key="TM">both</data>
-      <data key="SX">/zed_audio_ctrl_0</data>
-      <data key="SI">S_AXI</data>
-      <data key="SS">reg0</data>
-      <data key="SV">xilinx.com:user:zed_audio_ctrl:1.0</data>
-      <data key="TU">register</data>
-      <data key="VT">AC</data>
-    </node>
-    <node id="n9">
-      <data key="VM">wolfenstein_platform</data>
-      <data key="VT">BC</data>
-    </node>
-    <node id="n10">
-      <data key="VH">2</data>
-      <data key="VM">wolfenstein_platform</data>
-      <data key="VT">VR</data>
-    </node>
-    <node id="n11">
-      <data key="BA">0x40010000</data>
-      <data key="BP">AXI_LITE_SPI_BASEADDR</data>
-      <data key="HA">0x4001FFFF</data>
-      <data key="HP">AXI_LITE_SPI_HIGHADDR</data>
-      <data key="MA">Data</data>
-      <data key="MX">/processing_system7_0</data>
-      <data key="MI">M_AXI_GP0</data>
-      <data key="MS">SEG_PmodJSTK2_0_Reg0_1</data>
-      <data key="MV">xilinx.com:ip:processing_system7:5.5</data>
-      <data key="TM">both</data>
-      <data key="SX">/PmodJSTK2_0</data>
-      <data key="SI">AXI_LITE_SPI</data>
-      <data key="SS">Reg0</data>
-      <data key="SV">digilentinc.com:IP:PmodJSTK2:1.0</data>
-      <data key="TU">register</data>
-      <data key="VT">AC</data>
-    </node>
-    <node id="n12">
-      <data key="BA">0x43C00000</data>
-      <data key="BP">C_BASEADDR</data>
-      <data key="HA">0x43C0FFFF</data>
-      <data key="HP">C_HIGHADDR</data>
-      <data key="MA">m_axi_audio_out</data>
-      <data key="MX">/audio_fetcher_0</data>
-      <data key="MI">m_axi_audio_out</data>
-      <data key="MS">SEG_audio_fetcher_0_reg0</data>
-      <data key="MV">xilinx.com:module_ref:audio_fetcher:1.0</data>
-      <data key="TM">both</data>
-      <data key="SX">/audio_fetcher_0</data>
-      <data key="SI">s_axi</data>
-      <data key="SS">reg0</data>
-      <data key="SV">xilinx.com:module_ref:audio_fetcher:1.0</data>
-      <data key="TU">register</data>
-      <data key="VT">AC</data>
-    </node>
-    <node id="n13">
-      <data key="BA">0x40020000</data>
-      <data key="BP">AXI_LITE_SPI_BASEADDR</data>
-      <data key="HA">0x4002FFFF</data>
-      <data key="HP">AXI_LITE_SPI_HIGHADDR</data>
-      <data key="MA">Data</data>
-      <data key="MX">/processing_system7_0</data>
-      <data key="MI">M_AXI_GP0</data>
-      <data key="MS">SEG_PmodJSTK2_1_Reg0_1</data>
-      <data key="MV">xilinx.com:ip:processing_system7:5.5</data>
-      <data key="TM">both</data>
-      <data key="SX">/PmodJSTK2_1</data>
-      <data key="SI">AXI_LITE_SPI</data>
-      <data key="SS">Reg0</data>
-      <data key="SV">digilentinc.com:IP:PmodJSTK2:1.0</data>
-      <data key="TU">register</data>
-      <data key="VT">AC</data>
-    </node>
-    <node id="n14">
+    <node id="n5">
       <data key="BA">0x43C20000</data>
       <data key="BP">C_BASEADDR</data>
       <data key="HA">0x43C2FFFF</data>
@@ -263,48 +128,25 @@
       <data key="TU">register</data>
       <data key="VT">AC</data>
     </node>
-    <node id="n15">
-      <data key="BA">0x43C00000</data>
+    <node id="n6">
+      <data key="BA">0x43C10000</data>
       <data key="BP">C_BASEADDR</data>
-      <data key="HA">0x43C0FFFF</data>
+      <data key="HA">0x43C1FFFF</data>
       <data key="HP">C_HIGHADDR</data>
-      <data key="MA">Data</data>
-      <data key="MX">/processing_system7_0</data>
-      <data key="MI">M_AXI_GP0</data>
-      <data key="MS">SEG_audio_fetcher_0_reg0</data>
-      <data key="MV">xilinx.com:ip:processing_system7:5.5</data>
+      <data key="MA">m_axi_audio_out</data>
+      <data key="MX">/audio_fetcher_0</data>
+      <data key="MI">m_axi_audio_out</data>
+      <data key="MS">SEG_zed_audio_ctrl_0_reg0</data>
+      <data key="MV">xilinx.com:module_ref:audio_fetcher:1.0</data>
       <data key="TM">both</data>
-      <data key="SX">/audio_fetcher_0</data>
-      <data key="SI">s_axi</data>
-      <data key="SS">reg0</data>
-      <data key="SV">xilinx.com:module_ref:audio_fetcher:1.0</data>
-      <data key="TU">register</data>
-      <data key="VT">AC</data>
-    </node>
-    <node id="n16">
-      <data key="TU">active</data>
-      <data key="VH">2</data>
-      <data key="VT">PM</data>
-    </node>
-    <node id="n17">
-      <data key="BA">0x41210000</data>
-      <data key="BP">C_BASEADDR</data>
-      <data key="HA">0x4121FFFF</data>
-      <data key="HP">C_HIGHADDR</data>
-      <data key="MA">Data</data>
-      <data key="MX">/processing_system7_0</data>
-      <data key="MI">M_AXI_GP0</data>
-      <data key="MS">SEG_i2c_addr_gpio_Reg</data>
-      <data key="MV">xilinx.com:ip:processing_system7:5.5</data>
-      <data key="TM">both</data>
-      <data key="SX">/axi_gpio_i2c_addr</data>
+      <data key="SX">/zed_audio_ctrl_0</data>
       <data key="SI">S_AXI</data>
-      <data key="SS">Reg</data>
-      <data key="SV">xilinx.com:ip:axi_gpio:2.0</data>
+      <data key="SS">reg0</data>
+      <data key="SV">xilinx.com:user:zed_audio_ctrl:1.0</data>
       <data key="TU">register</data>
       <data key="VT">AC</data>
     </node>
-    <node id="n18">
+    <node id="n7">
       <data key="BA">0x40000000</data>
       <data key="BP">AXI_LITE_GPIO_BASEADDR</data>
       <data key="HA">0x40000FFF</data>
@@ -322,7 +164,43 @@
       <data key="TU">register</data>
       <data key="VT">AC</data>
     </node>
-    <node id="n19">
+    <node id="n8">
+      <data key="BA">0x40020000</data>
+      <data key="BP">AXI_LITE_SPI_BASEADDR</data>
+      <data key="HA">0x4002FFFF</data>
+      <data key="HP">AXI_LITE_SPI_HIGHADDR</data>
+      <data key="MA">m_axi_audio_out</data>
+      <data key="MX">/audio_fetcher_0</data>
+      <data key="MI">m_axi_audio_out</data>
+      <data key="MS">SEG_PmodJSTK2_1_Reg0_1</data>
+      <data key="MV">xilinx.com:module_ref:audio_fetcher:1.0</data>
+      <data key="TM">both</data>
+      <data key="SX">/PmodJSTK2_1</data>
+      <data key="SI">AXI_LITE_SPI</data>
+      <data key="SS">Reg0</data>
+      <data key="SV">digilentinc.com:IP:PmodJSTK2:1.0</data>
+      <data key="TU">register</data>
+      <data key="VT">AC</data>
+    </node>
+    <node id="n9">
+      <data key="BA">0x40010000</data>
+      <data key="BP">AXI_LITE_SPI_BASEADDR</data>
+      <data key="HA">0x4001FFFF</data>
+      <data key="HP">AXI_LITE_SPI_HIGHADDR</data>
+      <data key="MA">Data</data>
+      <data key="MX">/processing_system7_0</data>
+      <data key="MI">M_AXI_GP0</data>
+      <data key="MS">SEG_PmodJSTK2_0_Reg0_1</data>
+      <data key="MV">xilinx.com:ip:processing_system7:5.5</data>
+      <data key="TM">both</data>
+      <data key="SX">/PmodJSTK2_0</data>
+      <data key="SI">AXI_LITE_SPI</data>
+      <data key="SS">Reg0</data>
+      <data key="SV">digilentinc.com:IP:PmodJSTK2:1.0</data>
+      <data key="TU">register</data>
+      <data key="VT">AC</data>
+    </node>
+    <node id="n10">
       <data key="BA">0x41210000</data>
       <data key="BP">C_BASEADDR</data>
       <data key="HA">0x4121FFFF</data>
@@ -340,7 +218,30 @@
       <data key="TU">register</data>
       <data key="VT">AC</data>
     </node>
-    <node id="n20">
+    <node id="n11">
+      <data key="BA">0x40010000</data>
+      <data key="BP">AXI_LITE_SPI_BASEADDR</data>
+      <data key="HA">0x4001FFFF</data>
+      <data key="HP">AXI_LITE_SPI_HIGHADDR</data>
+      <data key="MA">m_axi_audio_out</data>
+      <data key="MX">/audio_fetcher_0</data>
+      <data key="MI">m_axi_audio_out</data>
+      <data key="MS">SEG_PmodJSTK2_0_Reg0_1</data>
+      <data key="MV">xilinx.com:module_ref:audio_fetcher:1.0</data>
+      <data key="TM">both</data>
+      <data key="SX">/PmodJSTK2_0</data>
+      <data key="SI">AXI_LITE_SPI</data>
+      <data key="SS">Reg0</data>
+      <data key="SV">digilentinc.com:IP:PmodJSTK2:1.0</data>
+      <data key="TU">register</data>
+      <data key="VT">AC</data>
+    </node>
+    <node id="n12">
+      <data key="VH">2</data>
+      <data key="VM">wolfenstein_platform</data>
+      <data key="VT">VR</data>
+    </node>
+    <node id="n13">
       <data key="BA">0x40001000</data>
       <data key="BP">AXI_LITE_GPIO_BASEADDR</data>
       <data key="HA">0x40001FFF</data>
@@ -358,62 +259,161 @@
       <data key="TU">register</data>
       <data key="VT">AC</data>
     </node>
-    <edge id="e0" source="n9" target="n10">
+    <node id="n14">
+      <data key="BA">0x43C00000</data>
+      <data key="BP">C_BASEADDR</data>
+      <data key="HA">0x43C0FFFF</data>
+      <data key="HP">C_HIGHADDR</data>
+      <data key="MA">Data</data>
+      <data key="MX">/processing_system7_0</data>
+      <data key="MI">M_AXI_GP0</data>
+      <data key="MS">SEG_audio_fetcher_0_reg0</data>
+      <data key="MV">xilinx.com:ip:processing_system7:5.5</data>
+      <data key="TM">both</data>
+      <data key="SX">/audio_fetcher_0</data>
+      <data key="SI">s_axi</data>
+      <data key="SS">reg0</data>
+      <data key="SV">xilinx.com:module_ref:audio_fetcher:1.0</data>
+      <data key="TU">register</data>
+      <data key="VT">AC</data>
+    </node>
+    <node id="n15">
+      <data key="BA">0x40020000</data>
+      <data key="BP">AXI_LITE_SPI_BASEADDR</data>
+      <data key="HA">0x4002FFFF</data>
+      <data key="HP">AXI_LITE_SPI_HIGHADDR</data>
+      <data key="MA">Data</data>
+      <data key="MX">/processing_system7_0</data>
+      <data key="MI">M_AXI_GP0</data>
+      <data key="MS">SEG_PmodJSTK2_1_Reg0_1</data>
+      <data key="MV">xilinx.com:ip:processing_system7:5.5</data>
+      <data key="TM">both</data>
+      <data key="SX">/PmodJSTK2_1</data>
+      <data key="SI">AXI_LITE_SPI</data>
+      <data key="SS">Reg0</data>
+      <data key="SV">digilentinc.com:IP:PmodJSTK2:1.0</data>
+      <data key="TU">register</data>
+      <data key="VT">AC</data>
+    </node>
+    <node id="n16">
+      <data key="BA">0x43C00000</data>
+      <data key="BP">C_BASEADDR</data>
+      <data key="HA">0x43C0FFFF</data>
+      <data key="HP">C_HIGHADDR</data>
+      <data key="MA">m_axi_audio_out</data>
+      <data key="MX">/audio_fetcher_0</data>
+      <data key="MI">m_axi_audio_out</data>
+      <data key="MS">SEG_audio_fetcher_0_reg0</data>
+      <data key="MV">xilinx.com:module_ref:audio_fetcher:1.0</data>
+      <data key="TM">both</data>
+      <data key="SX">/audio_fetcher_0</data>
+      <data key="SI">s_axi</data>
+      <data key="SS">reg0</data>
+      <data key="SV">xilinx.com:module_ref:audio_fetcher:1.0</data>
+      <data key="TU">register</data>
+      <data key="VT">AC</data>
+    </node>
+    <node id="n17">
+      <data key="BA">0x43C10000</data>
+      <data key="BP">C_BASEADDR</data>
+      <data key="HA">0x43C1FFFF</data>
+      <data key="HP">C_HIGHADDR</data>
+      <data key="MA">Data</data>
+      <data key="MX">/processing_system7_0</data>
+      <data key="MI">M_AXI_GP0</data>
+      <data key="MS">SEG_zed_audio_ctrl_0_reg0</data>
+      <data key="MV">xilinx.com:ip:processing_system7:5.5</data>
+      <data key="TM">both</data>
+      <data key="SX">/zed_audio_ctrl_0</data>
+      <data key="SI">S_AXI</data>
+      <data key="SS">reg0</data>
+      <data key="SV">xilinx.com:user:zed_audio_ctrl:1.0</data>
+      <data key="TU">register</data>
+      <data key="VT">AC</data>
+    </node>
+    <node id="n18">
+      <data key="TU">active</data>
+      <data key="VH">2</data>
+      <data key="VT">PM</data>
+    </node>
+    <node id="n19">
+      <data key="BA">0x41210000</data>
+      <data key="BP">C_BASEADDR</data>
+      <data key="HA">0x4121FFFF</data>
+      <data key="HP">C_HIGHADDR</data>
+      <data key="MA">Data</data>
+      <data key="MX">/processing_system7_0</data>
+      <data key="MI">M_AXI_GP0</data>
+      <data key="MS">SEG_i2c_addr_gpio_Reg</data>
+      <data key="MV">xilinx.com:ip:processing_system7:5.5</data>
+      <data key="TM">both</data>
+      <data key="SX">/axi_gpio_i2c_addr</data>
+      <data key="SI">S_AXI</data>
+      <data key="SS">Reg</data>
+      <data key="SV">xilinx.com:ip:axi_gpio:2.0</data>
+      <data key="TU">register</data>
+      <data key="VT">AC</data>
+    </node>
+    <node id="n20">
+      <data key="VM">wolfenstein_platform</data>
+      <data key="VT">BC</data>
+    </node>
+    <edge id="e0" source="n20" target="n12">
     </edge>
-    <edge id="e1" source="n10" target="n16">
+    <edge id="e1" source="n12" target="n18">
     </edge>
-    <edge id="e2" source="n3" target="n16">
+    <edge id="e2" source="n0" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e3" source="n0" target="n16">
+    <edge id="e3" source="n3" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e4" source="n11" target="n16">
+    <edge id="e4" source="n9" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e5" source="n20" target="n16">
+    <edge id="e5" source="n13" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e6" source="n13" target="n16">
+    <edge id="e6" source="n15" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e7" source="n15" target="n16">
+    <edge id="e7" source="n5" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e8" source="n14" target="n16">
+    <edge id="e8" source="n19" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e9" source="n17" target="n16">
+    <edge id="e9" source="n17" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e10" source="n2" target="n16">
+    <edge id="e10" source="n14" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e11" source="n18" target="n16">
+    <edge id="e11" source="n7" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e12" source="n1" target="n16">
+    <edge id="e12" source="n11" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e13" source="n5" target="n16">
+    <edge id="e13" source="n2" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e14" source="n6" target="n16">
+    <edge id="e14" source="n8" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e15" source="n12" target="n16">
+    <edge id="e15" source="n16" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e16" source="n19" target="n16">
+    <edge id="e16" source="n10" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e17" source="n4" target="n16">
+    <edge id="e17" source="n1" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e18" source="n8" target="n16">
+    <edge id="e18" source="n6" target="n18">
       <data key="EH">2</data>
     </edge>
-    <edge id="e19" source="n7" target="n16">
+    <edge id="e19" source="n4" target="n18">
       <data key="EH">2</data>
     </edge>
   </graph>

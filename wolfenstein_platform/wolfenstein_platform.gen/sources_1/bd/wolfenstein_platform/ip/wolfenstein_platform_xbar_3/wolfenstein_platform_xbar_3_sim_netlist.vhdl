@@ -1,10 +1,10 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
--- Date        : Sat Mar 23 17:13:32 2024
--- Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               c:/Users/Amrit/Documents/GitHub/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_xbar_3/wolfenstein_platform_xbar_3_sim_netlist.vhdl
+-- Date        : Sun Mar 17 22:52:16 2024
+-- Host        : IC-VivoBook running 64-bit major release  (build 9200)
+-- Command     : write_vhdl -force -mode funcsim -rename_top wolfenstein_platform_xbar_3 -prefix
+--               wolfenstein_platform_xbar_3_ wolfenstein_platform_xbar_3_sim_netlist.vhdl
 -- Design      : wolfenstein_platform_xbar_3
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -91,8 +91,6 @@ entity wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_addr_arbiter_sasd is
     s_axi_wdata : in STD_LOGIC_VECTOR ( 63 downto 0 );
     mi_bvalid : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_addr_arbiter_sasd : entity is "axi_crossbar_v2_1_23_addr_arbiter_sasd";
 end wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_addr_arbiter_sasd;
 
 architecture STRUCTURE of wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_addr_arbiter_sasd is
@@ -3207,8 +3205,6 @@ entity wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_decerr_slave is
     m_axi_bvalid : in STD_LOGIC_VECTOR ( 0 to 0 );
     aa_rready : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_decerr_slave : entity is "axi_crossbar_v2_1_23_decerr_slave";
 end wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_decerr_slave;
 
 architecture STRUCTURE of wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_decerr_slave is
@@ -3376,8 +3372,6 @@ entity wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_splitter is
     \m_ready_d_reg[1]_0\ : in STD_LOGIC;
     \m_ready_d_reg[0]_0\ : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_splitter : entity is "axi_crossbar_v2_1_23_splitter";
 end wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_splitter;
 
 architecture STRUCTURE of wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_splitter is
@@ -3704,8 +3698,6 @@ entity wolfenstein_platform_xbar_3_axi_register_slice_v2_1_22_axic_register_slic
     Q : in STD_LOGIC_VECTOR ( 7 downto 0 );
     SR : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_xbar_3_axi_register_slice_v2_1_22_axic_register_slice : entity is "axi_register_slice_v2_1_22_axic_register_slice";
 end wolfenstein_platform_xbar_3_axi_register_slice_v2_1_22_axic_register_slice;
 
 architecture STRUCTURE of wolfenstein_platform_xbar_3_axi_register_slice_v2_1_22_axic_register_slice is
@@ -6715,8 +6707,6 @@ entity wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_crossbar_sasd is
     s_axi_wstrb : in STD_LOGIC_VECTOR ( 7 downto 0 );
     s_axi_wdata : in STD_LOGIC_VECTOR ( 63 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_crossbar_sasd : entity is "axi_crossbar_v2_1_23_crossbar_sasd";
 end wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_crossbar_sasd;
 
 architecture STRUCTURE of wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_crossbar_sasd is
@@ -7431,8 +7421,6 @@ entity wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_axi_crossbar is
   attribute C_S_AXI_WRITE_ACCEPTANCE of wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_axi_crossbar : entity is "64'b0000000000000000000000000000000100000000000000000000000000000001";
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_axi_crossbar : entity is "yes";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_axi_crossbar : entity is "axi_crossbar_v2_1_23_axi_crossbar";
   attribute P_ADDR_DECODE : integer;
   attribute P_ADDR_DECODE of wolfenstein_platform_xbar_3_axi_crossbar_v2_1_23_axi_crossbar : entity is 1;
   attribute P_AXI3 : integer;

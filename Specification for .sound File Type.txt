@@ -1,7 +1,8 @@
 Specification for .sound File Type
 
+- Each sample is 2 bytes
+- Sample period is 45 microseconds
+
 -- File Start -- 
 [Number of Samples] 			- 4 bytes
-[Sample Period in Microseconds]		- 2 bytes
-[Reserved]				- 2 bytes
-[Data] 					- (Number of Samples) * (Bytes per Sample) bytes
+[Data] 					- (Number of Samples) * 2 bytes

@@ -28,6 +28,7 @@ private:
 
 	PmodJSTK2 jstk[2];
 	JSTK2_DataPacket jstkData[2];
+	JSTK2_Position jstkPos[2];
 };
 
 #endif

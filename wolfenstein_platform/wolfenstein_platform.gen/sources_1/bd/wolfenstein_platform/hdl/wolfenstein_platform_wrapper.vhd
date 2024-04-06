@@ -1,8 +1,8 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
---Date        : Sat Mar 23 17:06:03 2024
---Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
+--Date        : Sat Apr  6 07:14:54 2024
+--Host        : IC-VivoBook running 64-bit major release  (build 9200)
 --Command     : generate_target wolfenstein_platform_wrapper.bd
 --Design      : wolfenstein_platform_wrapper
 --Purpose     : IP block netlist
@@ -81,30 +81,6 @@ architecture STRUCTURE of wolfenstein_platform_wrapper is
     LRCLK : out STD_LOGIC;
     BCLK : out STD_LOGIC;
     leds : out STD_LOGIC_VECTOR ( 7 downto 0 );
-    DDR_cas_n : inout STD_LOGIC;
-    DDR_cke : inout STD_LOGIC;
-    DDR_ck_n : inout STD_LOGIC;
-    DDR_ck_p : inout STD_LOGIC;
-    DDR_cs_n : inout STD_LOGIC;
-    DDR_reset_n : inout STD_LOGIC;
-    DDR_odt : inout STD_LOGIC;
-    DDR_ras_n : inout STD_LOGIC;
-    DDR_we_n : inout STD_LOGIC;
-    DDR_ba : inout STD_LOGIC_VECTOR ( 2 downto 0 );
-    DDR_addr : inout STD_LOGIC_VECTOR ( 14 downto 0 );
-    DDR_dm : inout STD_LOGIC_VECTOR ( 3 downto 0 );
-    DDR_dq : inout STD_LOGIC_VECTOR ( 31 downto 0 );
-    DDR_dqs_n : inout STD_LOGIC_VECTOR ( 3 downto 0 );
-    DDR_dqs_p : inout STD_LOGIC_VECTOR ( 3 downto 0 );
-    FIXED_IO_mio : inout STD_LOGIC_VECTOR ( 53 downto 0 );
-    FIXED_IO_ddr_vrn : inout STD_LOGIC;
-    FIXED_IO_ddr_vrp : inout STD_LOGIC;
-    FIXED_IO_ps_srstb : inout STD_LOGIC;
-    FIXED_IO_ps_clk : inout STD_LOGIC;
-    FIXED_IO_ps_porb : inout STD_LOGIC;
-    GPIO_tri_i : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    GPIO_tri_o : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    GPIO_tri_t : out STD_LOGIC_VECTOR ( 1 downto 0 );
     JD_pin1_o : out STD_LOGIC;
     JD_pin7_i : in STD_LOGIC;
     JD_pin2_o : out STD_LOGIC;
@@ -129,6 +105,12 @@ architecture STRUCTURE of wolfenstein_platform_wrapper is
     JD_pin7_o : out STD_LOGIC;
     JD_pin3_t : out STD_LOGIC;
     JD_pin8_o : out STD_LOGIC;
+    IIC_0_sda_i : in STD_LOGIC;
+    IIC_0_sda_o : out STD_LOGIC;
+    IIC_0_sda_t : out STD_LOGIC;
+    IIC_0_scl_i : in STD_LOGIC;
+    IIC_0_scl_o : out STD_LOGIC;
+    IIC_0_scl_t : out STD_LOGIC;
     JC_pin1_o : out STD_LOGIC;
     JC_pin7_i : in STD_LOGIC;
     JC_pin2_o : out STD_LOGIC;
@@ -153,12 +135,30 @@ architecture STRUCTURE of wolfenstein_platform_wrapper is
     JC_pin7_o : out STD_LOGIC;
     JC_pin3_t : out STD_LOGIC;
     JC_pin8_o : out STD_LOGIC;
-    IIC_0_sda_i : in STD_LOGIC;
-    IIC_0_sda_o : out STD_LOGIC;
-    IIC_0_sda_t : out STD_LOGIC;
-    IIC_0_scl_i : in STD_LOGIC;
-    IIC_0_scl_o : out STD_LOGIC;
-    IIC_0_scl_t : out STD_LOGIC
+    DDR_cas_n : inout STD_LOGIC;
+    DDR_cke : inout STD_LOGIC;
+    DDR_ck_n : inout STD_LOGIC;
+    DDR_ck_p : inout STD_LOGIC;
+    DDR_cs_n : inout STD_LOGIC;
+    DDR_reset_n : inout STD_LOGIC;
+    DDR_odt : inout STD_LOGIC;
+    DDR_ras_n : inout STD_LOGIC;
+    DDR_we_n : inout STD_LOGIC;
+    DDR_ba : inout STD_LOGIC_VECTOR ( 2 downto 0 );
+    DDR_addr : inout STD_LOGIC_VECTOR ( 14 downto 0 );
+    DDR_dm : inout STD_LOGIC_VECTOR ( 3 downto 0 );
+    DDR_dq : inout STD_LOGIC_VECTOR ( 31 downto 0 );
+    DDR_dqs_n : inout STD_LOGIC_VECTOR ( 3 downto 0 );
+    DDR_dqs_p : inout STD_LOGIC_VECTOR ( 3 downto 0 );
+    GPIO_tri_i : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    GPIO_tri_o : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    GPIO_tri_t : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    FIXED_IO_mio : inout STD_LOGIC_VECTOR ( 53 downto 0 );
+    FIXED_IO_ddr_vrn : inout STD_LOGIC;
+    FIXED_IO_ddr_vrp : inout STD_LOGIC;
+    FIXED_IO_ps_srstb : inout STD_LOGIC;
+    FIXED_IO_ps_clk : inout STD_LOGIC;
+    FIXED_IO_ps_porb : inout STD_LOGIC
   );
   end component wolfenstein_platform;
   component IOBUF is

@@ -2,6 +2,11 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+-- reg 0: sound file address
+-- reg 1: volume coefficient
+-- reg 2: sound slot
+-- reg 3: start data valid/start playing sound
+
 entity audio_fetcher_S_AXI is
     generic (
         C_S_AXI_DATA_WIDTH	: integer	:= 32;
@@ -12,8 +17,7 @@ entity audio_fetcher_S_AXI is
         s_rv_valid      : out std_logic;
         s_rv_sound_addr : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
         s_rv_vol_coef   : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-
-        debug_data      : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+        s_rv_slot       : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 
         -- Global Clock Signal
         S_AXI_ACLK	    : in std_logic;
@@ -77,6 +81,7 @@ architecture arch_imp of audio_fetcher_S_AXI is
 
     signal sound_addr_ff    : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
     signal volume_coef_ff   : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+    signal slot_ff          : std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
     signal valid_ff         : std_logic;
 
 begin
@@ -98,11 +103,13 @@ begin
             if(S_AXI_ARESETN = '0') then
                 sound_addr_ff       <= (others => '0');
                 volume_coef_ff      <= (others => '0');
+                slot_ff             <= (others => '0');
                 valid_ff            <= '0';
             else
-                if(slv_reg2(0) = '1') then
+                if(slv_reg3(0) = '1') then
                     sound_addr_ff   <= slv_reg0;
                     volume_coef_ff  <= slv_reg1;
+                    slot_ff         <= slv_reg2;
                     valid_ff <= '1';
                 end if;
 
@@ -115,6 +122,7 @@ begin
 
     s_rv_sound_addr     <= sound_addr_ff;
     s_rv_vol_coef       <= volume_coef_ff;
+    s_rv_slot           <= slot_ff;
     s_rv_valid          <= valid_ff;
 
 	process (S_AXI_ACLK) begin
@@ -184,8 +192,7 @@ begin
                 slv_reg2 <= (others => '0');
                 slv_reg3 <= (others => '0');
             else
-                slv_reg2 <= (others => '0');
-                slv_reg3 <= debug_data;
+                slv_reg3 <= (others => '0');
 
                 loc_addr := axi_awaddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
 

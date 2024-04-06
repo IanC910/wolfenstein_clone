@@ -17,6 +17,7 @@ proc init_gui { IPINST } {
   ipgui::add_param $IPINST -name "C_S_AXI_ADDR_WIDTH" -parent ${Page_0}
   ipgui::add_param $IPINST -name "I2S_DATA_TX_L_REG_OFFSET" -parent ${Page_0}
   ipgui::add_param $IPINST -name "I2S_DATA_TX_R_REG_OFFSET" -parent ${Page_0}
+  ipgui::add_param $IPINST -name "SAMPLE_PERIOD_US" -parent ${Page_0}
   ipgui::add_param $IPINST -name "ZED_AUDIO_CTRL_ADDR" -parent ${Page_0}
 
 
@@ -148,6 +149,15 @@ proc validate_PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET { PARAM_VALUE.I2S_DATA_TX_R_R
 	return true
 }
 
+proc update_PARAM_VALUE.SAMPLE_PERIOD_US { PARAM_VALUE.SAMPLE_PERIOD_US } {
+	# Procedure called to update SAMPLE_PERIOD_US when any of the dependent parameters in the arguments change
+}
+
+proc validate_PARAM_VALUE.SAMPLE_PERIOD_US { PARAM_VALUE.SAMPLE_PERIOD_US } {
+	# Procedure called to validate SAMPLE_PERIOD_US
+	return true
+}
+
 proc update_PARAM_VALUE.ZED_AUDIO_CTRL_ADDR { PARAM_VALUE.ZED_AUDIO_CTRL_ADDR } {
 	# Procedure called to update ZED_AUDIO_CTRL_ADDR when any of the dependent parameters in the arguments change
 }
@@ -191,6 +201,11 @@ proc update_MODELPARAM_VALUE.I2S_DATA_TX_L_REG_OFFSET { MODELPARAM_VALUE.I2S_DAT
 proc update_MODELPARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET { MODELPARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET}] ${MODELPARAM_VALUE.I2S_DATA_TX_R_REG_OFFSET}
+}
+
+proc update_MODELPARAM_VALUE.SAMPLE_PERIOD_US { MODELPARAM_VALUE.SAMPLE_PERIOD_US PARAM_VALUE.SAMPLE_PERIOD_US } {
+	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
+	set_property value [get_property value ${PARAM_VALUE.SAMPLE_PERIOD_US}] ${MODELPARAM_VALUE.SAMPLE_PERIOD_US}
 }
 
 proc update_MODELPARAM_VALUE.C_M_AXI_DMA_BURST_LEN { MODELPARAM_VALUE.C_M_AXI_DMA_BURST_LEN PARAM_VALUE.C_M_AXI_DMA_BURST_LEN } {

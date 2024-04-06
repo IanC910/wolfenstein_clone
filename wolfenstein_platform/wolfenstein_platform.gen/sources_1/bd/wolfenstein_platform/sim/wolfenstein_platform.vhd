@@ -1,8 +1,8 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
---Date        : Sat Mar 23 17:06:03 2024
---Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
+--Date        : Sat Apr  6 07:14:54 2024
+--Host        : IC-VivoBook running 64-bit major release  (build 9200)
 --Command     : generate_target wolfenstein_platform.bd
 --Design      : wolfenstein_platform
 --Purpose     : IP block netlist
@@ -4796,6 +4796,33 @@ architecture STRUCTURE of wolfenstein_platform is
     Dout : out STD_LOGIC_VECTOR ( 7 downto 0 )
   );
   end component wolfenstein_platform_xlslice_0_0;
+  component wolfenstein_platform_btn_interrupt_gen_0_2 is
+  port (
+    btns : in STD_LOGIC_VECTOR ( 4 downto 0 );
+    interrupt : out STD_LOGIC;
+    s00_axi_aclk : in STD_LOGIC;
+    s00_axi_aresetn : in STD_LOGIC;
+    s00_axi_awaddr : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    s00_axi_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    s00_axi_awvalid : in STD_LOGIC;
+    s00_axi_awready : out STD_LOGIC;
+    s00_axi_wdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    s00_axi_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    s00_axi_wvalid : in STD_LOGIC;
+    s00_axi_wready : out STD_LOGIC;
+    s00_axi_bresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    s00_axi_bvalid : out STD_LOGIC;
+    s00_axi_bready : in STD_LOGIC;
+    s00_axi_araddr : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    s00_axi_arprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    s00_axi_arvalid : in STD_LOGIC;
+    s00_axi_arready : out STD_LOGIC;
+    s00_axi_rdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    s00_axi_rresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    s00_axi_rvalid : out STD_LOGIC;
+    s00_axi_rready : in STD_LOGIC
+  );
+  end component wolfenstein_platform_btn_interrupt_gen_0_2;
   component wolfenstein_platform_audio_fetcher_0_1 is
   port (
     s_axi_aclk : in STD_LOGIC;
@@ -4887,33 +4914,6 @@ architecture STRUCTURE of wolfenstein_platform is
     debug_data_o : out STD_LOGIC_VECTOR ( 31 downto 0 )
   );
   end component wolfenstein_platform_audio_fetcher_0_1;
-  component wolfenstein_platform_btn_interrupt_gen_0_2 is
-  port (
-    btns : in STD_LOGIC_VECTOR ( 4 downto 0 );
-    interrupt : out STD_LOGIC;
-    s00_axi_aclk : in STD_LOGIC;
-    s00_axi_aresetn : in STD_LOGIC;
-    s00_axi_awaddr : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    s00_axi_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    s00_axi_awvalid : in STD_LOGIC;
-    s00_axi_awready : out STD_LOGIC;
-    s00_axi_wdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    s00_axi_wstrb : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    s00_axi_wvalid : in STD_LOGIC;
-    s00_axi_wready : out STD_LOGIC;
-    s00_axi_bresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    s00_axi_bvalid : out STD_LOGIC;
-    s00_axi_bready : in STD_LOGIC;
-    s00_axi_araddr : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    s00_axi_arprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    s00_axi_arvalid : in STD_LOGIC;
-    s00_axi_arready : out STD_LOGIC;
-    s00_axi_rdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    s00_axi_rresp : out STD_LOGIC_VECTOR ( 1 downto 0 );
-    s00_axi_rvalid : out STD_LOGIC;
-    s00_axi_rready : in STD_LOGIC
-  );
-  end component wolfenstein_platform_btn_interrupt_gen_0_2;
   signal PmodJSTK2_0_Pmod_out_PIN10_I : STD_LOGIC;
   signal PmodJSTK2_0_Pmod_out_PIN10_O : STD_LOGIC;
   signal PmodJSTK2_0_Pmod_out_PIN10_T : STD_LOGIC;

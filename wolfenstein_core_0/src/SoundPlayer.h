@@ -8,11 +8,14 @@ class SoundPlayer {
 public:
 	SoundPlayer(unsigned int audioFetcherBaseAddr);
 
-	void playSound(void* soundFilePtr);
+	void playSound(void* soundFile, int volume, int soundSlot);
+	void stopSound(int soundSlot);
+	void stopAllSounds();
 
 private:
 	unsigned int audioFetcherBaseAddr = 0;
 };
 
+float getSoundLengthS(void* soundFile);
 
 #endif

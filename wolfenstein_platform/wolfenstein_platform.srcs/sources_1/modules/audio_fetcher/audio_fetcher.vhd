@@ -17,6 +17,8 @@ entity audio_fetcher is
         I2S_DATA_TX_L_REG_OFFSET        : integer := 8;
         I2S_DATA_TX_R_REG_OFFSET        : integer := 12;
 
+        SAMPLE_PERIOD_US                : integer := 45;
+
         -- Parameters of Axi Master Bus Interface M_AXI_DMA
         C_M_AXI_DMA_BURST_LEN	    : integer	:= 1;
         C_M_AXI_DMA_ID_WIDTH	    : integer	:= 2;
@@ -136,8 +138,7 @@ architecture arch_imp of audio_fetcher is
             s_rv_valid      : out std_logic;
             s_rv_sound_addr : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
             s_rv_vol_coef   : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-
-            debug_data      : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+            s_rv_slot       : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 
             -- Global Clock Signal
             S_AXI_ACLK	    : in std_logic;
@@ -283,7 +284,8 @@ architecture arch_imp of audio_fetcher is
             CLOCK_FREQ_MHz                  : integer := 200;
             ZED_AUDIO_CTRL_ADDR             : integer := 16#43C0_0000#;
             I2S_DATA_TX_L_REG_OFFSET        : integer := 8;
-            I2S_DATA_TX_R_REG_OFFSET        : integer := 12
+            I2S_DATA_TX_R_REG_OFFSET        : integer := 12;
+            SAMPLE_PERIOD_US                : integer := 45
         );
         port(
             clk                 : in    std_logic;
@@ -293,6 +295,7 @@ architecture arch_imp of audio_fetcher is
             s_rv_valid          : in    std_logic;
             s_rv_sound_addr     : in    std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
             s_rv_vol_coef       : in    std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
+            s_rv_slot           : in    std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
 
             req_rv_ready        : in    std_logic;
             req_rv_valid        : out   std_logic;
@@ -318,6 +321,7 @@ architecture arch_imp of audio_fetcher is
     signal s_rv_valid       : std_logic;
     signal s_rv_sound_addr  : std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
     signal s_rv_vol_coef    : std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
+    signal s_rv_slot        : std_logic_vector(AXI_DATA_WIDTH - 1 downto 0);
 
     signal req_rv_ready     : std_logic;
     signal req_rv_valid     : std_logic;
@@ -350,7 +354,8 @@ begin
             CLOCK_FREQ_MHz                  => CLOCK_FREQ_MHz,
             ZED_AUDIO_CTRL_ADDR             => ZED_AUDIO_CTRL_ADDR,
             I2S_DATA_TX_L_REG_OFFSET        => I2S_DATA_TX_L_REG_OFFSET,
-            I2S_DATA_TX_R_REG_OFFSET        => I2S_DATA_TX_R_REG_OFFSET
+            I2S_DATA_TX_R_REG_OFFSET        => I2S_DATA_TX_R_REG_OFFSET,
+            SAMPLE_PERIOD_US                => SAMPLE_PERIOD_US
         )
         port map (
             clk                 => s_axi_aclk,
@@ -360,6 +365,7 @@ begin
             s_rv_valid          => s_rv_valid,
             s_rv_sound_addr     => s_rv_sound_addr,
             s_rv_vol_coef       => s_rv_vol_coef,
+            s_rv_slot           => s_rv_slot,
 
             req_rv_ready        => req_rv_ready,
             req_rv_valid        => req_rv_valid,
@@ -390,8 +396,7 @@ begin
             s_rv_valid      => s_rv_valid,
             s_rv_sound_addr => s_rv_sound_addr,
             s_rv_vol_coef   => s_rv_vol_coef,
-
-            debug_data      => debug_data,
+            s_rv_slot       => s_rv_slot,
 
             S_AXI_ACLK	    => s_axi_aclk,
             S_AXI_ARESETN	=> s_axi_aresetn,

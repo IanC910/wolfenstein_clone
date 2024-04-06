@@ -160,7 +160,7 @@ void WolfensteinCore1App::drawEnvironment() {
 		memcpy(&INTERMEDIATE_IMAGE_BUFFER[minFloorRow * SCREEN_WIDTH], FLOOR_BUFFER, (SCREEN_HEIGHT - minFloorRow) * SCREEN_WIDTH * sizeof(int));
 	}
 
-	// Fill in the rest of the floor and ceiling (non rectangular parts) in columns
+	// Fill in the rest of the floor and ceiling (non rectangular parts)
 	fillNonRectangularCeilingAndFloor(maxCeilingRow);
 }
 
@@ -190,8 +190,6 @@ void WolfensteinCore1App::drawSpriteSimple(Sprite* sprite, int rowOffset, int co
 
 void WolfensteinCore1App::drawObjectWithPosition(
 	ObjectWithPosition* object,
-	Player* player,
-	float* distanceArray,
 	Sprite* sprite,
 	int drawHeightOffset,
 	int drawColOffset
@@ -199,6 +197,8 @@ void WolfensteinCore1App::drawObjectWithPosition(
 	if(sprite == nullptr) {
 		return;
 	}
+
+	Player* player = &SHARED_DATA_PACKETS[1].player;
 
 	float playerToObjectX = object->getPositionX() - player->getPositionX();
 	float playerToObjectY = object->getPositionY() - player->getPositionY();
@@ -215,6 +215,8 @@ void WolfensteinCore1App::drawObjectWithPosition(
 
 	int objectMiddleCol = (int)((objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH)) + drawColOffset;
 	bool inPlayerFOV = objectMiddleCol >= 0 && objectMiddleCol < SCREEN_WIDTH;
+
+	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
 
 	if(inPlayerFOV && distanceArray[objectMiddleCol / GRANULARITY_H] >= distanceFromPlayer) {
 
@@ -252,6 +254,7 @@ void WolfensteinCore1App::drawObjectWithPosition(
 			int firstPixel = (int)(sprite->getFirstPixelArray()[spriteRow] / scaleFactor);
 			int numPixels = (int)(sprite->getNumPixelsArray()[spriteRow] / scaleFactor);
 
+			// Check if sprite is past screen bounds
 			int startScreenCol 	= objectLeftCol + firstPixel; // Inclusive
 			int endScreenCol 	= objectLeftCol + firstPixel + numPixels; // Exclusive
 			if(startScreenCol < 0) {
@@ -314,10 +317,7 @@ void WolfensteinCore1App::drawObjectWithPosition(
 }
 
 void WolfensteinCore1App::drawEnemies() {
-	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
-	Player* player = &SHARED_DATA_PACKETS[1].player;
 	Enemy* enemyArray = SHARED_DATA_PACKETS[1].enemyArray;
-
 
 	for(int e = 0; e < MAX_NUM_ENEMIES; e++) {
 		Enemy* enemy = &enemyArray[e];
@@ -332,8 +332,6 @@ void WolfensteinCore1App::drawEnemies() {
 
 		drawObjectWithPosition(
             enemy,
-            player,
-            distanceArray,
 			&enemySprite,
 			enemyRowOffset,
 			0
@@ -344,8 +342,6 @@ void WolfensteinCore1App::drawEnemies() {
 
 			drawObjectWithPosition(
 				enemy,
-				player,
-				distanceArray,
 				&flashSprite,
 				-28,
 				4
@@ -355,10 +351,8 @@ void WolfensteinCore1App::drawEnemies() {
 }
 
 void WolfensteinCore1App::drawDrops() {
-	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
-	Player* player = &SHARED_DATA_PACKETS[1].player;
-
 	Drop* healthDropArray = SHARED_DATA_PACKETS[1].healthDropArray;
+
 	for(int i = 0; i < MAX_NUM_HEALTH_DROPS; i++) {
 		Drop* healthDrop = &healthDropArray[i];
 
@@ -372,16 +366,32 @@ void WolfensteinCore1App::drawDrops() {
 
 		drawObjectWithPosition(
 			healthDrop,
-			player,
-			distanceArray,
 			&healthDropSprite,
 			spriteRowOffset,
 			0
 		);
 	}
+
+	Drop* ammoDropArray = SHARED_DATA_PACKETS[1].ammoDropArray;
+		for(int i = 0; i < MAX_NUM_AMMO_DROPS; i++) {
+			Drop* ammoDrop = &ammoDropArray[i];
+
+			if(ammoDrop->isPickedUp()) {
+				continue;
+			}
+
+			Sprite ammoDropSprite(AMMO_DROP_SPRITE);
+
+			int spriteRowOffset = 300;
+
+			drawObjectWithPosition(
+				ammoDrop,
+				&ammoDropSprite,
+				spriteRowOffset,
+				0
+			);
+		}
 }
-
-
 
 int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
 	static float halfWallHeight = 0.5;
@@ -448,7 +458,7 @@ void WolfensteinCore1App::drawHUD() {
 	int healthBarHeight = 20;
 	int healthBarLength = MAX_PLAYER_HEALTH;
 	int healthBarTopRow = SCREEN_HEIGHT - 1 - 20 - healthBarHeight;
-	int	healthBarLeftCol = SCREEN_WIDTH - 1 - 20 - healthBarLength;
+	int	healthBarLeftCol = SCREEN_WIDTH - 1 - 28 - healthBarLength;
 
 	int healthBarEmptyColour = colourRGB(8, 0, 0);
 	int healthBarFullColour = colourRGB(0, 15, 0);
@@ -467,6 +477,35 @@ void WolfensteinCore1App::drawHUD() {
 			healthBarLength * sizeof(int)
 		);
 	}
+
+	Sprite heartSprite(HEALTH_BAR_HEART_SPRITE);
+	drawSpriteSimple(&heartSprite, healthBarTopRow, healthBarLeftCol + healthBarLength + 5);
+
+	int ammoBarHeight = healthBarHeight;
+	int ammoBarLength = MAX_PLAYER_AMMO;
+	int ammoBarTopRow = healthBarTopRow - 5 - ammoBarHeight;
+	int	ammoBarLeftCol = healthBarLeftCol + (healthBarLength - ammoBarLength);
+
+	int ammoBarEmptyColour = colourRGB(8, 8, 8);
+	int ammoBarFullColour = colourRGB(15, 12, 0);
+	int playerAmmo = SHARED_DATA_PACKETS[1].player.getAmmo();
+
+	for(int j = 0; j < playerAmmo; j++) {
+		INTERMEDIATE_IMAGE_BUFFER[ammoBarTopRow * SCREEN_WIDTH + ammoBarLeftCol + j] = ammoBarFullColour;
+	}
+	for(int j = playerAmmo; j < ammoBarLength; j++) {
+		INTERMEDIATE_IMAGE_BUFFER[ammoBarTopRow * SCREEN_WIDTH + ammoBarLeftCol + j] = ammoBarEmptyColour;
+	}
+	for(int i = 1; i < ammoBarHeight; i++) {
+		memcpy(
+			&INTERMEDIATE_IMAGE_BUFFER[(ammoBarTopRow + i) * SCREEN_WIDTH + ammoBarLeftCol],
+			&INTERMEDIATE_IMAGE_BUFFER[ammoBarTopRow * SCREEN_WIDTH + ammoBarLeftCol],
+			ammoBarLength * sizeof(int)
+		);
+	}
+
+	Sprite ammoSprite(AMMO_BAR_AMMO_SPRITE);
+	drawSpriteSimple(&ammoSprite, ammoBarTopRow, ammoBarLeftCol + ammoBarLength + ((heartSprite.getNumCols() - ammoSprite.getNumCols()) / 2)  + 5);
 
 	// Draw first person weapon sprite
 	Sprite gunSprite(FIRST_PERSON_GUN_SPRITE);
