@@ -5,15 +5,15 @@ clear
 close all
 
 % Configurables
-inputFileName = '../assets/sources/gunshot.wav';
-outputFileName = '../assets/processed/gunshot.sound';
+inputFileName = '../assets/sources/theme_song.wav';
+outputFileName = '../assets/processed/theme_song.sound';
 
-startTimeS = 0.1;
-endTimeS = 0.4;
+startTimeS = 0;
+endTimeS = 44;
 playSound = 1;
 
 downSampleFactor = 2;
-smoothingTimeConstant = 10000;
+smoothingTimeConstant = 1;
 
 volumeCoef = 10000;
 

@@ -95,7 +95,7 @@ void WolfensteinCore0App::runCore0App() {
 			case PLAYING_LEVEL: {
 				int frameIndex = 0;
 
-				float songLengthS = getSoundLengthS(SONG_SOUND);
+				float songLengthS = getSoundLengthS(THEME_SONG_SOUND);
 				float timeSinceSongPlayedS = songLengthS + 1;
 
 				while(gameState == PLAYING_LEVEL) {
