@@ -30,6 +30,9 @@ dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processe
 dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/enemy.sprite 0xe38000
 dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/health_drop.sprite 0xe40000
 dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/theme_song.sound 0xe44000
+dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/ammo_drop.sprite 0x1048000
+dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/heart.sprite 0x104c000
+dow -data C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/assets/processed/ammo.sprite 0x104c400
 targets -set -nocase -filter {name =~ "*A9*#0"}
 dow C:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_core_0/Debug/wolfenstein_core_0.elf
 targets -set -nocase -filter {name =~ "*A9*#1"}

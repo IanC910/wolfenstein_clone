@@ -107,7 +107,7 @@ void WolfensteinCore0App::runCore0App() {
 					timeSinceSongPlayedS += frameTimeInSec;
 					if(timeSinceSongPlayedS > songLengthS) {
 						xil_printf("Playing song\n");
-						soundPlayer.playSound(SONG_SOUND, 80, 1);
+						soundPlayer.playSound(THEME_SONG_SOUND, 80, 1);
 						timeSinceSongPlayedS = 0;
 					}
 
@@ -212,6 +212,7 @@ void WolfensteinCore0App::handlePlayerMovement() {
 	float moveCtrlX = 0;
 	float moveCtrlY = 0;
 	float turnCtrl = 0;
+
 	if(DO_USE_CONTROLLER) {
 		moveCtrlX = controller.getNormedJoystickX(1);
 		moveCtrlY = controller.getNormedJoystickY(1);

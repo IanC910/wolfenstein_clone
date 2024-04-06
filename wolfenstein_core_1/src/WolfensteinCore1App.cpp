@@ -160,7 +160,7 @@ void WolfensteinCore1App::drawEnvironment() {
 		memcpy(&INTERMEDIATE_IMAGE_BUFFER[minFloorRow * SCREEN_WIDTH], FLOOR_BUFFER, (SCREEN_HEIGHT - minFloorRow) * SCREEN_WIDTH * sizeof(int));
 	}
 
-	// Fill in the rest of the floor and ceiling (non rectangular parts) in columns
+	// Fill in the rest of the floor and ceiling (non rectangular parts)
 	fillNonRectangularCeilingAndFloor(maxCeilingRow);
 }
 
@@ -386,8 +386,6 @@ void WolfensteinCore1App::drawDrops() {
 
 			drawObjectWithPosition(
 				ammoDrop,
-				player,
-				distanceArray,
 				&ammoDropSprite,
 				spriteRowOffset,
 				0

@@ -38,8 +38,8 @@ const float MIN_SPRITE_SCALE_FACTOR	= 1.0;
 
 
 // Debug params
-const bool DO_USE_CONTROLLER = true;
-const bool DO_PRINT_FRAME_TIME = false;
+const bool DO_USE_CONTROLLER = false;
+const bool DO_PRINT_FRAME_TIME = true;
 
 // Sound player params
 const int BYTES_PER_SAMPLE = 2;
