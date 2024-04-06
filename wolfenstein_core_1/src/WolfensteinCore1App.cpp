@@ -486,8 +486,8 @@ void WolfensteinCore1App::drawHUD() {
 	int ammoBarTopRow = healthBarTopRow - 5 - ammoBarHeight;
 	int	ammoBarLeftCol = healthBarLeftCol + (healthBarLength - ammoBarLength);
 
-	int ammoBarEmptyColour = colourRGB(8, 0, 0);
-	int ammoBarFullColour = colourRGB(0, 15, 0);
+	int ammoBarEmptyColour = colourRGB(8, 8, 8);
+	int ammoBarFullColour = colourRGB(15, 12, 0);
 	int playerAmmo = SHARED_DATA_PACKETS[1].player.getAmmo();
 
 	for(int j = 0; j < playerAmmo; j++) {
