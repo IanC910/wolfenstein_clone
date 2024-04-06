@@ -1,7 +1,7 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-// Date        : Sat Apr  6 06:00:25 2024
+// Date        : Sat Apr  6 06:44:26 2024
 // Host        : IC-VivoBook running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_audio_fetcher_0_1/wolfenstein_platform_audio_fetcher_0_1_sim_netlist.v
@@ -769,7 +769,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher
         .\FSM_sequential_curr_state_ff_reg[0]_0 (audio_fetcher_M_AXI_DMA_inst_n_3),
         .\FSM_sequential_curr_state_ff_reg[0]_1 (audio_fetcher_M_AXI_DMA_inst_n_5),
         .\FSM_sequential_curr_state_ff_reg[0]_2 (audio_fetcher_controller_inst_n_42),
-        .\FSM_sequential_curr_state_ff_reg[0]_3 (audio_fetcher_controller_inst_n_37),
+        .\FSM_sequential_curr_state_ff_reg[0]_3 (audio_fetcher_controller_inst_n_34),
         .Q({RESIZE0,audio_fetcher_M_AXI_DMA_inst_n_7,audio_fetcher_M_AXI_DMA_inst_n_8,audio_fetcher_M_AXI_DMA_inst_n_9,audio_fetcher_M_AXI_DMA_inst_n_10,audio_fetcher_M_AXI_DMA_inst_n_11,audio_fetcher_M_AXI_DMA_inst_n_12,audio_fetcher_M_AXI_DMA_inst_n_13,audio_fetcher_M_AXI_DMA_inst_n_14,audio_fetcher_M_AXI_DMA_inst_n_15,audio_fetcher_M_AXI_DMA_inst_n_16,audio_fetcher_M_AXI_DMA_inst_n_17,audio_fetcher_M_AXI_DMA_inst_n_18,audio_fetcher_M_AXI_DMA_inst_n_19,audio_fetcher_M_AXI_DMA_inst_n_20,audio_fetcher_M_AXI_DMA_inst_n_21,audio_fetcher_M_AXI_DMA_inst_n_22,audio_fetcher_M_AXI_DMA_inst_n_23,audio_fetcher_M_AXI_DMA_inst_n_24,audio_fetcher_M_AXI_DMA_inst_n_25,audio_fetcher_M_AXI_DMA_inst_n_26,audio_fetcher_M_AXI_DMA_inst_n_27,audio_fetcher_M_AXI_DMA_inst_n_28,audio_fetcher_M_AXI_DMA_inst_n_29,audio_fetcher_M_AXI_DMA_inst_n_30,audio_fetcher_M_AXI_DMA_inst_n_31,audio_fetcher_M_AXI_DMA_inst_n_32,audio_fetcher_M_AXI_DMA_inst_n_33,audio_fetcher_M_AXI_DMA_inst_n_34,audio_fetcher_M_AXI_DMA_inst_n_35,audio_fetcher_M_AXI_DMA_inst_n_36,audio_fetcher_M_AXI_DMA_inst_n_37}),
         .\axi_araddr_ff_reg[31]_0 ({audio_fetcher_controller_inst_n_43,audio_fetcher_controller_inst_n_44,audio_fetcher_controller_inst_n_45,audio_fetcher_controller_inst_n_46,audio_fetcher_controller_inst_n_47,audio_fetcher_controller_inst_n_48,audio_fetcher_controller_inst_n_49,audio_fetcher_controller_inst_n_50,audio_fetcher_controller_inst_n_51,audio_fetcher_controller_inst_n_52,audio_fetcher_controller_inst_n_53,audio_fetcher_controller_inst_n_54,audio_fetcher_controller_inst_n_55,audio_fetcher_controller_inst_n_56,audio_fetcher_controller_inst_n_57,audio_fetcher_controller_inst_n_58,audio_fetcher_controller_inst_n_59,audio_fetcher_controller_inst_n_60,audio_fetcher_controller_inst_n_61,audio_fetcher_controller_inst_n_62,audio_fetcher_controller_inst_n_63,audio_fetcher_controller_inst_n_64,audio_fetcher_controller_inst_n_65,audio_fetcher_controller_inst_n_66,audio_fetcher_controller_inst_n_67,audio_fetcher_controller_inst_n_68,audio_fetcher_controller_inst_n_69,audio_fetcher_controller_inst_n_70,audio_fetcher_controller_inst_n_71,audio_fetcher_controller_inst_n_72,audio_fetcher_controller_inst_n_73,audio_fetcher_controller_inst_n_74}),
         .curr_state_ff(curr_state_ff_0),
@@ -805,21 +805,20 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher
         .slot_ff(slot_ff),
         .\sound_addr_ff_reg[0]_0 (audio_fetcher_controller_inst_n_0),
         .\sound_addr_ff_reg[31]_0 (sound_addr_ff),
-        .valid_ff_reg_0(audio_fetcher_controller_inst_n_34),
+        .valid_ff_reg_0(audio_fetcher_controller_inst_n_37),
         .\volume_coef_ff_reg[31]_0 ({volume_coef_ff[31],volume_coef_ff[14:0]}));
   wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller audio_fetcher_controller_inst
        (.D({audio_fetcher_controller_inst_n_1,audio_fetcher_controller_inst_n_2,audio_fetcher_controller_inst_n_3,audio_fetcher_controller_inst_n_4,audio_fetcher_controller_inst_n_5,audio_fetcher_controller_inst_n_6,audio_fetcher_controller_inst_n_7,audio_fetcher_controller_inst_n_8,audio_fetcher_controller_inst_n_9,audio_fetcher_controller_inst_n_10,audio_fetcher_controller_inst_n_11,audio_fetcher_controller_inst_n_12,audio_fetcher_controller_inst_n_13,audio_fetcher_controller_inst_n_14,audio_fetcher_controller_inst_n_15,audio_fetcher_controller_inst_n_16,audio_fetcher_controller_inst_n_17,audio_fetcher_controller_inst_n_18,audio_fetcher_controller_inst_n_19,audio_fetcher_controller_inst_n_20,audio_fetcher_controller_inst_n_21,audio_fetcher_controller_inst_n_22,audio_fetcher_controller_inst_n_23,audio_fetcher_controller_inst_n_24,audio_fetcher_controller_inst_n_25,audio_fetcher_controller_inst_n_26,audio_fetcher_controller_inst_n_27,audio_fetcher_controller_inst_n_28,audio_fetcher_controller_inst_n_29,audio_fetcher_controller_inst_n_30,audio_fetcher_controller_inst_n_31,audio_fetcher_controller_inst_n_32}),
         .E(audio_fetcher_controller_inst_n_40),
-        .\FSM_sequential_curr_initter_state_ff_reg[0]_0 (audio_fetcher_controller_inst_n_37),
-        .\FSM_sequential_curr_initter_state_ff_reg[1]_0 (axi_araddr_ff0),
-        .\FSM_sequential_curr_initter_state_ff_reg[1]_1 (audio_fetcher_M_AXI_DMA_inst_n_5),
-        .Q(p_1_in),
+        .\FSM_sequential_curr_initter_state_ff_reg[0]_0 (audio_fetcher_controller_inst_n_34),
+        .\FSM_sequential_curr_initter_state_ff_reg[0]_1 (axi_araddr_ff0),
+        .Q({curr_player_state_ff[2],curr_player_state_ff[0]}),
+        .\axi_araddr_ff_reg[31] (audio_fetcher_M_AXI_DMA_inst_n_5),
         .\curr_player_state_ff_reg[0]_0 (audio_fetcher_controller_inst_n_42),
         .\curr_player_state_ff_reg[0]_1 (audio_fetcher_M_AXI_AUDIO_OUT_inst_n_6),
-        .\curr_player_state_ff_reg[0]_2 (audio_fetcher_M_AXI_AUDIO_OUT_inst_n_4),
-        .\curr_player_state_ff_reg[2]_0 ({curr_player_state_ff[2],curr_player_state_ff[0]}),
-        .\curr_player_state_ff_reg[2]_1 (audio_fetcher_M_AXI_DMA_inst_n_3),
-        .\curr_player_state_ff_reg[2]_2 (audio_fetcher_M_AXI_AUDIO_OUT_inst_n_7),
+        .\curr_player_state_ff_reg[1]_0 (audio_fetcher_M_AXI_AUDIO_OUT_inst_n_4),
+        .\curr_player_state_ff_reg[2]_0 (audio_fetcher_M_AXI_DMA_inst_n_3),
+        .\curr_player_state_ff_reg[2]_1 (audio_fetcher_M_AXI_AUDIO_OUT_inst_n_7),
         .curr_state_ff(curr_state_ff_0),
         .curr_state_ff_0(curr_state_ff),
         .\initter_sound_addr_ff_reg[31]_0 (sound_addr_ff),
@@ -829,12 +828,13 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher
         .s_axi_aclk(s_axi_aclk),
         .s_axi_aresetn(s_axi_aresetn),
         .s_axi_aresetn_0(audio_fetcher_controller_inst_n_0),
-        .s_axi_aresetn_1(audio_fetcher_controller_inst_n_34),
+        .s_axi_aresetn_1(audio_fetcher_controller_inst_n_37),
         .s_rv_valid(s_rv_valid),
         .sample_ff0(sample_ff0),
         .\slot_active_array_ff_reg[0]_0 (\slot_active_array_ff_reg[0] ),
         .\slot_active_array_ff_reg[1]_0 (\slot_active_array_ff_reg[1] ),
-        .slot_ff(slot_ff));
+        .slot_ff(slot_ff),
+        .valid_ff_reg(p_1_in));
 endmodule
 
 (* ORIG_REF_NAME = "audio_fetcher_M_AXI_AUDIO_OUT" *) 
@@ -1155,7 +1155,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_M_AXI_AUDIO_OUT
   (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT3 #(
     .INIT(8'hEF)) 
-    \curr_player_state_ff[0]_i_2 
+    \curr_player_state_ff[0]_i_7 
        (.I0(curr_state_ff[1]),
         .I1(curr_state_ff[0]),
         .I2(Q[1]),
@@ -1321,7 +1321,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_M_AXI_DMA
         .O(\axi_araddr_ff[31]_i_1_n_0 ));
   LUT2 #(
     .INIT(4'hE)) 
-    \axi_araddr_ff[31]_i_3 
+    \axi_araddr_ff[31]_i_4 
        (.I0(curr_state_ff[0]),
         .I1(curr_state_ff[1]),
         .O(\FSM_sequential_curr_state_ff_reg[0]_1 ));
@@ -4055,54 +4055,54 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
    (s_axi_aresetn_0,
     D,
     sample_ff0,
-    s_axi_aresetn_1,
-    \curr_player_state_ff_reg[2]_0 ,
     \FSM_sequential_curr_initter_state_ff_reg[0]_0 ,
-    \slot_active_array_ff_reg[1]_0 ,
+    Q,
+    s_axi_aresetn_1,
     \slot_active_array_ff_reg[0]_0 ,
+    \slot_active_array_ff_reg[1]_0 ,
     E,
-    \FSM_sequential_curr_initter_state_ff_reg[1]_0 ,
+    \FSM_sequential_curr_initter_state_ff_reg[0]_1 ,
     \curr_player_state_ff_reg[0]_0 ,
     \req_addr_ff_reg[31]_0 ,
     slot_ff,
     s_axi_aclk,
-    s_rv_valid,
-    \FSM_sequential_curr_initter_state_ff_reg[1]_1 ,
-    s_axi_aresetn,
-    Q,
     curr_state_ff,
-    \curr_player_state_ff_reg[2]_1 ,
-    \curr_player_state_ff_reg[0]_1 ,
-    \curr_player_state_ff_reg[0]_2 ,
-    \curr_player_state_ff_reg[2]_2 ,
+    s_rv_valid,
+    s_axi_aresetn,
+    valid_ff_reg,
+    \curr_player_state_ff_reg[2]_0 ,
     curr_state_ff_0,
+    \curr_player_state_ff_reg[1]_0 ,
+    \curr_player_state_ff_reg[0]_1 ,
+    \curr_player_state_ff_reg[2]_1 ,
+    \axi_araddr_ff_reg[31] ,
     \num_samples_0_ff_reg[31]_0 ,
     \initter_vol_coef_ff_reg[31]_0 ,
     \initter_sound_addr_ff_reg[31]_0 );
   output s_axi_aresetn_0;
   output [31:0]D;
   output sample_ff0;
-  output s_axi_aresetn_1;
-  output [1:0]\curr_player_state_ff_reg[2]_0 ;
   output \FSM_sequential_curr_initter_state_ff_reg[0]_0 ;
-  output \slot_active_array_ff_reg[1]_0 ;
+  output [1:0]Q;
+  output s_axi_aresetn_1;
   output \slot_active_array_ff_reg[0]_0 ;
+  output \slot_active_array_ff_reg[1]_0 ;
   output [0:0]E;
-  output [0:0]\FSM_sequential_curr_initter_state_ff_reg[1]_0 ;
+  output [0:0]\FSM_sequential_curr_initter_state_ff_reg[0]_1 ;
   output \curr_player_state_ff_reg[0]_0 ;
   output [31:0]\req_addr_ff_reg[31]_0 ;
   input [0:0]slot_ff;
   input s_axi_aclk;
-  input s_rv_valid;
-  input \FSM_sequential_curr_initter_state_ff_reg[1]_1 ;
-  input s_axi_aresetn;
-  input [0:0]Q;
   input [1:0]curr_state_ff;
-  input \curr_player_state_ff_reg[2]_1 ;
-  input \curr_player_state_ff_reg[0]_1 ;
-  input \curr_player_state_ff_reg[0]_2 ;
-  input \curr_player_state_ff_reg[2]_2 ;
+  input s_rv_valid;
+  input s_axi_aresetn;
+  input [0:0]valid_ff_reg;
+  input \curr_player_state_ff_reg[2]_0 ;
   input [1:0]curr_state_ff_0;
+  input \curr_player_state_ff_reg[1]_0 ;
+  input \curr_player_state_ff_reg[0]_1 ;
+  input \curr_player_state_ff_reg[2]_1 ;
+  input \axi_araddr_ff_reg[31] ;
   input [31:0]\num_samples_0_ff_reg[31]_0 ;
   input [15:0]\initter_vol_coef_ff_reg[31]_0 ;
   input [31:0]\initter_sound_addr_ff_reg[31]_0 ;
@@ -4113,9 +4113,8 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
   wire [31:0]D;
   wire [0:0]E;
   wire \FSM_sequential_curr_initter_state_ff_reg[0]_0 ;
-  wire [0:0]\FSM_sequential_curr_initter_state_ff_reg[1]_0 ;
-  wire \FSM_sequential_curr_initter_state_ff_reg[1]_1 ;
-  wire [0:0]Q;
+  wire [0:0]\FSM_sequential_curr_initter_state_ff_reg[0]_1 ;
+  wire [1:0]Q;
   wire RSTP;
   wire \_inferred__5/i__carry__0_n_0 ;
   wire \_inferred__5/i__carry__0_n_1 ;
@@ -4148,6 +4147,8 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
   wire \_inferred__5/i__carry_n_1 ;
   wire \_inferred__5/i__carry_n_2 ;
   wire \_inferred__5/i__carry_n_3 ;
+  wire \axi_araddr_ff[31]_i_3_n_0 ;
+  wire \axi_araddr_ff_reg[31] ;
   wire [31:0]byte_index_0_ff;
   wire [31:0]byte_index_0_ff0;
   wire byte_index_0_ff0_carry__0_n_0;
@@ -4281,20 +4282,21 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
   wire \byte_index_1_ff[8]_i_1_n_0 ;
   wire \byte_index_1_ff[9]_i_1_n_0 ;
   wire byte_index_1_ff_0;
-  wire [1:0]curr_initter_state_ff;
+  wire [2:0]curr_initter_state_ff;
   wire [1:1]curr_player_state_ff;
+  wire \curr_player_state_ff[0]_i_2_n_0 ;
   wire \curr_player_state_ff[0]_i_3_n_0 ;
   wire \curr_player_state_ff[0]_i_4_n_0 ;
   wire \curr_player_state_ff[0]_i_5_n_0 ;
+  wire \curr_player_state_ff[0]_i_6_n_0 ;
   wire \curr_player_state_ff[1]_i_2_n_0 ;
   wire \curr_player_state_ff[2]_i_3_n_0 ;
   wire \curr_player_state_ff[2]_i_4_n_0 ;
   wire \curr_player_state_ff_reg[0]_0 ;
   wire \curr_player_state_ff_reg[0]_1 ;
-  wire \curr_player_state_ff_reg[0]_2 ;
-  wire [1:0]\curr_player_state_ff_reg[2]_0 ;
+  wire \curr_player_state_ff_reg[1]_0 ;
+  wire \curr_player_state_ff_reg[2]_0 ;
   wire \curr_player_state_ff_reg[2]_1 ;
-  wire \curr_player_state_ff_reg[2]_2 ;
   wire [1:0]curr_state_ff;
   wire [1:0]curr_state_ff_0;
   wire i__carry__0_i_1__0_n_0;
@@ -4536,7 +4538,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
   wire \last_sample_array1_inferred__0/i__carry_n_3 ;
   wire last_sample_array_reg;
   wire last_sample_array_reg1_out;
-  wire [1:0]next_initter_state__0;
+  wire [2:0]next_initter_state__0;
   wire [2:0]next_player_state;
   wire [31:0]num_samples_0_ff;
   wire num_samples_0_ff_2;
@@ -4825,6 +4827,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
   wire [31:0]sound_addr_0_ff;
   wire [31:0]sound_addr_1_ff;
   wire valid_ff_i_2_n_0;
+  wire [0:0]valid_ff_reg;
   wire [31:0]vol_coef_0_ff;
   wire \vol_coef_0_ff[31]_i_1_n_0 ;
   wire [31:0]vol_coef_1_ff;
@@ -4862,48 +4865,66 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
   wire [3:2]\NLW_sleep_counter_ff_reg[12]_i_1_CO_UNCONNECTED ;
   wire [3:3]\NLW_sleep_counter_ff_reg[12]_i_1_O_UNCONNECTED ;
 
-  (* SOFT_HLUTNM = "soft_lutpair26" *) 
-  LUT4 #(
-    .INIT(16'h3222)) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  LUT5 #(
+    .INIT(32'h00010F70)) 
     \FSM_sequential_curr_initter_state_ff[0]_i_1 
-       (.I0(curr_initter_state_ff[0]),
-        .I1(curr_initter_state_ff[1]),
-        .I2(curr_state_ff[0]),
-        .I3(curr_state_ff[1]),
-        .O(next_initter_state__0[0]));
-  LUT6 #(
-    .INIT(64'hFFFF4040FF000000)) 
-    \FSM_sequential_curr_initter_state_ff[1]_i_1 
-       (.I0(\sleep_counter_ff[0]_i_1_n_0 ),
-        .I1(s_rv_valid),
-        .I2(sel),
-        .I3(\FSM_sequential_curr_initter_state_ff_reg[1]_1 ),
+       (.I0(curr_state_ff[0]),
+        .I1(curr_state_ff[1]),
+        .I2(curr_initter_state_ff[0]),
+        .I3(curr_initter_state_ff[2]),
         .I4(curr_initter_state_ff[1]),
-        .I5(curr_initter_state_ff[0]),
+        .O(next_initter_state__0[0]));
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  LUT5 #(
+    .INIT(32'h0F0E00F0)) 
+    \FSM_sequential_curr_initter_state_ff[1]_i_1 
+       (.I0(curr_state_ff[1]),
+        .I1(curr_state_ff[0]),
+        .I2(curr_initter_state_ff[2]),
+        .I3(curr_initter_state_ff[0]),
+        .I4(curr_initter_state_ff[1]),
         .O(next_initter_state__0[1]));
-  (* FSM_ENCODED_STATES = "is_requesting_num_samples:10,is_pre_request:11,is_returning_num_samples:00,is_idle:01" *) 
-  FDSE \FSM_sequential_curr_initter_state_ff_reg[0] 
+  LUT6 #(
+    .INIT(64'h0000000000000008)) 
+    \FSM_sequential_curr_initter_state_ff[2]_i_1 
+       (.I0(sel),
+        .I1(s_rv_valid),
+        .I2(curr_initter_state_ff[2]),
+        .I3(curr_initter_state_ff[1]),
+        .I4(curr_initter_state_ff[0]),
+        .I5(\sleep_counter_ff[0]_i_1_n_0 ),
+        .O(next_initter_state__0[2]));
+  (* FSM_ENCODED_STATES = "is_calcing_req_addr:011,is_requesting_num_samples:010,is_setting_slot:100,is_returning_num_samples:001,is_idle:000" *) 
+  FDRE \FSM_sequential_curr_initter_state_ff_reg[0] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(next_initter_state__0[0]),
         .Q(curr_initter_state_ff[0]),
-        .S(s_axi_aresetn_0));
-  (* FSM_ENCODED_STATES = "is_requesting_num_samples:10,is_pre_request:11,is_returning_num_samples:00,is_idle:01" *) 
+        .R(s_axi_aresetn_0));
+  (* FSM_ENCODED_STATES = "is_calcing_req_addr:011,is_requesting_num_samples:010,is_setting_slot:100,is_returning_num_samples:001,is_idle:000" *) 
   FDRE \FSM_sequential_curr_initter_state_ff_reg[1] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(next_initter_state__0[1]),
         .Q(curr_initter_state_ff[1]),
         .R(s_axi_aresetn_0));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
-  LUT5 #(
-    .INIT(32'h04FF0404)) 
+  (* FSM_ENCODED_STATES = "is_calcing_req_addr:011,is_requesting_num_samples:010,is_setting_slot:100,is_returning_num_samples:001,is_idle:000" *) 
+  FDRE \FSM_sequential_curr_initter_state_ff_reg[2] 
+       (.C(s_axi_aclk),
+        .CE(1'b1),
+        .D(next_initter_state__0[2]),
+        .Q(curr_initter_state_ff[2]),
+        .R(s_axi_aresetn_0));
+  LUT6 #(
+    .INIT(64'h0404040404FF0404)) 
     \FSM_sequential_curr_state_ff[1]_i_4 
-       (.I0(\curr_player_state_ff_reg[2]_0 [0]),
+       (.I0(Q[0]),
         .I1(curr_player_state_ff),
-        .I2(\curr_player_state_ff_reg[2]_0 [1]),
+        .I2(Q[1]),
         .I3(curr_initter_state_ff[0]),
         .I4(curr_initter_state_ff[1]),
+        .I5(curr_initter_state_ff[2]),
         .O(\curr_player_state_ff_reg[0]_0 ));
   (* ADDER_THRESHOLD = "35" *) 
   (* METHODOLOGY_DRC_VIOS = "{SYNTH-8 {cell *THIS*}}" *) 
@@ -4980,18 +5001,25 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
   LUT6 #(
     .INIT(64'h0000000022222F22)) 
     \axi_araddr_ff[31]_i_2 
-       (.I0(curr_initter_state_ff[1]),
+       (.I0(\axi_araddr_ff[31]_i_3_n_0 ),
         .I1(curr_initter_state_ff[0]),
-        .I2(\curr_player_state_ff_reg[2]_0 [1]),
+        .I2(Q[1]),
         .I3(curr_player_state_ff),
-        .I4(\curr_player_state_ff_reg[2]_0 [0]),
-        .I5(\FSM_sequential_curr_initter_state_ff_reg[1]_1 ),
-        .O(\FSM_sequential_curr_initter_state_ff_reg[1]_0 ));
+        .I4(Q[0]),
+        .I5(\axi_araddr_ff_reg[31] ),
+        .O(\FSM_sequential_curr_initter_state_ff_reg[0]_1 ));
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
+  LUT2 #(
+    .INIT(4'h2)) 
+    \axi_araddr_ff[31]_i_3 
+       (.I0(curr_initter_state_ff[1]),
+        .I1(curr_initter_state_ff[2]),
+        .O(\axi_araddr_ff[31]_i_3_n_0 ));
   LUT4 #(
     .INIT(16'h0008)) 
     \axi_awaddr_ff[30]_i_2 
        (.I0(curr_player_state_ff),
-        .I1(\curr_player_state_ff_reg[2]_0 [1]),
+        .I1(Q[1]),
         .I2(curr_state_ff_0[0]),
         .I3(curr_state_ff_0[1]),
         .O(E));
@@ -5069,7 +5097,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
     byte_index_0_ff0_carry_i_1
        (.I0(byte_index_0_ff[1]),
         .O(byte_index_0_ff0_carry_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair60" *) 
+  (* SOFT_HLUTNM = "soft_lutpair61" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[0]_i_1 
@@ -5077,7 +5105,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[0]),
         .O(\byte_index_0_ff[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair65" *) 
+  (* SOFT_HLUTNM = "soft_lutpair66" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[10]_i_1 
@@ -5085,7 +5113,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[10]),
         .O(\byte_index_0_ff[10]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair65" *) 
+  (* SOFT_HLUTNM = "soft_lutpair66" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[11]_i_1 
@@ -5093,7 +5121,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[11]),
         .O(\byte_index_0_ff[11]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair66" *) 
+  (* SOFT_HLUTNM = "soft_lutpair67" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[12]_i_1 
@@ -5101,7 +5129,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[12]),
         .O(\byte_index_0_ff[12]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair66" *) 
+  (* SOFT_HLUTNM = "soft_lutpair67" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[13]_i_1 
@@ -5109,7 +5137,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[13]),
         .O(\byte_index_0_ff[13]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair67" *) 
+  (* SOFT_HLUTNM = "soft_lutpair68" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[14]_i_1 
@@ -5117,7 +5145,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[14]),
         .O(\byte_index_0_ff[14]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair67" *) 
+  (* SOFT_HLUTNM = "soft_lutpair68" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[15]_i_1 
@@ -5125,7 +5153,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[15]),
         .O(\byte_index_0_ff[15]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  (* SOFT_HLUTNM = "soft_lutpair69" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[16]_i_1 
@@ -5133,7 +5161,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[16]),
         .O(\byte_index_0_ff[16]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair68" *) 
+  (* SOFT_HLUTNM = "soft_lutpair69" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[17]_i_1 
@@ -5141,7 +5169,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[17]),
         .O(\byte_index_0_ff[17]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair69" *) 
+  (* SOFT_HLUTNM = "soft_lutpair70" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[18]_i_1 
@@ -5149,7 +5177,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[18]),
         .O(\byte_index_0_ff[18]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair69" *) 
+  (* SOFT_HLUTNM = "soft_lutpair70" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[19]_i_1 
@@ -5157,7 +5185,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[19]),
         .O(\byte_index_0_ff[19]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair60" *) 
+  (* SOFT_HLUTNM = "soft_lutpair61" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[1]_i_1 
@@ -5165,7 +5193,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[1]),
         .O(\byte_index_0_ff[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+  (* SOFT_HLUTNM = "soft_lutpair71" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[20]_i_1 
@@ -5173,7 +5201,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[20]),
         .O(\byte_index_0_ff[20]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair70" *) 
+  (* SOFT_HLUTNM = "soft_lutpair71" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[21]_i_1 
@@ -5181,7 +5209,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[21]),
         .O(\byte_index_0_ff[21]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  (* SOFT_HLUTNM = "soft_lutpair72" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[22]_i_1 
@@ -5189,7 +5217,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[22]),
         .O(\byte_index_0_ff[22]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair71" *) 
+  (* SOFT_HLUTNM = "soft_lutpair72" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[23]_i_1 
@@ -5197,7 +5225,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[23]),
         .O(\byte_index_0_ff[23]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  (* SOFT_HLUTNM = "soft_lutpair73" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[24]_i_1 
@@ -5205,7 +5233,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[24]),
         .O(\byte_index_0_ff[24]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair72" *) 
+  (* SOFT_HLUTNM = "soft_lutpair73" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[25]_i_1 
@@ -5213,7 +5241,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[25]),
         .O(\byte_index_0_ff[25]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair73" *) 
+  (* SOFT_HLUTNM = "soft_lutpair74" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[26]_i_1 
@@ -5221,7 +5249,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[26]),
         .O(\byte_index_0_ff[26]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair73" *) 
+  (* SOFT_HLUTNM = "soft_lutpair74" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[27]_i_1 
@@ -5229,7 +5257,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[27]),
         .O(\byte_index_0_ff[27]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  (* SOFT_HLUTNM = "soft_lutpair75" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[28]_i_1 
@@ -5237,7 +5265,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[28]),
         .O(\byte_index_0_ff[28]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair74" *) 
+  (* SOFT_HLUTNM = "soft_lutpair75" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[29]_i_1 
@@ -5245,7 +5273,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[29]),
         .O(\byte_index_0_ff[29]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair61" *) 
+  (* SOFT_HLUTNM = "soft_lutpair62" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[2]_i_1 
@@ -5253,7 +5281,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[2]),
         .O(\byte_index_0_ff[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair75" *) 
+  (* SOFT_HLUTNM = "soft_lutpair76" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[30]_i_1 
@@ -5261,7 +5289,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[30]),
         .O(\byte_index_0_ff[30]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair75" *) 
+  (* SOFT_HLUTNM = "soft_lutpair76" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[31]_i_1 
@@ -5269,7 +5297,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[31]),
         .O(\byte_index_0_ff[31]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair61" *) 
+  (* SOFT_HLUTNM = "soft_lutpair62" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[3]_i_1 
@@ -5277,7 +5305,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[3]),
         .O(\byte_index_0_ff[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair62" *) 
+  (* SOFT_HLUTNM = "soft_lutpair63" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[4]_i_1 
@@ -5285,7 +5313,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[4]),
         .O(\byte_index_0_ff[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair62" *) 
+  (* SOFT_HLUTNM = "soft_lutpair63" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[5]_i_1 
@@ -5293,7 +5321,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[5]),
         .O(\byte_index_0_ff[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair63" *) 
+  (* SOFT_HLUTNM = "soft_lutpair64" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[6]_i_1 
@@ -5301,7 +5329,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[6]),
         .O(\byte_index_0_ff[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair63" *) 
+  (* SOFT_HLUTNM = "soft_lutpair64" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[7]_i_1 
@@ -5309,7 +5337,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[7]),
         .O(\byte_index_0_ff[7]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair64" *) 
+  (* SOFT_HLUTNM = "soft_lutpair65" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[8]_i_1 
@@ -5317,7 +5345,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_0_ff0[8]),
         .O(\byte_index_0_ff[8]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair64" *) 
+  (* SOFT_HLUTNM = "soft_lutpair65" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_0_ff[9]_i_1 
@@ -5586,7 +5614,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
     byte_index_1_ff0_carry_i_1
        (.I0(byte_index_1_ff[1]),
         .O(byte_index_1_ff0_carry_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[0]_i_1 
@@ -5594,7 +5622,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[0]),
         .O(\byte_index_1_ff[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[10]_i_1 
@@ -5602,7 +5630,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[10]),
         .O(\byte_index_1_ff[10]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[11]_i_1 
@@ -5610,7 +5638,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[11]),
         .O(\byte_index_1_ff[11]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[12]_i_1 
@@ -5618,7 +5646,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[12]),
         .O(\byte_index_1_ff[12]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[13]_i_1 
@@ -5626,7 +5654,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[13]),
         .O(\byte_index_1_ff[13]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[14]_i_1 
@@ -5634,7 +5662,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[14]),
         .O(\byte_index_1_ff[14]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[15]_i_1 
@@ -5642,7 +5670,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[15]),
         .O(\byte_index_1_ff[15]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[16]_i_1 
@@ -5650,7 +5678,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[16]),
         .O(\byte_index_1_ff[16]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[17]_i_1 
@@ -5658,7 +5686,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[17]),
         .O(\byte_index_1_ff[17]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[18]_i_1 
@@ -5666,7 +5694,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[18]),
         .O(\byte_index_1_ff[18]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[19]_i_1 
@@ -5674,7 +5702,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[19]),
         .O(\byte_index_1_ff[19]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[1]_i_1 
@@ -5682,7 +5710,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[1]),
         .O(\byte_index_1_ff[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[20]_i_1 
@@ -5690,7 +5718,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[20]),
         .O(\byte_index_1_ff[20]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[21]_i_1 
@@ -5698,7 +5726,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[21]),
         .O(\byte_index_1_ff[21]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[22]_i_1 
@@ -5706,7 +5734,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[22]),
         .O(\byte_index_1_ff[22]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[23]_i_1 
@@ -5714,7 +5742,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[23]),
         .O(\byte_index_1_ff[23]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[24]_i_1 
@@ -5722,7 +5750,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[24]),
         .O(\byte_index_1_ff[24]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[25]_i_1 
@@ -5730,7 +5758,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[25]),
         .O(\byte_index_1_ff[25]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[26]_i_1 
@@ -5738,7 +5766,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[26]),
         .O(\byte_index_1_ff[26]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[27]_i_1 
@@ -5746,7 +5774,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[27]),
         .O(\byte_index_1_ff[27]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[28]_i_1 
@@ -5754,7 +5782,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[28]),
         .O(\byte_index_1_ff[28]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[29]_i_1 
@@ -5762,7 +5790,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[29]),
         .O(\byte_index_1_ff[29]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[2]_i_1 
@@ -5770,7 +5798,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[2]),
         .O(\byte_index_1_ff[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[30]_i_1 
@@ -5778,7 +5806,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[30]),
         .O(\byte_index_1_ff[30]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[31]_i_1 
@@ -5786,7 +5814,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[31]),
         .O(\byte_index_1_ff[31]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[3]_i_1 
@@ -5794,7 +5822,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[3]),
         .O(\byte_index_1_ff[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[4]_i_1 
@@ -5802,7 +5830,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[4]),
         .O(\byte_index_1_ff[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[5]_i_1 
@@ -5810,7 +5838,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[5]),
         .O(\byte_index_1_ff[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[6]_i_1 
@@ -5818,7 +5846,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[6]),
         .O(\byte_index_1_ff[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[7]_i_1 
@@ -5826,7 +5854,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[7]),
         .O(\byte_index_1_ff[7]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[8]_i_1 
@@ -5834,7 +5862,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(byte_index_1_ff0[8]),
         .O(\byte_index_1_ff[8]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \byte_index_1_ff[9]_i_1 
@@ -6113,8 +6141,8 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
   LUT5 #(
     .INIT(32'h40000000)) 
     combined_samples_ff_reg_i_1
-       (.I0(\curr_player_state_ff_reg[2]_0 [1]),
-        .I1(\curr_player_state_ff_reg[2]_0 [0]),
+       (.I0(Q[1]),
+        .I1(Q[0]),
         .I2(curr_player_state_ff),
         .I3(curr_state_ff[1]),
         .I4(curr_state_ff[0]),
@@ -6193,8 +6221,8 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
     .INIT(8'h08)) 
     combined_samples_ff_reg_i_2
        (.I0(curr_player_state_ff),
-        .I1(\curr_player_state_ff_reg[2]_0 [0]),
-        .I2(\curr_player_state_ff_reg[2]_0 [1]),
+        .I1(Q[0]),
+        .I2(Q[1]),
         .O(CEB2));
   LUT3 #(
     .INIT(8'hB8)) 
@@ -6286,8 +6314,8 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
     .INIT(8'h04)) 
     combined_samples_ff_reg_i_3
        (.I0(curr_player_state_ff),
-        .I1(\curr_player_state_ff_reg[2]_0 [1]),
-        .I2(\curr_player_state_ff_reg[2]_0 [0]),
+        .I1(Q[1]),
+        .I2(Q[0]),
         .O(CEM));
   LUT5 #(
     .INIT(32'hEFEA202A)) 
@@ -6365,15 +6393,15 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
     .INIT(8'h40)) 
     combined_samples_ff_reg_i_4
        (.I0(curr_player_state_ff),
-        .I1(\curr_player_state_ff_reg[2]_0 [0]),
-        .I2(\curr_player_state_ff_reg[2]_0 [1]),
+        .I1(Q[0]),
+        .I2(Q[1]),
         .O(CEP));
   LUT4 #(
     .INIT(16'h01FF)) 
     combined_samples_ff_reg_i_5
-       (.I0(\curr_player_state_ff_reg[2]_0 [0]),
+       (.I0(Q[0]),
         .I1(curr_player_state_ff),
-        .I2(\curr_player_state_ff_reg[2]_0 [1]),
+        .I2(Q[1]),
         .I3(s_axi_aresetn),
         .O(RSTP));
   LUT3 #(
@@ -6405,70 +6433,88 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I2(vol_coef_0_ff[12]),
         .O(player_vol_coef_ff[12]));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFF1F11)) 
+    .INIT(64'hFFFFFFFFFFFFFFAE)) 
     \curr_player_state_ff[0]_i_1 
-       (.I0(\curr_player_state_ff_reg[2]_0 [0]),
-        .I1(\curr_player_state_ff_reg[0]_1 ),
+       (.I0(\curr_player_state_ff[0]_i_2_n_0 ),
+        .I1(\curr_player_state_ff[0]_i_3_n_0 ),
         .I2(sel),
-        .I3(\curr_player_state_ff[0]_i_3_n_0 ),
-        .I4(\curr_player_state_ff[0]_i_4_n_0 ),
-        .I5(\curr_player_state_ff[0]_i_5_n_0 ),
+        .I3(\curr_player_state_ff[0]_i_4_n_0 ),
+        .I4(\curr_player_state_ff[0]_i_5_n_0 ),
+        .I5(\curr_player_state_ff[0]_i_6_n_0 ),
         .O(next_player_state[0]));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
-  LUT4 #(
-    .INIT(16'h0100)) 
-    \curr_player_state_ff[0]_i_3 
-       (.I0(curr_player_state_ff),
-        .I1(\curr_player_state_ff_reg[2]_0 [0]),
-        .I2(curr_initter_state_ff[1]),
-        .I3(curr_initter_state_ff[0]),
-        .O(\curr_player_state_ff[0]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h80808080808C8080)) 
+    .INIT(64'hEEE2000000000000)) 
+    \curr_player_state_ff[0]_i_2 
+       (.I0(\curr_player_state_ff_reg[2]_0 ),
+        .I1(Q[1]),
+        .I2(curr_state_ff_0[1]),
+        .I3(curr_state_ff_0[0]),
+        .I4(curr_player_state_ff),
+        .I5(Q[0]),
+        .O(\curr_player_state_ff[0]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  LUT5 #(
+    .INIT(32'h00000001)) 
+    \curr_player_state_ff[0]_i_3 
+       (.I0(Q[0]),
+        .I1(curr_player_state_ff),
+        .I2(curr_initter_state_ff[0]),
+        .I3(curr_initter_state_ff[1]),
+        .I4(curr_initter_state_ff[2]),
+        .O(\curr_player_state_ff[0]_i_3_n_0 ));
+  LUT4 #(
+    .INIT(16'h0004)) 
     \curr_player_state_ff[0]_i_4 
-       (.I0(\curr_player_state_ff_reg[0]_2 ),
-        .I1(\curr_player_state_ff_reg[2]_0 [0]),
+       (.I0(Q[1]),
+        .I1(curr_player_state_ff),
+        .I2(curr_state_ff[1]),
+        .I3(curr_state_ff[0]),
+        .O(\curr_player_state_ff[0]_i_4_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  LUT4 #(
+    .INIT(16'h0070)) 
+    \curr_player_state_ff[0]_i_5 
+       (.I0(Q[0]),
+        .I1(player_curr_slot_ff),
+        .I2(Q[1]),
+        .I3(curr_player_state_ff),
+        .O(\curr_player_state_ff[0]_i_5_n_0 ));
+  LUT6 #(
+    .INIT(64'h11111111111D1111)) 
+    \curr_player_state_ff[0]_i_6 
+       (.I0(\curr_player_state_ff_reg[0]_1 ),
+        .I1(Q[0]),
         .I2(curr_player_state_ff),
         .I3(player_curr_slot_ff),
         .I4(\slot_active_array_ff_reg[1]_0 ),
         .I5(\slot_active_array_ff_reg[0]_0 ),
-        .O(\curr_player_state_ff[0]_i_4_n_0 ));
-  LUT6 #(
-    .INIT(64'h000011110FFF0000)) 
-    \curr_player_state_ff[0]_i_5 
-       (.I0(curr_state_ff[1]),
-        .I1(curr_state_ff[0]),
-        .I2(player_curr_slot_ff),
-        .I3(\curr_player_state_ff_reg[2]_0 [0]),
-        .I4(\curr_player_state_ff_reg[2]_0 [1]),
-        .I5(curr_player_state_ff),
-        .O(\curr_player_state_ff[0]_i_5_n_0 ));
+        .O(\curr_player_state_ff[0]_i_6_n_0 ));
   LUT5 #(
     .INIT(32'hFFFF1000)) 
     \curr_player_state_ff[1]_i_1 
-       (.I0(\curr_player_state_ff_reg[2]_0 [1]),
+       (.I0(Q[1]),
         .I1(curr_player_state_ff),
-        .I2(\curr_player_state_ff_reg[2]_0 [0]),
+        .I2(Q[0]),
         .I3(\slot_active_array_ff_reg[0]_0 ),
         .I4(\curr_player_state_ff[1]_i_2_n_0 ),
         .O(next_player_state[1]));
   LUT6 #(
     .INIT(64'hCFC0F0F0CAC0F0F0)) 
     \curr_player_state_ff[1]_i_2 
-       (.I0(\curr_player_state_ff_reg[2]_0 [1]),
-        .I1(\curr_player_state_ff_reg[0]_2 ),
+       (.I0(Q[1]),
+        .I1(\curr_player_state_ff_reg[1]_0 ),
         .I2(curr_player_state_ff),
         .I3(player_curr_slot_ff),
-        .I4(\curr_player_state_ff_reg[2]_0 [0]),
+        .I4(Q[0]),
         .I5(\slot_active_array_ff_reg[1]_0 ),
         .O(\curr_player_state_ff[1]_i_2_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFF2266A2A2)) 
     \curr_player_state_ff[2]_i_1 
-       (.I0(\curr_player_state_ff_reg[2]_0 [1]),
-        .I1(\curr_player_state_ff_reg[2]_0 [0]),
+       (.I0(Q[1]),
+        .I1(Q[0]),
         .I2(player_curr_slot_ff),
-        .I3(\curr_player_state_ff_reg[2]_1 ),
+        .I3(\curr_player_state_ff_reg[2]_0 ),
         .I4(curr_player_state_ff),
         .I5(\curr_player_state_ff[2]_i_3_n_0 ),
         .O(next_player_state[2]));
@@ -6478,23 +6524,23 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
        (.I0(\curr_player_state_ff[2]_i_4_n_0 ),
         .I1(\slot_active_array_ff_reg[0]_0 ),
         .I2(\slot_active_array_ff_reg[1]_0 ),
-        .I3(\curr_player_state_ff_reg[2]_2 ),
+        .I3(\curr_player_state_ff_reg[2]_1 ),
         .I4(curr_player_state_ff),
-        .I5(\curr_player_state_ff_reg[2]_0 [1]),
+        .I5(Q[1]),
         .O(\curr_player_state_ff[2]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
   LUT3 #(
     .INIT(8'h40)) 
     \curr_player_state_ff[2]_i_4 
        (.I0(curr_player_state_ff),
-        .I1(\curr_player_state_ff_reg[2]_0 [0]),
+        .I1(Q[0]),
         .I2(player_curr_slot_ff),
         .O(\curr_player_state_ff[2]_i_4_n_0 ));
   FDRE \curr_player_state_ff_reg[0] 
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(next_player_state[0]),
-        .Q(\curr_player_state_ff_reg[2]_0 [0]),
+        .Q(Q[0]),
         .R(s_axi_aresetn_0));
   FDRE \curr_player_state_ff_reg[1] 
        (.C(s_axi_aclk),
@@ -6506,7 +6552,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
        (.C(s_axi_aclk),
         .CE(1'b1),
         .D(next_player_state[2]),
-        .Q(\curr_player_state_ff_reg[2]_0 [1]),
+        .Q(Q[1]),
         .R(s_axi_aresetn_0));
   LUT1 #(
     .INIT(2'h1)) 
@@ -7368,7 +7414,6 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I3(player_curr_slot_ff),
         .I4(sound_addr_1_ff[0]),
         .O(i__carry_i_8_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT3 #(
     .INIT(8'h47)) 
     i__carry_i_9
@@ -7376,12 +7421,13 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(player_curr_slot_ff),
         .I2(sound_addr_0_ff[2]),
         .O(i__carry_i_9_n_0));
-  LUT3 #(
-    .INIT(8'h08)) 
+  LUT4 #(
+    .INIT(16'h0002)) 
     \initter_curr_slot_ff[0]_i_1 
        (.I0(s_rv_valid),
-        .I1(curr_initter_state_ff[0]),
+        .I1(curr_initter_state_ff[2]),
         .I2(curr_initter_state_ff[1]),
+        .I3(curr_initter_state_ff[0]),
         .O(initter_sound_addr_ff0));
   FDRE \initter_curr_slot_ff_reg[0] 
        (.C(s_axi_aclk),
@@ -8110,14 +8156,15 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .DI({1'b0,1'b0,num_samples_1_ff[30:29]}),
         .O({\NLW_last_sample_array1_inferred__0/i__carry__6_O_UNCONNECTED [3],last_sample_array10_in[31:29]}),
         .S({1'b0,i__carry__6_i_1_n_0,i__carry__6_i_2_n_0,i__carry__6_i_3_n_0}));
-  LUT5 #(
-    .INIT(32'h00000040)) 
+  LUT6 #(
+    .INIT(64'h0000004000000000)) 
     \num_samples_0_ff[31]_i_1 
        (.I0(initter_curr_slot_ff),
         .I1(curr_state_ff[0]),
         .I2(curr_state_ff[1]),
         .I3(curr_initter_state_ff[1]),
-        .I4(curr_initter_state_ff[0]),
+        .I4(curr_initter_state_ff[2]),
+        .I5(curr_initter_state_ff[0]),
         .O(num_samples_0_ff_2));
   FDRE \num_samples_0_ff_reg[0] 
        (.C(s_axi_aclk),
@@ -8311,14 +8358,15 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .D(\num_samples_0_ff_reg[31]_0 [9]),
         .Q(num_samples_0_ff[9]),
         .R(s_axi_aresetn_0));
-  LUT5 #(
-    .INIT(32'h00000080)) 
+  LUT6 #(
+    .INIT(64'h0000008000000000)) 
     \num_samples_1_ff[31]_i_1 
        (.I0(curr_state_ff[0]),
         .I1(curr_state_ff[1]),
         .I2(initter_curr_slot_ff),
         .I3(curr_initter_state_ff[1]),
-        .I4(curr_initter_state_ff[0]),
+        .I4(curr_initter_state_ff[2]),
+        .I5(curr_initter_state_ff[0]),
         .O(num_samples_1_ff_1));
   FDRE \num_samples_1_ff_reg[0] 
        (.C(s_axi_aclk),
@@ -8517,17 +8565,17 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
     \player_curr_slot_ff[0]_i_1 
        (.I0(s_axi_aresetn),
         .I1(\player_curr_slot_ff[0]_i_2_n_0 ),
-        .I2(\curr_player_state_ff_reg[2]_0 [0]),
+        .I2(Q[0]),
         .I3(curr_player_state_ff),
-        .I4(\curr_player_state_ff_reg[2]_0 [1]),
+        .I4(Q[1]),
         .O(\player_curr_slot_ff[0]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'hDDFDDDFD22002222)) 
     \player_curr_slot_ff[0]_i_2 
-       (.I0(\curr_player_state_ff_reg[2]_0 [0]),
+       (.I0(Q[0]),
         .I1(curr_player_state_ff),
         .I2(\slot_active_array_ff_reg[1]_0 ),
-        .I3(\curr_player_state_ff_reg[2]_0 [1]),
+        .I3(Q[1]),
         .I4(\slot_active_array_ff_reg[0]_0 ),
         .I5(player_curr_slot_ff),
         .O(\player_curr_slot_ff[0]_i_2_n_0 ));
@@ -8765,9 +8813,9 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
   LUT3 #(
     .INIT(8'hEF)) 
     \req_addr_ff[31]_i_2 
-       (.I0(\curr_player_state_ff_reg[2]_0 [1]),
+       (.I0(Q[1]),
         .I1(curr_player_state_ff),
-        .I2(\curr_player_state_ff_reg[2]_0 [0]),
+        .I2(Q[0]),
         .O(\req_addr_ff[31]_i_2_n_0 ));
   LUT5 #(
     .INIT(32'hE4FFE400)) 
@@ -9088,7 +9136,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .DI({1'b0,1'b0,1'b0,1'b0}),
         .O({NLW_sample_index_0_ff0_carry__6_O_UNCONNECTED[3],sample_index_0_ff0[31:29]}),
         .S({1'b0,\sample_index_0_ff_reg_n_0_[31] ,\sample_index_0_ff_reg_n_0_[30] ,\sample_index_0_ff_reg_n_0_[29] }));
-  (* SOFT_HLUTNM = "soft_lutpair76" *) 
+  (* SOFT_HLUTNM = "soft_lutpair77" *) 
   LUT3 #(
     .INIT(8'h01)) 
     \sample_index_0_ff[0]_i_1 
@@ -9096,7 +9144,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(\sample_index_0_ff_reg_n_0_[0] ),
         .O(\sample_index_0_ff[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair81" *) 
+  (* SOFT_HLUTNM = "soft_lutpair82" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[10]_i_1 
@@ -9104,7 +9152,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[10]),
         .O(\sample_index_0_ff[10]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair81" *) 
+  (* SOFT_HLUTNM = "soft_lutpair82" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[11]_i_1 
@@ -9112,7 +9160,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[11]),
         .O(\sample_index_0_ff[11]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair82" *) 
+  (* SOFT_HLUTNM = "soft_lutpair83" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[12]_i_1 
@@ -9120,7 +9168,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[12]),
         .O(\sample_index_0_ff[12]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair82" *) 
+  (* SOFT_HLUTNM = "soft_lutpair83" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[13]_i_1 
@@ -9128,7 +9176,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[13]),
         .O(\sample_index_0_ff[13]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair83" *) 
+  (* SOFT_HLUTNM = "soft_lutpair84" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[14]_i_1 
@@ -9136,7 +9184,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[14]),
         .O(\sample_index_0_ff[14]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair83" *) 
+  (* SOFT_HLUTNM = "soft_lutpair84" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[15]_i_1 
@@ -9144,7 +9192,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[15]),
         .O(\sample_index_0_ff[15]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair84" *) 
+  (* SOFT_HLUTNM = "soft_lutpair85" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[16]_i_1 
@@ -9152,7 +9200,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[16]),
         .O(\sample_index_0_ff[16]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair84" *) 
+  (* SOFT_HLUTNM = "soft_lutpair85" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[17]_i_1 
@@ -9160,7 +9208,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[17]),
         .O(\sample_index_0_ff[17]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair85" *) 
+  (* SOFT_HLUTNM = "soft_lutpair86" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[18]_i_1 
@@ -9168,7 +9216,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[18]),
         .O(\sample_index_0_ff[18]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair85" *) 
+  (* SOFT_HLUTNM = "soft_lutpair86" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[19]_i_1 
@@ -9176,7 +9224,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[19]),
         .O(\sample_index_0_ff[19]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair76" *) 
+  (* SOFT_HLUTNM = "soft_lutpair77" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[1]_i_1 
@@ -9184,7 +9232,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[1]),
         .O(\sample_index_0_ff[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair86" *) 
+  (* SOFT_HLUTNM = "soft_lutpair87" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[20]_i_1 
@@ -9192,7 +9240,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[20]),
         .O(\sample_index_0_ff[20]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair86" *) 
+  (* SOFT_HLUTNM = "soft_lutpair87" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[21]_i_1 
@@ -9200,7 +9248,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[21]),
         .O(\sample_index_0_ff[21]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair87" *) 
+  (* SOFT_HLUTNM = "soft_lutpair88" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[22]_i_1 
@@ -9208,7 +9256,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[22]),
         .O(\sample_index_0_ff[22]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair87" *) 
+  (* SOFT_HLUTNM = "soft_lutpair88" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[23]_i_1 
@@ -9216,7 +9264,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[23]),
         .O(\sample_index_0_ff[23]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair88" *) 
+  (* SOFT_HLUTNM = "soft_lutpair89" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[24]_i_1 
@@ -9224,7 +9272,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[24]),
         .O(\sample_index_0_ff[24]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair88" *) 
+  (* SOFT_HLUTNM = "soft_lutpair89" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[25]_i_1 
@@ -9232,7 +9280,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[25]),
         .O(\sample_index_0_ff[25]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair89" *) 
+  (* SOFT_HLUTNM = "soft_lutpair90" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[26]_i_1 
@@ -9240,7 +9288,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[26]),
         .O(\sample_index_0_ff[26]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair89" *) 
+  (* SOFT_HLUTNM = "soft_lutpair90" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[27]_i_1 
@@ -9248,7 +9296,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[27]),
         .O(\sample_index_0_ff[27]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair90" *) 
+  (* SOFT_HLUTNM = "soft_lutpair91" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[28]_i_1 
@@ -9256,7 +9304,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[28]),
         .O(\sample_index_0_ff[28]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair90" *) 
+  (* SOFT_HLUTNM = "soft_lutpair91" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[29]_i_1 
@@ -9264,7 +9312,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[29]),
         .O(\sample_index_0_ff[29]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair77" *) 
+  (* SOFT_HLUTNM = "soft_lutpair78" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[2]_i_1 
@@ -9272,7 +9320,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[2]),
         .O(\sample_index_0_ff[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair91" *) 
+  (* SOFT_HLUTNM = "soft_lutpair92" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[30]_i_1 
@@ -9280,16 +9328,17 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[30]),
         .O(\sample_index_0_ff[30]_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'h010101FF)) 
+  LUT6 #(
+    .INIT(64'h000400040004FFFF)) 
     \sample_index_0_ff[31]_i_1 
        (.I0(initter_curr_slot_ff),
         .I1(curr_initter_state_ff[0]),
-        .I2(curr_initter_state_ff[1]),
-        .I3(last_sample_array_reg),
-        .I4(\slot_active_array_ff[1]_i_3_n_0 ),
+        .I2(curr_initter_state_ff[2]),
+        .I3(curr_initter_state_ff[1]),
+        .I4(last_sample_array_reg),
+        .I5(\slot_active_array_ff[1]_i_3_n_0 ),
         .O(\sample_index_0_ff[31]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair91" *) 
+  (* SOFT_HLUTNM = "soft_lutpair92" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[31]_i_2 
@@ -9297,7 +9346,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[31]),
         .O(\sample_index_0_ff[31]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair77" *) 
+  (* SOFT_HLUTNM = "soft_lutpair78" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[3]_i_1 
@@ -9305,7 +9354,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[3]),
         .O(\sample_index_0_ff[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  (* SOFT_HLUTNM = "soft_lutpair79" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[4]_i_1 
@@ -9313,7 +9362,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[4]),
         .O(\sample_index_0_ff[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair78" *) 
+  (* SOFT_HLUTNM = "soft_lutpair79" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[5]_i_1 
@@ -9321,7 +9370,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[5]),
         .O(\sample_index_0_ff[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair79" *) 
+  (* SOFT_HLUTNM = "soft_lutpair80" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[6]_i_1 
@@ -9329,7 +9378,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[6]),
         .O(\sample_index_0_ff[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair79" *) 
+  (* SOFT_HLUTNM = "soft_lutpair80" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[7]_i_1 
@@ -9337,7 +9386,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[7]),
         .O(\sample_index_0_ff[7]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair80" *) 
+  (* SOFT_HLUTNM = "soft_lutpair81" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[8]_i_1 
@@ -9345,7 +9394,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_0_ff0[8]),
         .O(\sample_index_0_ff[8]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair80" *) 
+  (* SOFT_HLUTNM = "soft_lutpair81" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_0_ff[9]_i_1 
@@ -9609,7 +9658,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .DI({1'b0,1'b0,1'b0,1'b0}),
         .O({NLW_sample_index_1_ff0_carry__6_O_UNCONNECTED[3],sample_index_1_ff0[31:29]}),
         .S({1'b0,\sample_index_1_ff_reg_n_0_[31] ,\sample_index_1_ff_reg_n_0_[30] ,\sample_index_1_ff_reg_n_0_[29] }));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT3 #(
     .INIT(8'h01)) 
     \sample_index_1_ff[0]_i_1 
@@ -9617,7 +9666,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(\sample_index_1_ff_reg_n_0_[0] ),
         .O(\sample_index_1_ff[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[10]_i_1 
@@ -9625,7 +9674,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[10]),
         .O(\sample_index_1_ff[10]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  (* SOFT_HLUTNM = "soft_lutpair50" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[11]_i_1 
@@ -9633,7 +9682,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[11]),
         .O(\sample_index_1_ff[11]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  (* SOFT_HLUTNM = "soft_lutpair51" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[12]_i_1 
@@ -9641,7 +9690,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[12]),
         .O(\sample_index_1_ff[12]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  (* SOFT_HLUTNM = "soft_lutpair51" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[13]_i_1 
@@ -9649,7 +9698,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[13]),
         .O(\sample_index_1_ff[13]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair51" *) 
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[14]_i_1 
@@ -9657,7 +9706,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[14]),
         .O(\sample_index_1_ff[14]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair51" *) 
+  (* SOFT_HLUTNM = "soft_lutpair52" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[15]_i_1 
@@ -9665,7 +9714,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[15]),
         .O(\sample_index_1_ff[15]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair52" *) 
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[16]_i_1 
@@ -9673,7 +9722,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[16]),
         .O(\sample_index_1_ff[16]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair52" *) 
+  (* SOFT_HLUTNM = "soft_lutpair53" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[17]_i_1 
@@ -9681,7 +9730,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[17]),
         .O(\sample_index_1_ff[17]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair53" *) 
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[18]_i_1 
@@ -9689,7 +9738,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[18]),
         .O(\sample_index_1_ff[18]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair53" *) 
+  (* SOFT_HLUTNM = "soft_lutpair54" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[19]_i_1 
@@ -9697,7 +9746,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[19]),
         .O(\sample_index_1_ff[19]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[1]_i_1 
@@ -9705,7 +9754,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[1]),
         .O(\sample_index_1_ff[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair54" *) 
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[20]_i_1 
@@ -9713,7 +9762,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[20]),
         .O(\sample_index_1_ff[20]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair54" *) 
+  (* SOFT_HLUTNM = "soft_lutpair55" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[21]_i_1 
@@ -9721,7 +9770,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[21]),
         .O(\sample_index_1_ff[21]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair55" *) 
+  (* SOFT_HLUTNM = "soft_lutpair56" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[22]_i_1 
@@ -9729,7 +9778,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[22]),
         .O(\sample_index_1_ff[22]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair55" *) 
+  (* SOFT_HLUTNM = "soft_lutpair56" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[23]_i_1 
@@ -9737,7 +9786,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[23]),
         .O(\sample_index_1_ff[23]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair56" *) 
+  (* SOFT_HLUTNM = "soft_lutpair57" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[24]_i_1 
@@ -9745,7 +9794,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[24]),
         .O(\sample_index_1_ff[24]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair56" *) 
+  (* SOFT_HLUTNM = "soft_lutpair57" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[25]_i_1 
@@ -9753,7 +9802,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[25]),
         .O(\sample_index_1_ff[25]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair57" *) 
+  (* SOFT_HLUTNM = "soft_lutpair58" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[26]_i_1 
@@ -9761,7 +9810,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[26]),
         .O(\sample_index_1_ff[26]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair57" *) 
+  (* SOFT_HLUTNM = "soft_lutpair58" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[27]_i_1 
@@ -9769,7 +9818,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[27]),
         .O(\sample_index_1_ff[27]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair58" *) 
+  (* SOFT_HLUTNM = "soft_lutpair59" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[28]_i_1 
@@ -9777,7 +9826,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[28]),
         .O(\sample_index_1_ff[28]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair58" *) 
+  (* SOFT_HLUTNM = "soft_lutpair59" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[29]_i_1 
@@ -9785,7 +9834,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[29]),
         .O(\sample_index_1_ff[29]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[2]_i_1 
@@ -9793,7 +9842,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[2]),
         .O(\sample_index_1_ff[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair59" *) 
+  (* SOFT_HLUTNM = "soft_lutpair60" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[30]_i_1 
@@ -9801,16 +9850,17 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[30]),
         .O(\sample_index_1_ff[30]_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'h020202FF)) 
+  LUT6 #(
+    .INIT(64'h000800080008FFFF)) 
     \sample_index_1_ff[31]_i_1 
        (.I0(initter_curr_slot_ff),
         .I1(curr_initter_state_ff[0]),
-        .I2(curr_initter_state_ff[1]),
-        .I3(last_sample_array_reg1_out),
-        .I4(\slot_active_array_ff[1]_i_3_n_0 ),
+        .I2(curr_initter_state_ff[2]),
+        .I3(curr_initter_state_ff[1]),
+        .I4(last_sample_array_reg1_out),
+        .I5(\slot_active_array_ff[1]_i_3_n_0 ),
         .O(byte_index_1_ff_0));
-  (* SOFT_HLUTNM = "soft_lutpair59" *) 
+  (* SOFT_HLUTNM = "soft_lutpair60" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[31]_i_2 
@@ -9818,7 +9868,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[31]),
         .O(\sample_index_1_ff[31]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[3]_i_1 
@@ -9826,7 +9876,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[3]),
         .O(\sample_index_1_ff[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[4]_i_1 
@@ -9834,7 +9884,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[4]),
         .O(\sample_index_1_ff[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[5]_i_1 
@@ -9842,7 +9892,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[5]),
         .O(\sample_index_1_ff[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[6]_i_1 
@@ -9850,7 +9900,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[6]),
         .O(\sample_index_1_ff[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[7]_i_1 
@@ -9858,7 +9908,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[7]),
         .O(\sample_index_1_ff[7]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[8]_i_1 
@@ -9866,7 +9916,7 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I1(\slot_active_array_ff[1]_i_3_n_0 ),
         .I2(sample_index_1_ff0[8]),
         .O(\sample_index_1_ff[8]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
   LUT3 #(
     .INIT(8'h10)) 
     \sample_index_1_ff[9]_i_1 
@@ -10069,9 +10119,9 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
   LUT3 #(
     .INIT(8'hFE)) 
     \sleep_counter_ff[0]_i_1 
-       (.I0(\curr_player_state_ff_reg[2]_0 [1]),
+       (.I0(Q[1]),
         .I1(curr_player_state_ff),
-        .I2(\curr_player_state_ff_reg[2]_0 [0]),
+        .I2(Q[0]),
         .O(\sleep_counter_ff[0]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'hFFFFFFFFFFEFFFFF)) 
@@ -10255,20 +10305,21 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .I5(\slot_active_array_ff_reg[1]_0 ),
         .O(\slot_active_array_ff[1]_i_1_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair26" *) 
-  LUT2 #(
-    .INIT(4'h1)) 
+  LUT3 #(
+    .INIT(8'h02)) 
     \slot_active_array_ff[1]_i_2 
        (.I0(curr_initter_state_ff[0]),
-        .I1(curr_initter_state_ff[1]),
+        .I1(curr_initter_state_ff[2]),
+        .I2(curr_initter_state_ff[1]),
         .O(\FSM_sequential_curr_initter_state_ff_reg[0]_0 ));
   LUT5 #(
     .INIT(32'hFDFFFFFF)) 
     \slot_active_array_ff[1]_i_3 
-       (.I0(\curr_player_state_ff_reg[2]_0 [1]),
+       (.I0(Q[1]),
         .I1(curr_state_ff_0[0]),
         .I2(curr_state_ff_0[1]),
         .I3(curr_player_state_ff),
-        .I4(\curr_player_state_ff_reg[2]_0 [0]),
+        .I4(Q[0]),
         .O(\slot_active_array_ff[1]_i_3_n_0 ));
   FDRE \slot_active_array_ff_reg[0] 
        (.C(s_axi_aclk),
@@ -10667,31 +10718,32 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .Q(sound_addr_1_ff[9]),
         .R(1'b0));
   LUT6 #(
-    .INIT(64'hA8A8A800A8A8A8A8)) 
+    .INIT(64'hA8A8A8A8A8A800A8)) 
     valid_ff_i_1
        (.I0(s_axi_aresetn),
-        .I1(Q),
+        .I1(valid_ff_reg),
         .I2(s_rv_valid),
-        .I3(curr_initter_state_ff[1]),
+        .I3(sel),
         .I4(valid_ff_i_2_n_0),
-        .I5(sel),
+        .I5(\sleep_counter_ff[0]_i_1_n_0 ),
         .O(s_axi_aresetn_1));
-  LUT5 #(
-    .INIT(32'hFFFFFFF7)) 
-    valid_ff_i_2
-       (.I0(s_rv_valid),
-        .I1(curr_initter_state_ff[0]),
-        .I2(\curr_player_state_ff_reg[2]_0 [0]),
-        .I3(curr_player_state_ff),
-        .I4(\curr_player_state_ff_reg[2]_0 [1]),
-        .O(valid_ff_i_2_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT4 #(
-    .INIT(16'h0800)) 
+    .INIT(16'hFEFF)) 
+    valid_ff_i_2
+       (.I0(curr_initter_state_ff[0]),
+        .I1(curr_initter_state_ff[1]),
+        .I2(curr_initter_state_ff[2]),
+        .I3(s_rv_valid),
+        .O(valid_ff_i_2_n_0));
+  LUT5 #(
+    .INIT(32'h00000040)) 
     \vol_coef_0_ff[31]_i_1 
-       (.I0(curr_initter_state_ff[1]),
-        .I1(curr_initter_state_ff[0]),
-        .I2(initter_curr_slot_ff),
-        .I3(s_axi_aresetn),
+       (.I0(initter_curr_slot_ff),
+        .I1(s_axi_aresetn),
+        .I2(curr_initter_state_ff[2]),
+        .I3(curr_initter_state_ff[0]),
+        .I4(curr_initter_state_ff[1]),
         .O(\vol_coef_0_ff[31]_i_1_n_0 ));
   FDRE \vol_coef_0_ff_reg[0] 
        (.C(s_axi_aclk),
@@ -10789,13 +10841,14 @@ module wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller
         .D(initter_vol_coef_ff[9]),
         .Q(vol_coef_0_ff[9]),
         .R(1'b0));
-  LUT4 #(
-    .INIT(16'h8000)) 
+  LUT5 #(
+    .INIT(32'h00000080)) 
     \vol_coef_1_ff[31]_i_1 
-       (.I0(curr_initter_state_ff[1]),
-        .I1(curr_initter_state_ff[0]),
-        .I2(initter_curr_slot_ff),
-        .I3(s_axi_aresetn),
+       (.I0(initter_curr_slot_ff),
+        .I1(s_axi_aresetn),
+        .I2(curr_initter_state_ff[2]),
+        .I3(curr_initter_state_ff[0]),
+        .I4(curr_initter_state_ff[1]),
         .O(\vol_coef_1_ff[31]_i_1_n_0 ));
   FDRE \vol_coef_1_ff_reg[0] 
        (.C(s_axi_aclk),

@@ -97,7 +97,8 @@ architecture behaviour of audio_fetcher_controller is
 
     type initter_state_t is (
         IS_IDLE,
-        IS_PRE_REQUEST,
+        IS_SETTING_SLOT,
+        IS_CALCING_REQ_ADDR,
         IS_REQUESTING_NUM_SAMPLES,
         IS_RETURNING_NUM_SAMPLES
     );
@@ -154,10 +155,13 @@ begin
         case curr_initter_state_ff is
             when IS_IDLE =>
                 if(s_rv_valid = '1' and curr_player_state_ff = PS_SLEEPING and next_player_state = PS_SLEEPING) then
-                    next_initter_state <= IS_PRE_REQUEST;
+                    next_initter_state <= IS_SETTING_SLOT;
                 end if;
 
-            when IS_PRE_REQUEST =>
+            when IS_SETTING_SLOT =>
+                next_initter_state <= IS_CALCING_REQ_ADDR;
+
+            when IS_CALCING_REQ_ADDR =>
                 next_initter_state <= IS_REQUESTING_NUM_SAMPLES;
 
             when IS_REQUESTING_NUM_SAMPLES =>
@@ -251,7 +255,7 @@ begin
                     initter_curr_slot_ff    <= unsigned(s_rv_slot(initter_curr_slot_ff'length - 1 downto 0));
                 end if;
 
-                if(curr_initter_state_ff = IS_PRE_REQUEST) then
+                if(curr_initter_state_ff = IS_SETTING_SLOT) then
                     case to_integer(initter_curr_slot_ff) is
                         when 0 =>
                             sound_addr_0_ff <= initter_sound_addr_ff;
@@ -265,7 +269,7 @@ begin
         end if;
     end process;
 
-    s_rv_ready <= '1' when (curr_initter_state_ff = IS_IDLE and next_initter_state = IS_PRE_REQUEST) else '0';
+    s_rv_ready <= '1' when (curr_initter_state_ff = IS_IDLE and next_initter_state = IS_SETTING_SLOT) else '0';
 
     -- Request RV Interface
     process(clk) begin

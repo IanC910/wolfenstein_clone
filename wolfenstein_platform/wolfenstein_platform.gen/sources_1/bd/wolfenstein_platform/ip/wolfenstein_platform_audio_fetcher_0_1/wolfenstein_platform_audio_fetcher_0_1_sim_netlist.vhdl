@@ -1,7 +1,7 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
--- Date        : Sat Apr  6 06:00:25 2024
+-- Date        : Sat Apr  6 06:44:26 2024
 -- Host        : IC-VivoBook running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               c:/Users/Ian/Projects/school/ensc452/wolfenstein_clone/wolfenstein_platform/wolfenstein_platform.gen/sources_1/bd/wolfenstein_platform/ip/wolfenstein_platform_audio_fetcher_0_1/wolfenstein_platform_audio_fetcher_0_1_sim_netlist.vhdl
@@ -51,7 +51,7 @@ architecture STRUCTURE of wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_M
   attribute FSM_ENCODED_STATES : string;
   attribute FSM_ENCODED_STATES of \FSM_sequential_curr_state_ff_reg[0]\ : label is "awvalid:01,wvalid:10,idle:00,bready:11";
   attribute FSM_ENCODED_STATES of \FSM_sequential_curr_state_ff_reg[1]\ : label is "awvalid:01,wvalid:10,idle:00,bready:11";
-  attribute SOFT_HLUTNM of \curr_player_state_ff[0]_i_2\ : label is "soft_lutpair0";
+  attribute SOFT_HLUTNM of \curr_player_state_ff[0]_i_7\ : label is "soft_lutpair0";
   attribute SOFT_HLUTNM of \curr_player_state_ff[1]_i_3\ : label is "soft_lutpair0";
   attribute SOFT_HLUTNM of \curr_player_state_ff[2]_i_5\ : label is "soft_lutpair3";
   attribute SOFT_HLUTNM of m_axi_audio_out_awvalid_INST_0 : label is "soft_lutpair2";
@@ -392,7 +392,7 @@ begin
       Q => m_axi_audio_out_wdata(9),
       R => \axi_awaddr_ff[30]_i_1_n_0\
     );
-\curr_player_state_ff[0]_i_2\: unisim.vcomponents.LUT3
+\curr_player_state_ff[0]_i_7\: unisim.vcomponents.LUT3
     generic map(
       INIT => X"EF"
     )
@@ -571,7 +571,7 @@ begin
       I0 => m_axi_dma_aresetn,
       O => \axi_araddr_ff[31]_i_1_n_0\
     );
-\axi_araddr_ff[31]_i_3\: unisim.vcomponents.LUT2
+\axi_araddr_ff[31]_i_4\: unisim.vcomponents.LUT2
     generic map(
       INIT => X"E"
     )
@@ -4130,27 +4130,27 @@ entity wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_controller is
     s_axi_aresetn_0 : out STD_LOGIC;
     D : out STD_LOGIC_VECTOR ( 31 downto 0 );
     sample_ff0 : out STD_LOGIC;
-    s_axi_aresetn_1 : out STD_LOGIC;
-    \curr_player_state_ff_reg[2]_0\ : out STD_LOGIC_VECTOR ( 1 downto 0 );
     \FSM_sequential_curr_initter_state_ff_reg[0]_0\ : out STD_LOGIC;
-    \slot_active_array_ff_reg[1]_0\ : out STD_LOGIC;
+    Q : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    s_axi_aresetn_1 : out STD_LOGIC;
     \slot_active_array_ff_reg[0]_0\ : out STD_LOGIC;
+    \slot_active_array_ff_reg[1]_0\ : out STD_LOGIC;
     E : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \FSM_sequential_curr_initter_state_ff_reg[1]_0\ : out STD_LOGIC_VECTOR ( 0 to 0 );
+    \FSM_sequential_curr_initter_state_ff_reg[0]_1\ : out STD_LOGIC_VECTOR ( 0 to 0 );
     \curr_player_state_ff_reg[0]_0\ : out STD_LOGIC;
     \req_addr_ff_reg[31]_0\ : out STD_LOGIC_VECTOR ( 31 downto 0 );
     slot_ff : in STD_LOGIC_VECTOR ( 0 to 0 );
     s_axi_aclk : in STD_LOGIC;
-    s_rv_valid : in STD_LOGIC;
-    \FSM_sequential_curr_initter_state_ff_reg[1]_1\ : in STD_LOGIC;
-    s_axi_aresetn : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 0 to 0 );
     curr_state_ff : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    \curr_player_state_ff_reg[2]_1\ : in STD_LOGIC;
-    \curr_player_state_ff_reg[0]_1\ : in STD_LOGIC;
-    \curr_player_state_ff_reg[0]_2\ : in STD_LOGIC;
-    \curr_player_state_ff_reg[2]_2\ : in STD_LOGIC;
+    s_rv_valid : in STD_LOGIC;
+    s_axi_aresetn : in STD_LOGIC;
+    valid_ff_reg : in STD_LOGIC_VECTOR ( 0 to 0 );
+    \curr_player_state_ff_reg[2]_0\ : in STD_LOGIC;
     curr_state_ff_0 : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    \curr_player_state_ff_reg[1]_0\ : in STD_LOGIC;
+    \curr_player_state_ff_reg[0]_1\ : in STD_LOGIC;
+    \curr_player_state_ff_reg[2]_1\ : in STD_LOGIC;
+    \axi_araddr_ff_reg[31]\ : in STD_LOGIC;
     \num_samples_0_ff_reg[31]_0\ : in STD_LOGIC_VECTOR ( 31 downto 0 );
     \initter_vol_coef_ff_reg[31]_0\ : in STD_LOGIC_VECTOR ( 15 downto 0 );
     \initter_sound_addr_ff_reg[31]_0\ : in STD_LOGIC_VECTOR ( 31 downto 0 )
@@ -4164,6 +4164,7 @@ architecture STRUCTURE of wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_c
   signal CEM : STD_LOGIC;
   signal CEP : STD_LOGIC;
   signal \^fsm_sequential_curr_initter_state_ff_reg[0]_0\ : STD_LOGIC;
+  signal \^q\ : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal RSTP : STD_LOGIC;
   signal \_inferred__5/i__carry__0_n_0\ : STD_LOGIC;
   signal \_inferred__5/i__carry__0_n_1\ : STD_LOGIC;
@@ -4196,6 +4197,7 @@ architecture STRUCTURE of wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_c
   signal \_inferred__5/i__carry_n_1\ : STD_LOGIC;
   signal \_inferred__5/i__carry_n_2\ : STD_LOGIC;
   signal \_inferred__5/i__carry_n_3\ : STD_LOGIC;
+  signal \axi_araddr_ff[31]_i_3_n_0\ : STD_LOGIC;
   signal byte_index_0_ff : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal byte_index_0_ff0 : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal \byte_index_0_ff0_carry__0_n_0\ : STD_LOGIC;
@@ -4329,15 +4331,16 @@ architecture STRUCTURE of wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_c
   signal \byte_index_1_ff[8]_i_1_n_0\ : STD_LOGIC;
   signal \byte_index_1_ff[9]_i_1_n_0\ : STD_LOGIC;
   signal byte_index_1_ff_0 : STD_LOGIC;
-  signal curr_initter_state_ff : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal curr_initter_state_ff : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal curr_player_state_ff : STD_LOGIC_VECTOR ( 1 to 1 );
+  signal \curr_player_state_ff[0]_i_2_n_0\ : STD_LOGIC;
   signal \curr_player_state_ff[0]_i_3_n_0\ : STD_LOGIC;
   signal \curr_player_state_ff[0]_i_4_n_0\ : STD_LOGIC;
   signal \curr_player_state_ff[0]_i_5_n_0\ : STD_LOGIC;
+  signal \curr_player_state_ff[0]_i_6_n_0\ : STD_LOGIC;
   signal \curr_player_state_ff[1]_i_2_n_0\ : STD_LOGIC;
   signal \curr_player_state_ff[2]_i_3_n_0\ : STD_LOGIC;
   signal \curr_player_state_ff[2]_i_4_n_0\ : STD_LOGIC;
-  signal \^curr_player_state_ff_reg[2]_0\ : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal \i__carry__0_i_1__0_n_0\ : STD_LOGIC;
   signal \i__carry__0_i_1__1_n_0\ : STD_LOGIC;
   signal \i__carry__0_i_1_n_0\ : STD_LOGIC;
@@ -4575,7 +4578,7 @@ architecture STRUCTURE of wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_c
   signal \last_sample_array1_inferred__0/i__carry_n_3\ : STD_LOGIC;
   signal last_sample_array_reg : STD_LOGIC;
   signal last_sample_array_reg1_out : STD_LOGIC;
-  signal \next_initter_state__0\ : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal \next_initter_state__0\ : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal next_player_state : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal num_samples_0_ff : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal num_samples_0_ff_2 : STD_LOGIC;
@@ -4894,11 +4897,12 @@ architecture STRUCTURE of wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_c
   signal \NLW_sleep_counter_ff_reg[12]_i_1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 2 );
   signal \NLW_sleep_counter_ff_reg[12]_i_1_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \FSM_sequential_curr_initter_state_ff[0]_i_1\ : label is "soft_lutpair26";
+  attribute SOFT_HLUTNM of \FSM_sequential_curr_initter_state_ff[0]_i_1\ : label is "soft_lutpair25";
+  attribute SOFT_HLUTNM of \FSM_sequential_curr_initter_state_ff[1]_i_1\ : label is "soft_lutpair25";
   attribute FSM_ENCODED_STATES : string;
-  attribute FSM_ENCODED_STATES of \FSM_sequential_curr_initter_state_ff_reg[0]\ : label is "is_requesting_num_samples:10,is_pre_request:11,is_returning_num_samples:00,is_idle:01";
-  attribute FSM_ENCODED_STATES of \FSM_sequential_curr_initter_state_ff_reg[1]\ : label is "is_requesting_num_samples:10,is_pre_request:11,is_returning_num_samples:00,is_idle:01";
-  attribute SOFT_HLUTNM of \FSM_sequential_curr_state_ff[1]_i_4\ : label is "soft_lutpair25";
+  attribute FSM_ENCODED_STATES of \FSM_sequential_curr_initter_state_ff_reg[0]\ : label is "is_calcing_req_addr:011,is_requesting_num_samples:010,is_setting_slot:100,is_returning_num_samples:001,is_idle:000";
+  attribute FSM_ENCODED_STATES of \FSM_sequential_curr_initter_state_ff_reg[1]\ : label is "is_calcing_req_addr:011,is_requesting_num_samples:010,is_setting_slot:100,is_returning_num_samples:001,is_idle:000";
+  attribute FSM_ENCODED_STATES of \FSM_sequential_curr_initter_state_ff_reg[2]\ : label is "is_calcing_req_addr:011,is_requesting_num_samples:010,is_setting_slot:100,is_returning_num_samples:001,is_idle:000";
   attribute ADDER_THRESHOLD : integer;
   attribute ADDER_THRESHOLD of \_inferred__5/i__carry\ : label is 35;
   attribute METHODOLOGY_DRC_VIOS : string;
@@ -4917,6 +4921,7 @@ architecture STRUCTURE of wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_c
   attribute METHODOLOGY_DRC_VIOS of \_inferred__5/i__carry__5\ : label is "{SYNTH-8 {cell *THIS*}}";
   attribute ADDER_THRESHOLD of \_inferred__5/i__carry__6\ : label is 35;
   attribute METHODOLOGY_DRC_VIOS of \_inferred__5/i__carry__6\ : label is "{SYNTH-8 {cell *THIS*}}";
+  attribute SOFT_HLUTNM of \axi_araddr_ff[31]_i_3\ : label is "soft_lutpair27";
   attribute ADDER_THRESHOLD of byte_index_0_ff0_carry : label is 35;
   attribute ADDER_THRESHOLD of \byte_index_0_ff0_carry__0\ : label is 35;
   attribute ADDER_THRESHOLD of \byte_index_0_ff0_carry__1\ : label is 35;
@@ -4925,38 +4930,38 @@ architecture STRUCTURE of wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_c
   attribute ADDER_THRESHOLD of \byte_index_0_ff0_carry__4\ : label is 35;
   attribute ADDER_THRESHOLD of \byte_index_0_ff0_carry__5\ : label is 35;
   attribute ADDER_THRESHOLD of \byte_index_0_ff0_carry__6\ : label is 35;
-  attribute SOFT_HLUTNM of \byte_index_0_ff[0]_i_1\ : label is "soft_lutpair60";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[10]_i_1\ : label is "soft_lutpair65";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[11]_i_1\ : label is "soft_lutpair65";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[12]_i_1\ : label is "soft_lutpair66";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[13]_i_1\ : label is "soft_lutpair66";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[14]_i_1\ : label is "soft_lutpair67";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[15]_i_1\ : label is "soft_lutpair67";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[16]_i_1\ : label is "soft_lutpair68";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[17]_i_1\ : label is "soft_lutpair68";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[18]_i_1\ : label is "soft_lutpair69";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[19]_i_1\ : label is "soft_lutpair69";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[1]_i_1\ : label is "soft_lutpair60";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[20]_i_1\ : label is "soft_lutpair70";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[21]_i_1\ : label is "soft_lutpair70";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[22]_i_1\ : label is "soft_lutpair71";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[23]_i_1\ : label is "soft_lutpair71";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[24]_i_1\ : label is "soft_lutpair72";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[25]_i_1\ : label is "soft_lutpair72";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[26]_i_1\ : label is "soft_lutpair73";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[27]_i_1\ : label is "soft_lutpair73";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[28]_i_1\ : label is "soft_lutpair74";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[29]_i_1\ : label is "soft_lutpair74";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[2]_i_1\ : label is "soft_lutpair61";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[30]_i_1\ : label is "soft_lutpair75";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[31]_i_1\ : label is "soft_lutpair75";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[3]_i_1\ : label is "soft_lutpair61";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[4]_i_1\ : label is "soft_lutpair62";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[5]_i_1\ : label is "soft_lutpair62";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[6]_i_1\ : label is "soft_lutpair63";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[7]_i_1\ : label is "soft_lutpair63";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[8]_i_1\ : label is "soft_lutpair64";
-  attribute SOFT_HLUTNM of \byte_index_0_ff[9]_i_1\ : label is "soft_lutpair64";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[0]_i_1\ : label is "soft_lutpair61";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[10]_i_1\ : label is "soft_lutpair66";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[11]_i_1\ : label is "soft_lutpair66";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[12]_i_1\ : label is "soft_lutpair67";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[13]_i_1\ : label is "soft_lutpair67";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[14]_i_1\ : label is "soft_lutpair68";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[15]_i_1\ : label is "soft_lutpair68";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[16]_i_1\ : label is "soft_lutpair69";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[17]_i_1\ : label is "soft_lutpair69";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[18]_i_1\ : label is "soft_lutpair70";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[19]_i_1\ : label is "soft_lutpair70";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[1]_i_1\ : label is "soft_lutpair61";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[20]_i_1\ : label is "soft_lutpair71";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[21]_i_1\ : label is "soft_lutpair71";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[22]_i_1\ : label is "soft_lutpair72";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[23]_i_1\ : label is "soft_lutpair72";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[24]_i_1\ : label is "soft_lutpair73";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[25]_i_1\ : label is "soft_lutpair73";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[26]_i_1\ : label is "soft_lutpair74";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[27]_i_1\ : label is "soft_lutpair74";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[28]_i_1\ : label is "soft_lutpair75";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[29]_i_1\ : label is "soft_lutpair75";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[2]_i_1\ : label is "soft_lutpair62";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[30]_i_1\ : label is "soft_lutpair76";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[31]_i_1\ : label is "soft_lutpair76";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[3]_i_1\ : label is "soft_lutpair62";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[4]_i_1\ : label is "soft_lutpair63";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[5]_i_1\ : label is "soft_lutpair63";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[6]_i_1\ : label is "soft_lutpair64";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[7]_i_1\ : label is "soft_lutpair64";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[8]_i_1\ : label is "soft_lutpair65";
+  attribute SOFT_HLUTNM of \byte_index_0_ff[9]_i_1\ : label is "soft_lutpair65";
   attribute ADDER_THRESHOLD of byte_index_1_ff0_carry : label is 35;
   attribute ADDER_THRESHOLD of \byte_index_1_ff0_carry__0\ : label is 35;
   attribute ADDER_THRESHOLD of \byte_index_1_ff0_carry__1\ : label is 35;
@@ -4965,41 +4970,41 @@ architecture STRUCTURE of wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_c
   attribute ADDER_THRESHOLD of \byte_index_1_ff0_carry__4\ : label is 35;
   attribute ADDER_THRESHOLD of \byte_index_1_ff0_carry__5\ : label is 35;
   attribute ADDER_THRESHOLD of \byte_index_1_ff0_carry__6\ : label is 35;
-  attribute SOFT_HLUTNM of \byte_index_1_ff[0]_i_1\ : label is "soft_lutpair28";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[10]_i_1\ : label is "soft_lutpair33";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[11]_i_1\ : label is "soft_lutpair33";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[12]_i_1\ : label is "soft_lutpair34";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[13]_i_1\ : label is "soft_lutpair34";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[14]_i_1\ : label is "soft_lutpair35";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[15]_i_1\ : label is "soft_lutpair35";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[16]_i_1\ : label is "soft_lutpair36";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[17]_i_1\ : label is "soft_lutpair36";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[18]_i_1\ : label is "soft_lutpair37";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[19]_i_1\ : label is "soft_lutpair37";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[1]_i_1\ : label is "soft_lutpair28";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[20]_i_1\ : label is "soft_lutpair38";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[21]_i_1\ : label is "soft_lutpair38";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[22]_i_1\ : label is "soft_lutpair39";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[23]_i_1\ : label is "soft_lutpair39";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[24]_i_1\ : label is "soft_lutpair40";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[25]_i_1\ : label is "soft_lutpair40";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[26]_i_1\ : label is "soft_lutpair41";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[27]_i_1\ : label is "soft_lutpair41";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[28]_i_1\ : label is "soft_lutpair42";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[29]_i_1\ : label is "soft_lutpair42";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[2]_i_1\ : label is "soft_lutpair29";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[30]_i_1\ : label is "soft_lutpair43";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[31]_i_1\ : label is "soft_lutpair43";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[3]_i_1\ : label is "soft_lutpair29";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[4]_i_1\ : label is "soft_lutpair30";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[5]_i_1\ : label is "soft_lutpair30";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[6]_i_1\ : label is "soft_lutpair31";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[7]_i_1\ : label is "soft_lutpair31";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[8]_i_1\ : label is "soft_lutpair32";
-  attribute SOFT_HLUTNM of \byte_index_1_ff[9]_i_1\ : label is "soft_lutpair32";
-  attribute SOFT_HLUTNM of \curr_player_state_ff[0]_i_3\ : label is "soft_lutpair25";
-  attribute SOFT_HLUTNM of \curr_player_state_ff[2]_i_4\ : label is "soft_lutpair27";
-  attribute SOFT_HLUTNM of \i__carry_i_9\ : label is "soft_lutpair27";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[0]_i_1\ : label is "soft_lutpair29";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[10]_i_1\ : label is "soft_lutpair34";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[11]_i_1\ : label is "soft_lutpair34";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[12]_i_1\ : label is "soft_lutpair35";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[13]_i_1\ : label is "soft_lutpair35";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[14]_i_1\ : label is "soft_lutpair36";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[15]_i_1\ : label is "soft_lutpair36";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[16]_i_1\ : label is "soft_lutpair37";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[17]_i_1\ : label is "soft_lutpair37";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[18]_i_1\ : label is "soft_lutpair38";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[19]_i_1\ : label is "soft_lutpair38";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[1]_i_1\ : label is "soft_lutpair29";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[20]_i_1\ : label is "soft_lutpair39";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[21]_i_1\ : label is "soft_lutpair39";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[22]_i_1\ : label is "soft_lutpair40";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[23]_i_1\ : label is "soft_lutpair40";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[24]_i_1\ : label is "soft_lutpair41";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[25]_i_1\ : label is "soft_lutpair41";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[26]_i_1\ : label is "soft_lutpair42";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[27]_i_1\ : label is "soft_lutpair42";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[28]_i_1\ : label is "soft_lutpair43";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[29]_i_1\ : label is "soft_lutpair43";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[2]_i_1\ : label is "soft_lutpair30";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[30]_i_1\ : label is "soft_lutpair44";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[31]_i_1\ : label is "soft_lutpair44";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[3]_i_1\ : label is "soft_lutpair30";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[4]_i_1\ : label is "soft_lutpair31";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[5]_i_1\ : label is "soft_lutpair31";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[6]_i_1\ : label is "soft_lutpair32";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[7]_i_1\ : label is "soft_lutpair32";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[8]_i_1\ : label is "soft_lutpair33";
+  attribute SOFT_HLUTNM of \byte_index_1_ff[9]_i_1\ : label is "soft_lutpair33";
+  attribute SOFT_HLUTNM of \curr_player_state_ff[0]_i_3\ : label is "soft_lutpair26";
+  attribute SOFT_HLUTNM of \curr_player_state_ff[0]_i_5\ : label is "soft_lutpair28";
+  attribute SOFT_HLUTNM of \curr_player_state_ff[2]_i_4\ : label is "soft_lutpair28";
   attribute ADDER_THRESHOLD of last_sample_array1_carry : label is 35;
   attribute ADDER_THRESHOLD of \last_sample_array1_carry__0\ : label is 35;
   attribute ADDER_THRESHOLD of \last_sample_array1_carry__1\ : label is 35;
@@ -5024,38 +5029,38 @@ architecture STRUCTURE of wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_c
   attribute ADDER_THRESHOLD of \sample_index_0_ff0_carry__4\ : label is 35;
   attribute ADDER_THRESHOLD of \sample_index_0_ff0_carry__5\ : label is 35;
   attribute ADDER_THRESHOLD of \sample_index_0_ff0_carry__6\ : label is 35;
-  attribute SOFT_HLUTNM of \sample_index_0_ff[0]_i_1\ : label is "soft_lutpair76";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[10]_i_1\ : label is "soft_lutpair81";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[11]_i_1\ : label is "soft_lutpair81";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[12]_i_1\ : label is "soft_lutpair82";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[13]_i_1\ : label is "soft_lutpair82";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[14]_i_1\ : label is "soft_lutpair83";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[15]_i_1\ : label is "soft_lutpair83";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[16]_i_1\ : label is "soft_lutpair84";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[17]_i_1\ : label is "soft_lutpair84";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[18]_i_1\ : label is "soft_lutpair85";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[19]_i_1\ : label is "soft_lutpair85";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[1]_i_1\ : label is "soft_lutpair76";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[20]_i_1\ : label is "soft_lutpair86";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[21]_i_1\ : label is "soft_lutpair86";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[22]_i_1\ : label is "soft_lutpair87";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[23]_i_1\ : label is "soft_lutpair87";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[24]_i_1\ : label is "soft_lutpair88";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[25]_i_1\ : label is "soft_lutpair88";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[26]_i_1\ : label is "soft_lutpair89";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[27]_i_1\ : label is "soft_lutpair89";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[28]_i_1\ : label is "soft_lutpair90";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[29]_i_1\ : label is "soft_lutpair90";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[2]_i_1\ : label is "soft_lutpair77";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[30]_i_1\ : label is "soft_lutpair91";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[31]_i_2\ : label is "soft_lutpair91";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[3]_i_1\ : label is "soft_lutpair77";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[4]_i_1\ : label is "soft_lutpair78";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[5]_i_1\ : label is "soft_lutpair78";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[6]_i_1\ : label is "soft_lutpair79";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[7]_i_1\ : label is "soft_lutpair79";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[8]_i_1\ : label is "soft_lutpair80";
-  attribute SOFT_HLUTNM of \sample_index_0_ff[9]_i_1\ : label is "soft_lutpair80";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[0]_i_1\ : label is "soft_lutpair77";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[10]_i_1\ : label is "soft_lutpair82";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[11]_i_1\ : label is "soft_lutpair82";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[12]_i_1\ : label is "soft_lutpair83";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[13]_i_1\ : label is "soft_lutpair83";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[14]_i_1\ : label is "soft_lutpair84";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[15]_i_1\ : label is "soft_lutpair84";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[16]_i_1\ : label is "soft_lutpair85";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[17]_i_1\ : label is "soft_lutpair85";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[18]_i_1\ : label is "soft_lutpair86";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[19]_i_1\ : label is "soft_lutpair86";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[1]_i_1\ : label is "soft_lutpair77";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[20]_i_1\ : label is "soft_lutpair87";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[21]_i_1\ : label is "soft_lutpair87";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[22]_i_1\ : label is "soft_lutpair88";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[23]_i_1\ : label is "soft_lutpair88";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[24]_i_1\ : label is "soft_lutpair89";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[25]_i_1\ : label is "soft_lutpair89";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[26]_i_1\ : label is "soft_lutpair90";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[27]_i_1\ : label is "soft_lutpair90";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[28]_i_1\ : label is "soft_lutpair91";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[29]_i_1\ : label is "soft_lutpair91";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[2]_i_1\ : label is "soft_lutpair78";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[30]_i_1\ : label is "soft_lutpair92";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[31]_i_2\ : label is "soft_lutpair92";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[3]_i_1\ : label is "soft_lutpair78";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[4]_i_1\ : label is "soft_lutpair79";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[5]_i_1\ : label is "soft_lutpair79";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[6]_i_1\ : label is "soft_lutpair80";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[7]_i_1\ : label is "soft_lutpair80";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[8]_i_1\ : label is "soft_lutpair81";
+  attribute SOFT_HLUTNM of \sample_index_0_ff[9]_i_1\ : label is "soft_lutpair81";
   attribute ADDER_THRESHOLD of sample_index_1_ff0_carry : label is 35;
   attribute ADDER_THRESHOLD of \sample_index_1_ff0_carry__0\ : label is 35;
   attribute ADDER_THRESHOLD of \sample_index_1_ff0_carry__1\ : label is 35;
@@ -5064,81 +5069,95 @@ architecture STRUCTURE of wolfenstein_platform_audio_fetcher_0_1_audio_fetcher_c
   attribute ADDER_THRESHOLD of \sample_index_1_ff0_carry__4\ : label is 35;
   attribute ADDER_THRESHOLD of \sample_index_1_ff0_carry__5\ : label is 35;
   attribute ADDER_THRESHOLD of \sample_index_1_ff0_carry__6\ : label is 35;
-  attribute SOFT_HLUTNM of \sample_index_1_ff[0]_i_1\ : label is "soft_lutpair44";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[10]_i_1\ : label is "soft_lutpair49";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[11]_i_1\ : label is "soft_lutpair49";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[12]_i_1\ : label is "soft_lutpair50";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[13]_i_1\ : label is "soft_lutpair50";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[14]_i_1\ : label is "soft_lutpair51";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[15]_i_1\ : label is "soft_lutpair51";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[16]_i_1\ : label is "soft_lutpair52";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[17]_i_1\ : label is "soft_lutpair52";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[18]_i_1\ : label is "soft_lutpair53";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[19]_i_1\ : label is "soft_lutpair53";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[1]_i_1\ : label is "soft_lutpair44";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[20]_i_1\ : label is "soft_lutpair54";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[21]_i_1\ : label is "soft_lutpair54";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[22]_i_1\ : label is "soft_lutpair55";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[23]_i_1\ : label is "soft_lutpair55";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[24]_i_1\ : label is "soft_lutpair56";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[25]_i_1\ : label is "soft_lutpair56";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[26]_i_1\ : label is "soft_lutpair57";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[27]_i_1\ : label is "soft_lutpair57";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[28]_i_1\ : label is "soft_lutpair58";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[29]_i_1\ : label is "soft_lutpair58";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[2]_i_1\ : label is "soft_lutpair45";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[30]_i_1\ : label is "soft_lutpair59";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[31]_i_2\ : label is "soft_lutpair59";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[3]_i_1\ : label is "soft_lutpair45";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[4]_i_1\ : label is "soft_lutpair46";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[5]_i_1\ : label is "soft_lutpair46";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[6]_i_1\ : label is "soft_lutpair47";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[7]_i_1\ : label is "soft_lutpair47";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[8]_i_1\ : label is "soft_lutpair48";
-  attribute SOFT_HLUTNM of \sample_index_1_ff[9]_i_1\ : label is "soft_lutpair48";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[0]_i_1\ : label is "soft_lutpair45";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[10]_i_1\ : label is "soft_lutpair50";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[11]_i_1\ : label is "soft_lutpair50";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[12]_i_1\ : label is "soft_lutpair51";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[13]_i_1\ : label is "soft_lutpair51";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[14]_i_1\ : label is "soft_lutpair52";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[15]_i_1\ : label is "soft_lutpair52";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[16]_i_1\ : label is "soft_lutpair53";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[17]_i_1\ : label is "soft_lutpair53";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[18]_i_1\ : label is "soft_lutpair54";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[19]_i_1\ : label is "soft_lutpair54";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[1]_i_1\ : label is "soft_lutpair45";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[20]_i_1\ : label is "soft_lutpair55";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[21]_i_1\ : label is "soft_lutpair55";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[22]_i_1\ : label is "soft_lutpair56";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[23]_i_1\ : label is "soft_lutpair56";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[24]_i_1\ : label is "soft_lutpair57";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[25]_i_1\ : label is "soft_lutpair57";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[26]_i_1\ : label is "soft_lutpair58";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[27]_i_1\ : label is "soft_lutpair58";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[28]_i_1\ : label is "soft_lutpair59";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[29]_i_1\ : label is "soft_lutpair59";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[2]_i_1\ : label is "soft_lutpair46";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[30]_i_1\ : label is "soft_lutpair60";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[31]_i_2\ : label is "soft_lutpair60";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[3]_i_1\ : label is "soft_lutpair46";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[4]_i_1\ : label is "soft_lutpair47";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[5]_i_1\ : label is "soft_lutpair47";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[6]_i_1\ : label is "soft_lutpair48";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[7]_i_1\ : label is "soft_lutpair48";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[8]_i_1\ : label is "soft_lutpair49";
+  attribute SOFT_HLUTNM of \sample_index_1_ff[9]_i_1\ : label is "soft_lutpair49";
   attribute ADDER_THRESHOLD of \sleep_counter_ff_reg[0]_i_3\ : label is 11;
   attribute ADDER_THRESHOLD of \sleep_counter_ff_reg[12]_i_1\ : label is 11;
   attribute ADDER_THRESHOLD of \sleep_counter_ff_reg[4]_i_1\ : label is 11;
   attribute ADDER_THRESHOLD of \sleep_counter_ff_reg[8]_i_1\ : label is 11;
   attribute SOFT_HLUTNM of \slot_active_array_ff[1]_i_2\ : label is "soft_lutpair26";
+  attribute SOFT_HLUTNM of valid_ff_i_2 : label is "soft_lutpair27";
 begin
   \FSM_sequential_curr_initter_state_ff_reg[0]_0\ <= \^fsm_sequential_curr_initter_state_ff_reg[0]_0\;
-  \curr_player_state_ff_reg[2]_0\(1 downto 0) <= \^curr_player_state_ff_reg[2]_0\(1 downto 0);
+  Q(1 downto 0) <= \^q\(1 downto 0);
   s_axi_aresetn_0 <= \^s_axi_aresetn_0\;
   sample_ff0 <= \^sample_ff0\;
   \slot_active_array_ff_reg[0]_0\ <= \^slot_active_array_ff_reg[0]_0\;
   \slot_active_array_ff_reg[1]_0\ <= \^slot_active_array_ff_reg[1]_0\;
-\FSM_sequential_curr_initter_state_ff[0]_i_1\: unisim.vcomponents.LUT4
+\FSM_sequential_curr_initter_state_ff[0]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"3222"
+      INIT => X"00010F70"
     )
         port map (
-      I0 => curr_initter_state_ff(0),
-      I1 => curr_initter_state_ff(1),
-      I2 => curr_state_ff(0),
-      I3 => curr_state_ff(1),
+      I0 => curr_state_ff(0),
+      I1 => curr_state_ff(1),
+      I2 => curr_initter_state_ff(0),
+      I3 => curr_initter_state_ff(2),
+      I4 => curr_initter_state_ff(1),
       O => \next_initter_state__0\(0)
     );
-\FSM_sequential_curr_initter_state_ff[1]_i_1\: unisim.vcomponents.LUT6
+\FSM_sequential_curr_initter_state_ff[1]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"FFFF4040FF000000"
+      INIT => X"0F0E00F0"
     )
         port map (
-      I0 => \sleep_counter_ff[0]_i_1_n_0\,
-      I1 => s_rv_valid,
-      I2 => sel,
-      I3 => \FSM_sequential_curr_initter_state_ff_reg[1]_1\,
+      I0 => curr_state_ff(1),
+      I1 => curr_state_ff(0),
+      I2 => curr_initter_state_ff(2),
+      I3 => curr_initter_state_ff(0),
       I4 => curr_initter_state_ff(1),
-      I5 => curr_initter_state_ff(0),
       O => \next_initter_state__0\(1)
     );
-\FSM_sequential_curr_initter_state_ff_reg[0]\: unisim.vcomponents.FDSE
+\FSM_sequential_curr_initter_state_ff[2]_i_1\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"0000000000000008"
+    )
+        port map (
+      I0 => sel,
+      I1 => s_rv_valid,
+      I2 => curr_initter_state_ff(2),
+      I3 => curr_initter_state_ff(1),
+      I4 => curr_initter_state_ff(0),
+      I5 => \sleep_counter_ff[0]_i_1_n_0\,
+      O => \next_initter_state__0\(2)
+    );
+\FSM_sequential_curr_initter_state_ff_reg[0]\: unisim.vcomponents.FDRE
      port map (
       C => s_axi_aclk,
       CE => '1',
       D => \next_initter_state__0\(0),
       Q => curr_initter_state_ff(0),
-      S => \^s_axi_aresetn_0\
+      R => \^s_axi_aresetn_0\
     );
 \FSM_sequential_curr_initter_state_ff_reg[1]\: unisim.vcomponents.FDRE
      port map (
@@ -5148,16 +5167,25 @@ begin
       Q => curr_initter_state_ff(1),
       R => \^s_axi_aresetn_0\
     );
-\FSM_sequential_curr_state_ff[1]_i_4\: unisim.vcomponents.LUT5
+\FSM_sequential_curr_initter_state_ff_reg[2]\: unisim.vcomponents.FDRE
+     port map (
+      C => s_axi_aclk,
+      CE => '1',
+      D => \next_initter_state__0\(2),
+      Q => curr_initter_state_ff(2),
+      R => \^s_axi_aresetn_0\
+    );
+\FSM_sequential_curr_state_ff[1]_i_4\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"04FF0404"
+      INIT => X"0404040404FF0404"
     )
         port map (
-      I0 => \^curr_player_state_ff_reg[2]_0\(0),
+      I0 => \^q\(0),
       I1 => curr_player_state_ff(1),
-      I2 => \^curr_player_state_ff_reg[2]_0\(1),
+      I2 => \^q\(1),
       I3 => curr_initter_state_ff(0),
       I4 => curr_initter_state_ff(1),
+      I5 => curr_initter_state_ff(2),
       O => \curr_player_state_ff_reg[0]_0\
     );
 \_inferred__5/i__carry\: unisim.vcomponents.CARRY4
@@ -5309,13 +5337,22 @@ begin
       INIT => X"0000000022222F22"
     )
         port map (
-      I0 => curr_initter_state_ff(1),
+      I0 => \axi_araddr_ff[31]_i_3_n_0\,
       I1 => curr_initter_state_ff(0),
-      I2 => \^curr_player_state_ff_reg[2]_0\(1),
+      I2 => \^q\(1),
       I3 => curr_player_state_ff(1),
-      I4 => \^curr_player_state_ff_reg[2]_0\(0),
-      I5 => \FSM_sequential_curr_initter_state_ff_reg[1]_1\,
-      O => \FSM_sequential_curr_initter_state_ff_reg[1]_0\(0)
+      I4 => \^q\(0),
+      I5 => \axi_araddr_ff_reg[31]\,
+      O => \FSM_sequential_curr_initter_state_ff_reg[0]_1\(0)
+    );
+\axi_araddr_ff[31]_i_3\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"2"
+    )
+        port map (
+      I0 => curr_initter_state_ff(1),
+      I1 => curr_initter_state_ff(2),
+      O => \axi_araddr_ff[31]_i_3_n_0\
     );
 \axi_awaddr_ff[30]_i_2\: unisim.vcomponents.LUT4
     generic map(
@@ -5323,7 +5360,7 @@ begin
     )
         port map (
       I0 => curr_player_state_ff(1),
-      I1 => \^curr_player_state_ff_reg[2]_0\(1),
+      I1 => \^q\(1),
       I2 => curr_state_ff_0(0),
       I3 => curr_state_ff_0(1),
       O => E(0)
@@ -6807,8 +6844,8 @@ combined_samples_ff_reg_i_1: unisim.vcomponents.LUT5
       INIT => X"40000000"
     )
         port map (
-      I0 => \^curr_player_state_ff_reg[2]_0\(1),
-      I1 => \^curr_player_state_ff_reg[2]_0\(0),
+      I0 => \^q\(1),
+      I1 => \^q\(0),
       I2 => curr_player_state_ff(1),
       I3 => curr_state_ff(1),
       I4 => curr_state_ff(0),
@@ -6920,8 +6957,8 @@ combined_samples_ff_reg_i_2: unisim.vcomponents.LUT3
     )
         port map (
       I0 => curr_player_state_ff(1),
-      I1 => \^curr_player_state_ff_reg[2]_0\(0),
-      I2 => \^curr_player_state_ff_reg[2]_0\(1),
+      I1 => \^q\(0),
+      I2 => \^q\(1),
       O => CEB2
     );
 combined_samples_ff_reg_i_20: unisim.vcomponents.LUT3
@@ -7046,8 +7083,8 @@ combined_samples_ff_reg_i_3: unisim.vcomponents.LUT3
     )
         port map (
       I0 => curr_player_state_ff(1),
-      I1 => \^curr_player_state_ff_reg[2]_0\(1),
-      I2 => \^curr_player_state_ff_reg[2]_0\(0),
+      I1 => \^q\(1),
+      I2 => \^q\(0),
       O => CEM
     );
 combined_samples_ff_reg_i_30: unisim.vcomponents.LUT5
@@ -7152,8 +7189,8 @@ combined_samples_ff_reg_i_4: unisim.vcomponents.LUT3
     )
         port map (
       I0 => curr_player_state_ff(1),
-      I1 => \^curr_player_state_ff_reg[2]_0\(0),
-      I2 => \^curr_player_state_ff_reg[2]_0\(1),
+      I1 => \^q\(0),
+      I2 => \^q\(1),
       O => CEP
     );
 combined_samples_ff_reg_i_5: unisim.vcomponents.LUT4
@@ -7161,9 +7198,9 @@ combined_samples_ff_reg_i_5: unisim.vcomponents.LUT4
       INIT => X"01FF"
     )
         port map (
-      I0 => \^curr_player_state_ff_reg[2]_0\(0),
+      I0 => \^q\(0),
       I1 => curr_player_state_ff(1),
-      I2 => \^curr_player_state_ff_reg[2]_0\(1),
+      I2 => \^q\(1),
       I3 => s_axi_aresetn,
       O => RSTP
     );
@@ -7209,62 +7246,85 @@ combined_samples_ff_reg_i_9: unisim.vcomponents.LUT3
     );
 \curr_player_state_ff[0]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"FFFFFFFFFFFF1F11"
+      INIT => X"FFFFFFFFFFFFFFAE"
     )
         port map (
-      I0 => \^curr_player_state_ff_reg[2]_0\(0),
-      I1 => \curr_player_state_ff_reg[0]_1\,
+      I0 => \curr_player_state_ff[0]_i_2_n_0\,
+      I1 => \curr_player_state_ff[0]_i_3_n_0\,
       I2 => sel,
-      I3 => \curr_player_state_ff[0]_i_3_n_0\,
-      I4 => \curr_player_state_ff[0]_i_4_n_0\,
-      I5 => \curr_player_state_ff[0]_i_5_n_0\,
+      I3 => \curr_player_state_ff[0]_i_4_n_0\,
+      I4 => \curr_player_state_ff[0]_i_5_n_0\,
+      I5 => \curr_player_state_ff[0]_i_6_n_0\,
       O => next_player_state(0)
     );
-\curr_player_state_ff[0]_i_3\: unisim.vcomponents.LUT4
+\curr_player_state_ff[0]_i_2\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"0100"
+      INIT => X"EEE2000000000000"
     )
         port map (
-      I0 => curr_player_state_ff(1),
-      I1 => \^curr_player_state_ff_reg[2]_0\(0),
-      I2 => curr_initter_state_ff(1),
-      I3 => curr_initter_state_ff(0),
+      I0 => \curr_player_state_ff_reg[2]_0\,
+      I1 => \^q\(1),
+      I2 => curr_state_ff_0(1),
+      I3 => curr_state_ff_0(0),
+      I4 => curr_player_state_ff(1),
+      I5 => \^q\(0),
+      O => \curr_player_state_ff[0]_i_2_n_0\
+    );
+\curr_player_state_ff[0]_i_3\: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"00000001"
+    )
+        port map (
+      I0 => \^q\(0),
+      I1 => curr_player_state_ff(1),
+      I2 => curr_initter_state_ff(0),
+      I3 => curr_initter_state_ff(1),
+      I4 => curr_initter_state_ff(2),
       O => \curr_player_state_ff[0]_i_3_n_0\
     );
-\curr_player_state_ff[0]_i_4\: unisim.vcomponents.LUT6
+\curr_player_state_ff[0]_i_4\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"80808080808C8080"
+      INIT => X"0004"
     )
         port map (
-      I0 => \curr_player_state_ff_reg[0]_2\,
-      I1 => \^curr_player_state_ff_reg[2]_0\(0),
+      I0 => \^q\(1),
+      I1 => curr_player_state_ff(1),
+      I2 => curr_state_ff(1),
+      I3 => curr_state_ff(0),
+      O => \curr_player_state_ff[0]_i_4_n_0\
+    );
+\curr_player_state_ff[0]_i_5\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"0070"
+    )
+        port map (
+      I0 => \^q\(0),
+      I1 => player_curr_slot_ff,
+      I2 => \^q\(1),
+      I3 => curr_player_state_ff(1),
+      O => \curr_player_state_ff[0]_i_5_n_0\
+    );
+\curr_player_state_ff[0]_i_6\: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"11111111111D1111"
+    )
+        port map (
+      I0 => \curr_player_state_ff_reg[0]_1\,
+      I1 => \^q\(0),
       I2 => curr_player_state_ff(1),
       I3 => player_curr_slot_ff,
       I4 => \^slot_active_array_ff_reg[1]_0\,
       I5 => \^slot_active_array_ff_reg[0]_0\,
-      O => \curr_player_state_ff[0]_i_4_n_0\
-    );
-\curr_player_state_ff[0]_i_5\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"000011110FFF0000"
-    )
-        port map (
-      I0 => curr_state_ff(1),
-      I1 => curr_state_ff(0),
-      I2 => player_curr_slot_ff,
-      I3 => \^curr_player_state_ff_reg[2]_0\(0),
-      I4 => \^curr_player_state_ff_reg[2]_0\(1),
-      I5 => curr_player_state_ff(1),
-      O => \curr_player_state_ff[0]_i_5_n_0\
+      O => \curr_player_state_ff[0]_i_6_n_0\
     );
 \curr_player_state_ff[1]_i_1\: unisim.vcomponents.LUT5
     generic map(
       INIT => X"FFFF1000"
     )
         port map (
-      I0 => \^curr_player_state_ff_reg[2]_0\(1),
+      I0 => \^q\(1),
       I1 => curr_player_state_ff(1),
-      I2 => \^curr_player_state_ff_reg[2]_0\(0),
+      I2 => \^q\(0),
       I3 => \^slot_active_array_ff_reg[0]_0\,
       I4 => \curr_player_state_ff[1]_i_2_n_0\,
       O => next_player_state(1)
@@ -7274,11 +7334,11 @@ combined_samples_ff_reg_i_9: unisim.vcomponents.LUT3
       INIT => X"CFC0F0F0CAC0F0F0"
     )
         port map (
-      I0 => \^curr_player_state_ff_reg[2]_0\(1),
-      I1 => \curr_player_state_ff_reg[0]_2\,
+      I0 => \^q\(1),
+      I1 => \curr_player_state_ff_reg[1]_0\,
       I2 => curr_player_state_ff(1),
       I3 => player_curr_slot_ff,
-      I4 => \^curr_player_state_ff_reg[2]_0\(0),
+      I4 => \^q\(0),
       I5 => \^slot_active_array_ff_reg[1]_0\,
       O => \curr_player_state_ff[1]_i_2_n_0\
     );
@@ -7287,10 +7347,10 @@ combined_samples_ff_reg_i_9: unisim.vcomponents.LUT3
       INIT => X"FFFFFFFF2266A2A2"
     )
         port map (
-      I0 => \^curr_player_state_ff_reg[2]_0\(1),
-      I1 => \^curr_player_state_ff_reg[2]_0\(0),
+      I0 => \^q\(1),
+      I1 => \^q\(0),
       I2 => player_curr_slot_ff,
-      I3 => \curr_player_state_ff_reg[2]_1\,
+      I3 => \curr_player_state_ff_reg[2]_0\,
       I4 => curr_player_state_ff(1),
       I5 => \curr_player_state_ff[2]_i_3_n_0\,
       O => next_player_state(2)
@@ -7303,9 +7363,9 @@ combined_samples_ff_reg_i_9: unisim.vcomponents.LUT3
       I0 => \curr_player_state_ff[2]_i_4_n_0\,
       I1 => \^slot_active_array_ff_reg[0]_0\,
       I2 => \^slot_active_array_ff_reg[1]_0\,
-      I3 => \curr_player_state_ff_reg[2]_2\,
+      I3 => \curr_player_state_ff_reg[2]_1\,
       I4 => curr_player_state_ff(1),
-      I5 => \^curr_player_state_ff_reg[2]_0\(1),
+      I5 => \^q\(1),
       O => \curr_player_state_ff[2]_i_3_n_0\
     );
 \curr_player_state_ff[2]_i_4\: unisim.vcomponents.LUT3
@@ -7314,7 +7374,7 @@ combined_samples_ff_reg_i_9: unisim.vcomponents.LUT3
     )
         port map (
       I0 => curr_player_state_ff(1),
-      I1 => \^curr_player_state_ff_reg[2]_0\(0),
+      I1 => \^q\(0),
       I2 => player_curr_slot_ff,
       O => \curr_player_state_ff[2]_i_4_n_0\
     );
@@ -7323,7 +7383,7 @@ combined_samples_ff_reg_i_9: unisim.vcomponents.LUT3
       C => s_axi_aclk,
       CE => '1',
       D => next_player_state(0),
-      Q => \^curr_player_state_ff_reg[2]_0\(0),
+      Q => \^q\(0),
       R => \^s_axi_aresetn_0\
     );
 \curr_player_state_ff_reg[1]\: unisim.vcomponents.FDRE
@@ -7339,7 +7399,7 @@ combined_samples_ff_reg_i_9: unisim.vcomponents.LUT3
       C => s_axi_aclk,
       CE => '1',
       D => next_player_state(2),
-      Q => \^curr_player_state_ff_reg[2]_0\(1),
+      Q => \^q\(1),
       R => \^s_axi_aresetn_0\
     );
 \i__carry__0_i_1\: unisim.vcomponents.LUT1
@@ -8530,14 +8590,15 @@ combined_samples_ff_reg_i_9: unisim.vcomponents.LUT3
       I2 => sound_addr_0_ff(2),
       O => \i__carry_i_9_n_0\
     );
-\initter_curr_slot_ff[0]_i_1\: unisim.vcomponents.LUT3
+\initter_curr_slot_ff[0]_i_1\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"08"
+      INIT => X"0002"
     )
         port map (
       I0 => s_rv_valid,
-      I1 => curr_initter_state_ff(0),
+      I1 => curr_initter_state_ff(2),
       I2 => curr_initter_state_ff(1),
+      I3 => curr_initter_state_ff(0),
       O => initter_sound_addr_ff0
     );
 \initter_curr_slot_ff_reg[0]\: unisim.vcomponents.FDRE
@@ -9653,16 +9714,17 @@ last_sample_array1_carry_i_4: unisim.vcomponents.LUT1
       S(1) => \i__carry__6_i_2_n_0\,
       S(0) => \i__carry__6_i_3_n_0\
     );
-\num_samples_0_ff[31]_i_1\: unisim.vcomponents.LUT5
+\num_samples_0_ff[31]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"00000040"
+      INIT => X"0000004000000000"
     )
         port map (
       I0 => initter_curr_slot_ff,
       I1 => curr_state_ff(0),
       I2 => curr_state_ff(1),
       I3 => curr_initter_state_ff(1),
-      I4 => curr_initter_state_ff(0),
+      I4 => curr_initter_state_ff(2),
+      I5 => curr_initter_state_ff(0),
       O => num_samples_0_ff_2
     );
 \num_samples_0_ff_reg[0]\: unisim.vcomponents.FDRE
@@ -9921,16 +9983,17 @@ last_sample_array1_carry_i_4: unisim.vcomponents.LUT1
       Q => num_samples_0_ff(9),
       R => \^s_axi_aresetn_0\
     );
-\num_samples_1_ff[31]_i_1\: unisim.vcomponents.LUT5
+\num_samples_1_ff[31]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"00000080"
+      INIT => X"0000008000000000"
     )
         port map (
       I0 => curr_state_ff(0),
       I1 => curr_state_ff(1),
       I2 => initter_curr_slot_ff,
       I3 => curr_initter_state_ff(1),
-      I4 => curr_initter_state_ff(0),
+      I4 => curr_initter_state_ff(2),
+      I5 => curr_initter_state_ff(0),
       O => num_samples_1_ff_1
     );
 \num_samples_1_ff_reg[0]\: unisim.vcomponents.FDRE
@@ -10196,9 +10259,9 @@ last_sample_array1_carry_i_4: unisim.vcomponents.LUT1
         port map (
       I0 => s_axi_aresetn,
       I1 => \player_curr_slot_ff[0]_i_2_n_0\,
-      I2 => \^curr_player_state_ff_reg[2]_0\(0),
+      I2 => \^q\(0),
       I3 => curr_player_state_ff(1),
-      I4 => \^curr_player_state_ff_reg[2]_0\(1),
+      I4 => \^q\(1),
       O => \player_curr_slot_ff[0]_i_1_n_0\
     );
 \player_curr_slot_ff[0]_i_2\: unisim.vcomponents.LUT6
@@ -10206,10 +10269,10 @@ last_sample_array1_carry_i_4: unisim.vcomponents.LUT1
       INIT => X"DDFDDDFD22002222"
     )
         port map (
-      I0 => \^curr_player_state_ff_reg[2]_0\(0),
+      I0 => \^q\(0),
       I1 => curr_player_state_ff(1),
       I2 => \^slot_active_array_ff_reg[1]_0\,
-      I3 => \^curr_player_state_ff_reg[2]_0\(1),
+      I3 => \^q\(1),
       I4 => \^slot_active_array_ff_reg[0]_0\,
       I5 => player_curr_slot_ff,
       O => \player_curr_slot_ff[0]_i_2_n_0\
@@ -10527,9 +10590,9 @@ last_sample_array1_carry_i_4: unisim.vcomponents.LUT1
       INIT => X"EF"
     )
         port map (
-      I0 => \^curr_player_state_ff_reg[2]_0\(1),
+      I0 => \^q\(1),
       I1 => curr_player_state_ff(1),
-      I2 => \^curr_player_state_ff_reg[2]_0\(0),
+      I2 => \^q\(0),
       O => \req_addr_ff[31]_i_2_n_0\
     );
 \req_addr_ff[3]_i_1\: unisim.vcomponents.LUT5
@@ -11232,16 +11295,17 @@ sample_index_0_ff0_carry: unisim.vcomponents.CARRY4
       I2 => sample_index_0_ff0(30),
       O => \sample_index_0_ff[30]_i_1_n_0\
     );
-\sample_index_0_ff[31]_i_1\: unisim.vcomponents.LUT5
+\sample_index_0_ff[31]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"010101FF"
+      INIT => X"000400040004FFFF"
     )
         port map (
       I0 => initter_curr_slot_ff,
       I1 => curr_initter_state_ff(0),
-      I2 => curr_initter_state_ff(1),
-      I3 => last_sample_array_reg,
-      I4 => \slot_active_array_ff[1]_i_3_n_0\,
+      I2 => curr_initter_state_ff(2),
+      I3 => curr_initter_state_ff(1),
+      I4 => last_sample_array_reg,
+      I5 => \slot_active_array_ff[1]_i_3_n_0\,
       O => \sample_index_0_ff[31]_i_1_n_0\
     );
 \sample_index_0_ff[31]_i_2\: unisim.vcomponents.LUT3
@@ -11940,16 +12004,17 @@ sample_index_1_ff0_carry: unisim.vcomponents.CARRY4
       I2 => sample_index_1_ff0(30),
       O => \sample_index_1_ff[30]_i_1_n_0\
     );
-\sample_index_1_ff[31]_i_1\: unisim.vcomponents.LUT5
+\sample_index_1_ff[31]_i_1\: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"020202FF"
+      INIT => X"000800080008FFFF"
     )
         port map (
       I0 => initter_curr_slot_ff,
       I1 => curr_initter_state_ff(0),
-      I2 => curr_initter_state_ff(1),
-      I3 => last_sample_array_reg1_out,
-      I4 => \slot_active_array_ff[1]_i_3_n_0\,
+      I2 => curr_initter_state_ff(2),
+      I3 => curr_initter_state_ff(1),
+      I4 => last_sample_array_reg1_out,
+      I5 => \slot_active_array_ff[1]_i_3_n_0\,
       O => byte_index_1_ff_0
     );
 \sample_index_1_ff[31]_i_2\: unisim.vcomponents.LUT3
@@ -12293,9 +12358,9 @@ sample_index_1_ff0_carry: unisim.vcomponents.CARRY4
       INIT => X"FE"
     )
         port map (
-      I0 => \^curr_player_state_ff_reg[2]_0\(1),
+      I0 => \^q\(1),
       I1 => curr_player_state_ff(1),
-      I2 => \^curr_player_state_ff_reg[2]_0\(0),
+      I2 => \^q\(0),
       O => \sleep_counter_ff[0]_i_1_n_0\
     );
 \sleep_counter_ff[0]_i_2\: unisim.vcomponents.LUT6
@@ -12559,13 +12624,14 @@ sample_index_1_ff0_carry: unisim.vcomponents.CARRY4
       I5 => \^slot_active_array_ff_reg[1]_0\,
       O => \slot_active_array_ff[1]_i_1_n_0\
     );
-\slot_active_array_ff[1]_i_2\: unisim.vcomponents.LUT2
+\slot_active_array_ff[1]_i_2\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"1"
+      INIT => X"02"
     )
         port map (
       I0 => curr_initter_state_ff(0),
-      I1 => curr_initter_state_ff(1),
+      I1 => curr_initter_state_ff(2),
+      I2 => curr_initter_state_ff(1),
       O => \^fsm_sequential_curr_initter_state_ff_reg[0]_0\
     );
 \slot_active_array_ff[1]_i_3\: unisim.vcomponents.LUT5
@@ -12573,11 +12639,11 @@ sample_index_1_ff0_carry: unisim.vcomponents.CARRY4
       INIT => X"FDFFFFFF"
     )
         port map (
-      I0 => \^curr_player_state_ff_reg[2]_0\(1),
+      I0 => \^q\(1),
       I1 => curr_state_ff_0(0),
       I2 => curr_state_ff_0(1),
       I3 => curr_player_state_ff(1),
-      I4 => \^curr_player_state_ff_reg[2]_0\(0),
+      I4 => \^q\(0),
       O => \slot_active_array_ff[1]_i_3_n_0\
     );
 \slot_active_array_ff_reg[0]\: unisim.vcomponents.FDRE
@@ -13110,38 +13176,38 @@ sample_index_1_ff0_carry: unisim.vcomponents.CARRY4
     );
 valid_ff_i_1: unisim.vcomponents.LUT6
     generic map(
-      INIT => X"A8A8A800A8A8A8A8"
+      INIT => X"A8A8A8A8A8A800A8"
     )
         port map (
       I0 => s_axi_aresetn,
-      I1 => Q(0),
+      I1 => valid_ff_reg(0),
       I2 => s_rv_valid,
-      I3 => curr_initter_state_ff(1),
+      I3 => sel,
       I4 => valid_ff_i_2_n_0,
-      I5 => sel,
+      I5 => \sleep_counter_ff[0]_i_1_n_0\,
       O => s_axi_aresetn_1
     );
-valid_ff_i_2: unisim.vcomponents.LUT5
+valid_ff_i_2: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"FFFFFFF7"
+      INIT => X"FEFF"
     )
         port map (
-      I0 => s_rv_valid,
-      I1 => curr_initter_state_ff(0),
-      I2 => \^curr_player_state_ff_reg[2]_0\(0),
-      I3 => curr_player_state_ff(1),
-      I4 => \^curr_player_state_ff_reg[2]_0\(1),
+      I0 => curr_initter_state_ff(0),
+      I1 => curr_initter_state_ff(1),
+      I2 => curr_initter_state_ff(2),
+      I3 => s_rv_valid,
       O => valid_ff_i_2_n_0
     );
-\vol_coef_0_ff[31]_i_1\: unisim.vcomponents.LUT4
+\vol_coef_0_ff[31]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"0800"
+      INIT => X"00000040"
     )
         port map (
-      I0 => curr_initter_state_ff(1),
-      I1 => curr_initter_state_ff(0),
-      I2 => initter_curr_slot_ff,
-      I3 => s_axi_aresetn,
+      I0 => initter_curr_slot_ff,
+      I1 => s_axi_aresetn,
+      I2 => curr_initter_state_ff(2),
+      I3 => curr_initter_state_ff(0),
+      I4 => curr_initter_state_ff(1),
       O => \vol_coef_0_ff[31]_i_1_n_0\
     );
 \vol_coef_0_ff_reg[0]\: unisim.vcomponents.FDRE
@@ -13272,15 +13338,16 @@ valid_ff_i_2: unisim.vcomponents.LUT5
       Q => vol_coef_0_ff(9),
       R => '0'
     );
-\vol_coef_1_ff[31]_i_1\: unisim.vcomponents.LUT4
+\vol_coef_1_ff[31]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"8000"
+      INIT => X"00000080"
     )
         port map (
-      I0 => curr_initter_state_ff(1),
-      I1 => curr_initter_state_ff(0),
-      I2 => initter_curr_slot_ff,
-      I3 => s_axi_aresetn,
+      I0 => initter_curr_slot_ff,
+      I1 => s_axi_aresetn,
+      I2 => curr_initter_state_ff(2),
+      I3 => curr_initter_state_ff(0),
+      I4 => curr_initter_state_ff(1),
       O => \vol_coef_1_ff[31]_i_1_n_0\
     );
 \vol_coef_1_ff_reg[0]\: unisim.vcomponents.FDRE
@@ -13637,7 +13704,7 @@ audio_fetcher_M_AXI_DMA_inst: entity work.wolfenstein_platform_audio_fetcher_0_1
       \FSM_sequential_curr_state_ff_reg[0]_0\ => audio_fetcher_M_AXI_DMA_inst_n_3,
       \FSM_sequential_curr_state_ff_reg[0]_1\ => audio_fetcher_M_AXI_DMA_inst_n_5,
       \FSM_sequential_curr_state_ff_reg[0]_2\ => audio_fetcher_controller_inst_n_42,
-      \FSM_sequential_curr_state_ff_reg[0]_3\ => audio_fetcher_controller_inst_n_37,
+      \FSM_sequential_curr_state_ff_reg[0]_3\ => audio_fetcher_controller_inst_n_34,
       Q(31) => RESIZE0,
       Q(30) => audio_fetcher_M_AXI_DMA_inst_n_7,
       Q(29) => audio_fetcher_M_AXI_DMA_inst_n_8,
@@ -13737,7 +13804,7 @@ audio_fetcher_S_AXI_inst: entity work.wolfenstein_platform_audio_fetcher_0_1_aud
       slot_ff(0) => slot_ff(0),
       \sound_addr_ff_reg[0]_0\ => audio_fetcher_controller_inst_n_0,
       \sound_addr_ff_reg[31]_0\(31 downto 0) => sound_addr_ff(31 downto 0),
-      valid_ff_reg_0 => audio_fetcher_controller_inst_n_34,
+      valid_ff_reg_0 => audio_fetcher_controller_inst_n_37,
       \volume_coef_ff_reg[31]_0\(15) => volume_coef_ff(31),
       \volume_coef_ff_reg[31]_0\(14 downto 0) => volume_coef_ff(14 downto 0)
     );
@@ -13776,17 +13843,16 @@ audio_fetcher_controller_inst: entity work.wolfenstein_platform_audio_fetcher_0_
       D(1) => audio_fetcher_controller_inst_n_31,
       D(0) => audio_fetcher_controller_inst_n_32,
       E(0) => audio_fetcher_controller_inst_n_40,
-      \FSM_sequential_curr_initter_state_ff_reg[0]_0\ => audio_fetcher_controller_inst_n_37,
-      \FSM_sequential_curr_initter_state_ff_reg[1]_0\(0) => axi_araddr_ff0,
-      \FSM_sequential_curr_initter_state_ff_reg[1]_1\ => audio_fetcher_M_AXI_DMA_inst_n_5,
-      Q(0) => p_1_in,
+      \FSM_sequential_curr_initter_state_ff_reg[0]_0\ => audio_fetcher_controller_inst_n_34,
+      \FSM_sequential_curr_initter_state_ff_reg[0]_1\(0) => axi_araddr_ff0,
+      Q(1) => curr_player_state_ff(2),
+      Q(0) => curr_player_state_ff(0),
+      \axi_araddr_ff_reg[31]\ => audio_fetcher_M_AXI_DMA_inst_n_5,
       \curr_player_state_ff_reg[0]_0\ => audio_fetcher_controller_inst_n_42,
       \curr_player_state_ff_reg[0]_1\ => audio_fetcher_M_AXI_AUDIO_OUT_inst_n_6,
-      \curr_player_state_ff_reg[0]_2\ => audio_fetcher_M_AXI_AUDIO_OUT_inst_n_4,
-      \curr_player_state_ff_reg[2]_0\(1) => curr_player_state_ff(2),
-      \curr_player_state_ff_reg[2]_0\(0) => curr_player_state_ff(0),
-      \curr_player_state_ff_reg[2]_1\ => audio_fetcher_M_AXI_DMA_inst_n_3,
-      \curr_player_state_ff_reg[2]_2\ => audio_fetcher_M_AXI_AUDIO_OUT_inst_n_7,
+      \curr_player_state_ff_reg[1]_0\ => audio_fetcher_M_AXI_AUDIO_OUT_inst_n_4,
+      \curr_player_state_ff_reg[2]_0\ => audio_fetcher_M_AXI_DMA_inst_n_3,
+      \curr_player_state_ff_reg[2]_1\ => audio_fetcher_M_AXI_AUDIO_OUT_inst_n_7,
       curr_state_ff(1 downto 0) => curr_state_ff_0(1 downto 0),
       curr_state_ff_0(1 downto 0) => curr_state_ff(1 downto 0),
       \initter_sound_addr_ff_reg[31]_0\(31 downto 0) => sound_addr_ff(31 downto 0),
@@ -13859,12 +13925,13 @@ audio_fetcher_controller_inst: entity work.wolfenstein_platform_audio_fetcher_0_
       s_axi_aclk => s_axi_aclk,
       s_axi_aresetn => s_axi_aresetn,
       s_axi_aresetn_0 => audio_fetcher_controller_inst_n_0,
-      s_axi_aresetn_1 => audio_fetcher_controller_inst_n_34,
+      s_axi_aresetn_1 => audio_fetcher_controller_inst_n_37,
       s_rv_valid => s_rv_valid,
       sample_ff0 => sample_ff0,
       \slot_active_array_ff_reg[0]_0\ => \slot_active_array_ff_reg[0]\,
       \slot_active_array_ff_reg[1]_0\ => \slot_active_array_ff_reg[1]\,
-      slot_ff(0) => slot_ff(0)
+      slot_ff(0) => slot_ff(0),
+      valid_ff_reg(0) => p_1_in
     );
 end STRUCTURE;
 library IEEE;

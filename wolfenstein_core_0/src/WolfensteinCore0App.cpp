@@ -98,7 +98,7 @@ void WolfensteinCore0App::runCore0App() {
 				float songLengthS = getSoundLengthS(SONG_SOUND);
 				float timeSinceSongPlayedS = 0;
 				soundPlayer.playSound(SONG_SOUND, 80, 1);
-				soundPlayer.playSound(SONG_SOUND, 80, 1); // Bug in hw. doesn't play the first time you start the level
+//				soundPlayer.playSound(SONG_SOUND, 80, 1); // Bug in hw. doesn't play the first time you start the level
 
 				while(gameState == PLAYING_LEVEL) {
 					// All XTimes are in double-cycles
