@@ -6,10 +6,10 @@ close all
 
 % Configurables
 
-inputFileName   = '../assets/sources/enemy.png';
-outputFileName  = '../assets/processed/enemy.sprite';
+inputFileName   = '../assets/sources/ammo.png';
+outputFileName  = '../assets/processed/ammo.sprite';
 
-upScaleFactor = 4;
+upScaleFactor = 2;
 
 % End of Configurables
 

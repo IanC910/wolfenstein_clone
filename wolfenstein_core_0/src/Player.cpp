@@ -10,6 +10,10 @@ int Player::getHealth() {
 	return health;
 }
 
+int Player::getAmmo() {
+	return ammo;
+}
+
 bool Player::getIsShooting() {
 	return isShooting;
 }
@@ -30,6 +34,15 @@ void Player::setHealth(int health) {
 	}
 	else {
 		this->health = health;
+	}
+}
+
+void Player::setAmmo(int ammo) {
+	if(ammo > MAX_PLAYER_AMMO) {
+		this->ammo = MAX_PLAYER_AMMO;
+	}
+	else {
+		this->ammo = ammo;
 	}
 }
 

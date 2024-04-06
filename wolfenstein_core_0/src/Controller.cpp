@@ -31,16 +31,18 @@ float Controller::mapJSTK(u8 value) {
 }
 
 void Controller::update() {
+	jstkPos[0] = JSTK2_getPosition(&jstk[0]);
+	jstkPos[1] = JSTK2_getPosition(&jstk[1]);
 	jstkData[0] = JSTK2_getDataPacket(&jstk[0]);
 	jstkData[1] = JSTK2_getDataPacket(&jstk[1]);
 }
 
 float Controller::getNormedJoystickX(int joystickIndex) {
-	return mapJSTK(jstkData[joystickIndex].XData);
+	return mapJSTK(jstkPos[joystickIndex].XData);
 }
 
 float Controller::getNormedJoystickY(int joystickIndex) {
-	return mapJSTK(jstkData[joystickIndex].YData);
+	return mapJSTK(jstkPos[joystickIndex].YData);
 }
 
 bool Controller::getJoystickButtonStatus(int joystickIndex) {

@@ -254,6 +254,7 @@ void WolfensteinCore1App::drawObjectWithPosition(
 			int firstPixel = (int)(sprite->getFirstPixelArray()[spriteRow] / scaleFactor);
 			int numPixels = (int)(sprite->getNumPixelsArray()[spriteRow] / scaleFactor);
 
+			// Check if sprite is past screen bounds
 			int startScreenCol 	= objectLeftCol + firstPixel; // Inclusive
 			int endScreenCol 	= objectLeftCol + firstPixel + numPixels; // Exclusive
 			if(startScreenCol < 0) {
@@ -370,6 +371,28 @@ void WolfensteinCore1App::drawDrops() {
 			0
 		);
 	}
+
+	Drop* ammoDropArray = SHARED_DATA_PACKETS[1].ammoDropArray;
+		for(int i = 0; i < MAX_NUM_AMMO_DROPS; i++) {
+			Drop* ammoDrop = &ammoDropArray[i];
+
+			if(ammoDrop->isPickedUp()) {
+				continue;
+			}
+
+			Sprite ammoDropSprite(AMMO_DROP_SPRITE);
+
+			int spriteRowOffset = 300;
+
+			drawObjectWithPosition(
+				ammoDrop,
+				player,
+				distanceArray,
+				&ammoDropSprite,
+				spriteRowOffset,
+				0
+			);
+		}
 }
 
 int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
@@ -437,7 +460,7 @@ void WolfensteinCore1App::drawHUD() {
 	int healthBarHeight = 20;
 	int healthBarLength = MAX_PLAYER_HEALTH;
 	int healthBarTopRow = SCREEN_HEIGHT - 1 - 20 - healthBarHeight;
-	int	healthBarLeftCol = SCREEN_WIDTH - 1 - 20 - healthBarLength;
+	int	healthBarLeftCol = SCREEN_WIDTH - 1 - 28 - healthBarLength;
 
 	int healthBarEmptyColour = colourRGB(8, 0, 0);
 	int healthBarFullColour = colourRGB(0, 15, 0);
@@ -456,6 +479,35 @@ void WolfensteinCore1App::drawHUD() {
 			healthBarLength * sizeof(int)
 		);
 	}
+
+	Sprite heartSprite(HEALTH_BAR_HEART_SPRITE);
+	drawSpriteSimple(&heartSprite, healthBarTopRow, healthBarLeftCol + healthBarLength + 5);
+
+	int ammoBarHeight = healthBarHeight;
+	int ammoBarLength = MAX_PLAYER_AMMO;
+	int ammoBarTopRow = healthBarTopRow - 5 - ammoBarHeight;
+	int	ammoBarLeftCol = healthBarLeftCol + (healthBarLength - ammoBarLength);
+
+	int ammoBarEmptyColour = colourRGB(8, 0, 0);
+	int ammoBarFullColour = colourRGB(0, 15, 0);
+	int playerAmmo = SHARED_DATA_PACKETS[1].player.getAmmo();
+
+	for(int j = 0; j < playerAmmo; j++) {
+		INTERMEDIATE_IMAGE_BUFFER[ammoBarTopRow * SCREEN_WIDTH + ammoBarLeftCol + j] = ammoBarFullColour;
+	}
+	for(int j = playerAmmo; j < ammoBarLength; j++) {
+		INTERMEDIATE_IMAGE_BUFFER[ammoBarTopRow * SCREEN_WIDTH + ammoBarLeftCol + j] = ammoBarEmptyColour;
+	}
+	for(int i = 1; i < ammoBarHeight; i++) {
+		memcpy(
+			&INTERMEDIATE_IMAGE_BUFFER[(ammoBarTopRow + i) * SCREEN_WIDTH + ammoBarLeftCol],
+			&INTERMEDIATE_IMAGE_BUFFER[ammoBarTopRow * SCREEN_WIDTH + ammoBarLeftCol],
+			ammoBarLength * sizeof(int)
+		);
+	}
+
+	Sprite ammoSprite(AMMO_BAR_AMMO_SPRITE);
+	drawSpriteSimple(&ammoSprite, ammoBarTopRow, ammoBarLeftCol + ammoBarLength + ((heartSprite.getNumCols() - ammoSprite.getNumCols()) / 2)  + 5);
 
 	// Draw first person weapon sprite
 	Sprite gunSprite(FIRST_PERSON_GUN_SPRITE);

@@ -12,6 +12,7 @@ typedef struct {
 	Player player;
 	Enemy enemyArray[MAX_NUM_ENEMIES];
 	Drop healthDropArray[MAX_NUM_HEALTH_DROPS];
+	Drop ammoDropArray[MAX_NUM_AMMO_DROPS];
 } sharedDataPacket_t;
 
 #endif

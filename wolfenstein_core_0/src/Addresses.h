@@ -24,6 +24,8 @@ int* const MUZZLE_FLASH_SPRITE						= (int*)					0x00E34000; // size: 16 384 = 0
 int* const ENEMY_SPRITE								= (int*)					0x00E38000; // size: 32 768 = 0x8000
 int* const HEALTH_DROP_SPRITE						= (int*)					0x00E40000; // size: 16 384 = 0x4000
 int* const THEME_SONG_SOUND							= (int*)					0x00E44000; // size: 2 113 536 = 0x204000
-int* const NEXT_ASSET								= (int*)					0x01048000;
+int* const AMMO_DROP_SPRITE							= (int*)					0x01048000; // size: 16384 = 0x4000
+int* const HEALTH_BAR_HEART_SPRITE					= (int*)					0x0104C000; // size: 1024 = 0x400
+int* const AMMO_BAR_AMMO_SPRITE					    = (int*)					0x0104C400; // size: 1024 = 0x400
 
 #endif

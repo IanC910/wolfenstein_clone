@@ -15,12 +15,16 @@ public:
 	int getHealth();
 	void setHealth(int health);
 
+	int getAmmo();
+	void setAmmo(int ammo);
+
 	bool getIsShooting();
 	void setIsShooting(bool isShooting);
 
 private:
 	float angle = 0;
 	int health = 0;
+	int ammo = 0;
 	bool isShooting = false;
 };
 
