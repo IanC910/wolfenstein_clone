@@ -48,8 +48,6 @@ WolfensteinCore0App::WolfensteinCore0App() :
 			XPAR_PMODJSTK2_1_AXI_LITE_GPIO_BASEADDR
 		);
 	}
-
-	soundPlayer.playSound(NEXT_ASSET, 1);
 }
 
 void WolfensteinCore0App::runCore0App() {
@@ -62,6 +60,7 @@ void WolfensteinCore0App::runCore0App() {
 		switch(gameState) {
 			case MAIN_MENU: {
 				while(gameState == MAIN_MENU) {
+					soundPlayer.stopAllSounds();
 
 					drawMenu();
 //					Xil_DCacheFlush();
@@ -96,9 +95,19 @@ void WolfensteinCore0App::runCore0App() {
 			case PLAYING_LEVEL: {
 				int frameIndex = 0;
 
+				float songLengthS = getSoundLengthS(SONG_SOUND);
+				float timeSinceSongPlayedS = songLengthS;
+
 				while(gameState == PLAYING_LEVEL) {
+					// All XTimes are in double-cycles
 					XTime frameStartTimeDC;
 					XTime_GetTime(&frameStartTimeDC);
+
+					timeSinceSongPlayedS += frameTimeInSec;
+					if(timeSinceSongPlayedS > songLengthS) {
+						soundPlayer.playSound(SONG_SOUND, 1);
+						timeSinceSongPlayedS = 0;
+					}
 
 					if(Buttons_isNewStatus()) {
 						if(Buttons_isButtonPressed(BTN_DOWN)) {
@@ -126,7 +135,7 @@ void WolfensteinCore0App::runCore0App() {
 					XTime frameEndTimeDC;
 					XTime_GetTime(&frameEndTimeDC);
 					u32 frameTimeDC = (u32)((u64)frameEndTimeDC - (u64)frameStartTimeDC);
-					frameTimeInSec = (double)frameTimeDC / (double)COUNTS_PER_SECOND;
+					frameTimeInSec = (double)frameTimeDC / (double)DOUBLE_CYCLES_PER_S;
 
 					if(DO_PRINT_FRAME_TIME and frameIndex == 0) {
 						xil_printf("Core 0 frame time ms: %8d\n", (int)(frameTimeInSec * 1000));

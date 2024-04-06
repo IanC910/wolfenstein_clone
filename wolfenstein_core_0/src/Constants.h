@@ -5,6 +5,7 @@
 #include <math.h>
 
 #include "xparameters.h"
+#include "xtime_l.h"
 
 #include "ValidAckInterface.h"
 
@@ -12,9 +13,10 @@
 
 // Timing
 const int CPU_FREQ_Hz 		= XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ;
-const int CLOCKS_PER_S 		= CPU_FREQ_Hz;
-const int CLOCKS_PER_MS 	= CLOCKS_PER_S / 1000;
-const int CLOCKS_PER_US 	= CLOCKS_PER_MS / 1000;
+const int CPU_FREQ_kHz		= CPU_FREQ_Hz / 1000;
+const int CPU_FREQ_MHz		= CPU_FREQ_kHz / 1000;
+
+const int DOUBLE_CYCLES_PER_S = COUNTS_PER_SECOND;
 
 
 
@@ -38,6 +40,11 @@ const float MIN_SPRITE_SCALE_FACTOR	= 1.0;
 // Debug params
 const bool DO_USE_CONTROLLER = false;
 const bool DO_PRINT_FRAME_TIME = true;
+
+// Sound player params
+const int BYTES_PER_SAMPLE = 2;
+const int SAMPLE_PERIOD_US = 45;
+const int NUM_SOUND_SLOTS = 2;
 
 
 // Gameplay params
