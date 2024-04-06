@@ -252,6 +252,7 @@ void WolfensteinCore1App::drawObjectWithPosition(
 			int firstPixel = (int)(sprite->getFirstPixelArray()[spriteRow] / scaleFactor);
 			int numPixels = (int)(sprite->getNumPixelsArray()[spriteRow] / scaleFactor);
 
+			// Check if sprite is past screen bounds
 			int startScreenCol 	= objectLeftCol + firstPixel; // Inclusive
 			int endScreenCol 	= objectLeftCol + firstPixel + numPixels; // Exclusive
 			if(startScreenCol < 0) {
