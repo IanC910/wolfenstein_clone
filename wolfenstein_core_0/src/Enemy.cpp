@@ -35,6 +35,6 @@ void Enemy::reset() {
 
 void Enemy::initialize() {
 	health = MAX_ENEMY_HEALTH;
-	timeSinceLastShotS = 1.0;
+	timeSinceLastShotS = 0.1; // Needs to be just greater than 0 so that the drawer doesn't think they're shooting
 	seenPlayer = false;
 }

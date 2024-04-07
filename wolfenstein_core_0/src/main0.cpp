@@ -6,7 +6,7 @@
 
 int main() {
 	WolfensteinCore0App app0;
-	app0.runCore0App();
+	app0.run();
 
 //	dmaSoundTest();
 //	buttonTest();

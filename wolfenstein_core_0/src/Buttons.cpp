@@ -14,11 +14,11 @@ void Buttons_clearInterrupt() {
 	Xil_Out32(BTN_INTERRUPT_GEN_BASE + INT_STATUS_REG, 0);
 }
 
-bool Buttons_isButtonPressed(buttonIndex_t buttonIndex) {
-	return buttonStatus & (1 << buttonIndex);
+bool Buttons_isButtonPressed(button_t button) {
+	return buttonStatus & (1 << button);
 }
 
-void Buttons_basicInterruptHandler(void* interruptControllerPtr) {
+void Buttons_basicInterruptHandler(void* interruptController) {
     Buttons_clearInterrupt();
 
     Buttons_update();

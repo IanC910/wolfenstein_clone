@@ -35,50 +35,17 @@ WolfensteinCore1App::WolfensteinCore1App() {
 	}
 }
 
-void WolfensteinCore1App::runCore1App() {
+void WolfensteinCore1App::run() {
 	xil_printf("Starting Wolfenstein Core 1 App\n");
 
-	// Times are in double-clock-cycles
-	u32 maxTransferTime = 0;
-	u32 maxDrawTime = 0;
-	u32 maxUpdateTime = 0;
-	u32 maxFrameTime = 0;
-
 	while(true) {
-		XTime frameStartTime;
-		XTime frameEndTime;
-		XTime funcStartTime;
-		XTime funcEndTime;
-		u32 funcTime;
-
-		XTime_GetTime(&frameStartTime);
-
-		// Receive data packet from core 0
-		XTime_GetTime(&funcStartTime);
+		// Receive data from core 0
+		// Blocking: when core 0 is in the main menu, core 1 will be stuck here
 		receiveSharedDataPacket();
-		XTime_GetTime(&funcEndTime);
-		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
-		if(funcTime > maxTransferTime) {
-			maxTransferTime = funcTime;
-		}
 
-		// Draw Environment
-		XTime_GetTime(&funcStartTime);
 		drawEnvironment();
-		XTime_GetTime(&funcEndTime);
-		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
-		if(funcTime > maxDrawTime) {
-			maxDrawTime = funcTime;
-		}
 
-		// Draw enemies
-		XTime_GetTime(&funcStartTime);
 		drawEnemies();
-		XTime_GetTime(&funcEndTime);
-		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
-		if(funcTime > maxDrawTime) {
-			maxDrawTime = funcTime;
-		}
 
 		drawDrops();
 
@@ -86,22 +53,9 @@ void WolfensteinCore1App::runCore1App() {
 
 //		Xil_DCacheFlush();
 
-		// Update Screen
-		XTime_GetTime(&funcStartTime);
 		updateScreen();
-		XTime_GetTime(&funcEndTime);
-		funcTime = (u32)((u64)funcEndTime - (u64)funcStartTime);
-		if(funcTime > maxUpdateTime) {
-			maxUpdateTime = funcTime;
-		}
 
 //		Xil_DCacheFlush();
-
-		XTime_GetTime(&frameEndTime);
-		u32 frameTime = (u32)((u64)frameEndTime - (u64)frameStartTime);
-		if(frameTime > maxFrameTime) {
-			maxFrameTime = frameTime;
-		}
 	}
 }
 
@@ -117,17 +71,17 @@ void WolfensteinCore1App::receiveSharedDataPacket() {
 }
 
 void WolfensteinCore1App::drawEnvironment() {
-	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
+	float* rayDistanceArray = SHARED_DATA_PACKETS[1].rayDistanceArray;
 
 	// Calculate the wall height (start row) for each ray column
 	for(int r = 0; r < NUM_RAYS; r++) {
-		WALL_START_ROW_ARRAY[r] = getScreenRowOfCeilingAtDistance(distanceArray[r]); // Inclusive for walls, exclusive for ceiling
+		WALL_START_ROW_ARRAY[r] = getScreenRowOfCeilingAtDistance(rayDistanceArray[r]); // Inclusive for walls, exclusive for ceiling
 	}
 
 	// Find ray column closest to player
 	int indexOfClosest = 0;
 	for(int r = 1; r < NUM_RAYS; r++) {
-		if(distanceArray[r] < distanceArray[indexOfClosest]) {
+		if(rayDistanceArray[r] < rayDistanceArray[indexOfClosest]) {
 			indexOfClosest = r;
 		}
 	}
@@ -145,7 +99,7 @@ void WolfensteinCore1App::drawEnvironment() {
 
 	// Draw 1 row of wall and copy to parts of screen that have visible wall
 	for(int r = 0; r < NUM_RAYS; r++) {
-		int wallColourInt = getColourFromGradient(WALL_GRADIENT, WALL_GRADIENT_LENGTH, distanceArray[r]);
+		int wallColourInt = getColourFromGradient(WALL_GRADIENT, WALL_GRADIENT_LENGTH, rayDistanceArray[r]);
 		for(int j = 0; j < PIXEL_WIDTHS_PER_RAY; j++) {
 			INTERMEDIATE_IMAGE_BUFFER[r * PIXEL_WIDTHS_PER_RAY + j] = wallColourInt;
 		}
@@ -162,6 +116,65 @@ void WolfensteinCore1App::drawEnvironment() {
 
 	// Fill in the rest of the floor and ceiling (non rectangular parts)
 	fillNonRectangularCeilingAndFloor(maxCeilingRow);
+}
+
+int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
+	static float halfWallHeight = 0.5;
+	static float tanHalfVertFov = tan(VERTICAL_FOV / 2.0);
+	static float distanceInverseScaler = 0.5 * SCREEN_HEIGHT * halfWallHeight / tanHalfVertFov;
+
+	int halfOfWallHeight = (int)(distanceInverseScaler / distance);
+	return SCREEN_HEIGHT * 0.5 - halfOfWallHeight; // Inclusive for walls, exclusive for ceiling
+}
+
+int WolfensteinCore1App::getColourFromGradient(const int* gradient, const int gradientLength, float distance) {
+	const int DISTANCE_SCALER = 12;
+	int index = (int)(gradientLength * distance / DISTANCE_SCALER);
+	if(index >= gradientLength) {
+		index = gradientLength - 1;
+	}
+	return gradient[index];
+}
+
+void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int rowAlreadyDrawn) {
+	for(int i = rowAlreadyDrawn; i < SCREEN_HEIGHT / 2; i += GRANULARITY_V) {
+		int startRay = 0;
+		bool startRayIsSet = false;
+		bool drawingThisRow = false;
+
+		for(int r = 0; r < NUM_RAYS; r++) {
+			// Iterate through rays until find ceiling
+			if(!startRayIsSet && WALL_START_ROW_ARRAY[r] > i) {
+				startRay = r;
+				startRayIsSet = true;
+				drawingThisRow = true;
+				continue;
+			}
+			// Keep going through rays until find floor again
+			if(startRayIsSet && (WALL_START_ROW_ARRAY[r] <= i)) {
+				// Draw section of floor and ceiling between the start and end ray
+				int numBytes = (r - startRay) * PIXEL_WIDTHS_PER_RAY * sizeof(int);
+				for(int ii = i; ii < i + GRANULARITY_V; ii++) {
+					memcpy(&INTERMEDIATE_IMAGE_BUFFER[ii * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], CEILING_BUFFER, numBytes);
+					memcpy(&INTERMEDIATE_IMAGE_BUFFER[(SCREEN_HEIGHT - 1 - ii) * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], FLOOR_BUFFER, numBytes);
+				}
+				startRayIsSet = false;
+			}
+		}
+
+		// Draw case for if end of rays reached and floor not found
+		if(startRayIsSet) {
+			int numBytes = (NUM_RAYS - startRay) * PIXEL_WIDTHS_PER_RAY * sizeof(int);
+			for(int ii = i; ii < i + GRANULARITY_V; ii++) {
+				memcpy(&INTERMEDIATE_IMAGE_BUFFER[ii * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], CEILING_BUFFER, numBytes);
+				memcpy(&INTERMEDIATE_IMAGE_BUFFER[(SCREEN_HEIGHT - 1 - ii) * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], FLOOR_BUFFER, numBytes);
+			}
+		}
+
+		if(!drawingThisRow) {
+			return;
+		}
+	}
 }
 
 void WolfensteinCore1App::drawSpriteSimple(Sprite* sprite, int rowOffset, int colOffset) {
@@ -194,10 +207,6 @@ void WolfensteinCore1App::drawObjectWithPosition(
 	int drawHeightOffset,
 	int drawColOffset
 ) {
-	if(sprite == nullptr) {
-		return;
-	}
-
 	Player* player = &SHARED_DATA_PACKETS[1].player;
 
 	float playerToObjectX = object->getPositionX() - player->getPositionX();
@@ -216,9 +225,9 @@ void WolfensteinCore1App::drawObjectWithPosition(
 	int objectMiddleCol = (int)((objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH)) + drawColOffset;
 	bool inPlayerFOV = objectMiddleCol >= 0 && objectMiddleCol < SCREEN_WIDTH;
 
-	float* distanceArray = SHARED_DATA_PACKETS[1].distanceArray;
+	float* rayDistanceArray = SHARED_DATA_PACKETS[1].rayDistanceArray;
 
-	if(inPlayerFOV && distanceArray[objectMiddleCol / GRANULARITY_H] >= distanceFromPlayer) {
+	if(inPlayerFOV && rayDistanceArray[objectMiddleCol / GRANULARITY_H] >= distanceFromPlayer) {
 
 		float scaleFactor = distanceFromPlayer;
 		if(scaleFactor < MIN_SPRITE_SCALE_FACTOR) {
@@ -265,12 +274,12 @@ void WolfensteinCore1App::drawObjectWithPosition(
 			}
 
 			// Check if left part of sprite is behind wall
-			while(distanceArray[startScreenCol / GRANULARITY_H] < distanceFromPlayer) {
+			while(rayDistanceArray[startScreenCol / GRANULARITY_H] < distanceFromPlayer) {
 				startScreenCol += GRANULARITY_H - startScreenCol % GRANULARITY_H;
 			}
 
 			// Check if right part of sprite is behind wall
-			while(endScreenCol >= 0 && distanceArray[endScreenCol / GRANULARITY_H] < distanceFromPlayer) {
+			while(endScreenCol >= 0 && rayDistanceArray[endScreenCol / GRANULARITY_H] < distanceFromPlayer) {
 				endScreenCol -= 1 + endScreenCol % GRANULARITY_H;
 			}
 
@@ -309,8 +318,8 @@ void WolfensteinCore1App::drawObjectWithPosition(
 
 		// Update distance array with new distances for drawn enemies
 		for(int ray = objectLeftCol / GRANULARITY_H; ray < objectRightCol / GRANULARITY_H; ray++) {
-			if(distanceFromPlayer < distanceArray[ray]) {
-				distanceArray[ray] = distanceFromPlayer;
+			if(distanceFromPlayer < rayDistanceArray[ray]) {
+				rayDistanceArray[ray] = distanceFromPlayer;
 			}
 		}
 	} // if inPlayerFOV
@@ -391,65 +400,6 @@ void WolfensteinCore1App::drawDrops() {
 				0
 			);
 		}
-}
-
-int WolfensteinCore1App::getScreenRowOfCeilingAtDistance(float distance) {
-	static float halfWallHeight = 0.5;
-	static float tanHalfVertFov = tan(VERTICAL_FOV / 2.0);
-	static float distanceInverseScaler = 0.5 * SCREEN_HEIGHT * halfWallHeight / tanHalfVertFov;
-
-	int halfOfWallHeight = (int)(distanceInverseScaler / distance);
-	return SCREEN_HEIGHT * 0.5 - halfOfWallHeight; // Inclusive for walls, exclusive for ceiling
-}
-
-int WolfensteinCore1App::getColourFromGradient(const int* gradient, const int gradientLength, float distance) {
-	static const int DISTANCE_SCALER = 12;
-	int index = (int)(gradientLength * distance / DISTANCE_SCALER);
-	if(index >= gradientLength) {
-		index = gradientLength - 1;
-	}
-	return gradient[index];
-}
-
-void WolfensteinCore1App::fillNonRectangularCeilingAndFloor(int rowAlreadyDrawn) {
-	for(int i = rowAlreadyDrawn; i < SCREEN_HEIGHT / 2; i += GRANULARITY_V) {
-		int startRay = 0;
-		bool startRayIsSet = false;
-		bool drawingThisRow = false;
-
-		for(int r = 0; r < NUM_RAYS; r++) {
-			// Iterate through rays until find ceiling
-			if(!startRayIsSet && WALL_START_ROW_ARRAY[r] > i) {
-				startRay = r;
-				startRayIsSet = true;
-				drawingThisRow = true;
-				continue;
-			}
-			// Keep going through rays until find floor again
-			if(startRayIsSet && (WALL_START_ROW_ARRAY[r] <= i)) {
-				// Draw that bit of floor and ceiling
-				int numBytes = (r - startRay) * PIXEL_WIDTHS_PER_RAY * sizeof(int);
-				for(int ii = i; ii < i + GRANULARITY_V; ii++) {
-					memcpy(&INTERMEDIATE_IMAGE_BUFFER[ii * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], CEILING_BUFFER, numBytes);
-					memcpy(&INTERMEDIATE_IMAGE_BUFFER[(SCREEN_HEIGHT - 1 - ii) * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], FLOOR_BUFFER, numBytes);
-				}
-				startRayIsSet = false;
-			}
-		}
-
-		// Draw case for if end of rays reached and floor not found
-		if(startRayIsSet) {
-			int numBytes = (NUM_RAYS - startRay) * PIXEL_WIDTHS_PER_RAY * sizeof(int);
-			for(int ii = i; ii < i + GRANULARITY_V; ii++) {
-				memcpy(&INTERMEDIATE_IMAGE_BUFFER[ii * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], CEILING_BUFFER, numBytes);
-				memcpy(&INTERMEDIATE_IMAGE_BUFFER[(SCREEN_HEIGHT - 1 - ii) * SCREEN_WIDTH + startRay * PIXEL_WIDTHS_PER_RAY], FLOOR_BUFFER, numBytes);
-			}
-		}
-
-		if(!drawingThisRow) {
-			return;
-		}
-	}
 }
 
 void WolfensteinCore1App::drawHUD() {

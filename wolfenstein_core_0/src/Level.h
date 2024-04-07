@@ -6,7 +6,19 @@
 
 class Level {
 public:
-	Level(int width, int height, int numEnemies, int numHealthDrops, int numAmmoDrops, float startingX, float startingY, float enemyPositions[MAX_NUM_ENEMIES][2], float healthDropPositions[MAX_NUM_HEALTH_DROPS][2], float ammoDropPositions[MAX_NUM_AMMO_DROPS][2], char* layout);
+	Level(
+		int width,
+		int height,
+		int numEnemies,
+		int numHealthDrops,
+		int numAmmoDrops,
+		float startingX,
+		float startingY,
+		float enemyPositions[MAX_NUM_ENEMIES][2],
+		float healthDropPositions[MAX_NUM_HEALTH_DROPS][2],
+		float ammoDropPositions[MAX_NUM_AMMO_DROPS][2],
+		char* layout
+	);
 
 	int getWidth();
 	int getHeight();

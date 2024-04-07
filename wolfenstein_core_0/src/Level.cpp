@@ -3,7 +3,19 @@
 
 #include "Level.h"
 
-Level::	Level(int width, int height, int numEnemies, int numHealthDrops, int numAmmoDrops, float startingX, float startingY, float enemyPositions[MAX_NUM_ENEMIES][2], float healthDropPositions[MAX_NUM_HEALTH_DROPS][2], float ammoDropPositions[MAX_NUM_AMMO_DROPS][2], char* layout) {
+Level::Level(
+	int width,
+	int height,
+	int numEnemies,
+	int numHealthDrops,
+	int numAmmoDrops,
+	float startingX,
+	float startingY,
+	float enemyPositions[MAX_NUM_ENEMIES][2],
+	float healthDropPositions[MAX_NUM_HEALTH_DROPS][2],
+	float ammoDropPositions[MAX_NUM_AMMO_DROPS][2],
+	char* layout
+) {
 	this->width = width;
 	this->height = height;
 	this->startingX = startingX;

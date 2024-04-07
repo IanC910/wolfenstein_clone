@@ -15,11 +15,15 @@ class WolfensteinCore0App {
 public:
 	WolfensteinCore0App();
 
-	void runCore0App();
+	void run();
 
 private:
 	void clearMem();
+
+	// Start core 1, which will run the core 1 app
 	void startCore1();
+
+	// Draw the menu background image and the cursor at the position of the selected level
 	void drawMenu();
 
 	// Set the initial positions and health status for enemies taken from the level bank depending on the currentLevel
@@ -27,6 +31,9 @@ private:
 
 	// Set the initial positions and pickedUp status for drops (health & ammo) taken from the level bank depending on the current level
 	void initializeDrops();
+
+	// Cast rays horizontally within the player's field of view. Record distance reached by each ray
+	void castRays();
 
 	// Use user input and update the player's position accordingly
 	void handlePlayerMovement();
@@ -43,8 +50,11 @@ private:
 	// Update all drops by checking if player is close enough to pick drop (health & ammo) and applying appropriate addition to player attributes
 	void updateDrops();
 
-	void castRays();
+	// Transfer necessary data to core 1 with valid-acknowledge handshake
 	void transferSharedDataPacket();
+
+	// Copy the intermediate image buffer to the VGA buffer
+	void updateScreen();
 
 	enum gameState_t {
 		MAIN_MENU,
