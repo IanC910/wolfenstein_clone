@@ -62,8 +62,8 @@ const float MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC = 1.5;
 
 // Enemy params
 const int MAX_NUM_ENEMIES = 15;
-const int MAX_NUM_HEALTH_DROPS = 4 + MAX_NUM_ENEMIES;
-const int MAX_NUM_AMMO_DROPS = 4 + MAX_NUM_ENEMIES;
+const int MAX_NUM_HEALTH_DROPS = 5;
+const int MAX_NUM_AMMO_DROPS = 6;
 const int MAX_ENEMY_HEALTH = 100;
 const int ENEMY_DAMAGE = 10;
 const float MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC = 0.5;

@@ -43,7 +43,7 @@ const int LEVEL_1_NUM_HEALTH_DROPS = 3;
 const int LEVEL_1_NUM_AMMO_DROPS = 3;
 const float LEVEL_1_STARTING_X = 7.5;
 const float LEVEL_1_STARTING_Y = 0.5;
-float LEVEL_1_ENEMY_POSITIONS[MAX_NUM_HEALTH_DROPS][2] = {
+float LEVEL_1_ENEMY_POSITIONS[MAX_NUM_ENEMIES][2] = {
 	{0.5, 3.5},
 	{13.5, 6.0},
 	{6.5, 7.5},
@@ -54,7 +54,7 @@ float LEVEL_1_ENEMY_POSITIONS[MAX_NUM_HEALTH_DROPS][2] = {
 	{0.5, 11.5},
 	{8.5, 13.5}
 };
-float LEVEL_1_HEALTH_DROP_POSITIONS[MAX_NUM_ENEMIES][2] = {
+float LEVEL_1_HEALTH_DROP_POSITIONS[MAX_NUM_HEALTH_DROPS][2] = {
 	{0.5, 0.5},
 	{2.5, 13.5},
 	{14.5, 11.5}
@@ -88,11 +88,11 @@ static Level level1(LEVEL_1_WIDTH, LEVEL_1_HEIGHT, LEVEL_1_NUM_ENEMIES, LEVEL_1_
 const int LEVEL_2_WIDTH = 18;
 const int LEVEL_2_HEIGHT = 18;
 const int LEVEL_2_NUM_ENEMIES = 15; //11
-const int LEVEL_2_NUM_HEALTH_DROPS = 4;
-const int LEVEL_2_NUM_AMMO_DROPS = 4;
+const int LEVEL_2_NUM_HEALTH_DROPS = 5;
+const int LEVEL_2_NUM_AMMO_DROPS = 6;
 const float LEVEL_2_STARTING_X = 8.5;
 const float LEVEL_2_STARTING_Y = 0.5;
-float LEVEL_2_ENEMY_POSITIONS[MAX_NUM_HEALTH_DROPS][2] = {
+float LEVEL_2_ENEMY_POSITIONS[MAX_NUM_ENEMIES][2] = {
 	{0.5, 3.5},
 	{11.5, 4.5},
 	{15.5, 5.5},
@@ -109,15 +109,20 @@ float LEVEL_2_ENEMY_POSITIONS[MAX_NUM_HEALTH_DROPS][2] = {
 	{11.5, 15.5},
 	{8.5, 17.5}
 };
-float LEVEL_2_HEALTH_DROP_POSITIONS[MAX_NUM_ENEMIES][2] = {
+float LEVEL_2_HEALTH_DROP_POSITIONS[MAX_NUM_HEALTH_DROPS][2] = {
 	{0.5, 0.5},
-	{2.5, 13.5},
-	{14.5, 11.5}
+	{0.5, 7.0},
+	{0.5, 17.5},
+	{17.5, 8.5},
+	{17.5, 12.5},
 };
 float LEVEL_2_AMMO_DROP_POSITIONS[MAX_NUM_AMMO_DROPS][2] = {
 	{14.5, 0.5},
-	{6.5, 5.5},
+	{2.5, 8.5},
 	{14.5, 14.5},
+	{10.5, 15.5},
+	{7.5, 17.5},
+	{4.5, 11.5}
 };
 char LEVEL_2_LAYOUT[LEVEL_2_WIDTH * LEVEL_2_HEIGHT + 1] =
 	"                  "

@@ -127,7 +127,7 @@ void WolfensteinCore0App::runCore0App() {
 					castRays();
 
 					handlePlayerAction();
-					//updateEnemies();
+					updateEnemies();
 					updateDrops();
 					transferSharedDataPacket();
 
