@@ -3,7 +3,7 @@
 
 #include "Level.h"
 
-const int NUM_LEVELS = 2;
+const int NUM_LEVELS = 3;
 
 Level* getLevel(int levelIndex);
 
