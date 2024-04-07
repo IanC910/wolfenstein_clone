@@ -18,12 +18,12 @@ sharedDataPacket_t* const SHARED_DATA_PACKETS		= (sharedDataPacket_t*)		0x00C84A
 
 // Game Asset Addresses
 int* const MAIN_MENU_BACKGROUND_SPRITE				= (int*)					0x00D00000; // size: SCREEN_SIZE_BYTES = 0x12C000
-int* const GUNSHOT_SOUND							= (int*)					0x00E2C000; // size: 16 384 = 0x4000
-int* const FIRST_PERSON_GUN_SPRITE					= (int*)					0x00E30000; // size: 16 384 = 0x4000
-int* const MUZZLE_FLASH_SPRITE						= (int*)					0x00E34000; // size: 16 384 = 0x4000
-int* const ENEMY_SPRITE								= (int*)					0x00E38000; // size: 32 768 = 0x8000
-int* const HEALTH_DROP_SPRITE						= (int*)					0x00E40000; // size: 16 384 = 0x4000
-int* const THEME_SONG_SOUND							= (int*)					0x00E44000; // size: 2 113 536 = 0x204000
+int* const GUNSHOT_SOUND							= (int*)					0x00E2C000; // size: 16384 = 0x4000
+int* const FIRST_PERSON_GUN_SPRITE					= (int*)					0x00E30000; // size: 16384 = 0x4000
+int* const MUZZLE_FLASH_SPRITE						= (int*)					0x00E34000; // size: 16384 = 0x4000
+int* const ENEMY_SPRITE								= (int*)					0x00E38000; // size: 32768 = 0x8000
+int* const HEALTH_DROP_SPRITE						= (int*)					0x00E40000; // size: 16384 = 0x4000
+int* const THEME_SONG_SOUND							= (int*)					0x00E44000; // size: 2113536 = 0x204000
 int* const AMMO_DROP_SPRITE							= (int*)					0x01048000; // size: 16384 = 0x4000
 int* const HEALTH_BAR_HEART_SPRITE					= (int*)					0x0104C000; // size: 1024 = 0x400
 int* const AMMO_BAR_AMMO_SPRITE					    = (int*)					0x0104C400; // size: 1024 = 0x400
