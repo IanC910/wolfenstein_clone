@@ -455,7 +455,7 @@ void WolfensteinCore0App::updateEnemies() {
 				enemy->setTimeSinceLastShotS(0.0);
 			}
 		}
-		else if(playerDistanceFromEnemy < 3.0) {
+		else if(playerDistanceFromEnemy < ENEMY_SEE_PLAYER_RANGE) {
 			float objectAngle = player.getAngle() - atan2f(-enemyToPlayerY, -enemyToPlayerX);
 
 			if(objectAngle < -M_PI) {

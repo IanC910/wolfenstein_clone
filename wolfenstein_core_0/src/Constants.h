@@ -69,6 +69,7 @@ const int ENEMY_DAMAGE = 10;
 const float MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC = 0.5;
 const float ENEMY_SHOT_DELAY_S = 1.0;
 const float ENEMY_RANGE = 2;
+const float ENEMY_SEE_PLAYER_RANGE = 4.5;
 
 // Drop params
 const float DROP_PICKUP_RADIUS = 0.75;
