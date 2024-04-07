@@ -52,28 +52,28 @@ const float VERTICAL_FOV	= M_PI * 0.4;
 const float HORIZONTAL_FOV	= M_PI * 0.5;
 
 // Player params
-const int MAX_PLAYER_HEALTH = 100;
-const int MAX_PLAYER_AMMO = 100;
-const int PLAYER_DAMAGE = 25;
-const int PLAYER_AMMO_USE_PER_SHOT = 2;
-const int PLAYER_STARTING_AMMO = 50;
-const float MAX_PLAYER_TURN_SPEED_RAD_PER_SEC = 1.5;
-const float MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC = 1.5;
+const int MAX_PLAYER_HEALTH 						= 100;
+const int MAX_PLAYER_AMMO 							= 100;
+const int PLAYER_DAMAGE 							= 25;
+const int PLAYER_AMMO_USE_PER_SHOT 					= 2;
+const int PLAYER_STARTING_AMMO 						= 50;
+const float MAX_PLAYER_TURN_SPEED_RAD_PER_SEC 		= 1.5;
+const float MAX_PLAYER_MOVE_SPEED_TILES_PER_SEC 	= 1.5;
 
 // Enemy params
-const int MAX_NUM_ENEMIES = 15;
-const int MAX_NUM_HEALTH_DROPS = 5;
-const int MAX_NUM_AMMO_DROPS = 6;
-const int MAX_ENEMY_HEALTH = 100;
-const int ENEMY_DAMAGE = 10;
-const float MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC = 0.5;
-const float ENEMY_SHOT_DELAY_S = 1.0;
-const float ENEMY_RANGE = 2;
-const float ENEMY_SEE_PLAYER_RANGE = 4.5;
+const int MAX_NUM_ENEMIES 							= 15;
+const int MAX_ENEMY_HEALTH 							= 100;
+const int ENEMY_DAMAGE 								= 10;
+const float MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC 		= 0.5;
+const float ENEMY_SHOT_DELAY_S 						= 1.0;
+const float ENEMY_ATTACK_RANGE 						= 2;
+const float ENEMY_DETECT_RANGE 						= 4.5;
 
 // Drop params
-const float DROP_PICKUP_RADIUS = 0.75;
-const int HEALTH_DROP_AMOUNT_HEALED = 25;
-const int AMMO_DROP_AMOUNT_GAINED = 20;
+const int MAX_NUM_HEALTH_DROPS 						= 5;
+const int MAX_NUM_AMMO_DROPS 						= 6;
+const float DROP_PICKUP_RADIUS 						= 0.75;
+const int HEALTH_DROP_AMOUNT_HEALED 				= 25;
+const int AMMO_DROP_AMOUNT_GAINED 					= 20;
 
 #endif
