@@ -3,5 +3,5 @@
 
 int main() {
 	WolfensteinCore1App app1;
-	app1.runCore1App();
+	app1.run();
 }

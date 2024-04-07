@@ -8,7 +8,7 @@
 #include "Drop.h"
 
 typedef struct {
-	float distanceArray[NUM_RAYS];
+	float rayDistanceArray[NUM_RAYS];
 	Player player;
 	Enemy enemyArray[MAX_NUM_ENEMIES];
 	Drop healthDropArray[MAX_NUM_HEALTH_DROPS];

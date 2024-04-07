@@ -23,8 +23,8 @@ public:
 	bool isTriggerPressed(int joystickIndex);
 
 private:
+	// Map unsigned range (0, 255) to float range (-1, 1)
 	float mapJSTK(u8 value);
-	// Transforms range (0, 256) to (-1, 1)
 
 	PmodJSTK2 jstk[2];
 	JSTK2_DataPacket jstkData[2];

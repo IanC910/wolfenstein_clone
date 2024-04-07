@@ -9,7 +9,7 @@ enum btn_interrupt_gen_reg_t {
 	INT_STATUS_REG = 0x4
 };
 
-enum buttonIndex_t {
+enum button_t {
 	BTN_CENTRE 	= 0,
 	BTN_DOWN	= 1,
 	BTN_LEFT	= 2,
@@ -20,8 +20,8 @@ enum buttonIndex_t {
 void Buttons_update();
 
 void Buttons_clearInterrupt();
-bool Buttons_isButtonPressed(buttonIndex_t buttonIndex);
-void Buttons_basicInterruptHandler(void* interruptControllerPtr);
+bool Buttons_isButtonPressed(button_t button);
+void Buttons_basicInterruptHandler(void* interruptController);
 bool Buttons_isNewStatus();
 
 #endif

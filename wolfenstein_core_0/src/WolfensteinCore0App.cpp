@@ -50,7 +50,7 @@ WolfensteinCore0App::WolfensteinCore0App() :
 	}
 }
 
-void WolfensteinCore0App::runCore0App() {
+void WolfensteinCore0App::run() {
 	xil_printf("Starting Wolfenstein Core 0 App\n");
 
 	startCore1();
@@ -68,12 +68,15 @@ void WolfensteinCore0App::runCore0App() {
 					// Wait for button press
 					while(!Buttons_isNewStatus());
 
+					// Selector goes up
 					if(Buttons_isButtonPressed(BTN_UP) && levelSelectIndex > 0) {
 						levelSelectIndex--;
 					}
+					// Selector goes down
 					if(Buttons_isButtonPressed(BTN_DOWN) && levelSelectIndex < NUM_LEVELS - 1) {
 						levelSelectIndex++;
 					}
+					// Choose currently selected level
 					if(Buttons_isButtonPressed(BTN_CENTRE)) {
 						this->currentLevel = LevelBank_getLevel(levelSelectIndex);
 
@@ -107,17 +110,16 @@ void WolfensteinCore0App::runCore0App() {
 					timeSinceSongPlayedS += frameTimeInSec;
 					if(timeSinceSongPlayedS > songLengthS) {
 						xil_printf("Playing song\n");
-						soundPlayer.playSound(THEME_SONG_SOUND, 80, 1);
+						soundPlayer.playSound(THEME_SONG_SOUND, THEME_SONG_VOLUME, THEME_SONG_SLOT);
 						timeSinceSongPlayedS = 0;
 					}
 
-					if(Buttons_isNewStatus()) {
-						if(Buttons_isButtonPressed(BTN_DOWN)) {
-							gameState = MAIN_MENU;
-							break;
-						}
+					if(Buttons_isButtonPressed(BTN_DOWN)) {
+						gameState = MAIN_MENU;
+						break;
 					}
 
+					// Poll controller
 					if(DO_USE_CONTROLLER) {
 						controller.update();
 					}
@@ -126,11 +128,17 @@ void WolfensteinCore0App::runCore0App() {
 
 					castRays();
 
+					// Cast rays before handling player action: need distance array to stop enemies behind walls from being hit
 					handlePlayerAction();
+
 					updateEnemies();
+
 					updateDrops();
+
+					// Send data to core 1
 					transferSharedDataPacket();
 
+					// Check win and lose condition
 					checkStopCondition();
 
 					XTime frameEndTimeDC;
@@ -159,7 +167,6 @@ void WolfensteinCore0App::clearMem() {
 	memset(INTERMEDIATE_IMAGE_BUFFER, 0, SCREEN_SIZE_BYTES);
 	memset((void*)INTERFACE_PTR, 0, sizeof(validAckInterface_t));
 	memset((void*)SHARED_DATA_PACKETS, 0, 2 * sizeof(sharedDataPacket_t));
-
 }
 
 void WolfensteinCore0App::startCore1() {
@@ -185,7 +192,7 @@ void WolfensteinCore0App::drawMenu() {
 	}
 
 	// Draw cursor
-	// Magic numbers here are measured from the sprite
+	// Magic numbers here are measured from the sprite or set by trial and error
 	int numberHeight = 15 * menuSprite.getGranularity();
 	int numberWidth = 12 * menuSprite.getGranularity();
 	int lineSpace = 3 * menuSprite.getGranularity();
@@ -204,7 +211,78 @@ void WolfensteinCore0App::drawMenu() {
 		}
 	}
 
-	memcpy(VGA_IMAGE_BUFFER_0, INTERMEDIATE_IMAGE_BUFFER, SCREEN_SIZE_BYTES);
+	updateScreen();
+}
+
+void WolfensteinCore0App::initializeEnemies() {
+	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
+
+	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {
+		enemyArray[i].initialize();
+		enemyArray[i].setPositionX(currentLevel->getEnemyX(i));
+		enemyArray[i].setPositionY(currentLevel->getEnemyY(i));
+	}
+
+	for(int i = currentLevel->getNumEnemies(); i < MAX_NUM_ENEMIES; i++) {
+		enemyArray[i].reset();
+	}
+}
+
+void WolfensteinCore0App::initializeDrops() {
+	Drop* healthDropArray = SHARED_DATA_PACKETS[0].healthDropArray;
+
+	for(int i = 0; i < currentLevel->getNumHealthDrops(); i++) {
+		healthDropArray[i].initialize();
+		healthDropArray[i].setPositionX(currentLevel->getHealthDropX(i));
+		healthDropArray[i].setPositionY(currentLevel->getHealthDropY(i));
+	}
+
+	for(int i = currentLevel->getNumHealthDrops(); i < MAX_NUM_HEALTH_DROPS; i++) {
+		healthDropArray[i].reset();
+	}
+
+	Drop* ammoDropArray = SHARED_DATA_PACKETS[0].ammoDropArray;
+
+	for(int i = 0; i < currentLevel->getNumAmmoDrops(); i++) {
+		ammoDropArray[i].initialize();
+		ammoDropArray[i].setPositionX(currentLevel->getAmmoDropX(i));
+		ammoDropArray[i].setPositionY(currentLevel->getAmmoDropY(i));
+	}
+
+	for(int i = currentLevel->getNumAmmoDrops(); i < MAX_NUM_AMMO_DROPS; i++) {
+		ammoDropArray[i].reset();
+	}
+}
+
+void WolfensteinCore0App::castRays() {
+	float angleIncrement = HORIZONTAL_FOV / (float)NUM_RAYS;
+	float startAngle = player.getAngle() - HORIZONTAL_FOV / 2.0 + angleIncrement / 2.0; // Add a half increment to centre the rays on the player's angle of sight
+	float rayAngle = startAngle; // Rays start on right, move towards left
+	float* rayDistanceArray = SHARED_DATA_PACKETS[0].rayDistanceArray;
+
+	// For each ray
+	for(int r = 0; r < NUM_RAYS; r++) {
+		float rayPositionX = player.getPositionX();
+		float rayPositionY = player.getPositionY();
+		float rayXIncrement = RAY_DISTANCE_INCREMENT * cos(rayAngle);
+		float rayYIncrement = RAY_DISTANCE_INCREMENT * sin(rayAngle);
+		float distance = 0;
+
+		// Cast the ray
+		while(true) {
+			char block = currentLevel->getBlockAtWorldCoord(rayPositionX, rayPositionY);
+			if(block != ' ') {
+				break;
+			}
+
+			rayPositionX += rayXIncrement;
+			rayPositionY += rayYIncrement;
+			distance += RAY_DISTANCE_INCREMENT;
+		}
+
+		rayDistanceArray[NUM_RAYS - 1 - r] = distance; // Reverse index because rays are cast from right to left
+		rayAngle += angleIncrement;
+	}
 }
 
 void WolfensteinCore0App::handlePlayerMovement() {
@@ -258,7 +336,7 @@ void WolfensteinCore0App::handlePlayerAction() {
     if(player.getIsShooting()) {
         player.setAmmo(player.getAmmo() - PLAYER_AMMO_USE_PER_SHOT);
 
-        soundPlayer.playSound(GUNSHOT_SOUND, 80, 0);
+        soundPlayer.playSound(GUNSHOT_SOUND, GUNSHOT_VOLUME, SOUND_EFFECT_SLOT);
 
         Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
 
@@ -291,10 +369,10 @@ void WolfensteinCore0App::handlePlayerAction() {
             bool enemyInLineOfFire = SCREEN_WIDTH / 2 > enemyLeftCol && SCREEN_WIDTH / 2 + 1 < enemyRightCol;
 
             if(enemyInLineOfFire) {
-                float* distanceArray0 = SHARED_DATA_PACKETS[0].distanceArray;
+                float* rayDistanceArray = SHARED_DATA_PACKETS[0].rayDistanceArray;
 
                 // If enemy is not behind a wall
-                if(distanceToEnemy < distanceArray0[NUM_RAYS / 2] || distanceToEnemy < distanceArray0[NUM_RAYS / 2 + 1]) {
+                if(distanceToEnemy < rayDistanceArray[NUM_RAYS / 2] || distanceToEnemy < rayDistanceArray[NUM_RAYS / 2 + 1]) {
                     // Enemy is hit
                     enemy->setHealth(enemy->getHealth() - PLAYER_DAMAGE);
                 }
@@ -327,90 +405,9 @@ void WolfensteinCore0App::checkStopCondition() {
 	}
 }
 
-void WolfensteinCore0App::castRays() {
-	float angleIncrement = HORIZONTAL_FOV / (float)NUM_RAYS;
-	float startAngle = player.getAngle() - HORIZONTAL_FOV / 2.0 + angleIncrement / 2.0; // Add a half increment to centre the rays on the player's angle of sight
-	float rayAngle = startAngle; // Rays start on right, move towards left
-	float* distanceArray = SHARED_DATA_PACKETS[0].distanceArray;
-
-	// For each ray
-	for(int r = 0; r < NUM_RAYS; r++) {
-		float rayPositionX = player.getPositionX();
-		float rayPositionY = player.getPositionY();
-		float rayXIncrement = RAY_DISTANCE_INCREMENT * cos(rayAngle);
-		float rayYIncrement = RAY_DISTANCE_INCREMENT * sin(rayAngle);
-		float distance = 0;
-
-		// Cast the ray
-		while(true) {
-			char block = currentLevel->getBlockAtWorldCoord(rayPositionX, rayPositionY);
-			if(block != ' ') {
-				break;
-			}
-
-			rayPositionX += rayXIncrement;
-			rayPositionY += rayYIncrement;
-			distance += RAY_DISTANCE_INCREMENT;
-		}
-
-		distanceArray[NUM_RAYS - 1 - r] = distance; // Reverse index because rays are cast from right to left
-		rayAngle += angleIncrement;
-	}
-}
-
-void WolfensteinCore0App::transferSharedDataPacket() {
-	SHARED_DATA_PACKETS[0].player = player;
-
-	INTERFACE_PTR->valid = 1;
-	while(!INTERFACE_PTR->acknowledge);
-
-	INTERFACE_PTR->valid = 0;
-	while(INTERFACE_PTR->acknowledge);
-}
-
-void WolfensteinCore0App::initializeEnemies() {
-	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
-
-	for(int i = 0; i < currentLevel->getNumEnemies(); i++) {
-		enemyArray[i].initialize();
-		enemyArray[i].setPositionX(currentLevel->getEnemyX(i));
-		enemyArray[i].setPositionY(currentLevel->getEnemyY(i));
-	}
-
-	for(int i = currentLevel->getNumEnemies(); i < MAX_NUM_ENEMIES; i++) {
-		enemyArray[i].reset();
-	}
-}
-
-void WolfensteinCore0App::initializeDrops() {
-	Drop* healthDropArray = SHARED_DATA_PACKETS[0].healthDropArray;
-
-	for(int i = 0; i < currentLevel->getNumHealthDrops(); i++) {
-		healthDropArray[i].initialize();
-		healthDropArray[i].setPositionX(currentLevel->getHealthDropX(i));
-		healthDropArray[i].setPositionY(currentLevel->getHealthDropY(i));
-	}
-
-	for(int i = currentLevel->getNumHealthDrops(); i < MAX_NUM_HEALTH_DROPS; i++) {
-		healthDropArray[i].reset();
-	}
-
-	Drop* ammoDropArray = SHARED_DATA_PACKETS[0].ammoDropArray;
-
-	for(int i = 0; i < currentLevel->getNumAmmoDrops(); i++) {
-		ammoDropArray[i].initialize();
-		ammoDropArray[i].setPositionX(currentLevel->getAmmoDropX(i));
-		ammoDropArray[i].setPositionY(currentLevel->getAmmoDropY(i));
-	}
-
-	for(int i = currentLevel->getNumAmmoDrops(); i < MAX_NUM_AMMO_DROPS; i++) {
-		ammoDropArray[i].reset();
-	}
-}
-
 void WolfensteinCore0App::updateEnemies() {
 	Enemy* enemyArray = SHARED_DATA_PACKETS[0].enemyArray;
-	float* distanceArray = SHARED_DATA_PACKETS[0].distanceArray;
+	float* rayDistanceArray = SHARED_DATA_PACKETS[0].rayDistanceArray;
 
 	for(int e = 0; e < currentLevel->getNumEnemies(); e++) {
 		Enemy* enemy = &enemyArray[e];
@@ -449,7 +446,7 @@ void WolfensteinCore0App::updateEnemies() {
 
 			// Handle Enemy Attack: if within range and enough time passed since last shot
 			if(playerDistanceFromEnemy < ENEMY_ATTACK_RANGE && enemy->getTimeSinceLastShotS() >= ENEMY_SHOT_DELAY_S) {
-				soundPlayer.playSound(GUNSHOT_SOUND, 80, 0);
+				soundPlayer.playSound(GUNSHOT_SOUND, GUNSHOT_VOLUME, SOUND_EFFECT_SLOT);
 				player.setHealth(player.getHealth() - ENEMY_DAMAGE);
 				enemy->setTimeSinceLastShotS(0.0);
 			}
@@ -467,7 +464,7 @@ void WolfensteinCore0App::updateEnemies() {
 			bool inPlayerFOV = fabs(objectAngle) < HORIZONTAL_FOV / 2.0;
 			float middleOfEnemy = (objectAngle / HORIZONTAL_FOV + 0.5) * float(SCREEN_WIDTH);
 
-			if(inPlayerFOV && distanceArray[(int)middleOfEnemy / GRANULARITY_H] >= playerDistanceFromEnemy) {
+			if(inPlayerFOV && rayDistanceArray[(int)middleOfEnemy / GRANULARITY_H] >= playerDistanceFromEnemy) {
 				enemy->setSeenPlayer();
 			}
 		}
@@ -510,4 +507,18 @@ void WolfensteinCore0App::updateDrops() {
 			}
 		}
 	}
+}
+
+void WolfensteinCore0App::transferSharedDataPacket() {
+	SHARED_DATA_PACKETS[0].player = player;
+
+	INTERFACE_PTR->valid = 1;
+	while(!INTERFACE_PTR->acknowledge);
+
+	INTERFACE_PTR->valid = 0;
+	while(INTERFACE_PTR->acknowledge);
+}
+
+void WolfensteinCore0App::updateScreen() {
+	memcpy(VGA_IMAGE_BUFFER_0, INTERMEDIATE_IMAGE_BUFFER, SCREEN_SIZE_BYTES);
 }
