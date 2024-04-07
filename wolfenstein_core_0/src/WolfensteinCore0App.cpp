@@ -75,7 +75,7 @@ void WolfensteinCore0App::runCore0App() {
 						levelSelectIndex++;
 					}
 					if(Buttons_isButtonPressed(BTN_CENTRE)) {
-						this->currentLevel = getLevel(levelSelectIndex);
+						this->currentLevel = LevelBank_getLevel(levelSelectIndex);
 
 						player.setHealth(MAX_PLAYER_HEALTH);
 						player.setAmmo(PLAYER_STARTING_AMMO);

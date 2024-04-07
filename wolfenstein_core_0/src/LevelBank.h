@@ -5,6 +5,6 @@
 
 const int NUM_LEVELS = 3;
 
-Level* getLevel(int levelIndex);
+Level* LevelBank_getLevel(int levelIndex);
 
 #endif
