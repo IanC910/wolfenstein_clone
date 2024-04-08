@@ -38,7 +38,7 @@ const float MIN_SPRITE_SCALE_FACTOR	= 1.0;
 
 
 // Debug params
-const bool DO_USE_CONTROLLER = false;
+const bool DO_USE_CONTROLLER = true;
 const bool DO_PRINT_FRAME_TIME = true;
 
 
@@ -79,8 +79,8 @@ const int MAX_ENEMY_HEALTH 							= 100;
 const int ENEMY_DAMAGE 								= 10;
 const float MAX_ENEMY_MOVE_SPEED_TILES_PER_SEC 		= 0.5;
 const float ENEMY_SHOT_DELAY_S 						= 1.0;
-const float ENEMY_ATTACK_RANGE 						= 2;
-const float ENEMY_DETECT_RANGE 						= 4.5;
+const float ENEMY_ATTACK_RANGE 						= 3;
+const float ENEMY_DETECT_RANGE 						= 6;
 
 
 
