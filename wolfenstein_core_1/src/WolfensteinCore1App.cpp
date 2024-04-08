@@ -288,6 +288,9 @@ void WolfensteinCore1App::drawObjectWithPosition(
 				// Draw 1 screen granule
 				int spriteCol = (int)ceil((screenCol - objectLeftCol) * scaleFactor);
 
+                // This code is supposed to support scaleFactor < 1
+                // We limit scaleFactor to be >= 1 however, so screenGranularity is always <= sprite->granularity
+                // Therefore this loop will only run for j = 0
 				for(int j = 0; j < screenGranularity && screenCol + j < endScreenCol; j += sprite->getGranularity()) {
 
 					int numPixelsToCopy = screenGranularity - j;
