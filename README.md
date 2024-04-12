@@ -1,4 +1,4 @@
-The following folders are included in the design directory, alongside their description of contents.
+The following folders are included in the design directory, alongside their description of contents. <br>
 Assets
   Processed: Contains the sprites, images, and sounds processed in the correct format for the ZedBoard.
   Sources: Contains the unprocessed images, sounds and songs.
