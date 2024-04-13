@@ -1,11 +1,11 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-// Date        : Sat Mar 23 17:09:09 2024
-// Host        : DESKTOP-DO8VOE2 running 64-bit major release  (build 9200)
+// Date        : Sun Mar 17 22:49:25 2024
+// Host        : IC-VivoBook running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim -rename_top wolfenstein_platform_PmodJSTK2_0_0 -prefix
-//               wolfenstein_platform_PmodJSTK2_0_0_ wolfenstein_platform_PmodJSTK2_1_0_sim_netlist.v
-// Design      : wolfenstein_platform_PmodJSTK2_1_0
+//               wolfenstein_platform_PmodJSTK2_0_0_ wolfenstein_platform_PmodJSTK2_0_0_sim_netlist.v
+// Design      : wolfenstein_platform_PmodJSTK2_0_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
 // Device      : xc7z020clg484-1
@@ -11784,7 +11784,7 @@ module wolfenstein_platform_PmodJSTK2_0_0_soft_reset
         .R(bus2ip_reset_ipif_inverted));
 endmodule
 
-(* CHECK_LICENSE_TYPE = "wolfenstein_platform_PmodJSTK2_1_0,PmodJSTK2,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* X_CORE_INFO = "PmodJSTK2,Vivado 2020.2" *) 
+(* CHECK_LICENSE_TYPE = "wolfenstein_platform_PmodJSTK2_0_0,PmodJSTK2,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* X_CORE_INFO = "PmodJSTK2,Vivado 2020.2" *) 
 (* NotValidForBitStream *)
 module wolfenstein_platform_PmodJSTK2_0_0
    (AXI_LITE_GPIO_araddr,
